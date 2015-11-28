@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="E:\GroceryRunner\ParseStarterProject\libs\parse-android-1.11.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="6592129dec2caa8791d322c7e4b6b7a30e8eadae">
+        <dex dex="E:\GroceryRunner\ParseStarterProject\build\intermediates\pre-dexed\debug\parse-android-1.11.0-60cad2a6b9882c832bd6d3d95065808ff3ed398e.jar" />
+    </item>
+    <item
+        jar="E:\GroceryRunner\ParseStarterProject\libs\bolts-tasks-1.3.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="8a62fd16fcc1c06f284fc98e6cbded2a5af1dd4c">
+        <dex dex="E:\GroceryRunner\ParseStarterProject\build\intermediates\pre-dexed\debug\bolts-tasks-1.3.0-562f03bb221c4186541873583e5b51d5a12ca47d.jar" />
+    </item>
+    <item
+        jar="E:\GroceryRunner\ParseStarterProject\libs\Parse-1.11.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="54a0d027ea5d5b0dae92833991bb68f9b3da6ca6">
+        <dex dex="E:\GroceryRunner\ParseStarterProject\build\intermediates\pre-dexed\debug\Parse-1.11.0-b40ed0b0b966c0153eb122d68c9029a073244572.jar" />
+    </item>
+    <item
+        jar="E:\GroceryRunner\ParseStarterProject\libs\ParseTwitterUtils-1.10.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3d4ac70bc5f68b818fd44cd58b3ea70566118075">
+        <dex dex="E:\GroceryRunner\ParseStarterProject\build\intermediates\pre-dexed\debug\ParseTwitterUtils-1.10.3-1b8ac051fa915eff6f9773f7f8d78e4fa5a2732a.jar" />
+    </item>
+    <item
+        jar="E:\GroceryRunner\ParseStarterProject\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="E:\GroceryRunner\ParseStarterProject\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-df9b327ebe6eefe2082c3d5f245a5f8f887e03a9.jar" />
+    </item>
+    <item
+        jar="E:\GroceryRunner\ParseStarterProject\libs\ParseInterceptors-0.0.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="32d3657910224f3b11e554653e02f31716584c2a">
+        <dex dex="E:\GroceryRunner\ParseStarterProject\build\intermediates\pre-dexed\debug\ParseInterceptors-0.0.1-10285411a361f9ad371edf0afd6c29d723e1ea74.jar" />
+    </item>
+    <item
+        jar="E:\GroceryRunner\ParseStarterProject\libs\ParseFacebookUtilsV4-1.10.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="b2cc313c93e9401d61d5c85e8b6211022f4d108c">
+        <dex dex="E:\GroceryRunner\ParseStarterProject\build\intermediates\pre-dexed\debug\ParseFacebookUtilsV4-1.10.3-55a8798b5d12495c3071fd6fab08d113650cf649.jar" />
+    </item>
+    <item
+        jar="E:\GroceryRunner\ParseStarterProject\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="E:\GroceryRunner\ParseStarterProject\build\intermediates\pre-dexed\debug\classes-1d6c208ce0e2c3d82812ce87093f156fe0788af5.jar" />
+    </item>
+    <item
+        jar="C:\Users\Administrator\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="E:\GroceryRunner\ParseStarterProject\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-62f443bd511c8def9f54a7e4320e8b2d110a5c37.jar" />
+    </item>
+    <item
+        jar="E:\GroceryRunner\ParseStarterProject\libs\ParseFacebookUtilsV3-1.10.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="69189060a2515308c180a56f65ddaffe4a724c85">
+        <dex dex="E:\GroceryRunner\ParseStarterProject\build\intermediates\pre-dexed\debug\ParseFacebookUtilsV3-1.10.3-cce658820149f0a10ebb0b8453f22a07e9e4f538.jar" />
+    </item>
+    <item
+        jar="E:\GroceryRunner\ParseStarterProject\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="E:\GroceryRunner\ParseStarterProject\build\intermediates\pre-dexed\debug\classes-0a152f3b28bbf78712cb23ceb7c2213d77142545.jar" />
+    </item>
+
+</items>
