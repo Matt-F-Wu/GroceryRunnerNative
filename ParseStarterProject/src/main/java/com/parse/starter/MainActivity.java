@@ -8,6 +8,7 @@
  */
 package com.parse.starter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -28,6 +29,17 @@ public class MainActivity extends ActionBarActivity {
       ParseObject testObject = new ParseObject("TestObject");
       testObject.put("foo", "bar");
       testObject.saveInBackground();
+
+      //Let the app show some advertisement for a few seconds, need to implement later
+      /*try {
+          Thread.sleep(3000);
+      } catch (InterruptedException e) {
+          e.printStackTrace();
+      }*/
+
+      Intent i = new Intent(this, ActLogin.class);
+      startActivity(i);
+
   }
 
   @Override
@@ -51,4 +63,5 @@ public class MainActivity extends ActionBarActivity {
 
     return super.onOptionsItemSelected(item);
   }
+
 }
