@@ -1,5 +1,6 @@
 package com.parse.starter;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,7 +29,8 @@ public class ActLogin extends AppCompatActivity implements
         View.OnClickListener{
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
-    private GoogleApiClient mGoogleApiClient;
+    protected GoogleApiClient mGoogleApiClient;
+    protected GoogleSignInAccount acct;
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
 
@@ -122,7 +124,7 @@ public class ActLogin extends AppCompatActivity implements
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
+            acct = result.getSignInAccount();
             mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
             updateUI(true);
         } else {
@@ -135,6 +137,7 @@ public class ActLogin extends AppCompatActivity implements
         if (signedIn) {
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+            findViewById(R.id.proceed_button).setVisibility(View.VISIBLE);
         } else {
             mStatusTextView.setText(R.string.signed_out);
 
@@ -187,4 +190,10 @@ public class ActLogin extends AppCompatActivity implements
         }
     }
 
+    public void displayUserPage(View v){
+        Intent userGInfo = new Intent();
+        userGInfo.putExtra("result", acct);
+        setResult(Activity.RESULT_OK, userGInfo);
+        finish();
+    }
 }

@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:10:1-76:12
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:10:1-79:12
 	package
 		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:11:5-32
 		INJECTED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml
@@ -75,7 +75,7 @@ ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:26:
 	android:name
 		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:26:22-77
 application
-ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:28:5-74:19
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:28:5-77:19
 MERGED from [com.google.android.gms:play-services-measurement:8.3.0] E:\GroceryRunner\ParseStarterProject\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.3.0\AndroidManifest.xml:26:5-46:19
 MERGED from [com.google.android.gms:play-services-basement:8.3.0] E:\GroceryRunner\ParseStarterProject\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.3.0\AndroidManifest.xml:20:5-24:19
 MERGED from [com.android.support:support-v4:22.2.0] E:\GroceryRunner\ParseStarterProject\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\AndroidManifest.xml:22:5-20
@@ -217,50 +217,54 @@ activity#com.parse.starter.ActLogin
 ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:50:9-52:20
 	android:name
 		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:50:19-43
+activity#com.parse.starter.ActUserPage
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:53:9-55:20
+	android:name
+		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:53:19-46
 service#com.parse.PushService
-ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:53:9-57
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:56:9-57
 	android:name
-		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:53:18-54
+		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:56:18-54
 receiver#com.parse.ParsePushBroadcastReceiver
-ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:54:9-61:20
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:57:9-64:20
 	android:exported
-		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:55:13-37
+		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:58:13-37
 	android:name
-		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:54:19-70
+		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:57:19-70
 intent-filter#com.parse.push.intent.DELETE+com.parse.push.intent.OPEN+com.parse.push.intent.RECEIVE
-ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:56:13-60:29
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:59:13-63:29
 action#com.parse.push.intent.RECEIVE
-ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:57:17-72
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:60:17-72
 	android:name
-		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:57:25-69
+		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:60:25-69
 action#com.parse.push.intent.DELETE
-ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:58:17-71
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:61:17-71
 	android:name
-		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:58:25-68
+		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:61:25-68
 action#com.parse.push.intent.OPEN
-ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:59:17-69
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:62:17-69
 	android:name
-		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:59:25-66
+		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:62:25-66
 receiver#com.parse.GcmBroadcastReceiver
-ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:62:9-73:20
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:65:9-76:20
 	android:permission
-		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:63:13-73
+		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:66:13-73
 	android:name
-		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:62:19-64
+		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:65:19-64
 intent-filter#com.google.android.c2dm.intent.RECEIVE+com.google.android.c2dm.intent.REGISTRATION+com.parse.starter
-ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:64:13-72:29
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:67:13-75:29
 action#com.google.android.c2dm.intent.RECEIVE
-ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:65:17-81
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:68:17-81
 	android:name
-		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:65:25-78
+		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:68:25-78
 action#com.google.android.c2dm.intent.REGISTRATION
-ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:66:17-86
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:69:17-86
 	android:name
-		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:66:25-83
+		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:69:25-83
 category#com.parse.starter
-ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:71:17-62
+ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:74:17-62
 	android:name
-		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:71:27-59
+		ADDED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml:74:27-59
 uses-sdk
 INJECTED from E:\GroceryRunner\ParseStarterProject\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.google.android.gms:play-services-measurement:8.3.0] E:\GroceryRunner\ParseStarterProject\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.3.0\AndroidManifest.xml:18:5-42

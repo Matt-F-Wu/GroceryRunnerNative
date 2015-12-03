@@ -63,6 +63,8 @@
         </activity>
         <activity android:name="com.parse.starter.ActLogin" >
         </activity>
+        <activity android:name="com.parse.starter.ActUserPage" >
+        </activity>
 
         <service android:name="com.parse.PushService" />
 
