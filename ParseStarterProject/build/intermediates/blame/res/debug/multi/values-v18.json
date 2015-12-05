@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\values-v18\\values-v18.xml",
+        "outputFile": "H:\\GroceryRunner\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\values-v18\\values-v18.xml",
         "map": [
             {
                 "to": {
@@ -11,13 +11,13 @@
                     "endOffset": 99
                 },
                 "from": {
-                    "file": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\22.2.0\\res\\values-v18\\values-v18.xml",
+                    "file": "H:\\GroceryRunner\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-v18\\values-v18.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
-                        "startOffset": 291,
+                        "startOffset": 229,
                         "endColumn": 48,
-                        "endOffset": 335
+                        "endOffset": 273
                     }
                 }
             }

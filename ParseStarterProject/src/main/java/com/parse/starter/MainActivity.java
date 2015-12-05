@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.parse.ParseAnalytics;
 import com.parse.ParseObject;
 

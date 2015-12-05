@@ -33,6 +33,9 @@
 
     <uses-permission android:name="com.parse.starter.permission.C2D_MESSAGE" />
 
+    <!-- maps -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
@@ -63,7 +66,17 @@
         </activity>
         <activity android:name="com.parse.starter.ActLogin" >
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity android:name="com.parse.starter.ActUserPage" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <service android:name="com.parse.PushService" />
