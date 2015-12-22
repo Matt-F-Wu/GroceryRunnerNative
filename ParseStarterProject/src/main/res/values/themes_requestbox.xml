@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="RequestBox" parent="@style/_RequestBox"/>
+
+  <style name="_RequestBox" parent="android:Theme.Holo.Light">
+
+    <item name="android:editTextBackground">@drawable/requestbox_edit_text_holo_light</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewRequestBox</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/requestbox_btn_check_holo_light</item>
+
+    <item name="android:buttonStyle">@style/ButtonRequestBox</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonRequestBox</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerRequestBox</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarRequestBox</item>
+
+  </style>
+
+</resources>

@@ -1,7 +1,7 @@
--injars 'H:\GroceryRunner\GroceryRunnerNative\ParseStarterProject\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
--outjars 'H:\GroceryRunner\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\componentClasses.jar'
+-injars 'E:\GroceryRunner\ParseStarterProject\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
+-outjars 'E:\GroceryRunner\ParseStarterProject\build\intermediates\multi-dex\debug\componentClasses.jar'
 
--libraryjars 'C:\Users\Jeremy\AppData\Local\Android\sdk\build-tools\23.0.2\lib\shrinkedAndroid.jar'
+-libraryjars 'C:\Users\Administrator\AppData\Local\Android\sdk\build-tools\23.0.2\lib\shrinkedAndroid.jar'
 
 -forceprocessing
 -dontoptimize
@@ -9,7 +9,7 @@
 -dontusemixedcaseclassnames
 -dontpreverify
 -dontwarn
--printconfiguration 'H:\GroceryRunner\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\components.flags'
+-printconfiguration 'E:\GroceryRunner\ParseStarterProject\build\intermediates\multi-dex\debug\components.flags'
 
 
 -keep class com.parse.starter.StarterApplication {
@@ -22,6 +22,14 @@
 }
 
 -keep class com.parse.starter.ActLogin {
+    <init>();
+}
+
+-keep class com.parse.starter.ACTLoginSelf {
+    <init>();
+}
+
+-keep class com.parse.starter.ACTRequest {
     <init>();
 }
 

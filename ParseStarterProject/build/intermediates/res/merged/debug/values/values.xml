@@ -101,6 +101,7 @@
     <color name="primary_text_default_material_light">#de000000</color>
     <color name="primary_text_disabled_material_dark">#4Dffffff</color>
     <color name="primary_text_disabled_material_light">#39000000</color>
+    <color name="requestbox_color">#ff4444</color>
     <color name="ripple_material_dark">#33ffffff</color>
     <color name="ripple_material_light">#1f000000</color>
     <color name="secondary_text_default_material_dark">#b3ffffff</color>
@@ -411,6 +412,10 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AutoCompleteTextViewRequestBox" parent="android:Widget.Holo.Light.AutoCompleteTextView">
+      <item name="android:dropDownSelector">@drawable/requestbox_list_selector_holo_light</item>
+	    <item name="android:background">@drawable/requestbox_edit_text_holo_light</item>
+  </style>
     <style name="Base.AlertDialog.AppCompat" parent="android:Widget">
         <item name="android:layout">@layout/abc_alert_dialog_material</item>
         <item name="listLayout">@layout/abc_select_dialog_material</item>
@@ -1356,6 +1361,12 @@
         <item name="tabTextAppearance">@style/TextAppearance.Design.Tab</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
     </style>
+    <style name="ButtonRequestBox" parent="android:Widget.Holo.Light.Button">
+	  <item name="android:background">@drawable/requestbox_btn_default_holo_light</item>
+  </style>
+    <style name="ImageButtonRequestBox" parent="android:Widget.Holo.Light.ImageButton">
+	  <item name="android:background">@drawable/requestbox_btn_default_holo_light</item>
+  </style>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
 
@@ -1454,6 +1465,11 @@
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
     </style>
     <style name="Platform.Widget.AppCompat.Spinner" parent="android:Widget.Spinner"/>
+    <style name="RatingBarRequestBox" parent="android:Widget.Holo.Light.RatingBar">
+      <item name="android:progressDrawable">@drawable/requestbox_ratingbar_full_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/requestbox_ratingbar_full_holo_light</item>
+  </style>
+    <style name="RequestBox" parent="@style/_RequestBox"/>
     <style name="RtlOverlay.DialogWindowTitle.AppCompat" parent="Base.DialogWindowTitle.AppCompat">
     </style>
     <style name="RtlOverlay.Widget.AppCompat.ActionBar.TitleItem" parent="android:Widget">
@@ -1500,6 +1516,10 @@
         <item name="android:paddingLeft">@dimen/abc_action_bar_overflow_padding_start_material</item>
         <item name="android:paddingRight">@dimen/abc_action_bar_overflow_padding_end_material</item>
     </style>
+    <style name="SpinnerRequestBox" parent="android:Widget.Holo.Light.Spinner">
+      <item name="android:background">@drawable/requestbox_spinner_background_holo_light</item>
+      <item name="android:dropDownSelector">@drawable/requestbox_list_selector_holo_light</item>
+  </style>
     <style name="TextAppearance.AppCompat" parent="Base.TextAppearance.AppCompat"/>
     <style name="TextAppearance.AppCompat.Body1" parent="Base.TextAppearance.AppCompat.Body1"/>
     <style name="TextAppearance.AppCompat.Body2" parent="Base.TextAppearance.AppCompat.Body2"/>
@@ -1842,4 +1862,21 @@
         <item name="android:contentDescription">@string/mr_media_route_button_content_description</item>
         <item name="externalRouteEnabledDrawable">@drawable/mr_ic_media_route_mono_dark</item>
     </style>
+    <style name="_RequestBox" parent="android:Theme.Holo.Light">
+
+    <item name="android:editTextBackground">@drawable/requestbox_edit_text_holo_light</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewRequestBox</item>
+
+    <item name="android:listChoiceIndicatorMultiple">@drawable/requestbox_btn_check_holo_light</item>
+
+    <item name="android:buttonStyle">@style/ButtonRequestBox</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonRequestBox</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerRequestBox</item>
+
+    <item name="android:ratingBarStyle">@style/RatingBarRequestBox</item>
+
+  </style>
 </resources>

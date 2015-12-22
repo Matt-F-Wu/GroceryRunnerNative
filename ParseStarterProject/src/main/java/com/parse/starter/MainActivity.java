@@ -12,16 +12,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.parse.Parse;
 import com.parse.ParseAnalytics;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
   protected GoogleSignInAccount acct;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -29,19 +32,20 @@ public class MainActivity extends ActionBarActivity {
     setContentView(R.layout.activity_main);
 
     ParseAnalytics.trackAppOpenedInBackground(getIntent());
-      ParseObject testObject = new ParseObject("TestObject");
-      testObject.put("foo", "bar");
-      testObject.saveInBackground();
-
       //Let the app show some advertisement for a few seconds, need to implement later
       /*try {
           Thread.sleep(3000);
       } catch (InterruptedException e) {
           e.printStackTrace();
       }*/
+        //Using google login
+      /*Intent i = new Intent(this, ActLogin.class);
+      startActivityForResult(i, 1);*/
 
-      Intent i = new Intent(this, ActLogin.class);
-      startActivityForResult(i, 1);
+      //Try our own login
+      Intent i = new Intent(this, ACTLoginSelf.class);
+      startActivity(i);
+
 
   }
 

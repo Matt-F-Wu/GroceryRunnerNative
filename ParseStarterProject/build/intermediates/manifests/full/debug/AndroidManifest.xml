@@ -66,6 +66,10 @@
         </activity>
         <activity android:name="com.parse.starter.ActLogin" >
         </activity>
+        <activity android:name="com.parse.starter.ACTLoginSelf" >
+        </activity>
+        <activity android:name="com.parse.starter.ACTRequest" >
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
