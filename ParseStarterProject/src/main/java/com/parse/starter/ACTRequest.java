@@ -34,6 +34,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -108,6 +109,15 @@ public class ACTRequest extends AppCompatActivity
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+        toolbar.setLogo(R.drawable.logo);
+
+        Spinner spinner = (Spinner) findViewById(R.id.topbar_spinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+
 
 		/*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
@@ -240,8 +250,10 @@ public class ACTRequest extends AppCompatActivity
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menu_main, menu);
+
 		return true;
 	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -251,14 +263,8 @@ public class ACTRequest extends AppCompatActivity
 		int id = item.getItemId();
 
 		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
+		if (id == R.id.action_notification) {
 			return true;
-		}
-
-		if (id == R.id.action_logout) {
-            ParseUser.logOutInBackground();
-            finish();
-            return true;
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -282,7 +288,12 @@ public class ACTRequest extends AppCompatActivity
 
 		} else if (id == R.id.nav_send) {
 
-		}
+		} else if(id == R.id.nav_settings){
+
+        } else if(id == R.id.nav_logout){
+            ParseUser.logOutInBackground();
+            finish();
+        }
 
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawer.closeDrawer(GravityCompat.START);
@@ -590,4 +601,12 @@ public class ACTRequest extends AppCompatActivity
         }
 
     }
+
+    //top bar actions
+    public void onChatButtonClicked (View v){
+
+
+    }
+
 }
+

@@ -49,8 +49,6 @@
     <string msgid="2201289642219771610" name="common_google_play_services_updating_text">"您的「Google Play 服務」目前正在更新，完成後才能執行 <ns1:g id="APP_NAME">%1$s</ns1:g>。"</string>
     <string msgid="815008177440683245" name="common_google_play_services_updating_title">"「Google Play 服務」正在更新"</string>
     <string msgid="411506735369601515" name="common_open_on_phone">"在手機中開啟"</string>
-    <string msgid="3156914698180786012" name="common_signin_button_text">"登入"</string>
-    <string msgid="1483290677806110088" name="common_signin_button_text_long">"透過 Google 登入"</string>
     <string msgid="4271159405637008602" name="mr_media_route_button_content_description">"媒體輸出"</string>
     <string msgid="7553005460920830010" name="mr_media_route_chooser_searching">"正在搜尋裝置…"</string>
     <string msgid="7106830097177242655" name="mr_media_route_chooser_title">"連線至裝置"</string>

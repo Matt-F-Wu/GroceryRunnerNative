@@ -49,8 +49,6 @@
     <string msgid="2201289642219771610" name="common_google_play_services_updating_text">"<ns1:g id="APP_NAME">%1$s</ns1:g> нь одоогоор шинэчлэгдэж буй Google Play үйлчилгээ байхгүй тохиолдолд ажиллахгүй."</string>
     <string msgid="815008177440683245" name="common_google_play_services_updating_title">"Google Play үйлчилгээнүүдийг шинэчилж байна"</string>
     <string msgid="411506735369601515" name="common_open_on_phone">"Утсан дээр нээх"</string>
-    <string msgid="3156914698180786012" name="common_signin_button_text">"Нэвтрэх"</string>
-    <string msgid="1483290677806110088" name="common_signin_button_text_long">"Google-р нэвтрэх:"</string>
     <string msgid="4271159405637008602" name="mr_media_route_button_content_description">"Медиа гаралт"</string>
     <string msgid="7553005460920830010" name="mr_media_route_chooser_searching">"Төхөөрөмжүүдийг хайж байна…"</string>
     <string msgid="7106830097177242655" name="mr_media_route_chooser_title">"Төхөөрөмжтэй холбох"</string>

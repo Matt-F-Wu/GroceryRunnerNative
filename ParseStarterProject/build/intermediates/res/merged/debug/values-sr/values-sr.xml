@@ -49,8 +49,6 @@
     <string msgid="2201289642219771610" name="common_google_play_services_updating_text">"<ns1:g id="APP_NAME">%1$s</ns1:g> не може да се покрене без Google Play услуга, које се тренутно ажурирају."</string>
     <string msgid="815008177440683245" name="common_google_play_services_updating_title">"Google Play услуге се ажурирају"</string>
     <string msgid="411506735369601515" name="common_open_on_phone">"Отвори на телефону"</string>
-    <string msgid="3156914698180786012" name="common_signin_button_text">"Пријави ме"</string>
-    <string msgid="1483290677806110088" name="common_signin_button_text_long">"Пријави ме на Google"</string>
     <string msgid="4271159405637008602" name="mr_media_route_button_content_description">"Излаз медија"</string>
     <string msgid="7553005460920830010" name="mr_media_route_chooser_searching">"Претраживање уређаја…"</string>
     <string msgid="7106830097177242655" name="mr_media_route_chooser_title">"Повежите са уређајем"</string>

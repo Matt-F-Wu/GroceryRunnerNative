@@ -1,7 +1,15 @@
 [
     {
+        "merged": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main_drawer.xml",
+        "source": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\menu\\activity_main_drawer.xml"
+    },
+    {
         "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
         "source": "E:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\menu\\menu_main.xml"
+    },
+    {
+        "merged": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\menu\\menu_main.xml"
     },
     {
         "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main_drawer.xml",

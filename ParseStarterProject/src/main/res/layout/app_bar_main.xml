@@ -17,7 +17,38 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:id="@+id/topbar_spinner"
+                android:spinnerMode="dialog" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:background="#00ffffff"
+                    android:id="@+id/topbar_textview"
+                    android:text="0"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:id="@+id/topbar_imageview"
+                    android:src="@drawable/ic_chat_bubble_white_24dp"
+                    android:background="#00ffffff"
+                    android:onClick="onChatButtonClicked" />
+
+
+
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -41,6 +72,8 @@
             android:text="Ask Favour"
             android:onClick="onClickNewRequest"
             style="@style/ButtonRequestBox"/>
+
+
 
     </LinearLayout>
 

@@ -29,9 +29,11 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-
-    <!-- JM -->
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <!--action bar-->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="colorPrimary">@color/dark_red</item>
+        <item name="colorPrimaryDark">@color/dark_red</item>
+    </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 

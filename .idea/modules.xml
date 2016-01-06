@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GroceryRunner.iml" filepath="$PROJECT_DIR$/GroceryRunner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GroceryRunnerNative.iml" filepath="$PROJECT_DIR$/GroceryRunnerNative.iml" />
       <module fileurl="file://$PROJECT_DIR$/ParseStarterProject/ParseStarterProject.iml" filepath="$PROJECT_DIR$/ParseStarterProject/ParseStarterProject.iml" />
     </modules>
   </component>

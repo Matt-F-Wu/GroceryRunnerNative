@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="user_addresses">
+        <item>Home</item>
+        <item>Work1</item>
+        <item>Work2</item>
+        <item>Jeremy\'s</item>
+        <item>Matthew\'s</item>
+        <item>School</item>
+        <item>Mom\'s</item>
+        <item>Grandpa\'s</item>
+    </string-array>
+</resources>

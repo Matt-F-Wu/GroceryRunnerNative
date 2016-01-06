@@ -1,7 +1,7 @@
--injars 'E:\GroceryRunner\ParseStarterProject\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
--outjars 'E:\GroceryRunner\ParseStarterProject\build\intermediates\multi-dex\debug\componentClasses.jar'
+-injars 'H:\Favourama\GroceryRunnerNative\ParseStarterProject\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
+-outjars 'H:\Favourama\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\componentClasses.jar'
 
--libraryjars 'C:\Users\Administrator\AppData\Local\Android\sdk\build-tools\23.0.2\lib\shrinkedAndroid.jar'
+-libraryjars 'C:\Users\Jeremy\AppData\Local\Android\sdk\build-tools\23.0.2\lib\shrinkedAndroid.jar'
 
 -forceprocessing
 -dontoptimize
@@ -9,7 +9,7 @@
 -dontusemixedcaseclassnames
 -dontpreverify
 -dontwarn
--printconfiguration 'E:\GroceryRunner\ParseStarterProject\build\intermediates\multi-dex\debug\components.flags'
+-printconfiguration 'H:\Favourama\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\components.flags'
 
 
 -keep class com.parse.starter.StarterApplication {
@@ -18,10 +18,6 @@
 }
 
 -keep class com.parse.starter.MainActivity {
-    <init>();
-}
-
--keep class com.parse.starter.ActLogin {
     <init>();
 }
 
@@ -66,10 +62,6 @@
 }
 
 -keep class com.google.android.gms.ads.purchase.InAppPurchaseActivity {
-    <init>();
-}
-
--keep class com.google.android.gms.auth.api.signin.internal.SignInHubActivity {
     <init>();
 }
 
