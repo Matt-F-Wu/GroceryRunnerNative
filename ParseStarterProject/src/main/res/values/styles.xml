@@ -30,7 +30,7 @@
     </style>
 
     <!--action bar-->
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorPrimary">@color/dark_red</item>
         <item name="colorPrimaryDark">@color/dark_red</item>
     </style>

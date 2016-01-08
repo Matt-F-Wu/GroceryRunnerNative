@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip">
+
+
+        <RatingBar
+            android:id="@+id/thread_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:stepSize="1.0"
+            android:numStars="5"
+            />
+
+        <TextView
+            android:id="@+id/thread_uname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/thread_rating"
+            android:layout_alignRight="@id/thread_rating"
+            android:layout_alignEnd="@id/thread_rating"
+            android:layout_marginRight="6dip"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:text="Username"/>
+
+        <TextView
+            android:id="@+id/thread_description"
+            android:layout_width="fill_parent"
+            android:layout_height="26dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/thread_uname"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="Description"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/firstLine"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/thread_description"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_toRightOf="@id/thread_uname"
+            android:gravity="center_vertical"
+            android:text="In Response To:"
+            android:textSize="14sp" />
+
+    </RelativeLayout>

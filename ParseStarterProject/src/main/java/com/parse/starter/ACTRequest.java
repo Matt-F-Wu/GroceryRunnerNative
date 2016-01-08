@@ -4,6 +4,7 @@ import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -37,6 +38,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -72,10 +74,10 @@ public class ACTRequest extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback,LocationListener,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
-	private CheckBox addr1, addr2, addr3, cate1, cate2, cate3;
+	private CheckBox addr1, addr2, addr3, cate1, cate2, cate3, reward1, reward2, reward3;
 	private EditText postEditText;
 	private SeekBar radius;
-	private String cateSelected, addrSelected;
+	private String cateSelected, addrSelected, rewardSelected;
 	private Button postButton;
     private ParseInstallation installation;
 	public static int RADIUS_OFFSET = 100;
@@ -89,6 +91,7 @@ public class ACTRequest extends AppCompatActivity
     private GoogleApiClient locationClient;
     private Location currentLocation;
     private Location lastLocation;
+    private ParseUser user;
 
 
     @Override
@@ -137,6 +140,13 @@ public class ACTRequest extends AppCompatActivity
 		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 
+        View navHeader = navigationView.getHeaderView(0);
+        TextView userName = (TextView) navHeader.findViewById(R.id.nav_username);
+        TextView userEmail = (TextView) navHeader.findViewById(R.id.nav_user_email);
+
+        user = ParseUser.getCurrentUser();
+        userName.setText(user.getUsername());
+        userEmail.setText(user.getEmail());
         // Create a new global location parameters object
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
@@ -359,6 +369,8 @@ public class ACTRequest extends AppCompatActivity
 	}
 
     public void onCheckboxClickedAddr (View v){
+        CheckBox checkBox = (CheckBox) v;
+        if (!checkBox.isChecked()) return;
         switch (v.getId()) {
             case R.id.addr_one:
                 addr2.setChecked(false);
@@ -380,6 +392,8 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void onCheckboxClickedCate (View v){
+        CheckBox checkBox = (CheckBox) v;
+        if (!checkBox.isChecked()) return;
         switch (v.getId()) {
             case R.id.cate_one:
                 cate2.setChecked(false);
@@ -400,6 +414,29 @@ public class ACTRequest extends AppCompatActivity
         }
     }
 
+    public void onCheckboxClickedReward (View v){
+        CheckBox checkBox = (CheckBox) v;
+        if (!checkBox.isChecked()) return;
+        switch (v.getId()) {
+            case R.id.no_reward:
+                reward2.setChecked(false);
+                reward3.setChecked(false);
+                rewardSelected = reward1.getText().toString();
+                break;
+// We probably don't want the following buttons, and the visual should definitely be different,but I guess we can change it later
+            case R.id.material_reward:
+                reward1.setChecked(false);
+                reward3.setChecked(false);
+                rewardSelected = reward2.getText().toString();
+                break;
+            case R.id.money_reward:
+                reward1.setChecked(false);
+                reward2.setChecked(false);
+                rewardSelected = reward3.getText().toString();
+                break;
+        }
+    }
+
 	private void configureMenu(View pop){
 	    //get view members
         final View p = pop;
@@ -407,13 +444,19 @@ public class ACTRequest extends AppCompatActivity
 		addr1 = (CheckBox) pop.findViewById(R.id.addr_one);
         addr2 = (CheckBox) pop.findViewById(R.id.addr_two);
         addr3 = (CheckBox) pop.findViewById(R.id.addr_three);
+        addrSelected = addr1.getText().toString();
 
         radius = (SeekBar) pop.findViewById(R.id.radius);
 
         cate1 = (CheckBox) pop.findViewById(R.id.cate_one);
         cate2 = (CheckBox) pop.findViewById(R.id.cate_two);
         cate3 = (CheckBox) pop.findViewById(R.id.cate_three);
+        cateSelected = cate1.getText().toString();
 		/*Address 2 and Adress 3 should be addresses from the user's account, implement later*/
+        reward1 = (CheckBox) pop.findViewById(R.id.no_reward);
+        reward2 = (CheckBox) pop.findViewById(R.id.material_reward);
+        reward3 = (CheckBox) pop.findViewById(R.id.money_reward);
+        rewardSelected = reward1.getText().toString();
 
 	}
 	
@@ -475,6 +518,11 @@ public class ACTRequest extends AppCompatActivity
         }
         try {
             post.put("category", cateSelected);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            post.put("reward", rewardSelected);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -577,6 +625,15 @@ public class ACTRequest extends AppCompatActivity
         return new ParseGeoPoint(loc.getLatitude(), loc.getLongitude());
     }
 
+    public void onClickFlip(View view) {
+        flip();
+    }
+
+    public void flip(){
+        ViewFlipper viewFlipper = (ViewFlipper) findViewById(R.id.main_flipper);
+        viewFlipper.showNext();
+    }
+
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
         HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
@@ -604,8 +661,33 @@ public class ACTRequest extends AppCompatActivity
 
     //top bar actions
     public void onChatButtonClicked (View v){
+        flip();
 
+        int[] fields = new int[]{R.id.thread_uname, R.id.thread_rating, R.id.thread_description};
 
+        List<String[]> values = new ArrayList<String[]>();
+        values.add(new String[]{"Hao Wu", "4", "Can someone please lend me a iPad Charger, thank you!"});
+        values.add(new String[]{"J. Ma", "3", "Will any one pass by Starbucks on their way to Robarts? Can you grep me some coffee?"});
+
+        MsgAdapter msgAdapter = new MsgAdapter(this, R.layout.threads_row_layout, fields, values);
+
+        ListView listView = (ListView) findViewById(R.id.threads);
+        listView.setAdapter(msgAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view,
+                                    int position, long id) {
+                final String[] item = (String[]) parent.getItemAtPosition(position);
+                Bundle b = new Bundle();
+                b.putStringArray("ThreadHeader", item);
+                Intent i = new Intent(ACTRequest.this, ACTMsg.class);
+                i.putExtras(b);
+                startActivity(i);
+            }
+
+        });
     }
 
 }
