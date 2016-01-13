@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true">
 
@@ -8,9 +8,8 @@
         android:orientation="vertical"
         android:padding="10dip"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffe5e5"
-        >
+        android:layout_height="wrap_content">
+        <!--android:background="#ffe5e5"-->
 
         <TextView
             android:layout_width="fill_parent"
@@ -161,16 +160,30 @@
             android:background="@drawable/requestbox_textfield_default_holo_light">
         </EditText>
 
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/post_button"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:padding="12dp"
-            android:text="Post"
-            style="@style/ButtonRequestBox"/>
-
+            android:orientation="horizontal">
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/post_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:padding="12dp"
+                android:text="POST"
+                style="@style/ButtonRequestBox"/>
+            <android.support.v7.widget.AppCompatButton
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:padding="12dp"
+                android:textSize="16dp"
+                android:text="Cancel"
+                android:onClick="onClickFlip"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

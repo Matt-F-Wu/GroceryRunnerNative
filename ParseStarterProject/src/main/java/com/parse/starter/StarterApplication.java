@@ -18,6 +18,7 @@ import com.parse.ParseInstallation;
 
 public class StarterApplication extends Application {
 
+  private static boolean activityVisible;
   @Override
   public void onCreate() {
     super.onCreate();
@@ -35,4 +36,16 @@ public class StarterApplication extends Application {
     // defaultACL.setPublicReadAccess(true);
     ParseACL.setDefaultACL(defaultACL, true);
   }
+
+    public static boolean isActivityVisible() {
+        return activityVisible;
+    }
+
+    public static void activityResumed() {
+        activityVisible = true;
+    }
+
+    public static void activityPaused() {
+        activityVisible = false;
+    }
 }

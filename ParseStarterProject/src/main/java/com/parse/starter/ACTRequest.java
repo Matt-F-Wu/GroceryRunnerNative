@@ -2,10 +2,13 @@ package com.parse.starter;
 
 import android.app.Application;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.IntentSender;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
@@ -27,6 +30,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -77,13 +83,13 @@ public class ACTRequest extends AppCompatActivity
 	private CheckBox addr1, addr2, addr3, cate1, cate2, cate3, reward1, reward2, reward3;
 	private EditText postEditText;
 	private SeekBar radius;
-	private String cateSelected, addrSelected, rewardSelected;
+	private String cateSelected, addrSelected, rewardSelected, user_name;
 	private Button postButton;
     private ParseInstallation installation;
 	public static int RADIUS_OFFSET = 100;
 	public static int MAX_QUERY_RESULTS = 100;
     final Context context = this;
-    PopupWindow pwGlobal;
+    //PopupWindow pwGlobal;
     private GoogleMap mMap;
     private static int UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
     private static int FAST_INTERVAL_CEILING_IN_MILLISECONDS = 2500;
@@ -92,7 +98,11 @@ public class ACTRequest extends AppCompatActivity
     private Location currentLocation;
     private Location lastLocation;
     private ParseUser user;
-
+    private BroadcastReceiver receiver;
+    private int flipperIndex = 0;
+    private List<String[]> r_values;
+    private MsgAdapter msgAdapterReq;
+    private ListView listViewRequest;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +117,9 @@ public class ACTRequest extends AppCompatActivity
 
         // Associate this user with this device
         ParseInstallation curIns = ParseInstallation.getCurrentInstallation();
-        curIns.put("username", ParseUser.getCurrentUser().getUsername());
+        user = ParseUser.getCurrentUser();
+
+        curIns.put("username", user.getUsername());
         curIns.saveInBackground();
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -120,16 +132,21 @@ public class ACTRequest extends AppCompatActivity
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        int[] fields = new int[]{R.id.r_list_uname, R.id.r_list_cate, R.id.r_list_note, R.id.r_list_reward};
 
+        r_values= new ArrayList<String[]>();
 
-		/*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-		fab.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-						.setAction("Action", null).show();
-			}
-		});*/
+        /*HAO to JENERMY: A warm welcoming messgae I designed, do you like it?*/
+        r_values.add(new String[]{"Favourama Official", "Welcome" + curIns.getString("username"),
+                "We wish our service can make your life easier",
+                "Best of luck!"});
+
+        msgAdapterReq = new MsgAdapter(this, R.layout.request_item, fields, r_values);
+
+        listViewRequest = (ListView) findViewById(R.id.show_requests);
+        listViewRequest.setAdapter(msgAdapterReq);
+
+        /*Note to self: Need to implement onclick listener later to listView*/
 
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -144,8 +161,8 @@ public class ACTRequest extends AppCompatActivity
         TextView userName = (TextView) navHeader.findViewById(R.id.nav_username);
         TextView userEmail = (TextView) navHeader.findViewById(R.id.nav_user_email);
 
-        user = ParseUser.getCurrentUser();
-        userName.setText(user.getUsername());
+        user_name = user.getUsername();
+        userName.setText(user_name);
         userEmail.setText(user.getEmail());
         // Create a new global location parameters object
         locationRequest = LocationRequest.create();
@@ -162,6 +179,48 @@ public class ACTRequest extends AppCompatActivity
                     .addApi(LocationServices.API)
                     .build();
         }
+
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                //... update ui here
+                String action = intent.getAction();
+
+
+                JSONObject jsonObject = null;
+                String content = intent.getExtras().getString("CONTENT");
+                try {
+                    jsonObject = new JSONObject(content);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    return;
+                }
+
+                if(action.equals("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS")){
+                    RequestObject requestObject = new RequestObject(jsonObject);
+                    r_values.add(requestObject.spitValueList());
+                    msgAdapterReq.notifyDataSetChanged();
+                    //scrollToBottom(msgAdapterReq, listViewRequest);
+                }
+                else if (action.equals("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES")){
+                    /* HAO to JEREMY
+                    *Everytime you receive a message, you write to the message file and notify there has been changes made to the files
+                    * Make subclass MessageObject and make a constructor and constructs from JSONObject
+                    *
+                    * MessageObject messageObject = new MessageObject(data);
+                    * description = messageObject.getNote();
+                    * */
+                    /*Update the count at the top bar*/
+                    updateCounter();
+                }
+
+            }
+        };
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS");
+        filter.addAction("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES");
+        registerReceiver(receiver, filter);
 		
 	}
 
@@ -184,12 +243,18 @@ public class ACTRequest extends AppCompatActivity
     }
 
     @Override
+    public void onDestroy(){
+        unregisterReceiver(receiver);
+        super.onDestroy();
+    }
+
+    @Override
     public void onPause() {
         if (locationClient.isConnected()) {
             stopPeriodicUpdates();
         }
         locationClient.disconnect();
-
+        StarterApplication.activityPaused();
         super.onPause();
     }
 
@@ -199,6 +264,7 @@ public class ACTRequest extends AppCompatActivity
         if (locationClient.isConnected()) {
             startPeriodicUpdates();
         }
+        StarterApplication.activityResumed();
     }
 
     @Override
@@ -326,7 +392,7 @@ public class ACTRequest extends AppCompatActivity
 
 
 	public void onClickNewRequest(View v){
-	    LayoutInflater inflater = (LayoutInflater)
+	    /*LayoutInflater inflater = (LayoutInflater)
 	    this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    View request = inflater.inflate(R.layout.request, null, false);
 	    request.measure(View.MeasureSpec.makeMeasureSpec(300, View.MeasureSpec.AT_MOST),
@@ -355,12 +421,16 @@ public class ACTRequest extends AppCompatActivity
                     pw.dismiss();
                     return true;
                 } else {
-                    return false;/* Hndle events happening inside the popup, may not need to implement anything*/
+                    return false;*//* Hndle events happening inside the popup, may not need to implement anything*//*
                 }
             }
-        });
+        });*/
 
-        pwGlobal = pw;
+        /*pwGlobal = pw;*/
+
+        flip(2);
+
+        ViewGroup request = (ViewGroup) findViewById(R.id.request_panel);
 
 	    configureMenu(request);
 
@@ -421,18 +491,21 @@ public class ACTRequest extends AppCompatActivity
             case R.id.no_reward:
                 reward2.setChecked(false);
                 reward3.setChecked(false);
-                rewardSelected = reward1.getText().toString();
+                //rewardSelected = reward1.getText().toString();
+                rewardSelected = "No Reward";
                 break;
 // We probably don't want the following buttons, and the visual should definitely be different,but I guess we can change it later
             case R.id.material_reward:
                 reward1.setChecked(false);
                 reward3.setChecked(false);
-                rewardSelected = reward2.getText().toString();
+                //rewardSelected = reward2.getText().toString();
+                rewardSelected = "Gift Reward";
                 break;
             case R.id.money_reward:
                 reward1.setChecked(false);
                 reward2.setChecked(false);
-                rewardSelected = reward3.getText().toString();
+                //rewardSelected = reward3.getText().toString();
+                rewardSelected = "Money Reward";
                 break;
         }
     }
@@ -456,7 +529,7 @@ public class ACTRequest extends AppCompatActivity
         reward1 = (CheckBox) pop.findViewById(R.id.no_reward);
         reward2 = (CheckBox) pop.findViewById(R.id.material_reward);
         reward3 = (CheckBox) pop.findViewById(R.id.money_reward);
-        rewardSelected = reward1.getText().toString();
+        rewardSelected = "No Reward"; //reward1.getText().toString();
 
 	}
 	
@@ -484,7 +557,7 @@ public class ACTRequest extends AppCompatActivity
                         .show();
                 post();
                 //dismiss popup after posting request
-                pwGlobal.dismiss();
+                /*pwGlobal.dismiss();*/
             }
         });
 	}
@@ -496,6 +569,11 @@ public class ACTRequest extends AppCompatActivity
 		String note = postEditText.getText().toString().trim();
 		final JSONObject post = new JSONObject();
 		double rad = (double) (radius.getProgress() + RADIUS_OFFSET)/1000;
+        try {
+            post.put("TYPE", "REQUEST");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         try {
             post.put("latitude", location.getLatitude());
         } catch (JSONException e) {
@@ -532,7 +610,7 @@ public class ACTRequest extends AppCompatActivity
             e.printStackTrace();
         }
         try {
-            post.put("username", ParseUser.getCurrentUser().getUsername());
+            post.put("username", user_name);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -540,7 +618,7 @@ public class ACTRequest extends AppCompatActivity
         // Query users in vicinity, and send the post to them via cloud
 		queryAndSend(location, rad, post);
 	    
-	    
+	    flip(0);
 	}
 	
 	private boolean missInfo (String s){
@@ -626,12 +704,39 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void onClickFlip(View view) {
-        flip();
+        flip(0);
     }
 
-    public void flip(){
+    public void flip(int index){
         ViewFlipper viewFlipper = (ViewFlipper) findViewById(R.id.main_flipper);
-        viewFlipper.showNext();
+        /*Contract the keyboard when you go to a new flip*/
+        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(viewFlipper.getWindowToken(), 0);
+        if (index == 0){
+            viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
+        }else if (index == 1){
+            /*HAO to JEREMY: Maybe we want a different animation for this, we will see*/
+            viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
+        }else if (index == 2){
+            Animation bottomUp = AnimationUtils.loadAnimation(this,
+                    R.anim.slider_up);
+            viewFlipper.setInAnimation(bottomUp);
+        }
+
+        /*flipperIndex records the current index of the flipper, and decides which fashion should the current flipper fade*/
+        if (flipperIndex == 0){
+            viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right));
+        }else if (flipperIndex == 1){
+            /*HAO to JEREMY: Maybe we want a different animation for this, we will see*/
+            viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right));
+        }else if (flipperIndex == 2){
+            Animation topDown = AnimationUtils.loadAnimation(this,
+                    R.anim.slider_down);
+            viewFlipper.setOutAnimation(topDown);
+        }
+
+        flipperIndex = index;
+        viewFlipper.setDisplayedChild(index);
     }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {
@@ -661,7 +766,7 @@ public class ACTRequest extends AppCompatActivity
 
     //top bar actions
     public void onChatButtonClicked (View v){
-        flip();
+        flip(1);
 
         int[] fields = new int[]{R.id.thread_uname, R.id.thread_rating, R.id.thread_description};
 
@@ -688,6 +793,17 @@ public class ACTRequest extends AppCompatActivity
             }
 
         });
+    }
+
+    private void updateCounter(){
+        TextView countView = (TextView) findViewById(R.id.topbar_textview);
+        int count = Integer.parseInt(countView.getText().toString());
+        count = count + 1;
+        countView.setText(String.valueOf(count));
+    }
+
+    public void scrollToBottom(MsgAdapter adapter, ListView listView){
+        listView.setSelection(adapter.getCount() - 1);
     }
 
 }

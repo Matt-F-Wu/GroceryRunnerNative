@@ -4,24 +4,25 @@ import com.parse.ParseUser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RequestObject extends JSONObject {
 /* Note is the description the user give, the details of the request*/
     //This class is used to display request natively
 
-    public RequestObject RequestObject(JSONObject base){
-        RequestObject obj = new RequestObject();
+    public RequestObject(JSONObject base){
         try {
-            obj.setAddr(base.getString("address"));
-            obj.setCate(base.getString("category"));
-            obj.setLocationLat(base.getDouble("latitude"));
-            obj.setLocationLong(base.getDouble("longitude"));
-            obj.setRadius(base.getInt("rad"));
-            obj.setUser(base.getString("username"));
-            obj.setNote(base.getString("note"));
-            return obj;
+            this.setAddr(base.getString("address"));
+            this.setCate(base.getString("category"));
+            this.setLocationLat(base.getDouble("latitude"));
+            this.setLocationLong(base.getDouble("longitude"));
+            this.setRadius(base.getInt("rad"));
+            this.setUser(base.getString("username"));
+            this.setNote(base.getString("note"));
+            this.setReward(base.getString("reward"));
         } catch (JSONException e) {
             e.printStackTrace();
-            return null;
         }
     }
 
@@ -76,6 +77,23 @@ public class RequestObject extends JSONObject {
       }
     }
 
+    public String getReward() {
+        try {
+            return getString("reward");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setReward(String value) {
+        try {
+            put("reward", value);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getRadius() {
       try {
           return getInt("radius");
@@ -104,7 +122,7 @@ public class RequestObject extends JSONObject {
 
     public void setUser(String value) {
       try {
-          put("user", value);
+          put("username", value);
       } catch (JSONException e) {
           e.printStackTrace();
       }
@@ -143,4 +161,11 @@ public class RequestObject extends JSONObject {
           e.printStackTrace();
       }
     }
+
+    public String[] spitValueList(){
+        String[] list = new String[]{getUser(), getCate(), getNote(), getReward()};
+
+        return list;
+    }
+
 }

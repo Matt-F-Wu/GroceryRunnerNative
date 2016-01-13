@@ -64,12 +64,16 @@
             android:layout_height="match_parent"
             android:id="@+id/main_user_space">
 
-            <LinearLayout
+            <ListView
+                android:id="@+id/show_requests"
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:divider="@null"
+                android:stackFromBottom="true"
+                android:transcriptMode="normal">
 
-            </LinearLayout>
+            </ListView>
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/ask_favour"
@@ -82,6 +86,7 @@
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -102,6 +107,17 @@
                 android:layout_weight="0"
                 style="@style/ButtonRequestBox"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/request_panel">
+
+            <include layout="@layout/request"></include>
+
+        </LinearLayout>
+
     </ViewFlipper>
 
     <!--<android.support.design.widget.FloatingActionButton

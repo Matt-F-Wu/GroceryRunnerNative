@@ -55,7 +55,12 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".ACTRequest"></activity>
+        <activity android:name=".ACTRequest">
+            <intent-filter>
+                <action android:name="com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS"></action>
+                <action android:name="com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES"></action>
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -72,7 +77,7 @@
         <service android:name="com.parse.PushService" />
 
         <receiver
-            android:name="com.parse.ParsePushBroadcastReceiver"
+            android:name=".MyPushBroadcastReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
