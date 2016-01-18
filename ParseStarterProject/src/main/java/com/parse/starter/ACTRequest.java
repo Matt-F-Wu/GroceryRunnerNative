@@ -1,21 +1,15 @@
 package com.parse.starter;
 
-import android.app.Application;
-import android.app.Dialog;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -23,11 +17,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -39,7 +30,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,7 +38,6 @@ import android.widget.ViewFlipper;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -56,10 +45,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseInstallation;
@@ -101,8 +88,9 @@ public class ACTRequest extends AppCompatActivity
     private BroadcastReceiver receiver;
     private int flipperIndex = 0;
     private List<String[]> r_values;
-    private MsgAdapter msgAdapterReq;
-    private ListView listViewRequest;
+    private List<String[]> chatValues;
+    private MsgAdapter msgAdapterReq, msgAdapterChat;
+    private ListView listViewRequest, listViewChat;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,11 +104,11 @@ public class ACTRequest extends AppCompatActivity
 		mapFragment.getMapAsync(this);*/
 
         // Associate this user with this device
-        ParseInstallation curIns = ParseInstallation.getCurrentInstallation();
+        installation = ParseInstallation.getCurrentInstallation();
         user = ParseUser.getCurrentUser();
 
-        curIns.put("username", user.getUsername());
-        curIns.saveInBackground();
+        installation.put("username", user.getUsername());
+        installation.saveInBackground();
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
@@ -132,21 +120,16 @@ public class ACTRequest extends AppCompatActivity
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        int[] fields = new int[]{R.id.r_list_uname, R.id.r_list_cate, R.id.r_list_note, R.id.r_list_reward};
-
-        r_values= new ArrayList<String[]>();
-
-        /*HAO to JENERMY: A warm welcoming messgae I designed, do you like it?*/
-        r_values.add(new String[]{"Favourama Official", "Welcome" + curIns.getString("username"),
-                "We wish our service can make your life easier",
-                "Best of luck!"});
-
-        msgAdapterReq = new MsgAdapter(this, R.layout.request_item, fields, r_values);
-
-        listViewRequest = (ListView) findViewById(R.id.show_requests);
-        listViewRequest.setAdapter(msgAdapterReq);
+        configureRequestView();
 
         /*Note to self: Need to implement onclick listener later to listView*/
+        chatValues = new ArrayList<String[]>();
+
+        /*For testing purposes*/
+        chatValues.add(new String[]{"Hao Wu", "4", "Can someone please lend me a iPad Charger, thank you!"});
+        chatValues.add(new String[]{"J. Ma", "3", "Will any one pass by Starbucks on their way to Robarts? Can you grep me some coffee?"});
+
+        configureChatView();
 
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -187,7 +170,7 @@ public class ACTRequest extends AppCompatActivity
                 String action = intent.getAction();
 
 
-                JSONObject jsonObject = null;
+                JSONObject jsonObject;
                 String content = intent.getExtras().getString("CONTENT");
                 try {
                     jsonObject = new JSONObject(content);
@@ -209,9 +192,10 @@ public class ACTRequest extends AppCompatActivity
                     *
                     * MessageObject messageObject = new MessageObject(data);
                     * description = messageObject.getNote();
+                    * Update the count at the top bar
+                    * Write message to corresponding files, messgaeObject => file
                     * */
-                    /*Update the count at the top bar*/
-                    updateCounter();
+                    updateCounter(1);
                 }
 
             }
@@ -392,41 +376,6 @@ public class ACTRequest extends AppCompatActivity
 
 
 	public void onClickNewRequest(View v){
-	    /*LayoutInflater inflater = (LayoutInflater)
-	    this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    View request = inflater.inflate(R.layout.request, null, false);
-	    request.measure(View.MeasureSpec.makeMeasureSpec(300, View.MeasureSpec.AT_MOST),
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-        );
-	    
-	    //Display the popupwindow
-	    final PopupWindow pw = new PopupWindow(
-	       request,
-	       800, //request.getMeasuredHeight(),
-	       1000, //request.getMeasuredWidth(),
-	       true);
-        //Set the parent view of this popup to be the main user space of the user page !!!
-	    pw.showAtLocation(this.findViewById(R.id.main_user_space), Gravity.CENTER, 0, 0);
-	    
-	    //configure the popupwindow
-	    pw.setOutsideTouchable(true);
-        pw.setTouchable(true);
-
-        pw.setBackgroundDrawable(new ColorDrawable());
-        pw.setTouchInterceptor(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
-                    //if clicked outside of the popup, the popup closes
-                    pw.dismiss();
-                    return true;
-                } else {
-                    return false;*//* Hndle events happening inside the popup, may not need to implement anything*//*
-                }
-            }
-        });*/
-
-        /*pwGlobal = pw;*/
 
         flip(2);
 
@@ -764,22 +713,67 @@ public class ACTRequest extends AppCompatActivity
 
     }
 
-    //top bar actions
-    public void onChatButtonClicked (View v){
-        flip(1);
+    private void configureRequestView(){
+        int[] fields = new int[]{R.id.r_list_uname, R.id.r_list_cate, R.id.r_list_note, R.id.r_list_reward};
 
+        r_values= new ArrayList<String[]>();
+
+        /*HAO to JENERMY: A warm welcoming messgae I designed, do you like it?*/
+        r_values.add(new String[]{"Favourama Official", "Welcome" + installation.getString("username"),
+                "We wish our service can make your life easier",
+                "Best of luck!"});
+
+        msgAdapterReq = new MsgAdapter(this, R.layout.request_item, fields, r_values);
+
+        listViewRequest = (ListView) findViewById(R.id.show_requests);
+        listViewRequest.setAdapter(msgAdapterReq);
+
+        listViewRequest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view,
+                                    int position, long id) {
+                final String[] item = (String[]) parent.getItemAtPosition(position);
+
+                if (item[0].equals("Favourama Official")) {return;}
+
+                boolean thread_exist = false;
+                for (String[] s : chatValues) {
+                    if (s[0].equals(item[0]) && s[2].equals(item[2])) {
+                        thread_exist = true;
+                    }
+                }
+
+                float rating = (float) user.getDouble("Rating");
+
+                /*HAO to SELF: Have to omplement the rating system later*/
+
+                String[] chatItem = new String[]{item[0], String.valueOf(rating) ,item[2]};
+
+                if (!thread_exist) {
+                    chatValues.add(chatItem);
+                    msgAdapterChat.notifyDataSetChanged();
+                }
+
+                Bundle b = new Bundle();
+                b.putStringArray("ThreadHeader", item);
+                Intent i = new Intent(ACTRequest.this, ACTMsg.class);
+                i.putExtras(b);
+                startActivityForResult(i, 0);
+            }
+
+        });
+    }
+
+    private void configureChatView(){
         int[] fields = new int[]{R.id.thread_uname, R.id.thread_rating, R.id.thread_description};
 
-        List<String[]> values = new ArrayList<String[]>();
-        values.add(new String[]{"Hao Wu", "4", "Can someone please lend me a iPad Charger, thank you!"});
-        values.add(new String[]{"J. Ma", "3", "Will any one pass by Starbucks on their way to Robarts? Can you grep me some coffee?"});
+        msgAdapterChat = new MsgAdapter(this, R.layout.threads_row_layout, fields, chatValues);
 
-        MsgAdapter msgAdapter = new MsgAdapter(this, R.layout.threads_row_layout, fields, values);
+        listViewChat = (ListView) findViewById(R.id.threads);
+        listViewChat.setAdapter(msgAdapterChat);
 
-        ListView listView = (ListView) findViewById(R.id.threads);
-        listView.setAdapter(msgAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewChat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
@@ -789,22 +783,56 @@ public class ACTRequest extends AppCompatActivity
                 b.putStringArray("ThreadHeader", item);
                 Intent i = new Intent(ACTRequest.this, ACTMsg.class);
                 i.putExtras(b);
-                startActivity(i);
+                startActivityForResult(i, 0);
             }
 
         });
     }
+    //top bar actions
+    public void onChatButtonClicked (View v){
+        flip(1);
 
-    private void updateCounter(){
+
+    }
+
+    private void updateCounter(int increment){
         TextView countView = (TextView) findViewById(R.id.topbar_textview);
         int count = Integer.parseInt(countView.getText().toString());
-        count = count + 1;
+        count = count + increment;
         countView.setText(String.valueOf(count));
     }
+
 
     public void scrollToBottom(MsgAdapter adapter, ListView listView){
         listView.setSelection(adapter.getCount() - 1);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK){
+            ArrayList<String> requestCollected = data.getStringArrayListExtra("RequestCollection");
+            if ( !requestCollected.isEmpty() ){
+                for ( String s : requestCollected){
+                    JSONObject jobject;
+                    try {
+                        jobject = new JSONObject(s);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        continue;
+                    }
+                    RequestObject requestObject = new RequestObject(jobject);
+                    r_values.add(requestObject.spitValueList());
+                }
+            }
+            msgAdapterReq.notifyDataSetChanged();
+            int additionalCounter = data.getIntExtra("CounterValue", 0);
+            updateCounter(additionalCounter);
+        }
+        if (resultCode == Activity.RESULT_CANCELED) {
+            //Write your code if there's no result
+            /*HAO: Don't think this will ever happen to be honest*/
+        }
+    }//onActivityResult
 
 }
 
