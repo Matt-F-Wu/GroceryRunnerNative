@@ -16,6 +16,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,8 +72,9 @@ public class ACTRequest extends AppCompatActivity
 	private CheckBox addr1, addr2, addr3, cate1, cate2, cate3, reward1, reward2, reward3;
 	private EditText postEditText;
 	private SeekBar radius;
-	private String cateSelected, addrSelected, rewardSelected, user_name;
+	private String cateSelected, addrSelected, rewardSelected, user_name, request_purpose;
 	private Button postButton;
+    private TextView charCount;
     private ParseInstallation installation;
 	public static int RADIUS_OFFSET = 100;
 	public static int MAX_QUERY_RESULTS = 100;
@@ -89,6 +92,7 @@ public class ACTRequest extends AppCompatActivity
     private int flipperIndex = 0;
     private List<String[]> r_values;
     private List<String[]> chatValues;
+    private List<Integer> resources, alignment;
     private MsgAdapter msgAdapterReq, msgAdapterChat;
     private ListView listViewRequest, listViewChat;
 
@@ -121,6 +125,12 @@ public class ACTRequest extends AppCompatActivity
         spinner.setAdapter(adapter);
 
         configureRequestView();
+
+        ViewGroup request = (ViewGroup) findViewById(R.id.request_panel);
+
+        configureMenu(request);
+
+        configurePostButton(request);
 
         /*Note to self: Need to implement onclick listener later to listView*/
         chatValues = new ArrayList<String[]>();
@@ -182,6 +192,13 @@ public class ACTRequest extends AppCompatActivity
                 if(action.equals("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS")){
                     RequestObject requestObject = new RequestObject(jsonObject);
                     r_values.add(requestObject.spitValueList());
+                    if(requestObject.getPurpose().equals("ask")){
+                        alignment.add(-50);
+                        resources.add(R.drawable.speech__bubble_white);
+                    }else{
+                        alignment.add(50);
+                        resources.add(R.drawable.speech__bubble_red);
+                    }
                     msgAdapterReq.notifyDataSetChanged();
                     //scrollToBottom(msgAdapterReq, listViewRequest);
                 }
@@ -379,11 +396,10 @@ public class ACTRequest extends AppCompatActivity
 
         flip(2);
 
-        ViewGroup request = (ViewGroup) findViewById(R.id.request_panel);
+        TextView favourTitle = (TextView) findViewById(R.id.favour_title);
+        favourTitle.setText("Ask For a Favour");
 
-	    configureMenu(request);
-
-		configurePostButton(request);
+        request_purpose = "ask";
 		
 	}
 
@@ -463,6 +479,26 @@ public class ACTRequest extends AppCompatActivity
 	    //get view members
         final View p = pop;
 	    postEditText = (EditText) pop.findViewById(R.id.r_description);
+        postEditText.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int aft)
+            {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+                // this will show characters remaining
+
+                charCount.setText(255 - postEditText.getText().toString().length() + "/255");
+            }
+        });
+
 		addr1 = (CheckBox) pop.findViewById(R.id.addr_one);
         addr2 = (CheckBox) pop.findViewById(R.id.addr_two);
         addr3 = (CheckBox) pop.findViewById(R.id.addr_three);
@@ -520,6 +556,11 @@ public class ACTRequest extends AppCompatActivity
 		double rad = (double) (radius.getProgress() + RADIUS_OFFSET)/1000;
         try {
             post.put("TYPE", "REQUEST");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            post.put("purpose", request_purpose);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -688,6 +729,15 @@ public class ACTRequest extends AppCompatActivity
         viewFlipper.setDisplayedChild(index);
     }
 
+    public void onClickNewOffer(View view) {
+        flip(2);
+
+        TextView favourTitle = (TextView) findViewById(R.id.favour_title);
+        favourTitle.setText("Offer a Favour");
+
+        request_purpose = "offer";
+    }
+
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
         HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
@@ -723,7 +773,13 @@ public class ACTRequest extends AppCompatActivity
                 "We wish our service can make your life easier",
                 "Best of luck!"});
 
-        msgAdapterReq = new MsgAdapter(this, R.layout.request_item, fields, r_values);
+        resources = new ArrayList<>();
+        resources.add(R.drawable.speech__bubble_white);
+
+        alignment = new ArrayList<>();
+        alignment.add(-50);
+
+        msgAdapterReq = new MsgAdapter(this, R.layout.request_item, resources, alignment, fields, r_values);
 
         listViewRequest = (ListView) findViewById(R.id.show_requests);
         listViewRequest.setAdapter(msgAdapterReq);
@@ -735,7 +791,9 @@ public class ACTRequest extends AppCompatActivity
                                     int position, long id) {
                 final String[] item = (String[]) parent.getItemAtPosition(position);
 
-                if (item[0].equals("Favourama Official")) {return;}
+                if (item[0].equals("Favourama Official")) {
+                    return;
+                }
 
                 boolean thread_exist = false;
                 for (String[] s : chatValues) {
@@ -748,7 +806,7 @@ public class ACTRequest extends AppCompatActivity
 
                 /*HAO to SELF: Have to omplement the rating system later*/
 
-                String[] chatItem = new String[]{item[0], String.valueOf(rating) ,item[2]};
+                String[] chatItem = new String[]{item[0], String.valueOf(rating), item[2]};
 
                 if (!thread_exist) {
                     chatValues.add(chatItem);
@@ -763,6 +821,8 @@ public class ACTRequest extends AppCompatActivity
             }
 
         });
+
+        charCount = (TextView) findViewById(R.id.character_count);
     }
 
     private void configureChatView(){

@@ -11,10 +11,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/msg_back_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="10dip"
+            android:layout_marginRight="10dip"
+            app:backgroundTint="#FFFFFF"
+            android:src="@drawable/ic_keyboard_return_black_24dp"
+            android:onClick="backToMain"
+            android:layout_alignParentRight="true">
+        </android.support.design.widget.FloatingActionButton>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/msg_thread_header"
+            android:layout_toLeftOf="@+id/msg_back_button"
             android:text="Header Info"
             android:padding="10dip"
             android:layout_margin="@dimen/text_margin"
@@ -27,5 +41,6 @@
             android:transcriptMode="alwaysScroll">
 
         </ListView>
+
     </RelativeLayout>
 </LinearLayout>

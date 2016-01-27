@@ -20,7 +20,25 @@ public class RequestObject extends JSONObject {
             this.setRadius(base.getInt("rad"));
             this.setUser(base.getString("username"));
             this.setNote(base.getString("note"));
+            this.setPurpose(base.getString("purpose"));
             this.setReward(base.getString("reward"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getPurpose() {
+        try {
+            return getString("purpose");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setPurpose(String value) {
+        try {
+            put("purpose", value);
         } catch (JSONException e) {
             e.printStackTrace();
         }
