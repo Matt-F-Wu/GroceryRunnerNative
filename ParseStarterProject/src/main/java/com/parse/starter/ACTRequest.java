@@ -1,6 +1,7 @@
 package com.parse.starter;
 
 import android.app.Activity;
+import android.app.LauncherActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -95,6 +96,7 @@ public class ACTRequest extends AppCompatActivity
     private List<Integer> resources, alignment;
     private MsgAdapter msgAdapterReq, msgAdapterChat;
     private ListView listViewRequest, listViewChat;
+    MyThreads convList;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -132,12 +134,14 @@ public class ACTRequest extends AppCompatActivity
 
         configurePostButton(request);
 
-        /*Note to self: Need to implement onclick listener later to listView*/
-        chatValues = new ArrayList<String[]>();
+        /*Note to self: chatValues is just a reference to the actual header list, we can bypass it*/
+        convList  = new MyThreads(this);
+        chatValues = convList.getHeader();
 
         /*For testing purposes*/
-        chatValues.add(new String[]{"Hao Wu", "4", "Can someone please lend me a iPad Charger, thank you!"});
-        chatValues.add(new String[]{"J. Ma", "3", "Will any one pass by Starbucks on their way to Robarts? Can you grep me some coffee?"});
+        /*chatValues.add(new String[]{"Hao Wu", "4", "Can someone please lend me a iPad Charger, thank you!"});
+        chatValues.add(new String[]{"J. Ma", "3", "Will any one pass by Starbucks on their way to Robarts? Can you grep me some coffee?"});*/
+
 
         configureChatView();
 
@@ -213,6 +217,19 @@ public class ACTRequest extends AppCompatActivity
                     * Write message to corresponding files, messgaeObject => file
                     * */
                     updateCounter(1);
+                    String fname = "";
+                    try{
+                        fname = jsonObject.getString("username");
+                    }catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    fname = MyThreads.toFile(fname);
+                    convList.fileChange(fname, jsonObject);
+                    convList.numChange.add(fname);
+
+                    highLightConv(); //HAO: highlight this updated conversation
+
+                    msgAdapterChat.notifyDataSetChanged();
                 }
 
             }
@@ -795,12 +812,12 @@ public class ACTRequest extends AppCompatActivity
                     return;
                 }
 
-                boolean thread_exist = false;
+                /*boolean thread_exist = false;
                 for (String[] s : chatValues) {
                     if (s[0].equals(item[0]) && s[2].equals(item[2])) {
                         thread_exist = true;
                     }
-                }
+                }*/
 
                 float rating = (float) user.getDouble("Rating");
 
@@ -808,10 +825,14 @@ public class ACTRequest extends AppCompatActivity
 
                 String[] chatItem = new String[]{item[0], String.valueOf(rating), item[2]};
 
-                if (!thread_exist) {
-                    chatValues.add(chatItem);
+                if (convList.newConversation(chatItem)) {
                     msgAdapterChat.notifyDataSetChanged();
                 }
+
+                /*if (!thread_exist) {
+                    chatValues.add(chatItem);
+                    msgAdapterChat.notifyDataSetChanged();
+                }*/
 
                 Bundle b = new Bundle();
                 b.putStringArray("ThreadHeader", item);
@@ -839,6 +860,11 @@ public class ACTRequest extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
                 final String[] item = (String[]) parent.getItemAtPosition(position);
+                view.setSelected(false);
+                listViewChat.setItemChecked(position, false);
+                String fname;
+                fname = MyThreads.toFile(item[0]);
+                convList.numChange.remove(fname);
                 Bundle b = new Bundle();
                 b.putStringArray("ThreadHeader", item);
                 Intent i = new Intent(ACTRequest.this, ACTMsg.class);
@@ -850,6 +876,7 @@ public class ACTRequest extends AppCompatActivity
     }
     //top bar actions
     public void onChatButtonClicked (View v){
+        clearCounter();
         flip(1);
 
 
@@ -862,6 +889,23 @@ public class ACTRequest extends AppCompatActivity
         countView.setText(String.valueOf(count));
     }
 
+    private void clearCounter(){
+        TextView countView = (TextView) findViewById(R.id.topbar_textview);
+        countView.setText("0");
+    }
+
+    /*Hightlight conversations that have received an update/message*/
+    private void highLightConv(){
+        int index = 0;
+        for (String[] s : chatValues){
+            System.out.println("array length" + s.length);
+            String gn = MyThreads.toFile(s[0]);
+            if (convList.numChange.contains(gn)){
+                listViewChat.setItemChecked(index, true);
+            }
+            index++;
+        }
+    }
 
     public void scrollToBottom(MsgAdapter adapter, ListView listView){
         listView.setSelection(adapter.getCount() - 1);
