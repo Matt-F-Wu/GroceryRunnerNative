@@ -104,6 +104,8 @@ public class MyThreads {
     private void makeHeaderArray(){
         Collections.sort(converThreads);
         headers.clear();
+
+
         for(MsgThread mt : converThreads){
             headers.add(mt.spitHeader());
         }
