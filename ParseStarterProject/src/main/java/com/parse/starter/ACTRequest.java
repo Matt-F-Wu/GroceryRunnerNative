@@ -112,13 +112,16 @@ public class ACTRequest extends AppCompatActivity
         // Associate this user with this device
         installation = ParseInstallation.getCurrentInstallation();
         user = ParseUser.getCurrentUser();
+        user.put("NumRating", 2.5);
+        user.put("Rating", 1);
+        user.saveInBackground();
 
         installation.put("username", user.getUsername());
         installation.saveInBackground();
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-        toolbar.setLogo(R.drawable.logo);
+        toolbar.setLogo(R.drawable.new_logo);
 
         Spinner spinner = (Spinner) findViewById(R.id.topbar_spinner);
 

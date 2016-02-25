@@ -120,4 +120,5 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="rating_warning">You can only rate your experience with this person once, please be advised before you submit your review</string>
 </resources>

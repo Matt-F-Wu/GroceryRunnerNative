@@ -21,6 +21,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
     public static final String PARSE_DATA_KEY = "com.parse.Data";
     private static final String REQUEST_TYPE = "REQUEST";
     private static final String MESSAGE_TYPE = "MESSAGE";
+    private static final String RATING_TYPE = "RATING";
 
     @Override
     protected Notification getNotification(Context context, Intent intent) {
@@ -78,6 +79,11 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             Intent i = new Intent();
             i.putExtra("CONTENT", data.toString());
             i.setAction("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES");
+            context.sendBroadcast(i);
+        } else if(type.equals(RATING_TYPE)){
+            Intent i = new Intent();
+            i.putExtra("CONTENT", data.toString());
+            i.setAction("com.parse.favourama.HANDLE_FAVOURAMA_RATINGS");
             context.sendBroadcast(i);
         }
 

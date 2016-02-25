@@ -1,30 +1,33 @@
 package com.parse.starter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Message;
-import android.renderscript.ScriptGroup;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.JsonReader;
 import android.util.JsonWriter;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 import com.parse.SendCallback;
 
 import org.json.JSONException;
@@ -153,11 +156,16 @@ public class ACTMsg extends AppCompatActivity {
 
                     updateDisplay(jsonObject);
                 }
+                else if(action.equals("com.parse.favourama.HANDLE_FAVOURAMA_RATINGS")){
+                    /*The action is rating*/
+                    processRating(jsonObject);
+                }
             }
         };
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS");
         filter.addAction("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES");
+        filter.addAction("com.parse.favourama.HANDLE_FAVOURAMA_RATINGS");
         registerReceiver(msgReceiver, filter);
 
 
@@ -480,5 +488,105 @@ public class ACTMsg extends AppCompatActivity {
         }
 
         return jsonObject;
+    }
+
+    public void rateFavour(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(inflater.inflate(R.layout.rating_dialog, null))
+                // Add action buttons
+                .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // sign in the user ...
+                        RatingBar ratingBar = (RatingBar) ((AlertDialog)dialog).findViewById(R.id.rate_user);
+                        float rating = ratingBar.getRating();
+
+                        JSONObject msg = new JSONObject();
+
+                        try {
+                            msg.put("TYPE", "RATING");
+                            msg.put("Rating", rating);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        ParsePush.sendDataInBackground(msg, chatQuery, new SendCallback() {
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    Log.d("Rating", "Message Sent!");
+                                } else {
+                                    Log.d("Rating", "Message failure >_< \n" + "Plese check your internet connection!\n"
+                                            + e.getMessage() + " <><><><><><> Code: " + e.getCode());
+                                }
+                            }
+                        });
+
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+
+                        dialog.dismiss();
+                    }
+                });
+
+        final AlertDialog rdialog = builder.create();
+
+        rdialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+
+
+                Button pb = rdialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                pb.setTextColor(0xffcaaaaa);
+
+                Button nb = rdialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                nb.setTextColor(0xff000000);
+
+            }
+        });
+
+        rdialog.show();
+    }
+
+    static void processRating(JSONObject jsonObject){
+
+        double ratingReceived = 2.5;
+
+        try {
+            ratingReceived = jsonObject.getDouble("Rating");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ParseUser user = ParseUser.getCurrentUser();
+        double ratingCurrent = user.getDouble("Rating");
+
+        int numRatings = user.getInt("NumRating");
+
+        double ratingNew = ((ratingCurrent * numRatings) + ratingReceived)/(numRatings + 1);
+
+        numRatings++;
+
+        user.put("NumRating", numRatings);
+        user.put("Rating", ratingNew);
+
+        user.saveInBackground();
+
+        /*TBD:
+        * write a flag to the conversations.json file corresponding to this conversation
+        *
+        * rated = true;
+        *
+        * So the user cannot rate one person multiple times, implement this later.
+        *
+        * */
     }
 }

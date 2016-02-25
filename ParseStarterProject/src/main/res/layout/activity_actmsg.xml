@@ -29,28 +29,32 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dip">
+        android:layout_height="wrap_content"
+
+        android:background="@drawable/typing_box_bg">
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/send_button"
             android:layout_alignParentRight="true"
-            style="@style/ButtonRequestBox"
+            android:backgroundTint="@color/requestbox_color"
             android:text="@string/send_b"
+            android:textColor="#FFFFFF"
             android:onClick="onClickSend"/>
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/typing_box"
             android:inputType="textMultiLine"
             android:layout_alignTop="@+id/send_button"
             android:layout_toStartOf="@+id/send_button"
             android:layout_toLeftOf="@+id/send_button"
-            android:padding="10dip"
+            android:layout_marginTop="2dp"
             android:gravity="top"
-            android:background="@drawable/typing_box_bg"
+            android:textSize="12pt"
+            android:background="@drawable/typing_box_frame"
             />
 
     </RelativeLayout>
