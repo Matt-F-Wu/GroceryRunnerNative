@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.app.AlertDialog;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.JsonReader;
 import android.util.JsonWriter;
@@ -35,10 +36,12 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -46,6 +49,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -62,27 +66,29 @@ public class ACTMsg extends AppCompatActivity {
     //display global
     private ChatAdapter adapter;
     private ListView messagesContainer;
-    String msg_filename;
-    File msg_file;
+    private String msg_filename;
+    private File msg_file;
+    static private String conversation_list_filename = "conversation_list.json";
+    static private File conversation_file;
 
 /*  example Json Format in conversation files
     {
-        "type": HEADER,
-        "username": J_Ma,
-        "content": {\"uname\":\"wuhao\",\"rating\":\"3.5\",\"topic\":\"Borrow a Iphone Charger\"}"},
-        "time": 2016
-    },
+        "TYPE": "HEADER",
+        "content": "{\n  \"uname\": \"junwei\",\n  \"topic\": \"hi\"\n}",
+        "time": 1456634111506,
+        "username": "junwei"
+    }
     {
-        "type": MSG,
-        "username": J_Ma,
-        "content": "Hello! Is the price negotiable?",
-        "time": 2016
-    },
+        "TYPE": "MESSAGE",
+        "content": "sup",
+        "time": 1456634115145,
+        "username": "junwei"
+    }
     {
-        "type": MSG,
-        "username": H_Wu,
-        "content": "Yes.",
-        "time": 2016
+        "TYPE": "MESSAGE",
+        "content": "sup",
+        "time": 1456634115145,
+        "username": "junwei"
     }
 */
 
@@ -107,7 +113,28 @@ public class ACTMsg extends AppCompatActivity {
         common_dir = getApplicationContext().getFilesDir();
         msg_filename = "testMSG_"+header[0]+".json";//todo change this later
         msg_file = new File(common_dir, msg_filename);
-        Log.d("directory: ",getApplicationContext().getFilesDir().toString());//TODO delete after testing
+        conversation_file = new File(common_dir, conversation_list_filename);
+
+        //add to conversation_list.json
+        JSONObject jsonObjectInitialWrite = new JSONObject();
+        JSONObject jsonObjectInitialWriteContent = new JSONObject();
+        try {
+            jsonObjectInitialWriteContent.put("uname",header[0]);
+            jsonObjectInitialWriteContent.put("rating",header[1]);
+            jsonObjectInitialWriteContent.put("topic",header[2]);
+
+            jsonObjectInitialWrite.put("TYPE", "HEADER");
+            jsonObjectInitialWrite.put("content", jsonObjectInitialWriteContent.toString());
+            jsonObjectInitialWrite.put("time", System.currentTimeMillis());
+            jsonObjectInitialWrite.put("username", header[0]);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //write to file
+        fileWrite(jsonObjectInitialWrite,conversation_list_filename);
+
+        //read back for testing
+        fileRead(conversation_file);
 
 
         msgReceiver = new BroadcastReceiver() {
@@ -174,23 +201,10 @@ public class ACTMsg extends AppCompatActivity {
         adapter = new ChatAdapter(ACTMsg.this, new ArrayList<ChatMessage>());
         messagesContainer.setAdapter(adapter);
 
-        //dummy history
-        //todo delete after testing
-        ChatMessage msg0 = new ChatMessage();
-        msg0.setId(1);
-        msg0.setMe(false);
-        msg0.setMessage("Hi");
-        msg0.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-
-        ChatMessage msg1 = new ChatMessage();
-        msg1.setId(2);
-        msg1.setMe(false);
-        msg1.setMessage("How r u doing???");
-        msg1.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-
-        displayMessage(msg0);
-        displayMessage(msg1);
-
+        //reconstruct old messages, checking to prevent filenotfound error
+        if(msg_file.length()!=0){
+            msg_reconstruct();
+        }
     }
 
     public void onClickSend(View view) {
@@ -252,6 +266,9 @@ public class ACTMsg extends AppCompatActivity {
     }
 
     public void backToMain(View view) {
+
+        unregisterReceiver(msgReceiver);
+
         Intent result = new Intent();
         result.putStringArrayListExtra("RequestCollection", requestCollector);
         result.putExtra("CounterValue", msgCounter);
@@ -285,108 +302,91 @@ public class ACTMsg extends AppCompatActivity {
         * writing to files which store conversation threads,
         * Check if the incoming message is for the current chat thread or other threads and act differently*/
 
-        //get variables
-        String username = new String();
-        String content = new String();
-        Long time = new Long(0);
-
-        try{
-            username = jsonObject.getString("username");
-        }catch(org.json.JSONException e){
-            e.printStackTrace();
-        }
-
-        try{
-            content = jsonObject.getString("content");
-        }catch(org.json.JSONException e){
-            e.printStackTrace();
-        }
-
-        try{
-            time = jsonObject.getLong("time");
-        }catch(org.json.JSONException e){
+        //make sure not to change the original value
+        String[] namesToWrite = {"TYPE","content","time","username"};
+        JSONObject jsonObjectToWrite = null;
+        try {
+            jsonObjectToWrite = new JSONObject(jsonObject, namesToWrite);
+        }catch(JSONException e){
             e.printStackTrace();
         }
 
         //write to file
-        OutputStream out = null;
-        try{
-            out = new BufferedOutputStream(new FileOutputStream(msg_file));
-        }catch(FileNotFoundException e){
-            e.printStackTrace();
-        }
+        fileWrite(jsonObjectToWrite, msg_filename);
 
+        //read back for testing
+        fileRead(msg_file);
+
+    }
+
+    private void msg_reconstruct(){
+
+        ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>();
+        ArrayList<ChatMessage> chatMessageArrayList = new ArrayList<>();
+
+        InputStream in = null;
+        BufferedReader reader;
         try {
-            writeJsonStream(out, jsonObject);
-        }catch(IOException e){
-            e.printStackTrace();
-        }finally{
-            if(out != null){
-                try {
-                    out.close();
-                }catch(IOException e){
+            in = new BufferedInputStream(new FileInputStream(msg_file));
+            reader = new BufferedReader(new InputStreamReader(in));
+            String line = null;
+            while((line=reader.readLine()) != null){
+                try{
+                    JSONObject jsonObject = new JSONObject(line);
+                    jsonObjectArrayList.add(jsonObject);
+                }catch(JSONException e){
                     e.printStackTrace();
                 }
             }
-        }
-
-
-        //TODO: delete after testing
-        String debug_username = new String();
-        String debug_content = new String();
-        Long debug_time = new Long(0);
-        JSONObject message = new JSONObject();
-
-        InputStream in = null;
-        try{
-            in = new BufferedInputStream(new FileInputStream(msg_file));
-            message = readJsonStream(in);
-        }catch(FileNotFoundException ex) {
-            ex.printStackTrace();
-        }catch(IOException ex){
-            ex.printStackTrace();
-        } finally {
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }finally{
             if (in != null) {
                 try {
                     in.close();
-                } catch (IOException ex) {
+                }catch (IOException ex){
                     ex.printStackTrace();
                 }
             }
         }
 
-        try{
-            debug_username = message.getString("username");
-        }catch(org.json.JSONException e){
-            e.printStackTrace();
+        for(int i=0; i<jsonObjectArrayList.size(); i++){
+            JSONObject jObject = jsonObjectArrayList.get(i);
+            ChatMessage msg = new ChatMessage();
+            msg.setId(i);
+            String theOtherPersonUsername = header[0];
+            String username_read = null;
+            try {
+                username_read = jObject.get("username").toString();
+            }catch(JSONException e){
+                e.printStackTrace();
+            }
+            if(username_read == theOtherPersonUsername){
+                msg.setMe(false);
+            }else{
+                msg.setMe(true);
+            }
+            try {
+                msg.setMessage(jObject.get("content").toString());
+            }catch(JSONException e){
+                e.printStackTrace();
+            }
+            try {
+                msg.setDate(jObject.get("time").toString());
+            }catch(JSONException e){
+                e.printStackTrace();
+            }
+            chatMessageArrayList.add(msg);
         }
 
-        try{
-            debug_content = message.getString("content");
-        }catch(org.json.JSONException e){
-            e.printStackTrace();
+        for (ChatMessage msgToDisplay:chatMessageArrayList){
+            displayMessage(msgToDisplay);
         }
-
-        try{
-            debug_time = message.getLong("time");
-        }catch(org.json.JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        Log.d("ACTmsg file", "the msg read is " + debug_username);
-        Log.d("ACTmsg file", "the msg read is " + debug_content);
-        Log.d("ACTmsg file", "the msg read is " + debug_time);
-
-        //todo end of delete after testing
-
-        //display message on screen
-
-
     }
 
-
-    public void displayMessage(ChatMessage message) {
+    private void displayMessage(ChatMessage message) {
         adapter.add(message);
         adapter.notifyDataSetChanged();
         scroll();
@@ -396,99 +396,51 @@ public class ACTMsg extends AppCompatActivity {
         messagesContainer.setSelection(messagesContainer.getCount() - 1);
     }
 
-    public void writeJsonStream(OutputStream out, JSONObject message) throws IOException {
-        JsonWriter writer = new JsonWriter(new OutputStreamWriter(out, "UTF-8"));
-        writer.setIndent("  ");
-        writeMessage(writer, message);
-        writer.close();
 
+    //TO HAO: write function for writing to a file
+    private void fileWrite(JSONObject jsonObject, String filename){
+        try{
+            FileOutputStream fos = openFileOutput(filename, getApplicationContext().MODE_APPEND);
+            fos.write(jsonObject.toString().getBytes());
+            fos.write('\n');
+            fos.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
-
-    public void writeMessage(JsonWriter writer, JSONObject message) throws IOException {
-        writer.beginObject();
-
-        String username = new String();
-        String content = new String();
-        Long time = new Long(0);
-
-        try{
-            username = message.getString("username");
-        }catch(org.json.JSONException e){
-            e.printStackTrace();
-        }
-
-        try{
-            content = message.getString("content");
-        }catch(org.json.JSONException e){
-            e.printStackTrace();
-        }
-
-        try{
-            time = message.getLong("time");
-        }catch(org.json.JSONException e){
-            e.printStackTrace();
-        }
-
-        writer.name("username").value(username);
-        writer.name("content").value(content);
-        writer.name("time").value(time);
-
-        writer.endObject();
-    }
-
-    public JSONObject readJsonStream(InputStream in) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+    //TO HAO: My read function for reading entire file, testing purposes
+    private String fileRead(File file_read){
+        InputStream in = null;
+        String msg_read = null;
         try {
-            return readMessage(reader);
-        }
-            finally {
-                reader.close();
+            in = new BufferedInputStream(new FileInputStream(file_read));
+            try {
+                int i = in.available();
+                Log.d("ACTmsg file", "input stream bytes available: " + i);
+                in.mark(i);
+                byte[] buffer = new byte[i];
+                in.read(buffer,0,i);
+                msg_read = new String(buffer,"UTF-8");
+                Log.d("ACTmsg file", "the msg read is " + msg_read);
+                in.reset();
+            }catch (IOException ex){
+                ex.printStackTrace();
             }
-    }
-
-    public JSONObject readMessage(JsonReader reader) throws IOException {
-        String username = new String();
-        String content = new String();
-        Long time = new Long(0);
-
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String name = reader.nextName();
-            if (name.equals("username")) {
-                username = reader.nextString();
-            } else if (name.equals("content")) {
-                content = reader.nextString();
-            } else if (name.equals("time")) {
-                time = reader.nextLong();
-            } else {
-                reader.skipValue();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } finally{
+            if (in != null) {
+                try {
+                    in.close();
+                }catch (IOException ex){
+                    ex.printStackTrace();
+                }
             }
         }
-        reader.endObject();
-
-        JSONObject jsonObject = new JSONObject();
-
-        try {
-            jsonObject.put("username", username);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            jsonObject.put("content", content);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            jsonObject.put("time", time);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return jsonObject;
+        return msg_read;
     }
+
 
     public void rateFavour(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

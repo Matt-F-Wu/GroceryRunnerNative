@@ -452,7 +452,7 @@ public final class R {
 		public static final int mr_ic_play_light = 0x7f020096;
 		public static final int mr_ic_settings_dark = 0x7f020097;
 		public static final int mr_ic_settings_light = 0x7f020098;
-		public static final int notification_template_icon_bg = 0x7f0200da;
+		public static final int notification_template_icon_bg = 0x7f0200dd;
 	}
 	public static final class id {
 		public static final int action0 = 0x7f0e00cb;
@@ -604,10 +604,10 @@ public final class R {
 		public static final int notification_template_media = 0x7f040035;
 		public static final int notification_template_part_chronometer = 0x7f040036;
 		public static final int notification_template_part_time = 0x7f040037;
-		public static final int select_dialog_item_material = 0x7f04003a;
-		public static final int select_dialog_multichoice_material = 0x7f04003b;
-		public static final int select_dialog_singlechoice_material = 0x7f04003c;
-		public static final int support_simple_spinner_dropdown_item = 0x7f04003e;
+		public static final int select_dialog_item_material = 0x7f04003b;
+		public static final int select_dialog_multichoice_material = 0x7f04003c;
+		public static final int select_dialog_singlechoice_material = 0x7f04003d;
+		public static final int support_simple_spinner_dropdown_item = 0x7f04003f;
 	}
 	public static final class string {
 		public static final int abc_action_bar_home_description = 0x7f070000;

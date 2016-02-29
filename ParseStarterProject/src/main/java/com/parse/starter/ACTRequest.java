@@ -838,7 +838,7 @@ public class ACTRequest extends AppCompatActivity
                 }*/
 
                 Bundle b = new Bundle();
-                b.putStringArray("ThreadHeader", item);
+                b.putStringArray("ThreadHeader", chatItem);
                 Intent i = new Intent(ACTRequest.this, ACTMsg.class);
                 i.putExtras(b);
                 startActivityForResult(i, 0);

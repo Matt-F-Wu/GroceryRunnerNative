@@ -1,5 +1,9 @@
 [
     {
+        "merged": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\googleg_color.png",
+        "source": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\mipmap-hdpi\\googleg_color.png"
+    },
+    {
         "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\googleg_color.png",
         "source": "E:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\mipmap-hdpi\\googleg_color.png"
     },
@@ -22,5 +26,9 @@
     {
         "merged": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\ic_launcher.png",
         "source": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\ic_launcher.png",
+        "source": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     }
 ]

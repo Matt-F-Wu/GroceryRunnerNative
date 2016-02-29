@@ -8,11 +8,12 @@
     tools:context="com.parse.starter.ACTMsg"
     tools:showIn="@layout/activity_actmsg">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.design.widget.FloatingActionButton
+        <!--<android.support.design.widget.FloatingActionButton
             android:id="@+id/msg_back_button"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -32,12 +33,51 @@
             android:text="Header Info"
             android:padding="10dip"
             android:layout_margin="@dimen/text_margin"
-            android:background="@drawable/typing_box_bg"/>
+            android:background="@drawable/typing_box_bg"/>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/typing_box_bg">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/msg_back_button"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dip"
+                android:backgroundTint="#ffffff"
+                android:src="@drawable/ic_keyboard_return_black_24dp"
+                android:onClick="backToMain"
+                android:elevation="3dp"
+                android:layout_marginLeft="10dip"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:id="@+id/msg_thread_header"
+                android:text="Header Info"
+                android:padding="6dip"
+                android:maxLines="5"
+                android:layout_margin="@dimen/text_margin" />
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:backgroundTint="#ffffff"
+                android:src="@drawable/star_glowing"
+                android:onClick="rateFavour"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="10dip"
+                android:elevation="3dp"
+                />
+        </LinearLayout>
+
         <ListView
             android:id="@+id/messagesContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/msg_thread_header"
             android:stackFromBottom="true"
             android:transcriptMode="alwaysScroll"
             android:divider="@null"
@@ -45,5 +85,5 @@
 
         </ListView>
 
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

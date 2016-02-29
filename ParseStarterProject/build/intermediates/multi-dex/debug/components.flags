@@ -1,5 +1,5 @@
--injars 'H:\Favourama3\GroceryRunnerNative\ParseStarterProject\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
--outjars 'H:\Favourama3\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\componentClasses.jar'
+-injars 'H:\Favourama4\GroceryRunnerNative\ParseStarterProject\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
+-outjars 'H:\Favourama4\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\componentClasses.jar'
 
 -libraryjars 'C:\Users\Jeremy\AppData\Local\Android\sdk\build-tools\23.0.2\lib\shrinkedAndroid.jar'
 
@@ -9,7 +9,7 @@
 -dontusemixedcaseclassnames
 -dontpreverify
 -dontwarn
--printconfiguration 'H:\Favourama3\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\components.flags'
+-printconfiguration 'H:\Favourama4\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\components.flags'
 
 
 -keep class com.parse.starter.StarterApplication {
