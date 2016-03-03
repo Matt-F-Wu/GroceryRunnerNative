@@ -112,8 +112,7 @@ public class ACTRequest extends AppCompatActivity
         // Associate this user with this device
         installation = ParseInstallation.getCurrentInstallation();
         user = ParseUser.getCurrentUser();
-        user.put("NumRating", 2.5);
-        user.put("Rating", 1);
+
         user.saveInBackground();
 
         installation.put("username", user.getUsername());
@@ -220,7 +219,7 @@ public class ACTRequest extends AppCompatActivity
                     * Write message to corresponding files, messgaeObject => file
                     * */
                     updateCounter(1);
-                    String fname = "";
+                    String fname = new String();
                     try{
                         fname = jsonObject.getString("username");
                     }catch (JSONException e) {
@@ -624,6 +623,11 @@ public class ACTRequest extends AppCompatActivity
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        try {
+            post.put("rating", user.get("Rating"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         // Query users in vicinity, and send the post to them via cloud
 		queryAndSend(location, rad, post);
@@ -791,7 +795,8 @@ public class ACTRequest extends AppCompatActivity
         /*HAO to JENERMY: A warm welcoming messgae I designed, do you like it?*/
         r_values.add(new String[]{"Favourama Official", "Welcome" + installation.getString("username"),
                 "We wish our service can make your life easier",
-                "Best of luck!"});
+                "Best of luck!",
+                "5"});
 
         resources = new ArrayList<>();
         resources.add(R.drawable.speech__bubble_white);
@@ -822,11 +827,7 @@ public class ACTRequest extends AppCompatActivity
                     }
                 }*/
 
-                float rating = (float) user.getDouble("Rating");
-
-                /*HAO to SELF: Have to omplement the rating system later*/
-
-                String[] chatItem = new String[]{item[0], String.valueOf(rating), item[2]};
+                String[] chatItem = new String[]{item[0], String.valueOf(r_values.get(position)[4]), item[2]};
 
                 if (convList.newConversation(chatItem)) {
                     msgAdapterChat.notifyDataSetChanged();
@@ -836,6 +837,7 @@ public class ACTRequest extends AppCompatActivity
                     chatValues.add(chatItem);
                     msgAdapterChat.notifyDataSetChanged();
                 }*/
+
 
                 Bundle b = new Bundle();
                 b.putStringArray("ThreadHeader", chatItem);

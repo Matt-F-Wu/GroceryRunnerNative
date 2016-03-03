@@ -22,6 +22,7 @@ public class RequestObject extends JSONObject {
             this.setNote(base.getString("note"));
             this.setPurpose(base.getString("purpose"));
             this.setReward(base.getString("reward"));
+            this.setRating(base.getString("rating"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -39,6 +40,23 @@ public class RequestObject extends JSONObject {
     public void setPurpose(String value) {
         try {
             put("purpose", value);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getRating() {
+        try {
+            return getString("rating");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setRating(String value) {
+        try {
+            put("rating", value);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -181,7 +199,7 @@ public class RequestObject extends JSONObject {
     }
 
     public String[] spitValueList(){
-        String[] list = new String[]{getUser(), getCate(), getNote(), getReward()};
+        String[] list = new String[]{getUser(), getCate(), getNote(), getReward(), getRating()};
 
         return list;
     }

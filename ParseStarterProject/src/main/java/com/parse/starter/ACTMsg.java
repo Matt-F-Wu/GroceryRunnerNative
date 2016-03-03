@@ -1,7 +1,6 @@
 package com.parse.starter;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,10 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.app.AlertDialog;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.JsonReader;
-import android.util.JsonWriter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -35,22 +32,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ACTMsg extends AppCompatActivity {
@@ -111,27 +104,9 @@ public class ACTMsg extends AppCompatActivity {
 
         //manage files
         common_dir = getApplicationContext().getFilesDir();
-        msg_filename = "testMSG_"+header[0]+".json";//todo change this later
+        msg_filename = "MSG_"+header[0]+".json";//todo change this later
         msg_file = new File(common_dir, msg_filename);
         conversation_file = new File(common_dir, conversation_list_filename);
-
-        //add to conversation_list.json
-        JSONObject jsonObjectInitialWrite = new JSONObject();
-        JSONObject jsonObjectInitialWriteContent = new JSONObject();
-        try {
-            jsonObjectInitialWriteContent.put("uname",header[0]);
-            jsonObjectInitialWriteContent.put("rating",header[1]);
-            jsonObjectInitialWriteContent.put("topic",header[2]);
-
-            jsonObjectInitialWrite.put("TYPE", "HEADER");
-            jsonObjectInitialWrite.put("content", jsonObjectInitialWriteContent.toString());
-            jsonObjectInitialWrite.put("time", System.currentTimeMillis());
-            jsonObjectInitialWrite.put("username", header[0]);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        //write to file
-        fileWrite(jsonObjectInitialWrite,conversation_list_filename);
 
         //read back for testing
         fileRead(conversation_file);
@@ -312,7 +287,7 @@ public class ACTMsg extends AppCompatActivity {
         }
 
         //write to file
-        fileWrite(jsonObjectToWrite, msg_filename);
+        MyThreads.fileWrite(jsonObjectToWrite, msg_filename, this);
 
         //read back for testing
         fileRead(msg_file);
@@ -320,37 +295,12 @@ public class ACTMsg extends AppCompatActivity {
     }
 
     private void msg_reconstruct(){
+        /*Hao: use linkedlist for better performance*/
+        LinkedList<JSONObject> jsonObjectArrayList = new LinkedList<>();
+        LinkedList<ChatMessage> chatMessageArrayList = new LinkedList<>();
 
-        ArrayList<JSONObject> jsonObjectArrayList = new ArrayList<>();
-        ArrayList<ChatMessage> chatMessageArrayList = new ArrayList<>();
-
-        InputStream in = null;
-        BufferedReader reader;
-        try {
-            in = new BufferedInputStream(new FileInputStream(msg_file));
-            reader = new BufferedReader(new InputStreamReader(in));
-            String line = null;
-            while((line=reader.readLine()) != null){
-                try{
-                    JSONObject jsonObject = new JSONObject(line);
-                    jsonObjectArrayList.add(jsonObject);
-                }catch(JSONException e){
-                    e.printStackTrace();
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch(IOException e) {
-            e.printStackTrace();
-        }finally{
-            if (in != null) {
-                try {
-                    in.close();
-                }catch (IOException ex){
-                    ex.printStackTrace();
-                }
-            }
-        }
+        /*Hao: Code has been refactored to be more extensive, and has better structure*/
+        MyThreads.readLine(msg_file, jsonObjectArrayList, this);
 
         for(int i=0; i<jsonObjectArrayList.size(); i++){
             JSONObject jObject = jsonObjectArrayList.get(i);
@@ -389,25 +339,14 @@ public class ACTMsg extends AppCompatActivity {
     private void displayMessage(ChatMessage message) {
         adapter.add(message);
         adapter.notifyDataSetChanged();
-        scroll();
+        /*scroll();*/
     }
 
+    /*
+    There is no need to do this programmatically, just set stack from bottom in layout.
     private void scroll() {
         messagesContainer.setSelection(messagesContainer.getCount() - 1);
-    }
-
-
-    //TO HAO: write function for writing to a file
-    private void fileWrite(JSONObject jsonObject, String filename){
-        try{
-            FileOutputStream fos = openFileOutput(filename, getApplicationContext().MODE_APPEND);
-            fos.write(jsonObject.toString().getBytes());
-            fos.write('\n');
-            fos.close();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
+    }*/
 
     //TO HAO: My read function for reading entire file, testing purposes
     private String fileRead(File file_read){
@@ -500,6 +439,7 @@ public class ACTMsg extends AppCompatActivity {
                 pb.setTextColor(0xffcaaaaa);
 
                 Button nb = rdialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                nb.setTextColor(0xff000000);
                 nb.setTextColor(0xff000000);
 
             }
