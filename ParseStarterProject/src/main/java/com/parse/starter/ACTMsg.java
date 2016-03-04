@@ -417,14 +417,14 @@ public class ACTMsg extends AppCompatActivity {
                             }
                         });
 
-                        dialog.dismiss();
+                        /*dialog.dismiss();*/
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
 
-                        dialog.dismiss();
+                        /*dialog.dismiss();*/
                     }
                 });
 

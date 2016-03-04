@@ -21,6 +21,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -73,7 +75,7 @@ public class ACTRequest extends AppCompatActivity
 	private CheckBox addr1, addr2, addr3, cate1, cate2, cate3, reward1, reward2, reward3;
 	private EditText postEditText;
 	private SeekBar radius;
-	private String cateSelected, addrSelected, rewardSelected, user_name, request_purpose;
+	private String cateSelected, addrSelected, rewardSelected, user_name, request_purpose, file_long_clicked;
 	private Button postButton;
     private TextView charCount;
     private ParseInstallation installation;
@@ -762,6 +764,44 @@ public class ACTRequest extends AppCompatActivity
         request_purpose = "offer";
     }
 
+    public void removeConv(MenuItem item) {
+        /*Hao to Self:
+        *
+        * Probably should consider adding a confirmation step, like are you sure you want to delete?
+        *
+        * And then the user has to confirm to actually delete anything.
+        *
+        * */
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Are you sure you want to delete this conversation?")
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Actually Delete
+                        if (!file_long_clicked.isEmpty()) convList.deleteFile(file_long_clicked);
+                        msgAdapterChat.notifyDataSetChanged();
+                        Log.d("File Deletion: ", "User deleted file " + file_long_clicked);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Do nothing
+                    }
+                });
+        // Create the AlertDialog object and return it
+        builder.create().show();
+    }
+
+    public void showAttr(MenuItem item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(convList.showFileAttribute(file_long_clicked))
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // Do nothing
+            }
+        });
+        builder.create().show();
+    }
+
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
         HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
@@ -867,8 +907,7 @@ public class ACTRequest extends AppCompatActivity
                 final String[] item = (String[]) parent.getItemAtPosition(position);
                 view.setSelected(false);
                 listViewChat.setItemChecked(position, false);
-                String fname;
-                fname = MyThreads.toFile(item[0]);
+                String fname = MyThreads.toFile(item[0]);
                 convList.numChange.remove(fname);
                 Bundle b = new Bundle();
                 b.putStringArray("ThreadHeader", item);
@@ -877,6 +916,19 @@ public class ACTRequest extends AppCompatActivity
                 startActivityForResult(i, 0);
             }
 
+        });
+
+        listViewChat.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final String[] item = (String[]) parent.getItemAtPosition(position);
+                file_long_clicked = MyThreads.toFile(item[0]);
+                PopupMenu popupMenu = new PopupMenu(context, view);
+                MenuInflater inflater = popupMenu.getMenuInflater();
+                inflater.inflate(R.menu.conv_thread_menu, popupMenu.getMenu());
+                popupMenu.show();
+                return true;
+            }
         });
     }
     //top bar actions

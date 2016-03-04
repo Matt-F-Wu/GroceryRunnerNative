@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -107,12 +108,7 @@ public class MyThreads {
                         deleted = clfile.delete();
                     }
 
-
-                    String dummy = new String();
-                    for (JSONObject conv : allConvs){
-                        if( !conv.optString("username").equals(dummy) ) fileWrite(conv, cList, context);
-                        dummy = conv.optString("username");
-                    }
+                    rewritCList();
 
                     /*Rewrite the content of the conversation list*/
                     return true;
@@ -296,6 +292,63 @@ public class MyThreads {
                 }
             }
         }
+    }
+
+    public boolean deleteFile(String fname){
+        File clfile = new File(dir, fname);
+        boolean res0 = false, res1 = false;
+        for (JSONObject conv : allConvs){
+            String name = conv.optString("username");
+
+            if(  name != null && !name.isEmpty()){
+                String ffname = toFile(name);
+                if (ffname.equals(fname)) {
+                    res0 = allConvs.remove(conv);
+                    break;
+                }
+            }
+        }
+
+        for (int i = 0; i < numFile; i++){
+            String ffname = toFile(headers.get(i)[0]);
+            if (ffname.equals(fname)) {
+                headers.remove(i);
+                MsgThread msgThread = converThreads.remove(i);
+                if(msgThread.filename.equals(fname)) res1 = true;
+                break;
+            }
+        }
+
+        if (res0){
+            rewritCList();
+            numFile--;
+        }
+
+        boolean res2 = clfile.delete();
+
+        return res0 && res1 && res2;
+    }
+
+    private void rewritCList(){
+        String dummy = new String();
+        for (JSONObject conv : allConvs){
+            if( !conv.optString("username").equals(dummy) ) fileWrite(conv, cList, context);
+            dummy = conv.optString("username");
+        }
+    }
+
+    public String showFileAttribute(String fname){
+        for (MsgThread msgThread : converThreads){
+            if (msgThread.filename.equals(fname)) {
+                Date date = new Date(msgThread.time);
+                String res = "Conversation Last Modified at: " + date.toString() + "\n";
+                res = res + "File size is: " + msgThread.file.length()/1024 + " KB\n\n"
+                        + "Favourama \u00AE Native Messaging System\n";
+                return res;
+            }
+        }
+        return "Sorry, Cannot find any information. \n \n" +
+                " Favourama ® Native Messaging System\n";
     }
 
 }
