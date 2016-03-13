@@ -70,22 +70,5 @@ public class MainActivity extends AppCompatActivity {
 
     return super.onOptionsItemSelected(item);
   }
-
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-
-    if (requestCode == 1){
-      if(resultCode == Activity.RESULT_OK){
-         acct = data.getParcelableExtra("result");
-          Intent i = new Intent(this, ActUserPage.class);
-          Bundle b = new Bundle();
-          b.putParcelable("userGoogleInfo", acct);
-          i.putExtras(b);
-          startActivity(i);
-      } else if (resultCode == Activity.RESULT_CANCELED){
-        //This shuold never happen
-      }
-    }
-  }
+  
 }

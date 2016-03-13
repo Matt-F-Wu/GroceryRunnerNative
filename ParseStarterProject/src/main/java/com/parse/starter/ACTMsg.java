@@ -129,7 +129,8 @@ public class ACTMsg extends AppCompatActivity {
                 }
 
                 if(action.equals("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS")){
-                    requestCollector.add(jsonObject.toString());
+                    //Hao to Self: Suspicion is that we don't need to update request list here
+                    // requestCollector.add(jsonObject.toString());
                     //Record all the requests coming during the period where the user is on this activity
                     /*Return all the requests received to ACTRequest to be handled when this activity finishes*/
                 }
@@ -156,7 +157,7 @@ public class ACTMsg extends AppCompatActivity {
                     chatmsg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
                     displayMessage(chatmsg);
 
-                    updateDisplay(jsonObject);
+                    //updateDisplay(jsonObject);
                 }
                 else if(action.equals("com.parse.favourama.HANDLE_FAVOURAMA_RATINGS")){
                     /*The action is rating*/
