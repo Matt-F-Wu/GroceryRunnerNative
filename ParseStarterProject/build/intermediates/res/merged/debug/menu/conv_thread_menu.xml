@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/remove_conv"
+        android:title="Remove This Conversation"
+        android:onClick="removeConv"/>
+    <item android:id="@+id/see_attr"
+        android:title="Conversation Attributes"
+        android:onClick="showAttr"/>
+</menu>

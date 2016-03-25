@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,6 +34,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
@@ -376,9 +378,19 @@ public class ACTRequest extends AppCompatActivity
 
 		if (id == R.id.nav_manage) {
 
-		} else if (id == R.id.nav_send) {
-
-		} else if(id == R.id.nav_delete){
+		} else if (id == R.id.nav_contactus) {
+            String url = "http://www.bodybuilding.com";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+		} else if(id == R.id.nav_tutorial){
+            ImageView iv = (ImageView)findViewById(R.id.tutorial_cam);
+            if(iv.getVisibility()==View.VISIBLE){
+                iv.setVisibility(View.INVISIBLE);
+            }else{
+                iv.setVisibility(View.VISIBLE);
+            }
+        } else if(id == R.id.nav_delete){
 
         } else if(id == R.id.nav_logout){
             ParseUser.logOutInBackground();

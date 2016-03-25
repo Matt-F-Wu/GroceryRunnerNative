@@ -8,6 +8,17 @@
             android:title="Manage Profile" />
     </group>
 
+    <item android:title="Links">
+        <item
+            android:id="@+id/nav_contactus"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Contact Us" />
+        <item
+            android:id="@+id/nav_tutorial"
+            android:icon="@drawable/ic_menu_send"
+            android:title="run tutorial" />
+    </item>
+
 
     <item android:title="Actions">
         <menu>
@@ -15,12 +26,6 @@
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_power_settings_new_black_24dp"
                 android:title="Log out" />
-
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Contact Us" />
-
             <item
                 android:id="@+id/nav_delete"
                 android:icon="@drawable/ic_pause_dark"

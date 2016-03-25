@@ -5,7 +5,6 @@
 -keep class com.parse.starter.MainActivity { <init>(); }
 -keep class com.parse.starter.ACTLoginSelf { <init>(); }
 -keep class com.parse.starter.ACTRequest { <init>(); }
--keep class com.parse.starter.ActUserPage { <init>(); }
 -keep class com.parse.PushService { <init>(); }
 -keep class com.parse.starter.MyPushBroadcastReceiver { <init>(); }
 -keep class com.parse.GcmBroadcastReceiver { <init>(); }

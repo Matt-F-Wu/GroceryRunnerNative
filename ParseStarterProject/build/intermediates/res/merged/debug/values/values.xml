@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
     <string-array name="user_addresses">
+        <item>Current</item>
         <item>Home</item>
-        <item>Work1</item>
-        <item>Work2</item>
-        <item>Jeremy\'s</item>
-        <item>Matthew\'s</item>
-        <item>School</item>
-        <item>Mom\'s</item>
-        <item>Grandpa\'s</item>
+        <item>Work</item>
+        <item>Other</item>
     </string-array>
     <attr format="reference" name="drawerArrowStyle"/>
     <attr format="dimension" name="height"/>

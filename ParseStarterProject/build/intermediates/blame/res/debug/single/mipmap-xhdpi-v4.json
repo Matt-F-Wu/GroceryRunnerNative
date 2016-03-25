@@ -4,15 +4,19 @@
         "source": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     },
     {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\ic_launcher.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
         "merged": "H:\\Favourama3\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\ic_launcher.png",
         "source": "H:\\Favourama3\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     },
     {
-        "merged": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\ic_launcher.png",
-        "source": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
-    },
-    {
         "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\ic_launcher.png",
         "source": "E:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\ic_launcher.png",
+        "source": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     }
 ]

@@ -203,7 +203,7 @@ public class ACTMsg extends AppCompatActivity {
         }
 
         try {
-            msg.put("time", System.currentTimeMillis());
+            msg.put("time", DateFormat.getDateTimeInstance().format(new Date()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
