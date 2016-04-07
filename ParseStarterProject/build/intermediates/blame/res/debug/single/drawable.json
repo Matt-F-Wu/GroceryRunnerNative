@@ -284,8 +284,16 @@
         "source": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable\\typing_box_bg.xml"
     },
     {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable\\arrow2.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable\\arrow2.png"
+    },
+    {
         "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable\\common_plus_signin_btn_icon_dark.xml",
         "source": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.3.0\\res\\drawable\\common_plus_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable\\trans_testing.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable\\trans_testing.png"
     },
     {
         "merged": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable\\common_signin_btn_icon_light.xml",
@@ -432,6 +440,10 @@
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable\\abc_btn_radio_material.xml"
     },
     {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable\\trans_testing2.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable\\trans_testing2.png"
+    },
+    {
         "merged": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_media_route_connecting_mono_dark.xml",
         "source": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\drawable\\mr_ic_media_route_connecting_mono_dark.xml"
     },
@@ -440,12 +452,12 @@
         "source": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable\\requestbox_spinner_background_holo_light.xml"
     },
     {
-        "merged": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable\\requestbox_activated_background_holo_light.xml",
-        "source": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable\\requestbox_activated_background_holo_light.xml"
-    },
-    {
         "merged": "H:\\Favourama3\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable\\requestbox_list_selector_background_transition_holo_light.xml",
         "source": "H:\\Favourama3\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable\\requestbox_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable\\requestbox_activated_background_holo_light.xml",
+        "source": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable\\requestbox_activated_background_holo_light.xml"
     },
     {
         "merged": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_play_light.xml",
@@ -1022,6 +1034,10 @@
     {
         "merged": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
         "source": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable\\abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable\\tut_arrow1.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable\\tut_arrow1.png"
     },
     {
         "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable\\requestbox_list_selector_background_transition_holo_light.xml",

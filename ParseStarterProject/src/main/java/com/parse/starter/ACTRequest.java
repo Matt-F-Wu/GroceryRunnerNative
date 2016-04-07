@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.location.Location;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -35,6 +36,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
@@ -384,12 +386,23 @@ public class ACTRequest extends AppCompatActivity
             i.setData(Uri.parse(url));
             startActivity(i);
 		} else if(id == R.id.nav_tutorial){
-            ImageView iv = (ImageView)findViewById(R.id.tutorial_cam);
-            if(iv.getVisibility()==View.VISIBLE){
-                iv.setVisibility(View.INVISIBLE);
-            }else{
-                iv.setVisibility(View.VISIBLE);
-            }
+            ImageView iv = (ImageView)findViewById(R.id.tut_appbar_blur);
+            iv.setVisibility(View.VISIBLE);
+
+            ImageView iv2 = (ImageView)findViewById(R.id.tut_main_user_space_blur);
+            iv2.setVisibility(View.VISIBLE);
+
+            LinearLayout layout1 = (LinearLayout)findViewById(R.id.tut_overlay_layout);
+            layout1.setVisibility(View.VISIBLE);
+
+            LinearLayout layout2 = (LinearLayout)findViewById(R.id.tut_overlay_layout_askfavour);
+            layout2.setVisibility(View.VISIBLE);
+
+            Button b1 = (Button)findViewById(R.id.tut_ask_favour);
+            b1.setVisibility(View.VISIBLE);
+
+
+
         } else if(id == R.id.nav_delete){
 
         } else if(id == R.id.nav_logout){
@@ -998,6 +1011,63 @@ public class ACTRequest extends AppCompatActivity
             /*HAO: Don't think this will ever happen to be honest*/
         }
     }//onActivityResult
+
+
+
+    //tutorial Jeremy
+    public void onClickTutNext(View v){
+
+        ImageView iv = (ImageView)findViewById(R.id.tut_appbar_blur);
+        iv.setVisibility(View.VISIBLE);
+
+        ImageView iv2 = (ImageView)findViewById(R.id.tut_main_user_space_blur);
+        iv2.setVisibility(View.VISIBLE);
+
+        LinearLayout layout1 = (LinearLayout)findViewById(R.id.tut_overlay_layout);
+        layout1.setVisibility(View.VISIBLE);
+
+        LinearLayout layout2 = (LinearLayout)findViewById(R.id.tut_overlay_layout_askfavour);
+        layout2.setVisibility(View.GONE);
+
+        Button b1 = (Button)findViewById(R.id.tut_ask_favour);
+        b1.setVisibility(View.INVISIBLE);
+
+        LinearLayout layout3 = (LinearLayout)findViewById(R.id.tut_overlay_layout_offerfavour);
+        layout3.setVisibility(View.VISIBLE);
+
+        Button b2 = (Button)findViewById(R.id.tut_offer_favour);
+        b2.setVisibility(View.VISIBLE);
+
+
+    }
+
+    public void onTutorialExit(View view){
+
+        ImageView iv = (ImageView)findViewById(R.id.tut_appbar_blur);
+        iv.setVisibility(View.INVISIBLE);
+
+        ImageView iv2 = (ImageView)findViewById(R.id.tut_main_user_space_blur);
+        iv2.setVisibility(View.INVISIBLE);
+
+        LinearLayout layout1 = (LinearLayout)findViewById(R.id.tut_overlay_layout);
+        layout1.setVisibility(View.INVISIBLE);
+
+        LinearLayout layout2 = (LinearLayout)findViewById(R.id.tut_overlay_layout_askfavour);
+        layout2.setVisibility(View.GONE);
+
+        Button b1 = (Button)findViewById(R.id.tut_ask_favour);
+        b1.setVisibility(View.INVISIBLE);
+
+        LinearLayout layout3 = (LinearLayout)findViewById(R.id.tut_overlay_layout_offerfavour);
+        layout3.setVisibility(View.INVISIBLE);
+
+        Button b2 = (Button)findViewById(R.id.tut_offer_favour);
+        b2.setVisibility(View.GONE);
+
+
+    }
+
+
 
 }
 
