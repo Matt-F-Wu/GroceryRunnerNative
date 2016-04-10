@@ -135,8 +135,8 @@ public class ACTLoginSelf extends AppCompatActivity {
         user.setPassword(pw);
         user.setEmail(email_s);
         //We need to later determine if user.emailVerified == true, This means that our user is not a robot or something.
-        user.put("NumRating", 2.5);
-        user.put("Rating", 1);
+        user.put("NumRating", 1);
+        user.put("Rating", 2.5);
         //setting up extra information associated with the user
 
         if (!missInfo(phone)) user.put("phoneNumber", phone);

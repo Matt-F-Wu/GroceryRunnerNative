@@ -39,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -70,6 +71,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class ACTRequest extends AppCompatActivity
@@ -103,6 +105,7 @@ public class ACTRequest extends AppCompatActivity
     private MsgAdapter msgAdapterReq, msgAdapterChat;
     private ListView listViewRequest, listViewChat;
     MyThreads convList;
+    private HashSet<Integer> edittext_ids;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -247,7 +250,8 @@ public class ACTRequest extends AppCompatActivity
         filter.addAction("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS");
         filter.addAction("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES");
         registerReceiver(receiver, filter);
-		
+
+        edittext_ids = new HashSet<>();
 	}
 
     @Override
@@ -379,7 +383,8 @@ public class ACTRequest extends AppCompatActivity
 		int id = item.getItemId();
 
 		if (id == R.id.nav_manage) {
-
+            flip(3);
+            populate();
 		} else if (id == R.id.nav_contactus) {
             String url = "http://www.bodybuilding.com";
             Intent i = new Intent(Intent.ACTION_VIEW);
@@ -754,6 +759,10 @@ public class ACTRequest extends AppCompatActivity
             Animation bottomUp = AnimationUtils.loadAnimation(this,
                     R.anim.slider_up);
             viewFlipper.setInAnimation(bottomUp);
+        }else{
+            Animation entrance = AnimationUtils.loadAnimation(this,
+                    android.R.anim.slide_in_left);
+            viewFlipper.setInAnimation(entrance);
         }
 
         /*flipperIndex records the current index of the flipper, and decides which fashion should the current flipper fade*/
@@ -766,6 +775,10 @@ public class ACTRequest extends AppCompatActivity
             Animation topDown = AnimationUtils.loadAnimation(this,
                     R.anim.slider_down);
             viewFlipper.setOutAnimation(topDown);
+        }else{
+            Animation exit = AnimationUtils.loadAnimation(this,
+                    android.R.anim.slide_out_right);
+            viewFlipper.setInAnimation(exit);
         }
 
         flipperIndex = index;
@@ -812,10 +825,10 @@ public class ACTRequest extends AppCompatActivity
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(convList.showFileAttribute(file_long_clicked))
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // Do nothing
-            }
-        });
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Do nothing
+                    }
+                });
         builder.create().show();
     }
 
@@ -1067,7 +1080,114 @@ public class ACTRequest extends AppCompatActivity
 
     }
 
+    public void updateUserProfile(View view) {
+        EditText editEmail = (EditText) findViewById(R.id.Email_edit);
+        EditText editPhone = (EditText) findViewById(R.id.phone_edit);
+        EditText editAddr1 = (EditText) findViewById(R.id.edit_addr1);
+        EditText editAddr2 = (EditText) findViewById(R.id.edit_addr2);
+        EditText editAddr3 = (EditText) findViewById(R.id.edit_addr3);
 
+        if (edittext_ids.contains(editEmail.getId())) {
+            user.setEmail(editEmail.getText().toString());
+        }
+
+        if (edittext_ids.contains(editPhone.getId())) {
+            user.put("phoneNumber", editPhone.getText().toString());
+        }
+
+        if (edittext_ids.contains(editAddr1.getId())) {
+            user.put("addr1", editAddr1.getText().toString());
+        }
+
+        if (edittext_ids.contains(editAddr2.getId())) {
+            user.put("addr2", editAddr2.getText().toString());
+        }
+
+        if (edittext_ids.contains(editAddr3.getId())) {
+            user.put("addr3", editAddr3.getText().toString());
+        }
+
+        user.saveInBackground();
+
+        edittext_ids.clear(); //empties the hashset
+
+        flip(0);
+    }
+
+    public void populate(){
+
+        EditText editEmail = (EditText) findViewById(R.id.Email_edit);
+        EditText editPhone = (EditText) findViewById(R.id.phone_edit);
+        EditText editAddr1 = (EditText) findViewById(R.id.edit_addr1);
+        EditText editAddr2 = (EditText) findViewById(R.id.edit_addr2);
+        EditText editAddr3 = (EditText) findViewById(R.id.edit_addr3);
+
+        EditText []addresses = {editAddr1, editAddr2, editAddr3};
+
+        TextView name = (TextView)findViewById(R.id.name_edit);
+        name.setText("wuhao");
+
+        editEmail.setText(user.getEmail());
+        if ( !invalid(user.getString("phoneNumber"))) {
+            editPhone.setText(user.getString("phoneNumber"));
+        }else{
+            editPhone.setText("Not provided");
+        }
+
+        editEmail.addTextChangedListener(new TextWatcherExt(editEmail));
+        editPhone.addTextChangedListener(new TextWatcherExt(editPhone));
+
+        for(int i = 0; i < 3; i++){
+            int j = i+1;
+            if ( !invalid(user.getString("addr" + j)) ){
+                addresses[i].setText(user.getString("addr" + j));
+            }else{
+                addresses[i].setText("Not provided");
+            }
+            addresses[i].addTextChangedListener(new TextWatcherExt(addresses[i]));
+        }
+
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.rb_profile);
+        ratingBar.setRating((float) user.getDouble("Rating"));
+    }
+
+    public void cancelAndLeave(View view) {
+        //flip back
+        flip(0);
+
+        /*Hao: Maybe I should implement a tack to track where I should flip to, always flipping to page 0 seems a bit lazy*/
+    }
+
+    private boolean invalid(String s) {
+        if (s == null || s.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private class TextWatcherExt implements TextWatcher {
+        int id;
+
+        public TextWatcherExt(EditText editText){
+            id = editText.getId();
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            edittext_ids.add(id);
+        }
+    }
 
 }
 
