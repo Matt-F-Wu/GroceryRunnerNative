@@ -13,6 +13,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -92,6 +93,7 @@ public class ACTRequest extends AppCompatActivity
     private GoogleMap mMap;
     private static int UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
     private static int FAST_INTERVAL_CEILING_IN_MILLISECONDS = 2500;
+    private boolean realTime = true;
     private LocationRequest locationRequest;
     private GoogleApiClient locationClient;
     private Location currentLocation;
@@ -136,6 +138,28 @@ public class ACTRequest extends AppCompatActivity
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if (position == 0){
+                    realTime = true;
+                }else{
+                    realTime = false;
+                    installation = ParseInstallation.getCurrentInstallation();
+                    installation.put("location",
+                            GeoAssistant.spitGeoPoint(GeoAssistant.getLocationFromAddress(user.getString("addr" + position)
+                                    , context)));
+                    installation.saveInBackground();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Hao: for now we don't do anything
+            }
+
+        });
 
         configureRequestView();
 
@@ -418,10 +442,10 @@ public class ACTRequest extends AppCompatActivity
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawer.closeDrawer(GravityCompat.START);
 		return true;
-	}
+    }
 
-	@Override
-	public void onMapReady(GoogleMap googleMap) {
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
 		mMap = googleMap;
 
 		mMap.setMyLocationEnabled(true);
@@ -547,6 +571,17 @@ public class ACTRequest extends AppCompatActivity
         addr3 = (CheckBox) pop.findViewById(R.id.addr_three);
         addrSelected = addr1.getText().toString();
 
+        if(!missInfo(user.getString("addr1"))) {
+            addr2.setText(user.getString("addr1"));
+        }else{
+            addr2.setVisibility(View.GONE);
+        }
+        if(!missInfo(user.getString("addr2"))) {
+            addr3.setText(user.getString("addr2"));
+        }else{
+            addr3.setVisibility(View.GONE);
+        }
+
         radius = (SeekBar) pop.findViewById(R.id.radius);
 
         cate1 = (CheckBox) pop.findViewById(R.id.cate_one);
@@ -593,7 +628,12 @@ public class ACTRequest extends AppCompatActivity
 	private void post () {
 		/*Getting all the information needed for this request*/
 		//location variable needs to be retrieved from google map services
-		ParseGeoPoint location = getPILocation(); //
+		ParseGeoPoint location = getPILocation();
+
+        if(location == null){    //address is invalid, cannot obtain lat or long
+            return;
+        }
+
 		String note = postEditText.getText().toString().trim();
 		final JSONObject post = new JSONObject();
 		double rad = (double) (radius.getProgress() + RADIUS_OFFSET)/1000;
@@ -690,9 +730,26 @@ public class ACTRequest extends AppCompatActivity
                 }
             }
         });
-	}
+    }
 
     private ParseGeoPoint getPILocation(){
+        if(!addrSelected.equals("Current Address")){
+            ParseGeoPoint useLocation = GeoAssistant.spitGeoPoint(GeoAssistant.getLocationFromAddress(addrSelected, this));
+
+            if (useLocation == null) {
+                FragmentManager fm = this.getSupportFragmentManager();
+                ErrorDialogFragment errorDialogFragment = new ErrorDialogFragment();
+                errorDialogFragment.setMsg("Cannot obtain the latitude " +
+                        "and longitude of the address selected, abort request." +
+                        " Please try updating your address at profile management!");
+                errorDialogFragment.show(fm, "location_failure");
+                return null;
+            }else{
+                Log.d("AlterLoc", "Latitdude: " + useLocation.getLatitude() + " Longitude: " + useLocation.getLongitude());
+                return useLocation;
+            }
+        }
+
         installation = ParseInstallation.getCurrentInstallation();
         return (ParseGeoPoint) installation.get("location");
     }
@@ -720,6 +777,7 @@ public class ACTRequest extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
+        if(!realTime) return; //Hao: if the user is not using current address do not update his/her current address
         currentLocation = location;
         if (lastLocation != null
                 && geoPointFromLocation(location)
