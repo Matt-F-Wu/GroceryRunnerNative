@@ -37,4 +37,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="spinner_addr_style" >
+        <item name="android:background">@drawable/spinner_addr</item>
+        <item name="android:paddingRight">15dp</item>
+    </style>
+
 </resources>

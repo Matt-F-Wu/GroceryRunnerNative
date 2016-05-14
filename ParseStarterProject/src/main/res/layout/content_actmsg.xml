@@ -66,12 +66,12 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:backgroundTint="#ffffff"
-                android:src="@drawable/star_glowing"
+                android:src="@drawable/star_msg_top"
                 android:onClick="rateFavour"
                 android:layout_marginLeft="5dip"
                 android:layout_marginRight="10dip"
                 android:elevation="3dp"
-                />
+                /><!--android:src="@drawable/star_glowing-->
         </LinearLayout>
 
         <ListView

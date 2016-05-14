@@ -7,14 +7,14 @@
         android:id="@+id/request_row_container"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginRight="50dip"
-        android:layout_marginEnd="50dip"
-        android:layout_marginBottom="25dip"
         android:paddingLeft="20dip"
         android:paddingBottom="10dip"
         android:orientation="vertical"
         android:textSize="12sp"
         android:background="@drawable/speech__bubble_white">
+        <!--android:layout_marginRight="50dip"
+        android:layout_marginEnd="50dip"
+        android:layout_marginBottom="25dip"-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

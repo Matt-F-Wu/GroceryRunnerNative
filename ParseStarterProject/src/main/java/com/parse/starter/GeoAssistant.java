@@ -53,6 +53,8 @@ public class GeoAssistant {
     }
 
     public static ParseGeoPoint spitGeoPoint(ParseObject addr){
+        if (addr == null) return null;
+
         if(addr.get("latitude").toString().equals("NF") || addr.get("longitude").toString().equals("NF") ){
             return null;
         }else{

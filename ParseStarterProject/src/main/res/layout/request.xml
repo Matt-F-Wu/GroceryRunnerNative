@@ -19,7 +19,7 @@
             android:text="Ask For a Favour"
             android:textStyle="bold"
             android:gravity="center"
-            android:textColor="@color/requestbox_color"
+            android:textColor="@color/dark_red"
             />
 
         <TextView
@@ -172,24 +172,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <android.support.v7.widget.AppCompatButton
+            <Button
                 android:id="@+id/post_button"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
-                android:padding="12dp"
+                android:background="@drawable/dark_red_effect"
                 android:text="POST"
-                style="@style/ButtonRequestBox"/>
-            <android.support.v7.widget.AppCompatButton
-                android:layout_width="fill_parent"
+                />
+            <!--style="@style/ButtonRequestBox"-->
+            <Button
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
-                android:padding="12dp"
-                android:textSize="16dp"
+                android:background="@drawable/dark_gray_effect"
                 android:text="Cancel"
                 android:onClick="onClickFlip"/>
         </LinearLayout>

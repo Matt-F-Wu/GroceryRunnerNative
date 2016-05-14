@@ -73,6 +73,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ACTRequest extends AppCompatActivity
@@ -104,10 +105,12 @@ public class ACTRequest extends AppCompatActivity
     private List<String[]> r_values;
     private List<String[]> chatValues;
     private List<Integer> resources, alignment;
+    private LinkedList<Integer> flipperStack;
     private MsgAdapter msgAdapterReq, msgAdapterChat;
     private ListView listViewRequest, listViewChat;
     MyThreads convList;
     private HashSet<Integer> edittext_ids;
+
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -131,20 +134,22 @@ public class ACTRequest extends AppCompatActivity
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-        toolbar.setLogo(R.drawable.new_logo);
+
+        /*Hao to Jeremy: What should we do with the Logo? For now, I hide it*/
+        //toolbar.setLogo(R.drawable.new_logo);
 
         Spinner spinner = (Spinner) findViewById(R.id.topbar_spinner);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_user_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (position == 0){
+                if (position == 0) {
                     realTime = true;
-                }else{
+                } else {
                     realTime = false;
                     installation = ParseInstallation.getCurrentInstallation();
                     installation.put("location",
@@ -160,6 +165,9 @@ public class ACTRequest extends AppCompatActivity
             }
 
         });
+
+        flipperStack = new LinkedList<>();
+        flipperStack.add(0);
 
         configureRequestView();
 
@@ -232,11 +240,11 @@ public class ACTRequest extends AppCompatActivity
                     RequestObject requestObject = new RequestObject(jsonObject);
                     r_values.add(requestObject.spitValueList());
                     if(requestObject.getPurpose().equals("ask")){
-                        alignment.add(-50);
-                        resources.add(R.drawable.speech__bubble_white);
+                        //alignment.add(-50);
+                        resources.add(R.drawable.gray_req_bg); /*speech__bubble_white*/
                     }else{
-                        alignment.add(50);
-                        resources.add(R.drawable.speech__bubble_red);
+                        //alignment.add(50);
+                        resources.add(R.drawable.red_req_bg);
                     }
                     msgAdapterReq.notifyDataSetChanged();
                     //scrollToBottom(msgAdapterReq, listViewRequest);
@@ -372,7 +380,11 @@ public class ACTRequest extends AppCompatActivity
 		if (drawer.isDrawerOpen(GravityCompat.START)) {
 			drawer.closeDrawer(GravityCompat.START);
 		} else {
-			super.onBackPressed();
+            if(flipperStack.size() > 1){
+                flipback();
+            }else {
+                super.onBackPressed();
+            }
 		}
 	}
 
@@ -840,7 +852,15 @@ public class ACTRequest extends AppCompatActivity
         }
 
         flipperIndex = index;
+        flipperStack.add(index);
         viewFlipper.setDisplayedChild(index);
+    }
+
+    public void flipback(){
+        int index = flipperStack.get(flipperStack.size() - 2);
+        flip(index);
+        flipperStack.removeLast(); //removes the one you just added
+        flipperStack.removeLast(); //remove the one you are returning from
     }
 
     public void onClickNewOffer(View view) {
@@ -927,10 +947,10 @@ public class ACTRequest extends AppCompatActivity
                 "5"});
 
         resources = new ArrayList<>();
-        resources.add(R.drawable.speech__bubble_white);
+        resources.add(R.drawable.gray_req_bg);
 
-        alignment = new ArrayList<>();
-        alignment.add(-50);
+        alignment = null; //new ArrayList<>();
+        //alignment.add(-50);
 
         msgAdapterReq = new MsgAdapter(this, R.layout.request_item, resources, alignment, fields, r_values);
 
@@ -1223,6 +1243,7 @@ public class ACTRequest extends AppCompatActivity
             return false;
         }
     }
+
 
     private class TextWatcherExt implements TextWatcher {
         int id;

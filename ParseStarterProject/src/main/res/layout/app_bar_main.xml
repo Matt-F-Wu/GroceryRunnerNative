@@ -27,18 +27,19 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
 
-            <Spinner
+            <!--<Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:gravity="right"
                 android:id="@+id/topbar_spinner"
-                /> <!-- android:spinnerMode="dialog"-->
+                />--> <!-- android:spinnerMode="dialog"-->
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:layout_marginRight="20dip"
                     android:background="#00ffffff"
                     android:id="@+id/topbar_textview"
                     android:text="0"
@@ -85,19 +86,20 @@
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
-            android:padding="10dip"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:id="@+id/main_user_space">
+            android:id="@+id/main_user_space"><!--android:padding="10dip" was there before-->
 
             <ListView
                 android:id="@+id/show_requests"
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
                 android:layout_weight="1"
-                android:divider="@null"
+                android:dividerHeight="3dip"
+                android:background="@color/userBottomBar"
                 android:stackFromBottom="true"
                 android:transcriptMode="normal">
+                <!--The background color is just for now, later we will set divider, android:divider="@null"-->
 
             </ListView>
 
@@ -105,8 +107,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <android.support.v7.widget.AppCompatButton
+                android:orientation="horizontal"
+                android:background="@color/userBottomBar">
+                <!--<android.support.v7.widget.AppCompatButton
                     android:id="@+id/ask_favour"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -126,7 +129,46 @@
                     android:textAllCaps="false"
                     android:backgroundTint="@color/requestbox_color"
                     android:onClick="onClickNewOffer"
+                    />-->
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="#00ffffff"
+                    android:textColor="#ffffff"
+                    android:textAllCaps="false"
+                    android:text="Ask Favour"
+                    android:onClick="onClickNewRequest"/>
+                <View
+                    android:layout_width="4dip"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="7dip"
+                    android:layout_marginBottom="7dip"
+                    android:background="@drawable/bottom_bar_separator"
                     />
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="#00ffffff"
+                    android:textColor="#ffffff"
+                    android:textAllCaps="false"
+                    android:text="Offer Favour"
+                    android:onClick="onClickNewOffer"/>
+                <View
+                    android:layout_width="4dip"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="7dip"
+                    android:layout_marginBottom="7dip"
+                    android:background="@drawable/bottom_bar_separator"
+                    />
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/topbar_spinner"
+                    style="@style/spinner_addr_style"
+                    android:textColor="#ffffff"
+                    android:layout_weight="2" />
             </LinearLayout>
 
         </LinearLayout>
