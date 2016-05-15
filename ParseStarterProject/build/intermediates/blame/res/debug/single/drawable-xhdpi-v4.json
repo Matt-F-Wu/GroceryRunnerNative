@@ -740,6 +740,10 @@
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-cast\\8.1.0\\res\\drawable-xhdpi\\cast_ic_notification_2.png"
     },
     {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\red_req_bg.9.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable-xhdpi\\red_req_bg.9.png"
+    },
+    {
         "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_signin_btn_icon_disabled_light.9.png",
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.1.0\\res\\drawable-xhdpi\\common_signin_btn_icon_disabled_light.9.png"
     },
@@ -1080,6 +1084,10 @@
         "source": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xhdpi\\abc_list_pressed_holo_dark.9.png"
     },
     {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\gray_req_bg.9.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable-xhdpi\\gray_req_bg.9.png"
+    },
+    {
         "merged": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_divider_mtrl_alpha.9.png",
         "source": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xhdpi\\abc_list_divider_mtrl_alpha.9.png"
     },
@@ -1414,6 +1422,10 @@
     {
         "merged": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_media_route_on_1_mono_dark.png",
         "source": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\drawable-xhdpi\\ic_media_route_on_1_mono_dark.png"
+    },
+    {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_close_black_24dp.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable-xhdpi\\ic_close_black_24dp.png"
     },
     {
         "merged": "H:\\Favourama3\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\common_signin_btn_icon_pressed_dark.9.png",
@@ -2336,6 +2348,10 @@
         "source": "H:\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable-xhdpi\\requestbox_btn_rating_star_off_focused_holo_light.png"
     },
     {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_check_black_24dp.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable-xhdpi\\ic_check_black_24dp.png"
+    },
+    {
         "merged": "H:\\Favourama3\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\requestbox_btn_default_disabled_holo_light.9.png",
         "source": "H:\\Favourama3\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable-xhdpi\\requestbox_btn_default_disabled_holo_light.9.png"
     },
@@ -2950,6 +2966,10 @@
     {
         "merged": "H:\\Favourama3\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\abc_list_selector_disabled_holo_dark.9.png",
         "source": "H:\\Favourama3\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xhdpi\\abc_list_selector_disabled_holo_dark.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_room_white_24dp.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\drawable-xhdpi\\ic_room_white_24dp.png"
     },
     {
         "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\requestbox_btn_default_normal_holo_light.9.png",

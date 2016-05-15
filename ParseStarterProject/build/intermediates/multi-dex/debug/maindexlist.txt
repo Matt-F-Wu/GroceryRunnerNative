@@ -30,6 +30,7 @@ com/google/android/gms/ads/internal/request/zza.class
 android/support/annotation/XmlRes.class
 android/support/v4/view/ViewCompatICSMr1.class
 com/google/android/gms/maps/OnMapReadyCallback.class
+com/parse/starter/ACTRequest$12.class
 com/google/android/gms/analytics/Logger$LogLevel.class
 android/support/annotation/BoolRes.class
 android/support/v4/media/session/MediaSessionCompat$Callback.class
@@ -315,6 +316,7 @@ android/support/v4/app/NotificationCompat.class
 com/google/android/gms/ads/internal/zzn.class
 android/support/design/widget/Snackbar$5.class
 android/support/design/widget/CoordinatorLayout$SavedState.class
+android/support/v4/app/DialogFragment.class
 com/google/android/gms/common/annotation/KeepName.class
 com/parse/ParseCallback1.class
 android/support/design/R$anim.class
@@ -402,6 +404,7 @@ com/google/android/gms/cast/Cast$CastApi$zza.class
 android/support/design/widget/CoordinatorLayout$Behavior.class
 android/support/v7/app/ActionBar.class
 android/support/design/widget/ValueAnimatorCompat$AnimatorUpdateListener.class
+com/parse/starter/ErrorDialogFragment.class
 com/google/android/gms/internal/zzgn.class
 com/parse/ParseObject.class
 android/support/design/widget/CoordinatorLayoutInsetsHelper.class
@@ -445,9 +448,9 @@ com/google/android/gms/internal/zzcr.class
 com/google/android/gms/drive/DriveApi.class
 android/support/design/widget/TabLayout$ViewPagerOnTabSelectedListener.class
 android/support/v4/view/ViewCompatJellybeanMr2.class
-android/support/v4/media/MediaMetadataCompatApi21$Builder.class
 com/google/android/gms/internal/zzje.class
 com/google/android/gms/maps/CameraUpdateFactory.class
+android/support/v4/media/MediaMetadataCompatApi21$Builder.class
 com/parse/PushService$1.class
 com/google/android/gms/internal/zzgy.class
 android/support/v4/media/MediaMetadataCompat$RatingKey.class
@@ -754,6 +757,7 @@ com/google/android/gms/common/api/GoogleApiClient$Builder.class
 android/support/design/widget/TabLayout$TabView.class
 com/google/android/gms/internal/zzdy.class
 android/support/v4/media/RatingCompat$1.class
+com/parse/starter/ACTRequest$TextWatcherExt.class
 android/support/design/widget/MathUtils.class
 android/support/annotation/FloatRange.class
 com/parse/RequestPasswordResetCallback.class
@@ -791,8 +795,8 @@ com/google/android/gms/internal/zzay.class
 com/google/android/gms/internal/zzqd.class
 com/google/android/gms/internal/zzfb.class
 android/support/v7/widget/RecyclerView$2.class
-android/support/v4/media/MediaBrowserCompat.class
 android/support/design/widget/AppBarLayout$LayoutParams$ScrollFlags.class
+android/support/v4/media/MediaBrowserCompat.class
 com/google/android/gms/internal/zzgu.class
 com/google/android/gms/wallet/firstparty/GetBuyFlowInitializationTokenRequest.class
 android/support/v4/view/ViewCompatJellybeanMr1.class

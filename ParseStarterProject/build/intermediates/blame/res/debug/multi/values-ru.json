@@ -2214,7 +2214,7 @@
         ]
     },
     {
-        "outputFile": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\values-ru\\values-ru.xml",
+        "outputFile": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\values-ru\\values-ru.xml",
         "map": [
             {
                 "to": {
@@ -2225,7 +2225,7 @@
                     "endOffset": 215
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -2244,7 +2244,7 @@
                     "endOffset": 323
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -2263,7 +2263,7 @@
                     "endOffset": 446
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -2282,7 +2282,7 @@
                     "endOffset": 548
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -2301,7 +2301,7 @@
                     "endOffset": 660
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -2320,7 +2320,7 @@
                     "endOffset": 746
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -2339,7 +2339,7 @@
                     "endOffset": 851
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -2358,7 +2358,7 @@
                     "endOffset": 971
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -2377,7 +2377,7 @@
                     "endOffset": 1050
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -2396,7 +2396,7 @@
                     "endOffset": 1128
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -2415,7 +2415,7 @@
                     "endOffset": 1208
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
@@ -2434,7 +2434,7 @@
                     "endOffset": 1314
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -2453,7 +2453,7 @@
                     "endOffset": 1422
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -2472,7 +2472,7 @@
                     "endOffset": 1520
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
@@ -2491,7 +2491,7 @@
                     "endOffset": 1629
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -2510,7 +2510,7 @@
                     "endOffset": 1735
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -2529,7 +2529,7 @@
                     "endOffset": 1843
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -2548,7 +2548,7 @@
                     "endOffset": 1979
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -2567,7 +2567,7 @@
                     "endOffset": 2079
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -2586,7 +2586,7 @@
                     "endOffset": 2287
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -2605,7 +2605,7 @@
                     "endOffset": 2466
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -2624,7 +2624,7 @@
                     "endOffset": 2579
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -2643,7 +2643,7 @@
                     "endOffset": 2826
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
@@ -2662,7 +2662,7 @@
                     "endOffset": 2935
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
@@ -2681,7 +2681,7 @@
                     "endOffset": 3129
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -2700,7 +2700,7 @@
                     "endOffset": 3256
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -2719,7 +2719,7 @@
                     "endOffset": 3430
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -2738,7 +2738,7 @@
                     "endOffset": 3542
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -2757,7 +2757,7 @@
                     "endOffset": 3777
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -2776,7 +2776,7 @@
                     "endOffset": 4012
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -2795,7 +2795,7 @@
                     "endOffset": 4141
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -2814,7 +2814,7 @@
                     "endOffset": 4299
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -2833,7 +2833,7 @@
                     "endOffset": 4432
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -2852,7 +2852,7 @@
                     "endOffset": 4600
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -2871,7 +2871,7 @@
                     "endOffset": 4760
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -2890,7 +2890,7 @@
                     "endOffset": 4878
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -2909,7 +2909,7 @@
                     "endOffset": 5057
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -2928,7 +2928,7 @@
                     "endOffset": 5191
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -2947,7 +2947,7 @@
                     "endOffset": 5370
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
@@ -2966,7 +2966,7 @@
                     "endOffset": 5490
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 31,
                         "startColumn": 4,
@@ -2985,7 +2985,7 @@
                     "endOffset": 5634
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -3004,7 +3004,7 @@
                     "endOffset": 5905
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -3023,7 +3023,7 @@
                     "endOffset": 6029
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -3042,7 +3042,7 @@
                     "endOffset": 6138
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -3061,7 +3061,7 @@
                     "endOffset": 6332
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
@@ -3080,7 +3080,7 @@
                     "endOffset": 6460
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -3099,7 +3099,7 @@
                     "endOffset": 6689
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -3118,7 +3118,7 @@
                     "endOffset": 6822
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -3137,7 +3137,7 @@
                     "endOffset": 6920
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
@@ -3156,7 +3156,7 @@
                     "endOffset": 7053
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -3175,7 +3175,7 @@
                     "endOffset": 7161
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -3194,7 +3194,7 @@
                     "endOffset": 7273
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -3213,7 +3213,7 @@
                     "endOffset": 7377
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -3232,7 +3232,7 @@
                     "endOffset": 7464
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -3251,7 +3251,7 @@
                     "endOffset": 7561
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -3270,7 +3270,7 @@
                     "endOffset": 7662
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -3289,7 +3289,7 @@
                     "endOffset": 7771
                 },
                 "from": {
-                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-wallet\\8.1.0\\res\\values-ru\\wallet_strings.xml",
+                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-wallet\\8.1.0\\res\\values-ru\\wallet_strings.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -4390,7 +4390,7 @@
         ]
     },
     {
-        "outputFile": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\values-ru\\values-ru.xml",
+        "outputFile": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\values-ru\\values-ru.xml",
         "map": [
             {
                 "to": {
@@ -4401,7 +4401,7 @@
                     "endOffset": 215
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -4420,7 +4420,7 @@
                     "endOffset": 323
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -4439,7 +4439,7 @@
                     "endOffset": 446
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -4458,7 +4458,7 @@
                     "endOffset": 548
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -4477,7 +4477,7 @@
                     "endOffset": 660
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -4496,7 +4496,7 @@
                     "endOffset": 746
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -4515,7 +4515,7 @@
                     "endOffset": 851
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -4534,7 +4534,7 @@
                     "endOffset": 971
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -4553,7 +4553,7 @@
                     "endOffset": 1050
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -4572,7 +4572,7 @@
                     "endOffset": 1128
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -4591,7 +4591,7 @@
                     "endOffset": 1208
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
@@ -4610,7 +4610,7 @@
                     "endOffset": 1314
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -4629,7 +4629,7 @@
                     "endOffset": 1422
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -4648,7 +4648,7 @@
                     "endOffset": 1520
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
@@ -4667,7 +4667,7 @@
                     "endOffset": 1629
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -4686,7 +4686,7 @@
                     "endOffset": 1735
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -4705,7 +4705,7 @@
                     "endOffset": 1843
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -4724,7 +4724,7 @@
                     "endOffset": 1979
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -4743,7 +4743,7 @@
                     "endOffset": 2079
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -4762,7 +4762,7 @@
                     "endOffset": 2287
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -4781,7 +4781,7 @@
                     "endOffset": 2466
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -4800,7 +4800,7 @@
                     "endOffset": 2579
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -4819,7 +4819,7 @@
                     "endOffset": 2826
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 30,
                         "startColumn": 4,
@@ -4838,7 +4838,7 @@
                     "endOffset": 2935
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
@@ -4857,7 +4857,7 @@
                     "endOffset": 3129
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -4876,7 +4876,7 @@
                     "endOffset": 3256
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -4895,7 +4895,7 @@
                     "endOffset": 3430
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -4914,7 +4914,7 @@
                     "endOffset": 3542
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -4933,7 +4933,7 @@
                     "endOffset": 3777
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -4952,7 +4952,7 @@
                     "endOffset": 4012
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -4971,7 +4971,7 @@
                     "endOffset": 4141
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -4990,7 +4990,7 @@
                     "endOffset": 4299
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -5009,7 +5009,7 @@
                     "endOffset": 4432
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -5028,7 +5028,7 @@
                     "endOffset": 4600
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -5047,7 +5047,7 @@
                     "endOffset": 4760
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -5066,7 +5066,7 @@
                     "endOffset": 4878
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -5085,7 +5085,7 @@
                     "endOffset": 5057
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -5104,7 +5104,7 @@
                     "endOffset": 5191
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -5123,7 +5123,7 @@
                     "endOffset": 5370
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 32,
                         "startColumn": 4,
@@ -5142,7 +5142,7 @@
                     "endOffset": 5490
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 31,
                         "startColumn": 4,
@@ -5161,7 +5161,7 @@
                     "endOffset": 5634
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -5180,7 +5180,7 @@
                     "endOffset": 5905
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -5199,7 +5199,7 @@
                     "endOffset": 6029
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -5218,7 +5218,7 @@
                     "endOffset": 6138
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -5237,7 +5237,7 @@
                     "endOffset": 6332
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
@@ -5256,7 +5256,7 @@
                     "endOffset": 6460
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -5275,7 +5275,7 @@
                     "endOffset": 6689
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -5294,7 +5294,7 @@
                     "endOffset": 6822
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -5313,7 +5313,7 @@
                     "endOffset": 6920
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\8.1.0\\res\\values-ru\\common_strings.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
@@ -5332,7 +5332,7 @@
                     "endOffset": 7053
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -5351,7 +5351,7 @@
                     "endOffset": 7161
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -5370,7 +5370,7 @@
                     "endOffset": 7273
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -5389,7 +5389,7 @@
                     "endOffset": 7377
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
@@ -5408,7 +5408,7 @@
                     "endOffset": 7464
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -5427,7 +5427,7 @@
                     "endOffset": 7561
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -5446,7 +5446,7 @@
                     "endOffset": 7662
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\values-ru\\values-ru.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -5465,7 +5465,7 @@
                     "endOffset": 7771
                 },
                 "from": {
-                    "file": "H:\\Favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-wallet\\8.1.0\\res\\values-ru\\wallet_strings.xml",
+                    "file": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-wallet\\8.1.0\\res\\values-ru\\wallet_strings.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,

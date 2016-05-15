@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:9:1-98:12
+ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:9:1-99:12
 	xmlns:android
 		ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:9:11-69
 	package
@@ -86,7 +86,7 @@ ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseS
 	android:name
 		ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:28:22-77
 application
-ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:30:5-96:19
+ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:30:5-97:19
 MERGED from [com.google.android.gms:play-services-measurement:8.1.0] C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.1.0\AndroidManifest.xml:26:5-46:19
 MERGED from [com.google.android.gms:play-services-basement:8.1.0] C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\AndroidManifest.xml:20:5-24:19
 MERGED from [com.android.support:support-v4:23.1.1] C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
@@ -252,7 +252,9 @@ ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseS
 	android:name
 		ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:49:27-74
 activity#com.parse.starter.ACTLoginSelf
-ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:52:9-59
+ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:52:9-102
+	android:parentActivityName
+		ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:52:48-90
 	android:name
 		ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:52:19-47
 meta-data#com.google.android.gms.version
@@ -302,6 +304,8 @@ MERGED from [com.google.android.gms:play-services-basement:8.1.0] C:\Users\Jerem
 		ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:56:13-66
 activity#com.parse.starter.ACTRequest
 ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:58:9-63:20
+	android:parentActivityName
+		ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:58:46-88
 	android:name
 		ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:58:19-45
 intent-filter#com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES+com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS
@@ -365,11 +369,13 @@ ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseS
 	android:name
 		ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:88:27-59
 activity#com.parse.starter.ACTMsg
-ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:92:9-95:56
+ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:92:9-96:65
 	android:label
 		ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:94:13-58
 	android:theme
 		ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:95:13-44
+	android:parentActivityName
+		ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:96:13-53
 	android:name
 		ADDED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:93:13-35
 uses-sdk
@@ -603,7 +609,7 @@ MERGED from [com.google.android.gms:play-services-maps:8.1.0] C:\Users\Jeremy\Do
 	android:glEsVersion
 		ADDED from [com.google.android.gms:play-services-maps:8.1.0] C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.1.0\AndroidManifest.xml:24:8-40
 android:uses-permission#android.permission.READ_EXTERNAL_STORAGE
-IMPLIED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:9:1-98:12 reason: com.google.android.gms.maps requested WRITE_EXTERNAL_STORAGE
+IMPLIED from C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:9:1-99:12 reason: com.google.android.gms.maps requested WRITE_EXTERNAL_STORAGE
 uses-permission#android.permission.USE_CREDENTIALS
 ADDED from [com.google.android.gms:play-services-wallet:8.1.0] C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\8.1.0\AndroidManifest.xml:22:5-73
 	android:name

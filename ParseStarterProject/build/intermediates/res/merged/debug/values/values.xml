@@ -61,7 +61,9 @@
     <color name="common_signin_btn_light_text_disabled">#FFAAAAAA</color>
     <color name="common_signin_btn_light_text_focused">#FF737373</color>
     <color name="common_signin_btn_light_text_pressed">@android:color/white</color>
-    <color name="dark_red">#ff4444</color>
+    <color name="dark_red">#c53a2a</color>
+    <color name="dark_red_focused">#d44535</color>
+    <color name="dark_red_pressed">#d8584a</color>
     <color name="design_fab_shadow_end_color">@android:color/transparent</color>
     <color name="design_fab_shadow_mid_color">#14000000</color>
     <color name="design_fab_shadow_start_color">#44000000</color>
@@ -112,6 +114,9 @@
     <color name="switch_thumb_disabled_material_light">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
+    <color name="userBottomBar">#909090</color>
+    <color name="userBottomBar_focused">#ababab</color>
+    <color name="userBottomBar_pressed">#c0c0c0</color>
     <color name="wallet_bright_foreground_disabled_holo_light">#ffb2b2b2</color>
     <color name="wallet_bright_foreground_holo_dark">#fff3f3f3</color>
     <color name="wallet_bright_foreground_holo_light">#ff000000</color>
@@ -1979,4 +1984,8 @@
     <item name="android:ratingBarStyle">@style/RatingBarRequestBox</item>
 
   </style>
+    <style name="spinner_addr_style">
+        <item name="android:background">@drawable/spinner_addr</item>
+        <item name="android:paddingRight">15dp</item>
+    </style>
 </resources>

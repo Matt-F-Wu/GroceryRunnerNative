@@ -65,13 +65,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.parse.starter.ACTLoginSelf" />
+        <activity
+            android:name="com.parse.starter.ACTLoginSelf"
+            android:parentActivityName="com.parse.starter.MainActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name="com.parse.starter.ACTRequest" >
+        <activity
+            android:name="com.parse.starter.ACTRequest"
+            android:parentActivityName="com.parse.starter.ACTLoginSelf" >
             <intent-filter>
                 <action android:name="com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS" />
                 <action android:name="com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES" />
@@ -108,6 +112,7 @@
         <activity
             android:name="com.parse.starter.ACTMsg"
             android:label="@string/title_activity_actmsg"
+            android:parentActivityName="com.parse.starter.ACTRequest"
             android:theme="@style/AppTheme" />
 
         <provider
