@@ -31,6 +31,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_actmsg">ACTMsg</string>
     <string name="send_b">SEND</string>
+    <string name="link_log_in"><u>Log In</u></string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

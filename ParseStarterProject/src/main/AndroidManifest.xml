@@ -55,7 +55,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".ACTRequest" android:parentActivityName=".ACTLoginSelf">
+        <activity android:name=".ACTRequest" android:parentActivityName=".ACTLoginSelf" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS"></action>
                 <action android:name="com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES"></action>

@@ -35,8 +35,8 @@ public class ACTLoginSelf extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         alertMsg = (TextView) findViewById(R.id.alert_msg);
         alertMsg.setTextColor(Color.parseColor("#ff0000"));
-        addr2 = null;
-        addr3 = null;
+        addr2 = (EditText) findViewById(R.id.addr_two);
+        addr3 = (EditText) findViewById(R.id.addr_three);
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null && currentUser.getUsername() != null) {
             // Go to User Main Page directly
@@ -140,9 +140,9 @@ public class ACTLoginSelf extends AppCompatActivity {
         //setting up extra information associated with the user
 
         if (!missInfo(phone)) user.put("phoneNumber", phone);
-        if (!missInfo(addr1_s)) user.put("addr1", GeoAssistant.getLocationFromAddress(addr1_s, this));
-        if (!missInfo(addr2_s)) user.put("addr2", GeoAssistant.getLocationFromAddress(addr2_s, this));
-        if (!missInfo(addr3_s)) user.put("addr3", GeoAssistant.getLocationFromAddress(addr3_s, this));
+        if (!missInfo(addr1_s)) user.put("addr1", addr1_s);
+        if (!missInfo(addr2_s)) user.put("addr2", addr2_s);
+        if (!missInfo(addr3_s)) user.put("addr3", addr3_s);
         Log.d("SIGNING UP", uname + " PLEASE WAIT");
 
         user.signUpInBackground(new SignUpCallback() {
@@ -178,5 +178,10 @@ public class ACTLoginSelf extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),
                 "Sorry our server is having a glitch, please try later!", Toast.LENGTH_LONG)
                 .show();
+    }
+
+    public void flipToLogIn(View view) {
+        ViewFlipper vf = (ViewFlipper) findViewById(R.id.viewFlipper);
+        vf.setDisplayedChild(0);
     }
 }

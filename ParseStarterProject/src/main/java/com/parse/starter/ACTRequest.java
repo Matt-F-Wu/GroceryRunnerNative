@@ -118,10 +118,6 @@ public class ACTRequest extends AppCompatActivity
 		setContentView(R.layout.user_main_page);
 		// Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
-        //I commented out this map because it is causing runtime failures.
-		/*SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-				.findFragmentById(R.id.map);
-		mapFragment.getMapAsync(this);*/
 
         // Associate this user with this device
         installation = ParseInstallation.getCurrentInstallation();
@@ -138,7 +134,7 @@ public class ACTRequest extends AppCompatActivity
         /*Hao to Jeremy: What should we do with the Logo? For now, I hide it*/
         //toolbar.setLogo(R.drawable.new_logo);
 
-        Spinner spinner = (Spinner) findViewById(R.id.topbar_spinner);
+        final Spinner spinner = (Spinner) findViewById(R.id.topbar_spinner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_user_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -152,10 +148,39 @@ public class ACTRequest extends AppCompatActivity
                 } else {
                     realTime = false;
                     installation = ParseInstallation.getCurrentInstallation();
-                    installation.put("location",
-                            GeoAssistant.spitGeoPoint(GeoAssistant.getLocationFromAddress(user.getString("addr" + position)
-                                    , context)));
-                    installation.saveInBackground();
+                    String streetAddr = user.getString("addr" + position);
+                    if (missInfo(streetAddr)){
+                        realTime = true;
+                        spinner.setSelection(0);
+                        /*If the selection is not valid, automatically go back to selecting using current address*/
+                        showErrorDialog("Location Conversion Failed", "Sorry, you have not provided this address to us" +
+                                ", Please add it to your profile", new FCallback() {
+                            @Override
+                            public void callBack() {
+                                flip(3);
+                                populate_profile();
+                            }
+                        });
+                    } else {
+                        ParseGeoPoint locPoint = GeoAssistant.spitGeoPoint(GeoAssistant.getLocationFromAddress(streetAddr, context));
+                        if (locPoint == null) {
+                            realTime = true;
+                            spinner.setSelection(0);
+                        /*If the selection is not valid, automatically go back to selecting using current address*/
+                            showErrorDialog("Location Conversion Failed", "Sorry, Could not " +
+                                    "convert your selected address to latitude/longitude >_<," +
+                                    " Please try to revise this address.", new FCallback() {
+                                @Override
+                                public void callBack() {
+                                    flip(3);
+                                    populate_profile();
+                                }
+                            });
+                        } else {
+                            installation.put("location", locPoint);
+                            installation.saveInBackground();
+                        }
+                    }
                 }
             }
 
@@ -284,6 +309,7 @@ public class ACTRequest extends AppCompatActivity
         registerReceiver(receiver, filter);
 
         edittext_ids = new HashSet<>();
+
 	}
 
     @Override
@@ -293,6 +319,21 @@ public class ACTRequest extends AppCompatActivity
         Log.d("START", "!!!!!!!!!!!!!!!!!!!!!!!! + " + GoogleApiAvailability.getInstance().GOOGLE_PLAY_SERVICES_VERSION_CODE);
     }
 
+
+    @Override
+    protected void onNewIntent(Intent intent){
+        /*Handle the intent sent from notifications*/
+        Bundle b = intent.getExtras();
+        if (b != null) {
+            int enter = b.getInt("enter");
+            if(enter == 1){
+                flip(0);
+            }else if(enter == 2){
+                flip(1);
+                clearCounter();
+            }
+        }
+    }
 
     @Override
     public void onStop() {
@@ -420,7 +461,7 @@ public class ACTRequest extends AppCompatActivity
 
 		if (id == R.id.nav_manage) {
             flip(3);
-            populate();
+            populate_profile();
 		} else if (id == R.id.nav_contactus) {
             String url = "http://www.bodybuilding.com";
             Intent i = new Intent(Intent.ACTION_VIEW);
@@ -444,8 +485,8 @@ public class ACTRequest extends AppCompatActivity
 
 
 
-        } else if(id == R.id.nav_delete){
-
+        } else if (id == R.id.nav_delete){
+            deleteUser();
         } else if(id == R.id.nav_logout){
             ParseUser.logOutInBackground();
             finish();
@@ -460,7 +501,7 @@ public class ACTRequest extends AppCompatActivity
     public void onMapReady(GoogleMap googleMap) {
 		mMap = googleMap;
 
-		mMap.setMyLocationEnabled(true);
+        mMap.setMyLocationEnabled(true);
 
 		// Add a marker in Sydney and move the camera
 		LatLng myhome = new LatLng(43.6647340, -79.3842040);
@@ -729,11 +770,11 @@ public class ACTRequest extends AppCompatActivity
 		insQuery.whereWithinKilometers("location", myPoint, rad);
 				  
 		//insQuery.include("user"); can uncomment this line if we want to retrieve the user object
-		insQuery.orderByDescending("createdAt");
-		//insQuery.setLimit(MAX_QUERY_RESULTS);
+        insQuery.orderByDescending("createdAt");
+        //insQuery.setLimit(MAX_QUERY_RESULTS);
         Log.d("QUERY: ", insQuery.getClassName());
-		
-		ParsePush.sendDataInBackground(post, insQuery, new SendCallback() {
+
+        ParsePush.sendDataInBackground(post, insQuery, new SendCallback() {
             public void done(ParseException e) {
                 if (e == null) {
                     Log.d("push", "Request Sent!");
@@ -744,17 +785,28 @@ public class ACTRequest extends AppCompatActivity
         });
     }
 
+    private void showErrorDialog(String tag, String message, FCallback callback){
+        FragmentManager fm = this.getSupportFragmentManager();
+        ErrorDialogFragment errorDialogFragment = new ErrorDialogFragment();
+        errorDialogFragment.setMsg(message);
+        if (callback != null) {errorDialogFragment.setfCallback(callback);}
+        errorDialogFragment.show(fm, "location_failure");
+    }
+
     private ParseGeoPoint getPILocation(){
         if(!addrSelected.equals("Current Address")){
             ParseGeoPoint useLocation = GeoAssistant.spitGeoPoint(GeoAssistant.getLocationFromAddress(addrSelected, this));
 
             if (useLocation == null) {
-                FragmentManager fm = this.getSupportFragmentManager();
-                ErrorDialogFragment errorDialogFragment = new ErrorDialogFragment();
-                errorDialogFragment.setMsg("Cannot obtain the latitude " +
+                showErrorDialog("location_failure", "Cannot obtain the latitude " +
                         "and longitude of the address selected, abort request." +
-                        " Please try updating your address at profile management!");
-                errorDialogFragment.show(fm, "location_failure");
+                        " Please try updating your address at profile management!", new FCallback() {
+                    @Override
+                    public void callBack() {
+                        flip(3);
+                        populate_profile();
+                    }
+                });
                 return null;
             }else{
                 Log.d("AlterLoc", "Latitdude: " + useLocation.getLatitude() + " Longitude: " + useLocation.getLongitude());
@@ -1192,7 +1244,7 @@ public class ACTRequest extends AppCompatActivity
         flip(0);
     }
 
-    public void populate(){
+    public void populate_profile(){
 
         EditText editEmail = (EditText) findViewById(R.id.Email_edit);
         EditText editPhone = (EditText) findViewById(R.id.phone_edit);
@@ -1266,6 +1318,44 @@ public class ACTRequest extends AppCompatActivity
         public void afterTextChanged(Editable s) {
             edittext_ids.add(id);
         }
+    }
+
+    private void deleteUser(){
+        FragmentManager fm = this.getSupportFragmentManager();
+        ErrorDialogFragment errorDialogFragment = new ErrorDialogFragment();
+        errorDialogFragment.setMsg("Are you sure you would like to delete your account?");
+        errorDialogFragment.setPos("Yes");
+        errorDialogFragment.setNag("Cancel");
+        errorDialogFragment.setfCallback(new FCallback() {
+            @Override
+            public void callBack() {
+                    confirmDelete();
+            }
+        });
+        errorDialogFragment.show(fm, "location_failure");
+    }
+
+    private void confirmDelete(){
+        FragmentManager fm = this.getSupportFragmentManager();
+        ErrorDialogFragment errorDialogFragment = new ErrorDialogFragment();
+        errorDialogFragment.setMsg("Please confirm again, click yes to delete.");
+        errorDialogFragment.setPos("Yes");
+        errorDialogFragment.setNag("Cancel");
+        errorDialogFragment.setfCallback(new FCallback() {
+            @Override
+            public void callBack() {
+                try {
+                    user.delete();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),
+                            "Unable to delete account, please try again later", Toast.LENGTH_LONG)
+                            .show();
+                }
+                finish();
+            }
+        });
+        errorDialogFragment.show(fm, "location_failure");
     }
 
 }
