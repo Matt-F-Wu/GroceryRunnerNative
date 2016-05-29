@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:id="@+id/topbar_imageview"
-                    android:src="@drawable/ic_chat_bubble_white_24dp"
+                    android:src="@drawable/chat_icon"
                     android:background="#00ffffff"
                     android:onClick="onChatButtonClicked" />
 

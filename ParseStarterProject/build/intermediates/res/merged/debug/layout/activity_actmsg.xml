@@ -31,18 +31,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:background="@drawable/typing_box_bg">
+        android:background="@drawable/typing_box_bg2">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/send_button"
             android:layout_alignParentRight="true"
-            android:backgroundTint="@color/requestbox_color"
+            android:backgroundTint="#b80202"
+
             android:text="@string/send_b"
             android:textColor="#FFFFFF"
             android:onClick="onClickSend"/>
-
+        <!--android:backgroundTint="@color/requestbox_color"-->
+s
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

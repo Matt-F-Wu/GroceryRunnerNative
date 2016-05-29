@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:id="@+id/topbar_imageview"
-                    android:src="@drawable/ic_chat_bubble_white_24dp"
+                    android:src="@drawable/chat_icon"
                     android:background="#00ffffff"
                     android:onClick="onChatButtonClicked" />
 
@@ -96,7 +96,6 @@
                 android:layout_height="0dip"
                 android:layout_weight="1"
                 android:dividerHeight="3dip"
-                android:background="@color/userBottomBar"
                 android:stackFromBottom="true"
                 android:transcriptMode="normal">
                 <!--The background color is just for now, later we will set divider, android:divider="@null"-->

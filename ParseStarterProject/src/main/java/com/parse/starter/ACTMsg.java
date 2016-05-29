@@ -252,10 +252,17 @@ public class ACTMsg extends AppCompatActivity {
         finish();
     }
 
+//    public String formatHeader(){
+//        String res = "In Regards to:\n" + header[0] + ": " + header[2];
+//        return res;
+//    }
+
+    //JM
     public String formatHeader(){
-        String res = "In Regards to:\n" + header[0] + ": " + header[2];
+        String res = header[0];
         return res;
     }
+
 
     public void updateCounter(JSONObject jsonObject){
         String nameOfThread;

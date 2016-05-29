@@ -133,6 +133,7 @@ android/support/v4/media/session/MediaSessionCompat$MediaSessionImpl.class
 com/parse/LogInCallback.class
 com/google/android/gms/internal/zzio.class
 com/parse/starter/MyThreads.class
+com/parse/starter/FCallback.class
 android/support/annotation/AttrRes.class
 com/google/android/gms/internal/zzdv.class
 com/google/android/gms/ads/internal/reward/client/RewardedVideoAdRequestParcel.class
@@ -320,6 +321,7 @@ android/support/v4/app/DialogFragment.class
 com/google/android/gms/common/annotation/KeepName.class
 com/parse/ParseCallback1.class
 android/support/design/R$anim.class
+com/parse/starter/ACTRequest$14.class
 android/support/design/widget/TabLayout$TabGravity.class
 com/parse/starter/MainActivity.class
 com/parse/ParseAnalytics.class
@@ -384,8 +386,8 @@ com/google/ads/mediation/MediationInterstitialAdapter.class
 android/support/design/widget/ThemeUtils.class
 android/support/annotation/WorkerThread.class
 com/google/android/gms/games/Game.class
-com/parse/PushService.class
 com/parse/ParseQuery.class
+com/parse/PushService.class
 android/support/v7/app/ActionBar$DisplayOptions.class
 com/google/android/gms/internal/zzfz.class
 android/support/v7/widget/RecyclerView$OnItemTouchListener.class
@@ -487,6 +489,7 @@ com/google/android/gms/internal/zzff.class
 android/support/annotation/StringRes.class
 android/support/v7/app/NotificationCompat.class
 com/google/android/gms/common/data/AbstractDataBuffer.class
+com/parse/starter/beta_test.class
 android/support/v7/widget/RecyclerView$ItemAnimator$ItemHolderInfo.class
 android/support/v4/view/ViewCompat$BaseViewCompatImpl.class
 android/support/v7/widget/RecyclerView$RecyclerViewDataObserver.class
@@ -594,8 +597,8 @@ com/parse/starter/ACTRequest$3.class
 com/google/android/gms/ads/AdRequest.class
 com/google/android/gms/wallet/Address.class
 com/google/android/gms/internal/zzja.class
-com/google/android/gms/ads/internal/reward/mediation/client/RewardItemParcel.class
 com/google/android/gms/ads/internal/InterstitialAdParameterParcel.class
+com/google/android/gms/ads/internal/reward/mediation/client/RewardItemParcel.class
 com/google/android/gms/internal/zzhq.class
 com/google/android/gms/internal/zzdl.class
 com/google/android/gms/internal/zzbv.class
@@ -632,6 +635,7 @@ android/support/v4/app/FragmentManagerImpl$FragmentTag.class
 android/support/v7/widget/RecyclerView$ItemAnimator.class
 android/support/v4/app/TaskStackBuilder$SupportParentable.class
 com/google/android/gms/ads/mediation/admob/AdMobExtras.class
+com/parse/starter/ACTRequest$13.class
 com/google/android/gms/games/event/Event.class
 android/support/v4/media/session/PlaybackStateCompat.class
 com/google/android/gms/measurement/internal/zzp.class
@@ -831,6 +835,7 @@ com/google/android/gms/internal/zzgm.class
 android/support/annotation/CallSuper.class
 android/support/v4/media/MediaDescriptionCompat$Builder.class
 com/google/android/gms/measurement/AppMeasurementContentProvider.class
+com/parse/starter/ACTRequest$15.class
 com/google/android/gms/playlog/internal/PlayLoggerContext.class
 android/support/v4/widget/MaterialProgressDrawable$Ring.class
 android/support/annotation/AnyRes.class

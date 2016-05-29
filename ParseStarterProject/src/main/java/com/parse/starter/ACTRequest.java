@@ -132,7 +132,7 @@ public class ACTRequest extends AppCompatActivity
 		setSupportActionBar(toolbar);
 
         /*Hao to Jeremy: What should we do with the Logo? For now, I hide it*/
-        //toolbar.setLogo(R.drawable.new_logo);
+        toolbar.setLogo(R.drawable.new_logo);
 
         final Spinner spinner = (Spinner) findViewById(R.id.topbar_spinner);
 
