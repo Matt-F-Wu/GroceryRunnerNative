@@ -133,7 +133,15 @@ public class ACTRequest extends AppCompatActivity
 
         /*Hao to Jeremy: What should we do with the Logo? For now, I hide it*/
         toolbar.setLogo(R.drawable.new_logo);
+	  View logoView = getToolbarLogoIcon(toolbar);
 
+        logoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+		    flip(0);
+                Log.d("LOGO_CLICK", "Logo Click is Successfully Handled");
+            }
+        });
         final Spinner spinner = (Spinner) findViewById(R.id.topbar_spinner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_user_item);
@@ -1319,6 +1327,27 @@ public class ACTRequest extends AppCompatActivity
             edittext_ids.add(id);
         }
     }
+
+    public static View getToolbarLogoIcon(Toolbar toolbar){
+        //check if contentDescription previously was set
+        boolean hadNoContentDescription = android.text.TextUtils.isEmpty(toolbar.getLogoDescription());
+        String contentDescription = String.valueOf(!hadNoContentDescription ? toolbar.getLogoDescription() : "logoContentDescription");
+        toolbar.setLogoDescription(contentDescription);
+        ArrayList<View> potentialViews = new ArrayList<View>();
+        //find the view based on it's content description, set programatically or with android:contentDescription
+        toolbar.findViewsWithText(potentialViews,contentDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+        //Nav icon is always instantiated at this point because calling setLogoDescription ensures its existence
+        View logoIcon = null;
+        if(potentialViews.size() > 0){
+            logoIcon = potentialViews.get(0);
+        }
+        //Clear content description if not previously present
+        if(hadNoContentDescription)
+            toolbar.setLogoDescription(null);
+        return logoIcon;
+    }
+
+
 
     private void deleteUser(){
         FragmentManager fm = this.getSupportFragmentManager();
