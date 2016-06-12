@@ -1160,7 +1160,9 @@ public class ACTRequest extends AppCompatActivity
             deleteCache(this);
             ImageView profile_user_pic = (ImageView)findViewById(R.id.profile_user_pic);
 
-            String picture_filename = data.getStringExtra("picture_name");
+            //String picture_filename = data.getStringExtra("picture_name");
+
+            String picture_filename = "profile_picture.jpg";
 
             Log.d("jm", "filename" + picture_filename);
 

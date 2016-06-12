@@ -50,7 +50,7 @@ public class ACTImgCrop extends AppCompatActivity{
         setSupportActionBar(toolbar);
 
         if (savedInstanceState == null) {
-            setMainFragmentByPreset(CropDemoPreset.RECT);
+            setMainFragmentByPreset(CropDemoPreset.CIRCULAR);
         }
 
         String img_uri_string = this.getIntent().getStringExtra("imageUri");
@@ -79,10 +79,11 @@ public class ACTImgCrop extends AppCompatActivity{
 
 
         //store cropped picture in local phone storage
-        storeImage(mCurrentFragment.getImageBitmap());
+        //storeImage(mCurrentFragment.getImageBitmap());
 
 //        Bitmap bitmap = null;
 //        try {
+//
 //             bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mCurrentFragment.getCropImageViewUri());
 //        }catch(Exception e){
 //            Log.d("JM", "EXCEPTION " + e.getMessage());
@@ -90,10 +91,14 @@ public class ACTImgCrop extends AppCompatActivity{
 //        storeImage(bitmap);
 
 
-        Intent i = new Intent();
-        i.putExtra("picture_name", picture_filename);
-        setResult(300, i);
-        finish();
+
+//        Intent i = new Intent();
+//
+//        Log.d("jm", "picture filename " + mCurrentFragment.get_picture_filename());
+//
+//        i.putExtra("picture_name", mCurrentFragment.get_picture_filename());
+//        setResult(300, i);
+//        finish();
 
     }
 
