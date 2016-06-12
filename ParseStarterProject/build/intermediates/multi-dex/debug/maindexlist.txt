@@ -1,4 +1,5 @@
 
+com/parse/starter/CropImageView$Guidelines.class
 android/support/v4/media/session/MediaSessionCompat$OnActiveChangeListener.class
 com/google/android/gms/ads/internal/overlay/zzd$zza.class
 com/parse/starter/ACTRequest$11.class
@@ -42,8 +43,8 @@ com/google/ads/mediation/NetworkExtras.class
 com/google/android/gms/games/multiplayer/Participant.class
 android/support/v4/media/MediaMetadataCompat$1.class
 com/google/ads/mediation/customevent/CustomEventBanner.class
-android/support/v7/widget/RecyclerView$OnScrollListener.class
 com/google/android/gms/measurement/internal/zzw.class
+android/support/v7/widget/RecyclerView$OnScrollListener.class
 android/support/v4/util/ArrayMap.class
 com/google/android/gms/ads/internal/request/zzc.class
 com/google/android/gms/ads/internal/client/ThinAdSizeParcel.class
@@ -81,6 +82,7 @@ android/support/v7/app/NotificationCompat$Builder.class
 com/google/android/gms/internal/zzfp.class
 com/google/android/gms/internal/zzhv.class
 com/google/android/gms/internal/zzfc.class
+com/parse/starter/CropImageView.class
 com/google/android/gms/analytics/HitBuilders$AppViewBuilder.class
 android/support/v4/app/SuperNotCalledException.class
 android/support/v4/widget/MaterialProgressDrawable.class
@@ -90,6 +92,7 @@ android/support/v4/app/BackStackRecord.class
 com/google/android/gms/maps/model/MarkerOptions.class
 android/support/v7/widget/RecyclerView$Adapter.class
 com/google/android/gms/maps/model/Marker.class
+com/parse/starter/BitmapLoadingWorkerTask$Result.class
 com/google/android/gms/ads/internal/client/zzc.class
 android/support/v7/app/ActionBar$OnMenuVisibilityListener.class
 com/google/android/gms/internal/zzdw.class
@@ -173,10 +176,12 @@ android/support/annotation/Nullable.class
 com/google/android/gms/internal/zzbj.class
 com/google/android/gms/internal/zzfe.class
 android/support/v4/app/FragmentContainer.class
+com/parse/starter/BitmapLoadingWorkerTask.class
 android/support/design/widget/ViewUtils.class
 com/google/android/gms/ads/internal/client/zzy$zza.class
 com/google/android/gms/internal/zzht$zza.class
 android/support/design/widget/CoordinatorLayout$OnPreDrawListener.class
+com/parse/starter/R$styleable.class
 android/support/annotation/DimenRes.class
 com/google/android/gms/analytics/GoogleAnalytics.class
 android/support/v4/media/MediaBrowserCompat$MediaBrowserImplBase.class
@@ -216,7 +221,11 @@ com/google/android/gms/games/internal/experience/ExperienceEvent.class
 com/google/android/gms/internal/zzdl$zzd.class
 com/google/android/gms/wallet/fragment/WalletFragmentStyle.class
 com/google/android/gms/appinvite/AppInviteInvitation$IntentBuilder$PlatformMode.class
+com/parse/starter/CropImageView$OnSaveCroppedImageCompleteListener.class
+com/parse/starter/CropImageView$OnSetImageUriCompleteListener.class
 com/google/android/gms/ads/internal/purchase/zzg.class
+com/parse/starter/BitmapCroppingWorkerTask$Result.class
+com/parse/starter/CropImage$ActivityResult.class
 com/parse/starter/RequestObject.class
 android/support/v4/media/session/PlaybackStateCompatApi21.class
 com/google/android/gms/common/internal/safeparcel/zza$zza.class
@@ -235,13 +244,14 @@ com/google/ads/mediation/AbstractAdViewAdapter.class
 android/support/v4/view/ViewCompat$JbMr1ViewCompatImpl.class
 android/support/v7/widget/Toolbar.class
 android/support/v4/view/ViewCompat$GBViewCompatImpl.class
-com/google/android/gms/internal/zzei.class
 android/support/v4/app/TaskStackBuilder.class
+com/google/android/gms/internal/zzei.class
 com/parse/starter/ACTLoginSelf$1.class
 com/google/android/gms/wallet/fragment/WalletLogoImageType.class
 android/support/design/widget/Snackbar$9.class
 android/support/v4/app/FragmentManagerImpl$1.class
 com/google/android/gms/internal/zzgz.class
+com/parse/starter/CropImageView$ScaleType.class
 com/parse/GcmBroadcastReceiver.class
 android/support/design/widget/TabLayout$OnTabSelectedListener.class
 com/google/android/gms/internal/zzij.class
@@ -260,15 +270,18 @@ android/support/v4/view/ViewCompat$JbMr2ViewCompatImpl.class
 android/support/v4/media/session/MediaSessionCompat$MediaSessionImplBase.class
 com/google/android/gms/ads/internal/purchase/zzi.class
 android/support/v7/widget/RecyclerView$ItemAnimator$AdapterChanges.class
+com/parse/starter/CropResultActivity.class
 android/support/v7/widget/RecyclerView$SimpleOnItemTouchListener.class
 android/support/v4/content/PermissionChecker$PermissionResult.class
 com/google/android/gms/games/Player.class
 android/support/annotation/RequiresPermission$Write.class
 com/google/android/gms/ads/internal/formats/zzf.class
 com/google/android/gms/ads/internal/overlay/zzm.class
+com/parse/starter/CropImageView$OnGetCroppedImageCompleteListener.class
 android/support/v4/view/ViewCompat$MarshmallowViewCompatImpl.class
 android/support/v4/view/LayoutInflaterFactory.class
 com/google/android/gms/internal/zzbw.class
+com/parse/starter/CropImage.class
 android/support/v4/media/session/MediaSessionCompat$Token.class
 com/google/android/gms/R.class
 com/google/android/gms/internal/zzit.class
@@ -302,6 +315,7 @@ com/google/android/gms/gcm/Task.class
 com/google/android/gms/auth/firstparty/shared/zzd.class
 com/google/android/gms/wallet/fragment/WalletFragmentStyle$BuyButtonAppearance.class
 android/support/v4/view/ViewConfigurationCompat.class
+com/parse/starter/CropImageAnimation.class
 android/support/v4/app/FragmentManagerState.class
 com/google/android/gms/games/leaderboard/Leaderboard.class
 android/support/design/widget/SnackbarManager$Callback.class
@@ -309,6 +323,7 @@ android/support/v7/widget/ActionMenuView$LayoutParams.class
 android/support/annotation/Size.class
 android/support/v7/widget/LinearLayoutCompat$OrientationMode.class
 android/support/v4/media/MediaBrowserCompat$MediaItem$Flags.class
+com/parse/starter/CropImageView$1.class
 com/parse/GcmRegistrar.class
 com/google/android/gms/location/GeofencingApi.class
 com/parse/ServiceUtils.class
@@ -323,11 +338,12 @@ com/parse/ParseCallback1.class
 android/support/design/R$anim.class
 com/parse/starter/ACTRequest$14.class
 android/support/design/widget/TabLayout$TabGravity.class
-com/parse/starter/MainActivity.class
 com/parse/ParseAnalytics.class
+com/parse/starter/MainActivity.class
 com/parse/ParseSession.class
 android/support/v7/app/ActionBar$TabListener.class
 com/google/android/gms/ads/internal/purchase/zzk.class
+com/parse/starter/R.class
 com/parse/ParsePlugins.class
 android/support/v4/media/RatingCompat$StarStyle.class
 com/parse/starter/GeoAssistant.class
@@ -343,6 +359,7 @@ android/support/v4/app/FragmentManager$OnBackStackChangedListener.class
 com/google/android/gms/ads/internal/request/zzd$zza.class
 com/google/android/gms/plus/Account.class
 com/google/android/gms/maps/GoogleMap.class
+com/parse/starter/MainFragment.class
 android/support/annotation/StyleableRes.class
 com/google/android/gms/ads/internal/purchase/zzl.class
 android/support/v4/media/RatingCompat$Style.class
@@ -353,8 +370,8 @@ android/support/v7/view/ActionMode$Callback.class
 android/support/v4/view/NestedScrollingChildHelper.class
 android/support/v4/view/ViewCompat$KitKatViewCompatImpl.class
 com/google/android/gms/ads/mediation/customevent/CustomEventExtras.class
-android/support/v4/util/ArrayMap$1.class
 com/google/android/gms/internal/zzfh.class
+android/support/v4/util/ArrayMap$1.class
 com/parse/ParseACL.class
 android/support/design/widget/FloatingActionButton.class
 android/support/v7/widget/RecyclerView$RecycledViewPool.class
@@ -368,9 +385,9 @@ com/google/android/gms/R$style.class
 com/google/android/gms/ads/internal/request/zze.class
 android/support/v7/widget/RecyclerView$ItemAnimator$ItemAnimatorFinishedListener.class
 android/support/v7/widget/ChildHelper.class
+com/google/android/gms/internal/zzdl$zzc.class
 com/google/android/gms/internal/zzhl.class
 android/support/design/widget/AppBarLayout$Behavior$SavedState.class
-com/google/android/gms/internal/zzdl$zzc.class
 com/google/android/gms/location/LocationStatusCodes.class
 com/google/android/gms/ads/internal/client/zze.class
 android/support/v4/app/BaseFragmentActivityHoneycomb.class
@@ -388,18 +405,19 @@ android/support/annotation/WorkerThread.class
 com/google/android/gms/games/Game.class
 com/parse/ParseQuery.class
 com/parse/PushService.class
+com/parse/starter/CropOverlayView$CropWindowChangeListener.class
 android/support/v7/app/ActionBar$DisplayOptions.class
 com/google/android/gms/internal/zzfz.class
 android/support/v7/widget/RecyclerView$OnItemTouchListener.class
 android/support/v4/app/FragmentActivity$1.class
 android/support/v7/widget/RecyclerView$LayoutManager.class
 com/google/android/gms/ads/internal/zzi.class
-com/parse/starter/ACTMsg.class
 android/support/annotation/AnimatorRes.class
+com/parse/starter/ACTMsg.class
 com/google/android/gms/internal/zzfx.class
 android/support/v4/view/ViewPropertyAnimatorListenerAdapter.class
-com/google/android/gms/ads/internal/overlay/zzd$zzd.class
 android/support/v4/widget/DrawerLayout$DrawerListener.class
+com/google/android/gms/ads/internal/overlay/zzd$zzd.class
 android/support/design/widget/ValueAnimatorCompat.class
 android/support/annotation/IntegerRes.class
 com/google/android/gms/cast/Cast$CastApi$zza.class
@@ -424,6 +442,7 @@ android/support/v4/app/ActivityCompatHoneycomb.class
 com/parse/starter/ACTRequest$1.class
 com/google/android/gms/measurement/internal/zzp$zza.class
 com/google/android/gms/internal/zzdl$zzb.class
+com/parse/starter/CropImageActivity.class
 com/google/android/gms/analytics/internal/zzae.class
 android/support/v4/app/FragmentActivity$NonConfigurationInstances.class
 com/google/android/gms/wallet/fragment/Dimension.class
@@ -435,6 +454,7 @@ android/support/annotation/ColorRes.class
 android/support/v7/widget/RecyclerViewAccessibilityDelegate.class
 com/google/android/gms/measurement/internal/zzx.class
 android/support/v4/app/FragmentManagerImpl$5.class
+com/parse/starter/BitmapCroppingWorkerTask.class
 com/google/android/gms/internal/zzdq.class
 com/google/android/gms/internal/zzeg.class
 com/google/android/gms/internal/zzew.class
@@ -490,6 +510,7 @@ android/support/annotation/StringRes.class
 android/support/v7/app/NotificationCompat.class
 com/google/android/gms/common/data/AbstractDataBuffer.class
 com/parse/starter/beta_test.class
+com/parse/starter/CropImageOptions.class
 android/support/v7/widget/RecyclerView$ItemAnimator$ItemHolderInfo.class
 android/support/v4/view/ViewCompat$BaseViewCompatImpl.class
 android/support/v7/widget/RecyclerView$RecyclerViewDataObserver.class
@@ -525,6 +546,7 @@ com/parse/ParsePin.class
 com/google/android/gms/maps/GoogleMap$OnMyLocationChangeListener.class
 com/google/android/gms/wallet/MaskedWallet.class
 com/google/android/gms/ads/internal/request/zzb$zza.class
+com/parse/starter/BitmapUtils.class
 com/google/android/gms/internal/zzhz.class
 android/support/design/widget/Snackbar$1.class
 com/google/android/gms/ads/internal/request/zzm.class
@@ -597,8 +619,10 @@ com/parse/starter/ACTRequest$3.class
 com/google/android/gms/ads/AdRequest.class
 com/google/android/gms/wallet/Address.class
 com/google/android/gms/internal/zzja.class
+com/parse/starter/CropImageViewOptions.class
 com/google/android/gms/ads/internal/InterstitialAdParameterParcel.class
 com/google/android/gms/ads/internal/reward/mediation/client/RewardItemParcel.class
+com/parse/starter/BitmapUtils$RotateBitmapResult.class
 com/google/android/gms/internal/zzhq.class
 com/google/android/gms/internal/zzdl.class
 com/google/android/gms/internal/zzbv.class
@@ -695,6 +719,7 @@ android/support/v4/view/ViewCompatHC.class
 android/support/v4/app/ActionBarDrawerToggle.class
 com/parse/starter/ACTRequest$10.class
 com/google/android/gms/measurement/internal/zzag.class
+com/parse/starter/CropOverlayView.class
 android/support/v4/media/MediaMetadataCompat$BitmapKey.class
 com/google/ads/AdRequest.class
 android/support/design/widget/HeaderScrollingViewBehavior.class
@@ -742,6 +767,7 @@ android/support/v7/widget/RecyclerView$State.class
 com/parse/PushType.class
 android/support/design/widget/CoordinatorLayout$DefaultBehavior.class
 com/google/android/gms/drive/query/Query$Builder.class
+com/parse/starter/CropDemoPreset.class
 com/google/android/gms/internal/zzgk.class
 com/parse/starter/ACTLoginSelf.class
 com/google/android/gms/wallet/Wallet.class
@@ -787,6 +813,7 @@ com/google/android/gms/auth/GoogleAuthUtil.class
 com/google/android/gms/measurement/internal/zzy.class
 com/parse/starter/MsgAdapter.class
 com/google/android/gms/internal/zzgi.class
+com/parse/starter/ACTImgCrop.class
 bolts/AggregateException.class
 android/support/v4/media/MediaMetadataCompatApi21.class
 com/google/android/gms/ads/internal/formats/NativeAdOptionsParcel.class
@@ -874,6 +901,8 @@ android/support/v7/widget/RecyclerView$ViewFlinger.class
 com/google/ads/mediation/customevent/CustomEventListener.class
 android/support/design/widget/HeaderBehavior$FlingRunnable.class
 android/support/v4/media/VolumeProviderCompat$Callback.class
+com/parse/starter/ACTRequest$16.class
+com/parse/starter/CropImageView$CropShape.class
 com/parse/starter/ACTRequest$2.class
 com/google/android/gms/internal/zzfj.class
 com/parse/SaveCallback.class

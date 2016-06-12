@@ -1,5 +1,7 @@
 package com.parse.starter;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.app.LauncherActivity;
 import android.content.BroadcastReceiver;
@@ -8,10 +10,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +28,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -70,7 +77,13 @@ import com.parse.SendCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -112,6 +125,7 @@ public class ACTRequest extends AppCompatActivity
     private HashSet<Integer> edittext_ids;
 
 
+
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -134,6 +148,7 @@ public class ACTRequest extends AppCompatActivity
         /*Hao to Jeremy: What should we do with the Logo? For now, I hide it*/
         toolbar.setLogo(R.drawable.new_logo);
 	  View logoView = getToolbarLogoIcon(toolbar);
+
 
         logoView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1138,7 +1153,53 @@ public class ACTRequest extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Activity.RESULT_OK){
+
+        if(resultCode == 300){
+
+            //delete cache, read back picture from local phone storage
+            deleteCache(this);
+            ImageView profile_user_pic = (ImageView)findViewById(R.id.profile_user_pic);
+
+            String picture_filename = data.getStringExtra("picture_name");
+
+            Log.d("jm", "filename" + picture_filename);
+
+            String picture_file_path = Environment.getExternalStorageDirectory()
+                    + "/Android/data/"
+                    + getApplicationContext().getPackageName()
+                    + "/Files/" + picture_filename;
+
+            Log.d("jm", "picture_file_path" + picture_file_path);
+
+            Bitmap bmImg = BitmapFactory.decodeFile(picture_file_path);
+            profile_user_pic.setImageBitmap(bmImg);
+
+
+            //jm debug, to be deleted
+            storeImage(bmImg);
+
+
+        }
+
+
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK) {
+            Uri imageUri = CropImage.getPickImageResultUri(this, data);
+
+
+            Intent i = new Intent(ACTRequest.this, ACTImgCrop.class);
+            i.putExtra("imageUri", imageUri.toString());
+            startActivityForResult(i, 0);
+
+
+
+//            ImageView profile_user_pic = (ImageView)findViewById(R.id.profile_user_pic);
+//            profile_user_pic.setImageURI(imageUri);
+
+
+        }
+
+
+        if(resultCode == Activity.RESULT_OK && requestCode == 0){
             ArrayList<String> requestCollected = data.getStringArrayListExtra("RequestCollection");
             if ( !requestCollected.isEmpty() ){
                 for ( String s : requestCollected){
@@ -1385,6 +1446,102 @@ public class ACTRequest extends AppCompatActivity
             }
         });
         errorDialogFragment.show(fm, "location_failure");
+    }
+
+
+
+    //image_cropping methods
+
+
+
+
+    public void onProfile_upload_picture(View view){
+
+            CropImage.startPickImageActivity(this);
+
+    }
+
+
+    public static void deleteCache(Context context) {
+        try {
+            File dir = context.getCacheDir();
+            deleteDir(dir);
+        } catch (Exception e) {}
+    }
+
+    public static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+            return dir.delete();
+        }
+        else if(dir!= null && dir.isFile())
+            return dir.delete();
+        else {
+            return false;
+        }
+    }
+
+
+    private void storeImage(Bitmap image) {
+        File pictureFile = getOutputMediaFile();
+        if (pictureFile == null) {
+            Log.d("JM",
+                    "Error creating media file, check storage permissions: ");// e.getMessage());
+            return;
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(pictureFile);
+            image.compress(Bitmap.CompressFormat.PNG, 90, fos);
+            fos.close();
+        } catch (FileNotFoundException e) {
+            Log.d("JM", "File not found: " + e.getMessage());
+        } catch (IOException e) {
+            Log.d("JM", "Error accessing file: " + e.getMessage());
+        }
+    }
+
+
+    /** Create a File for saving an image or video */
+    private  File getOutputMediaFile(){
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
+                + "/Android/data/"
+                + getApplicationContext().getPackageName()
+                + "/Files");
+
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                return null;
+            }
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
+        File mediaFile;
+        String mImageName="MI_"+ timeStamp +"2.jpg";
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
+        return mediaFile;
+    }
+
+    public Bitmap StringToBitMap(String image){
+        try{
+            byte [] encodeByte= Base64.decode(image, Base64.DEFAULT);
+            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }catch(Exception e){
+            e.getMessage();
+            return null;
+        }
     }
 
 }

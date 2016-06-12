@@ -122,4 +122,8 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="rating_warning">You can only rate your experience with this person once, please be advised before you submit your review</string>
+
+
+    <string name="pick_image_intent_chooser_title">Select source</string>
+    <string name="title_activity_actimgcrop">ACT img crop</string>
 </resources>

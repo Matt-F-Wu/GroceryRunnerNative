@@ -1,5 +1,5 @@
--injars 'C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
--outjars 'C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\componentClasses.jar'
+-injars 'C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
+-outjars 'C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\componentClasses.jar'
 
 -libraryjars 'C:\Users\Jeremy\AppData\Local\Android\sdk\build-tools\23.0.2\lib\shrinkedAndroid.jar'
 
@@ -9,7 +9,7 @@
 -dontusemixedcaseclassnames
 -dontpreverify
 -dontwarn
--printconfiguration 'C:\Users\Jeremy\Documents\GitHub\Favourama\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\components.flags'
+-printconfiguration 'C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\components.flags'
 
 
 -keep class com.parse.starter.StarterApplication {
@@ -42,6 +42,18 @@
 }
 
 -keep class com.parse.starter.ACTMsg {
+    <init>();
+}
+
+-keep class com.parse.starter.ACTImgCrop {
+    <init>();
+}
+
+-keep class com.parse.starter.CropImageActivity {
+    <init>();
+}
+
+-keep class com.parse.starter.CropResultActivity {
     <init>();
 }
 

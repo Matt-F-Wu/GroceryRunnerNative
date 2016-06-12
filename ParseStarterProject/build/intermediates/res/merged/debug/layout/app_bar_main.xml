@@ -354,6 +354,18 @@
                     android:layout_gravity="center"
                     android:textSize="10pt"/>
 
+                <ImageView
+                    android:id="@+id/profile_user_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:onClick="onProfile_upload_picture"
+                    android:src="@android:drawable/sym_def_app_icon" />
+
+
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

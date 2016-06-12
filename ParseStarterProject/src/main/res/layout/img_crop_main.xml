@@ -1,0 +1,54 @@
+<!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
+<LinearLayout
+    android:id="@+id/img_crop_main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.parse.starter.ACTImgCrop"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.MyNoTitleActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/image_crop_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/main_action_crop"
+            android:text="CROP"
+            android:layout_gravity="right"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:layout_marginRight="20dp"
+            android:onClick="onClick_img_crop_option"/>
+
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/main_action_rotate"
+            android:src="@android:drawable/ic_menu_rotate"
+            android:layout_gravity="right"
+            android:onClick="onClick_img_crop_option"/>
+
+
+
+    </android.support.v7.widget.Toolbar>
+
+
+
+    <!-- main content view. -->
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+</LinearLayout>

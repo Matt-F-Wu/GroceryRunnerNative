@@ -1,18 +1,22 @@
 [
     {
-        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
-        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\menu\\menu_main.xml"
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\menu\\menu_main.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\conv_thread_menu.xml",
-        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\menu\\conv_thread_menu.xml"
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\menu_actmsg.xml",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\menu\\menu_actmsg.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\menu_actmsg.xml",
-        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\menu\\menu_actmsg.xml"
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main_drawer.xml",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\menu\\activity_main_drawer.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main_drawer.xml",
-        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\Favourama\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\menu\\activity_main_drawer.xml"
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\crop_image_menu.xml",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\menu\\crop_image_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\conv_thread_menu.xml",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\menu\\conv_thread_menu.xml"
     }
 ]

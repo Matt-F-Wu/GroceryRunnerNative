@@ -96,6 +96,19 @@
             android:label="@string/title_activity_actmsg"
             android:theme="@style/AppTheme"
             android:parentActivityName=".ACTRequest"></activity>
+
+        <activity
+            android:name=".ACTImgCrop"
+            android:label="@string/title_activity_actimgcrop"
+            android:theme="@style/ThemeOverlay.MyNoTitleActivity"
+            android:parentActivityName=".ACTRequest"></activity>
+
+        <activity android:name="com.parse.starter.CropImageActivity">
+        </activity>
+
+        <activity android:name="com.parse.starter.CropResultActivity">
+        </activity>
+
     </application>
 
 </manifest>
