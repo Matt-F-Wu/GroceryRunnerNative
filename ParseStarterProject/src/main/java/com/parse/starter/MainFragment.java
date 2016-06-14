@@ -52,10 +52,6 @@ public final class MainFragment extends Fragment
 
     private CropImageView mCropImageView;
 
-    public Uri cropped_oval_image_uri;
-
-    public Bitmap cropped_oval_image_bitmap;
-
     private String picture_filename;
 
     //endregion
@@ -255,73 +251,15 @@ public final class MainFragment extends Fragment
     }
 
     private void handleCropResult(Uri uri, Bitmap bitmap, Exception error) {
-//        if (error == null) {
-//            Log.d("JM", "handleCropResult");
-//
-//            Intent intent = new Intent(getActivity(), CropResultActivity.class);
-//            if (uri != null) {
-//
-//            //cropped_oval_image_uri = uri;
-//            Bitmap handle_bitmap = null;
-//            try {
-//
-//                handle_bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-//            }catch(Exception e){
-//                Log.d("JM", "EXCEPTION " + e.getMessage());
-//            }
-//                Log.d("JM", "storeImage");
-//
-//            storeImage(handle_bitmap);
-//
-//
-//                intent.putExtra("URI", uri);
-//            } else {
-//
-//                //cropped_oval_image_bitmap = CropImage.toOvalBitmap(bitmap);
-//
-//
-////                Bitmap handle_bitmap = null;
-////                try {
-////
-////                    handle_bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-////                }catch(Exception e){
-////                    Log.d("JM", "EXCEPTION " + e.getMessage());
-////                }
-////                Log.d("JM", "storeImage");
-//
-//
-//
-//
-//
-////                CropResultActivity.mImage = mCropImageView.getCropShape() == CropImageView.CropShape.OVAL
-////                        ? CropImage.toOvalBitmap(bitmap)
-////                        : bitmap;
-//
-//
-//                //Bitmap bm = bitmap.copy(Bitmap.Config.ARGB_8888, false);
-//
-//                if(bitmap == null){
-//                    Log.d("JM", "mImage is null");
-//                }
-//
-//                storeImage(CropImage.toOvalBitmap(bitmap));
-//
-//
-//            }
-//            startActivity(intent);
-//        } else {
-//            Log.e("AIC", "Failed to crop image", error);
-//            Toast.makeText(getActivity(), "Image crop failed: " + error.getMessage(), Toast.LENGTH_LONG).show();
-//        }
-
-
-
-        Bitmap finalBitmap = mCropImageView.getCropShape() == CropImageView.CropShape.OVAL? CropImage.toOvalBitmap(bitmap): bitmap;
-        storeImage(finalBitmap);
+          if (error == null) {
+              Bitmap finalBitmap = mCropImageView.getCropShape() == CropImageView.CropShape.OVAL? CropImage.toOvalBitmap(bitmap): bitmap;
+              storeImage(finalBitmap);
+          } else {
+              Log.e("AIC", "Failed to crop image", error);
+              Toast.makeText(getActivity(), "Image crop failed: " + error.getMessage(), Toast.LENGTH_LONG).show();
+          }
 
         Intent i = new Intent();
-
-        //Log.d("jm", "picture filename " + mCurrentFragment.get_picture_filename());
 
         i.putExtra("picture_name", picture_filename);
         getActivity().setResult(300, i);
@@ -329,32 +267,6 @@ public final class MainFragment extends Fragment
 
 
 
-    }
-
-
-    public Uri getCropImageViewUri(){
-
-        if(cropped_oval_image_uri == null){
-            Log.d("JM", "cropped_oval_image_uri is null");
-        }
-
-        return cropped_oval_image_uri;
-
-    }
-
-    public Bitmap getCropImageViewBitmap(){
-
-        return cropped_oval_image_bitmap;
-
-    }
-
-    public Bitmap getImageBitmap(){
-
-        return mCropImageView.getCroppedImage();
-    }
-
-    public String get_picture_filename(){
-        return picture_filename;
     }
 
 

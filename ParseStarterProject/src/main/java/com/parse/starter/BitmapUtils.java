@@ -23,9 +23,12 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.media.ExifInterface;
 import android.net.Uri;
+
 import android.provider.MediaStore;
 import android.util.Pair;
 
+
+import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
+
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -554,6 +558,17 @@ final class BitmapUtils {
             return IMAGE_MAX_BITMAP_DIMENSION;
         }
     }
+
+    public static byte[] toByteArray(Bitmap bitmap){
+        if (bitmap == null) return null;
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        // Compress image to lower quality scale 1 - 100
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] image = stream.toByteArray();
+        return image;
+    }
+
 
     /**
      * Close the given closeable object (Stream) in a safe way: check if it is null and catch-log

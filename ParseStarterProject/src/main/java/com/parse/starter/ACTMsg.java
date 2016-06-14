@@ -6,8 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.AlertDialog;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,36 +20,40 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseInstallation;
+import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SendCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
+
 
 public class ACTMsg extends AppCompatActivity {
     private String[] header;
@@ -144,9 +153,13 @@ public class ACTMsg extends AppCompatActivity {
                     /*HAO to JEREMY:
                     * You need to implement this, I declared an empty function for you*/
                     //update screen
+                    Log.d("MCONTENT", jsonObject.toString());
+
                     String chat_content = new String();
+                    String txt_type =  new String();
                     try{
                         chat_content = jsonObject.getString("content");
+                        txt_type = jsonObject.getString("ctype");
                     }catch(org.json.JSONException e){
                         e.printStackTrace();
                     }
@@ -154,6 +167,7 @@ public class ACTMsg extends AppCompatActivity {
                     chatmsg.setId(0);//todo do I need an id?
                     chatmsg.setMe(false);
                     chatmsg.setMessage(chat_content);
+                    chatmsg.setMessageType(txt_type);
                     chatmsg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
                     displayMessage(chatmsg);
 
@@ -197,6 +211,12 @@ public class ACTMsg extends AppCompatActivity {
         }
 
         try {
+            msg.put("ctype", ChatMessage.TEXT_TYPE);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
             msg.put("content", content);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -235,6 +255,7 @@ public class ACTMsg extends AppCompatActivity {
         chatmsg.setId(0);//todo do I need an id?
         chatmsg.setMe(true);
         chatmsg.setMessage(content);
+        chatmsg.setMessageType(ChatMessage.TEXT_TYPE);
         chatmsg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
         displayMessage(chatmsg);
 
@@ -286,7 +307,7 @@ public class ACTMsg extends AppCompatActivity {
         * Check if the incoming message is for the current chat thread or other threads and act differently*/
 
         //make sure not to change the original value
-        String[] namesToWrite = {"TYPE","content","time","username"};
+        String[] namesToWrite = {"TYPE","content","ctype","time","username"};
         JSONObject jsonObjectToWrite = null;
         try {
             jsonObjectToWrite = new JSONObject(jsonObject, namesToWrite);
@@ -298,7 +319,7 @@ public class ACTMsg extends AppCompatActivity {
         MyThreads.fileWrite(jsonObjectToWrite, msg_filename, this);
 
         //read back for testing
-        fileRead(msg_file);
+        /*fileRead(msg_file);*/
 
     }
 
@@ -328,6 +349,11 @@ public class ACTMsg extends AppCompatActivity {
             }
             try {
                 msg.setMessage(jObject.get("content").toString());
+            }catch(JSONException e){
+                e.printStackTrace();
+            }
+            try {
+                msg.setMessageType(jObject.get("ctype").toString());
             }catch(JSONException e){
                 e.printStackTrace();
             }
@@ -488,5 +514,113 @@ public class ACTMsg extends AppCompatActivity {
         * So the user cannot rate one person multiple times, implement this later.
         *
         * */
+    }
+
+    public void send_picture(View view) {
+        CropImage.startPickImageActivity(this);
+    }
+
+    public String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK) {
+            Uri imageUri = CropImage.getPickImageResultUri(this, data);
+
+            String imgPath = getRealPathFromURI(this, imageUri);
+
+            Log.d("RPATH", imgPath);
+
+            Bitmap bitmap = BitmapFactory.decodeFile(imgPath);
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            // Compress image to lower quality scale 1 - 100
+            if (bitmap == null) return;
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] image = stream.toByteArray();
+
+            // Create the ParseFile
+            final ParseFile file = new ParseFile("to" + header[0] + ".png", image);
+            // Upload the image into Parse Cloud
+            file.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    SendPictureHelper(file.getUrl());
+                }
+            });
+
+        }
+    }
+
+    public void SendPictureHelper(String url) {
+
+        JSONObject msg = new JSONObject();
+
+        try {
+            msg.put("TYPE", "MESSAGE");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            msg.put("ctype", ChatMessage.PICTURE_TYPE);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            msg.put("content", url);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            msg.put("time", DateFormat.getDateTimeInstance().format(new Date()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            msg.put("username", header[0]);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ParsePush.sendDataInBackground(msg, chatQuery, new SendCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                    Log.d("push", "Message Sent!");
+                } else {
+                    Log.d("push", "Message failure >_< \n" + "Plese check your internet connection!\n"
+                            + e.getMessage() + " <><><><><><> Code: " + e.getCode());
+                }
+            }
+        });
+
+
+        //For testing purposes currently
+        ChatMessage chatmsg = new ChatMessage();
+        chatmsg.setId(0);//todo do I need an id?
+        chatmsg.setMe(true);
+        chatmsg.setMessage(url);
+        chatmsg.setMessageType(ChatMessage.PICTURE_TYPE);
+        chatmsg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+        displayMessage(chatmsg);
+
+        updateDisplay(msg);
     }
 }

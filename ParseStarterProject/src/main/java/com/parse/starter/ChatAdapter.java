@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -66,10 +67,17 @@ public class ChatAdapter extends BaseAdapter {
 
         boolean myMsg = chatMessage.getIsme() ;//Just a dummy check to simulate whether it me or other sender
         setAlignment(holder, myMsg);
-        holder.txtMessage.setText(chatMessage.getMessage());
-        holder.txtMessage.setTextColor(Color.WHITE);
-        holder.txtInfo.setText(chatMessage.getDate());
 
+        if (chatMessage.getMessageType().equals(ChatMessage.TEXT_TYPE)){
+            holder.txtMessage.setText(chatMessage.getMessage());
+            holder.txtMessage.setTextColor(Color.WHITE);
+        }else{
+            holder.txtMessage.setVisibility(View.GONE);
+            holder.txtPicture.setVisibility(View.VISIBLE);
+            new DownloadImageTask(holder.txtPicture).execute(chatMessage.getMessage());
+        }
+
+        holder.txtInfo.setText(chatMessage.getDate());
 
         return convertView;
     }
@@ -126,6 +134,7 @@ public class ChatAdapter extends BaseAdapter {
     private ViewHolder createViewHolder(View v) {
         ViewHolder holder = new ViewHolder();
         holder.txtMessage = (TextView) v.findViewById(R.id.txtMessage);
+        holder.txtPicture = (ImageView) v.findViewById(R.id.txtPicture);
         holder.content = (LinearLayout) v.findViewById(R.id.content);
         holder.contentWithBG = (LinearLayout) v.findViewById(R.id.contentWithBackground);
         holder.txtInfo = (TextView) v.findViewById(R.id.txtInfo);
@@ -135,6 +144,7 @@ public class ChatAdapter extends BaseAdapter {
 
     private static class ViewHolder {
         public TextView txtMessage;
+        public ImageView txtPicture;
         public TextView txtInfo;
         public LinearLayout content;
         public LinearLayout contentWithBG;

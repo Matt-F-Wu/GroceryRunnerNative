@@ -4,9 +4,12 @@ package com.parse.starter;
  * Created by Technovibe on 17-04-2015.
  */
 public class ChatMessage {
+    public static String TEXT_TYPE = "text";
+    public static String PICTURE_TYPE = "picture";
     private long id;
     private boolean isMe;
     private String message;
+    private String messageType;
     private Long userId;
     private String dateTime;
 
@@ -32,6 +35,14 @@ public class ChatMessage {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(String message_type) {
+        this.messageType = message_type;
     }
 
     public long getUserId() {

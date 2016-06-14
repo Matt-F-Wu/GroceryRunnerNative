@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class RequestObject extends JSONObject {
 /* Note is the description the user give, the details of the request*/
@@ -23,6 +24,7 @@ public class RequestObject extends JSONObject {
             this.setPurpose(base.getString("purpose"));
             this.setReward(base.getString("reward"));
             this.setRating(base.getString("rating"));
+            this.setUserPic(base.getString("userpic"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -162,6 +164,40 @@ public class RequestObject extends JSONObject {
       } catch (JSONException e) {
           e.printStackTrace();
       }
+    }
+
+    /*public Object getUserPic() {
+        try {
+            return get("userpic");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setUserPic(Object value) {
+        try {
+            put("userpic", value);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }*/
+
+    public String getUserPic() {
+        try {
+            return getString("userpic");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setUserPic(String value) {
+        try {
+            put("userpic", value);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public double getLocationLat() {

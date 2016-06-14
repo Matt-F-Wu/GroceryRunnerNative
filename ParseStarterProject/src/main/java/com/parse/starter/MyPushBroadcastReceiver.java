@@ -123,6 +123,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
         JSONObject data = null;
         try {
             data = new JSONObject(intent.getExtras().getString(PARSE_DATA_KEY));
+            Log.d("RECDATA", intent.getExtras().get(PARSE_DATA_KEY).toString());
         } catch (JSONException e) {
             // Json was not readable...
             Log.d("PUSH RECEIVE FAILURE", ">>>COULD NOT PROCESS JSON DATA");

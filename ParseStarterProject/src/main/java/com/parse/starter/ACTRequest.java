@@ -15,6 +15,7 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -27,6 +28,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
@@ -65,9 +67,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseInstallation;
+import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -77,6 +82,7 @@ import com.parse.SendCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -117,7 +123,8 @@ public class ACTRequest extends AppCompatActivity
     private int flipperIndex = 0;
     private List<String[]> r_values;
     private List<String[]> chatValues;
-    private List<Integer> resources, alignment;
+    private List<Integer> resources;
+    private LinkedList<String> user_pics;
     private LinkedList<Integer> flipperStack;
     private MsgAdapter msgAdapterReq, msgAdapterChat;
     private ListView listViewRequest, listViewChat;
@@ -147,16 +154,17 @@ public class ACTRequest extends AppCompatActivity
 
         /*Hao to Jeremy: What should we do with the Logo? For now, I hide it*/
         toolbar.setLogo(R.drawable.new_logo);
-	  View logoView = getToolbarLogoIcon(toolbar);
+	    View logoView = getToolbarLogoIcon(toolbar);
 
-
-        logoView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-		    flip(0);
-                Log.d("LOGO_CLICK", "Logo Click is Successfully Handled");
-            }
-        });
+        if (logoView != null) {
+            logoView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    flip(0);
+                    Log.d("LOGO_CLICK", "Logo Click is Successfully Handled");
+                }
+            });
+        }
         final Spinner spinner = (Spinner) findViewById(R.id.topbar_spinner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_user_item);
@@ -287,6 +295,7 @@ public class ACTRequest extends AppCompatActivity
                 if(action.equals("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS")){
                     RequestObject requestObject = new RequestObject(jsonObject);
                     r_values.add(requestObject.spitValueList());
+                    user_pics.add(requestObject.getUserPic());
                     if(requestObject.getPurpose().equals("ask")){
                         //alignment.add(-50);
                         resources.add(R.drawable.gray_req_bg); /*speech__bubble_white*/
@@ -332,7 +341,7 @@ public class ACTRequest extends AppCompatActivity
         registerReceiver(receiver, filter);
 
         edittext_ids = new HashSet<>();
-
+        setProfilePic();
 	}
 
     @Override
@@ -768,6 +777,11 @@ public class ACTRequest extends AppCompatActivity
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        try {
+            post.put("userpic", ((ParseFile)user.get("userpic")).getUrl());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         // Query users in vicinity, and send the post to them via cloud
 		queryAndSend(location, rad, post);
@@ -1024,10 +1038,10 @@ public class ACTRequest extends AppCompatActivity
         resources = new ArrayList<>();
         resources.add(R.drawable.gray_req_bg);
 
-        alignment = null; //new ArrayList<>();
-        //alignment.add(-50);
+        user_pics = new LinkedList<>();
+        user_pics.add(null);
 
-        msgAdapterReq = new MsgAdapter(this, R.layout.request_item, resources, alignment, fields, r_values);
+        msgAdapterReq = new MsgAdapter(this, R.layout.request_item, resources, user_pics, fields, r_values);
 
         listViewRequest = (ListView) findViewById(R.id.show_requests);
         listViewRequest.setAdapter(msgAdapterReq);
@@ -1154,50 +1168,32 @@ public class ACTRequest extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(resultCode == 300){
-
-            //delete cache, read back picture from local phone storage
-            deleteCache(this);
-            ImageView profile_user_pic = (ImageView)findViewById(R.id.profile_user_pic);
-
-            //String picture_filename = data.getStringExtra("picture_name");
-
-            String picture_filename = "profile_picture.jpg";
-
-            Log.d("jm", "filename" + picture_filename);
-
-            String picture_file_path = Environment.getExternalStorageDirectory()
-                    + "/Android/data/"
-                    + getApplicationContext().getPackageName()
-                    + "/Files/" + picture_filename;
-
-            Log.d("jm", "picture_file_path" + picture_file_path);
-
-            Bitmap bmImg = BitmapFactory.decodeFile(picture_file_path);
-            profile_user_pic.setImageBitmap(bmImg);
-
-
-            //jm debug, to be deleted
-            storeImage(bmImg);
-
-
-        }
-
-
         if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK) {
             Uri imageUri = CropImage.getPickImageResultUri(this, data);
 
 
             Intent i = new Intent(ACTRequest.this, ACTImgCrop.class);
             i.putExtra("imageUri", imageUri.toString());
-            startActivityForResult(i, 0);
+            startActivityForResult(i, 2);
+            //set 2 to be the request code to identify ACTImgCrop
+        }
 
 
+        if (requestCode == 2 && resultCode == 300) {
+            //delete cache, read back picture from local phone storage
+            deleteCache(this);
 
-//            ImageView profile_user_pic = (ImageView)findViewById(R.id.profile_user_pic);
-//            profile_user_pic.setImageURI(imageUri);
-
-
+            byte[] image = BitmapUtils.toByteArray(setProfilePic());
+            // Create the ParseFile
+            if (image != null) {
+                ParseFile file = new ParseFile(user_name + "_profile_picture.png", image);
+                // Upload the image into Parse Cloud
+                file.saveInBackground();
+                // Create a column named "userPic" and insert the image
+                user.put("userpic", file);
+                user.saveInBackground();
+                // Create the class and the columns
+            }
         }
 
 
@@ -1350,6 +1346,7 @@ public class ACTRequest extends AppCompatActivity
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rb_profile);
         ratingBar.setRating((float) user.getDouble("Rating"));
+
     }
 
     public void cancelAndLeave(View view) {
@@ -1393,12 +1390,23 @@ public class ACTRequest extends AppCompatActivity
 
     public static View getToolbarLogoIcon(Toolbar toolbar){
         //check if contentDescription previously was set
-        boolean hadNoContentDescription = android.text.TextUtils.isEmpty(toolbar.getLogoDescription());
+        boolean hadNoContentDescription = TextUtils.isEmpty(toolbar.getLogoDescription());
         String contentDescription = String.valueOf(!hadNoContentDescription ? toolbar.getLogoDescription() : "logoContentDescription");
         toolbar.setLogoDescription(contentDescription);
         ArrayList<View> potentialViews = new ArrayList<View>();
         //find the view based on it's content description, set programatically or with android:contentDescription
-        toolbar.findViewsWithText(potentialViews,contentDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            toolbar.findViewsWithText(potentialViews,contentDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+        }else{
+            //For API < 14
+            int totalChild = toolbar.getChildCount();
+            for (int i=0; i < totalChild; i++){
+                View child = toolbar.getChildAt(i);
+                if (child.getContentDescription().toString().equals(contentDescription)){
+                    potentialViews.add(child);
+                }
+            }
+        }
         //Nav icon is always instantiated at this point because calling setLogoDescription ensures its existence
         View logoIcon = null;
         if(potentialViews.size() > 0){
@@ -1453,10 +1461,6 @@ public class ACTRequest extends AppCompatActivity
 
 
     //image_cropping methods
-
-
-
-
     public void onProfile_upload_picture(View view){
 
             CropImage.startPickImageActivity(this);
@@ -1489,61 +1493,49 @@ public class ACTRequest extends AppCompatActivity
         }
     }
 
+    private Bitmap setProfilePic(){
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-    private void storeImage(Bitmap image) {
-        File pictureFile = getOutputMediaFile();
-        if (pictureFile == null) {
-            Log.d("JM",
-                    "Error creating media file, check storage permissions: ");// e.getMessage());
-            return;
-        }
-        try {
-            FileOutputStream fos = new FileOutputStream(pictureFile);
-            image.compress(Bitmap.CompressFormat.PNG, 90, fos);
-            fos.close();
-        } catch (FileNotFoundException e) {
-            Log.d("JM", "File not found: " + e.getMessage());
-        } catch (IOException e) {
-            Log.d("JM", "Error accessing file: " + e.getMessage());
-        }
-    }
+        View navHeader = navigationView.getHeaderView(0);
 
+        final ImageView profile_user_pic = (ImageView) findViewById(R.id.profile_user_pic);
+        final ImageView nav_user_pic = (ImageView) navHeader.findViewById(R.id.nav_user_pic);
+        String picture_filename = "profile_picture.jpg";
 
-    /** Create a File for saving an image or video */
-    private  File getOutputMediaFile(){
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
+        String picture_file_path = Environment.getExternalStorageDirectory()
                 + "/Android/data/"
                 + getApplicationContext().getPackageName()
-                + "/Files");
+                + "/Files/" + picture_filename;
 
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
+        Log.d("PIC_PATH", "picture_file_path" + picture_file_path);
 
-        // Create the storage directory if it does not exist
-        if (! mediaStorageDir.exists()){
-            if (! mediaStorageDir.mkdirs()){
-                return null;
+        Bitmap bmImg = BitmapFactory.decodeFile(picture_file_path);
+
+        if( bmImg != null) {
+            profile_user_pic.setImageBitmap(bmImg);
+            nav_user_pic.setImageBitmap(bmImg);
+            //check if it will successfully show default image.
+        }else{
+            // Hao; Set to the default image, I use the logo for now, but change this to something later
+            Object cloudImg = user.get("userpic");
+            if (cloudImg != null){
+                ((ParseFile)cloudImg).getDataInBackground(new GetDataCallback() {
+                    public void done(byte[] data, ParseException e) {
+                        if (e == null) {
+                            Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                            profile_user_pic.setImageBitmap(bmp);
+                            nav_user_pic.setImageBitmap(bmp);
+                        } else {
+                            profile_user_pic.setImageResource(R.drawable.logo);
+                            //set logo as default user picture for now
+                        }
+                    }
+                });
+            }else {
+                profile_user_pic.setImageResource(R.drawable.logo);
             }
         }
-        // Create a media file name
-        String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
-        File mediaFile;
-        String mImageName="MI_"+ timeStamp +"2.jpg";
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
-        return mediaFile;
-    }
-
-    public Bitmap StringToBitMap(String image){
-        try{
-            byte [] encodeByte= Base64.decode(image, Base64.DEFAULT);
-            Bitmap bitmap=BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        }catch(Exception e){
-            e.getMessage();
-            return null;
-        }
+        return bmImg;
     }
 
 }

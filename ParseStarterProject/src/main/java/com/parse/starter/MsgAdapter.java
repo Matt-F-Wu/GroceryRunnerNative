@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,13 +23,17 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+
 public class MsgAdapter extends ArrayAdapter<String[]> {
     private final Context context;
     private final int[] fields;
     private final int resource;
     private final List<String[]> values;
     private List<Integer> backgrounds;
-    private List<Integer> alignment;
+    private List<String> images;
 
     public MsgAdapter(Context context, int resource, int[] fields, List<String[]> values) {
         super(context, resource, values);
@@ -36,17 +42,17 @@ public class MsgAdapter extends ArrayAdapter<String[]> {
         this.fields = fields;
         this.resource = resource;
         this.backgrounds = null;
-        this.alignment = null;
+        this.images = null;
     }
 
-    public MsgAdapter(Context context, int default_resource, List<Integer> drawable_resources, List<Integer> alignment, int[] fields, List<String[]> values) {
+    public MsgAdapter(Context context, int default_resource, List<Integer> drawable_resources, List<String> images, int[] fields, List<String[]> values) {
         super(context, default_resource, values);
         this.context = context;
         this.values = values;
         this.fields = fields;
         this.resource = default_resource;
         this.backgrounds = drawable_resources;
-        this.alignment = alignment;
+        this.images = images;
     }
 
     @Override
@@ -61,17 +67,13 @@ public class MsgAdapter extends ArrayAdapter<String[]> {
             rowLayout.setBackgroundResource(backgrounds.get(position));
         }
 
-        if(alignment != null){
-            /*Value > 0, set margin left; value < 0, set margin right*/
-            int margin = alignment.get(position);
-            if(margin > 0){
-                LinearLayout rowLayout = (LinearLayout) rowView.findViewById(R.id.request_row_container);
-                LinearLayout.LayoutParams layoutParams =
-                        (LinearLayout.LayoutParams) rowLayout.getLayoutParams();
-                /*Convert margin from dip to pixles*/
-                float d = context.getResources().getDisplayMetrics().density;
-                int margin_px = (int)(margin * d);
-                layoutParams.setMargins(margin_px, 0, 0, 0);
+        if(images != null){
+            if (images.get(position) != null){
+
+                ImageView user_pic_view = (ImageView) rowView.findViewById(R.id.request_user_picture);
+                new DownloadImageTask(user_pic_view)
+                        .execute(images.get(position));
+
             }
         }
 

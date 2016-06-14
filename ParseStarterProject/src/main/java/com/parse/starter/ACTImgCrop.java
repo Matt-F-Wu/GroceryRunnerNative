@@ -77,29 +77,6 @@ public class ACTImgCrop extends AppCompatActivity{
         }
 
 
-
-        //store cropped picture in local phone storage
-        //storeImage(mCurrentFragment.getImageBitmap());
-
-//        Bitmap bitmap = null;
-//        try {
-//
-//             bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mCurrentFragment.getCropImageViewUri());
-//        }catch(Exception e){
-//            Log.d("JM", "EXCEPTION " + e.getMessage());
-//        }
-//        storeImage(bitmap);
-
-
-
-//        Intent i = new Intent();
-//
-//        Log.d("jm", "picture filename " + mCurrentFragment.get_picture_filename());
-//
-//        i.putExtra("picture_name", mCurrentFragment.get_picture_filename());
-//        setResult(300, i);
-//        finish();
-
     }
 
     private void storeImage(Bitmap image) {

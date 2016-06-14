@@ -106,9 +106,6 @@
         <activity android:name="com.parse.starter.CropImageActivity">
         </activity>
 
-        <activity android:name="com.parse.starter.CropResultActivity">
-        </activity>
-
     </application>
 
 </manifest>
