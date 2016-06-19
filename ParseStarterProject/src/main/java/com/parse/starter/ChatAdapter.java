@@ -68,13 +68,15 @@ public class ChatAdapter extends BaseAdapter {
         boolean myMsg = chatMessage.getIsme() ;//Just a dummy check to simulate whether it me or other sender
         setAlignment(holder, myMsg);
 
-        if (chatMessage.getMessageType().equals(ChatMessage.TEXT_TYPE)){//jm chatMessage.getMessageType() != null &&
+        if (chatMessage.getMessageType().equals(ChatMessage.TEXT_TYPE)){
             holder.txtMessage.setText(chatMessage.getMessage());
             holder.txtMessage.setTextColor(Color.WHITE);
         }else{
             holder.txtMessage.setVisibility(View.GONE);
             holder.txtPicture.setVisibility(View.VISIBLE);
-            new DownloadImageTask(holder.txtPicture).execute(chatMessage.getMessage());
+            String imageName = (chatMessage.getIsme())? ImageChannel.file_self + chatMessage.getMessage() : ImageChannel.file_pre + chatMessage.getMessage();
+            ImageChannel.displayImage(holder.txtPicture, imageName, context);
+            /*new DownloadImageTask(holder.txtPicture).execute(chatMessage.getMessage());*/
         }
 
         holder.txtInfo.setText(chatMessage.getDate());

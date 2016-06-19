@@ -139,6 +139,16 @@ public class ACTRequest extends AppCompatActivity
 		setContentView(R.layout.user_main_page);
 		// Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
+        /*Beta test code*/
+        if (beta_test.debug){
+            ParseObject parseObject = new ParseObject("TestObject");
+            ParseObject parseObject1 = new ParseObject("subObject");
+            parseObject1.saveInBackground();
+            parseObject.put("sub", parseObject1);
+            parseObject.put("message", "test nested parse object representaion");
+            parseObject.saveInBackground();
+            Log.d("NESTED", parseObject.toString());
+        }
 
         // Associate this user with this device
         installation = ParseInstallation.getCurrentInstallation();
@@ -146,7 +156,10 @@ public class ACTRequest extends AppCompatActivity
 
         user.saveInBackground();
 
-        installation.put("username", user.getUsername());
+        user_name = user.getUsername();
+        installation.put("username", user_name);
+        //if( !installation.has("ImageChannel") ) installation.put("ImageChannel", ImageChannel.makeImageChannel(user_name, getResources()));
+
         installation.saveInBackground();
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -257,7 +270,7 @@ public class ACTRequest extends AppCompatActivity
         TextView userName = (TextView) navHeader.findViewById(R.id.nav_username);
         TextView userEmail = (TextView) navHeader.findViewById(R.id.nav_user_email);
 
-        user_name = user.getUsername();
+
         userName.setText(user_name);
         userEmail.setText(user.getEmail());
         // Create a new global location parameters object

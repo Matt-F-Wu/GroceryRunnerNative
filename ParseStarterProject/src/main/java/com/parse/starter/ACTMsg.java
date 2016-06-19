@@ -26,6 +26,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseInstallation;
@@ -72,6 +73,7 @@ public class ACTMsg extends AppCompatActivity {
     private File msg_file;
     static private String conversation_list_filename = "conversation_list.json";
     static private File conversation_file;
+    static Activity activity;
 
 /*  example Json Format in conversation files
     {
@@ -98,6 +100,8 @@ public class ACTMsg extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actmsg);
+
+        activity = this;
 
         Bundle b = this.getIntent().getExtras();
         if (b != null)
@@ -160,16 +164,21 @@ public class ACTMsg extends AppCompatActivity {
                     try{
                         chat_content = jsonObject.getString("content");
                         txt_type = jsonObject.getString("ctype");
+                        if (txt_type.equals(ChatMessage.PICTURE_TYPE)){
+                            ImageChannel.saveImageToFile(chat_content, getApplicationContext(), activity);
+
+                        }else{
+                            ChatMessage chatmsg = new ChatMessage();
+                            chatmsg.setId(0);//todo do I need an id?
+                            chatmsg.setMe(false);
+                            chatmsg.setMessage(chat_content);
+                            chatmsg.setMessageType(txt_type);
+                            chatmsg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+                            displayMessage(chatmsg);
+                        }
                     }catch(org.json.JSONException e){
                         e.printStackTrace();
                     }
-                    ChatMessage chatmsg = new ChatMessage();
-                    chatmsg.setId(0);//todo do I need an id?
-                    chatmsg.setMe(false);
-                    chatmsg.setMessage(chat_content);
-                    chatmsg.setMessageType(txt_type);
-                    chatmsg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
-                    displayMessage(chatmsg);
 
                     //updateDisplay(jsonObject);
                 }
@@ -233,6 +242,7 @@ public class ACTMsg extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
 
         ParsePush.sendDataInBackground(msg, chatQuery, new SendCallback() {
             public void done(ParseException e) {
@@ -319,7 +329,7 @@ public class ACTMsg extends AppCompatActivity {
         MyThreads.fileWrite(jsonObjectToWrite, msg_filename, this);
 
         //read back for testing
-        /*fileRead(msg_file);*/
+        fileRead(msg_file);
 
     }
 
@@ -547,7 +557,7 @@ public class ACTMsg extends AppCompatActivity {
 
             Bitmap bitmap = BitmapFactory.decodeFile(imgPath);
 
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            /*ByteArrayOutputStream stream = new ByteArrayOutputStream();
             // Compress image to lower quality scale 1 - 100
             if (bitmap == null) return;
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -561,13 +571,13 @@ public class ACTMsg extends AppCompatActivity {
                 public void done(ParseException e) {
                     SendPictureHelper(file.getUrl());
                 }
-            });
-
+            });*/
+            ImageChannel.makeImageBox(bitmap, this);
         }
     }
 
-    public void SendPictureHelper(String url) {
-
+    public void SendPictureHelper(String imageID) {
+        /*String url was previous paramter*/
         JSONObject msg = new JSONObject();
 
         try {
@@ -583,7 +593,7 @@ public class ACTMsg extends AppCompatActivity {
         }
 
         try {
-            msg.put("content", url);
+            msg.put("content", imageID);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -616,11 +626,21 @@ public class ACTMsg extends AppCompatActivity {
         ChatMessage chatmsg = new ChatMessage();
         chatmsg.setId(0);//todo do I need an id?
         chatmsg.setMe(true);
-        chatmsg.setMessage(url);
+        chatmsg.setMessage(imageID);
         chatmsg.setMessageType(ChatMessage.PICTURE_TYPE);
         chatmsg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
         displayMessage(chatmsg);
 
         updateDisplay(msg);
+    }
+
+    public void chat_show_image(String chat_content, String txt_type){
+        ChatMessage chatmsg = new ChatMessage();
+        chatmsg.setId(0);//todo do I need an id?
+        chatmsg.setMe(false);
+        chatmsg.setMessage(chat_content);
+        chatmsg.setMessageType(txt_type);
+        chatmsg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+        displayMessage(chatmsg);
     }
 }
