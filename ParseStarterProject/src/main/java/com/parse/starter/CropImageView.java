@@ -256,25 +256,6 @@ public class CropImageView extends FrameLayout {
         setProgressBarVisibility();
     }
 
-    /**
-     * Get the scale type of the image in the crop view.
-     */
-    public ScaleType getScaleType() {
-        return mScaleType;
-    }
-
-    /**
-     * Set the scale type of the image in the crop view
-     */
-    public void setScaleType(ScaleType scaleType) {
-        if (scaleType != mScaleType) {
-            mScaleType = scaleType;
-            mZoom = 1;
-            mZoomOffsetX = mZoomOffsetY = 0;
-            mCropOverlayView.resetCropOverlayView();
-            requestLayout();
-        }
-    }
 
     /**
      * The shape of the cropping area - rectangle/circular.
@@ -283,48 +264,6 @@ public class CropImageView extends FrameLayout {
         return mCropOverlayView.getCropShape();
     }
 
-    /**
-     * The shape of the cropping area - rectangle/circular.
-     */
-    public void setCropShape(CropShape cropShape) {
-        mCropOverlayView.setCropShape(cropShape);
-    }
-
-    /**
-     * if auto-zoom functionality is enabled. default: true.
-     */
-    public boolean isAutoZoomEnabled() {
-        return mAutoZoomEnabled;
-    }
-
-    /**
-     * Set auto-zoom functionality to enabled/disabled.
-     */
-    public void setAutoZoomEnabled(boolean autoZoomEnabled) {
-        if (mAutoZoomEnabled != autoZoomEnabled) {
-            mAutoZoomEnabled = autoZoomEnabled;
-            handleCropWindowChanged(false, false);
-            mCropOverlayView.invalidate();
-        }
-    }
-
-    /**
-     * The max zoom allowed during cropping.
-     */
-    public int getMaxZoom() {
-        return mMaxZoom;
-    }
-
-    /**
-     * The max zoom allowed during cropping.
-     */
-    public void setMaxZoom(int maxZoom) {
-        if (mMaxZoom != maxZoom && maxZoom > 0) {
-            mMaxZoom = maxZoom;
-            handleCropWindowChanged(false, false);
-            mCropOverlayView.invalidate();
-        }
-    }
 
     /**
      * Get the amount of degrees the cropping image is rotated cloackwise.<br>
@@ -344,117 +283,6 @@ public class CropImageView extends FrameLayout {
         if (mDegreesRotated != degrees) {
             rotateImage(degrees - mDegreesRotated);
         }
-    }
-
-    /**
-     * whether the aspect ratio is fixed or not; true fixes the aspect ratio, while false allows it to be changed.
-     */
-    public boolean isFixAspectRatio() {
-        return mCropOverlayView.isFixAspectRatio();
-    }
-
-    /**
-     * Sets whether the aspect ratio is fixed or not; true fixes the aspect ratio, while false allows it to be changed.
-     */
-    public void setFixedAspectRatio(boolean fixAspectRatio) {
-        mCropOverlayView.setFixedAspectRatio(fixAspectRatio);
-    }
-
-    /**
-     * Get the current guidelines option set.
-     */
-    public Guidelines getGuidelines() {
-        return mCropOverlayView.getGuidelines();
-    }
-
-    /**
-     * Sets the guidelines for the CropOverlayView to be either on, off, or to show when resizing the application.
-     */
-    public void setGuidelines(Guidelines guidelines) {
-        mCropOverlayView.setGuidelines(guidelines);
-    }
-
-    /**
-     * both the X and Y values of the aspectRatio.
-     */
-    public Pair<Integer, Integer> getAspectRatio() {
-        return new Pair<>(mCropOverlayView.getAspectRatioX(), mCropOverlayView.getAspectRatioY());
-    }
-
-    /**
-     * Sets the both the X and Y values of the aspectRatio.
-     *
-     * @param aspectRatioX int that specifies the new X value of the aspect ratio
-     * @param aspectRatioY int that specifies the new Y value of the aspect ratio
-     */
-    public void setAspectRatio(int aspectRatioX, int aspectRatioY) {
-        mCropOverlayView.setAspectRatioX(aspectRatioX);
-        mCropOverlayView.setAspectRatioY(aspectRatioY);
-    }
-
-    /**
-     * An edge of the crop window will snap to the corresponding edge of a
-     * specified bounding box when the crop window edge is less than or equal to
-     * this distance (in pixels) away from the bounding box edge. (default: 3dp)
-     */
-    public void setSnapRadius(float snapRadius) {
-        if (snapRadius >= 0) {
-            mCropOverlayView.setSnapRadius(snapRadius);
-        }
-    }
-
-    /**
-     * if to show progress bar when image async loading/cropping is in progress.<br>
-     * default: true, disable to provide custom progress bar UI.
-     */
-    public boolean isShowProgressBar() {
-        return mShowProgressBar;
-    }
-
-    /**
-     * if to show progress bar when image async loading/cropping is in progress.<br>
-     * default: true, disable to provide custom progress bar UI.
-     */
-    public void setShowProgressBar(boolean showProgressBar) {
-        if (mShowProgressBar != showProgressBar) {
-            mShowProgressBar = showProgressBar;
-            setProgressBarVisibility();
-        }
-    }
-
-    /**
-     * if to show crop overlay UI what contains the crop window UI surrounded by background over the cropping
-     * image.<br>
-     * default: true, may disable for animation or frame transition.
-     */
-    public boolean isShowCropOverlay() {
-        return mShowCropOverlay;
-    }
-
-    /**
-     * if to show crop overlay UI what contains the crop window UI surrounded by background over the cropping
-     * image.<br>
-     * default: true, may disable for animation or frame transition.
-     */
-    public void setShowCropOverlay(boolean showCropOverlay) {
-        if (mShowCropOverlay != showCropOverlay) {
-            mShowCropOverlay = showCropOverlay;
-            setCropOverlayVisibility();
-        }
-    }
-
-    /**
-     * Returns the integer of the imageResource
-     */
-    public int getImageResource() {
-        return mImageResource;
-    }
-
-    /**
-     * Get the URI of an image that was set by URI, null otherwise.
-     */
-    public Uri getImageUri() {
-        return mLoadedImageUri;
     }
 
     /**
@@ -513,68 +341,6 @@ public class CropImageView extends FrameLayout {
         return points;
     }
 
-    /**
-     * Set the crop window position and size to the given rectangle.<br>
-     * Image to crop must be first set before invoking this, for async - after complete callback.
-     *
-     * @param rect window rectangle (position and size) relative to source bitmap
-     */
-    public void setCropRect(Rect rect) {
-        mCropOverlayView.setInitialCropWindowRect(rect);
-    }
-
-    /**
-     * Reset crop window to initial rectangle.
-     */
-    public void resetCropRect() {
-        mZoom = 1;
-        mZoomOffsetX = 0;
-        mZoomOffsetY = 0;
-        mDegreesRotated = 0;
-        applyImageMatrix(getWidth(), getHeight(), false, false);
-        mCropOverlayView.resetCropWindowRect();
-    }
-
-    /**
-     * Gets the cropped image based on the current crop window.
-     *
-     * @return a new Bitmap representing the cropped image
-     */
-    public Bitmap getCroppedImage() {
-        return getCroppedImage(0, 0);
-    }
-
-    /**
-     * Gets the cropped image based on the current crop window.<br>
-     * If image loaded from URI will use sample size to fit in the requested width and height down-sampling
-     * if required - optimization to get best size to quality.<br>
-     * NOTE: resulting image will not be exactly (reqWidth, reqHeight)
-     * see: <a href="http://developer.android.com/training/displaying-bitmaps/load-bitmap.html">Loading Large
-     * Bitmaps Efficiently</a>
-     *
-     * @param reqWidth the width to downsample the cropped image to
-     * @param reqHeight the height to downsample the cropped image to
-     * @return a new Bitmap representing the cropped image
-     */
-    public Bitmap getCroppedImage(int reqWidth, int reqHeight) {
-        Bitmap croppedBitmap = null;
-        if (mBitmap != null) {
-            mImageView.clearAnimation();
-            if (mLoadedImageUri != null && mLoadedSampleSize > 1) {
-                int orgWidth = mBitmap.getWidth() * mLoadedSampleSize;
-                int orgHeight = mBitmap.getHeight() * mLoadedSampleSize;
-                croppedBitmap = BitmapUtils.cropBitmap(getContext(), mLoadedImageUri, getCropPoints(),
-                        mDegreesRotated, orgWidth, orgHeight,
-                        mCropOverlayView.isFixAspectRatio(), mCropOverlayView.getAspectRatioX(), mCropOverlayView.getAspectRatioY(),
-                        reqWidth, reqHeight);
-            } else {
-                croppedBitmap = BitmapUtils.cropBitmap(mBitmap, getCropPoints(), mDegreesRotated,
-                        mCropOverlayView.isFixAspectRatio(), mCropOverlayView.getAspectRatioX(), mCropOverlayView.getAspectRatioY());
-            }
-        }
-
-        return croppedBitmap;
-    }
 
     /**
      * Gets the cropped image based on the current crop window.<br>
@@ -603,50 +369,6 @@ public class CropImageView extends FrameLayout {
         startCropWorkerTask(reqWidth, reqHeight, null, null, 0);
     }
 
-    /**
-     * Save the cropped image based on the current crop window to the given uri.<br>
-     * Uses JPEG image compression with 90 compression quality.<br>
-     * The result will be invoked to listener set by {@link #setOnGetCroppedImageCompleteListener(OnGetCroppedImageCompleteListener)}.
-     *
-     * @param saveUri the Android Uri to save the cropped image to
-     */
-    public void saveCroppedImageAsync(Uri saveUri) {
-        saveCroppedImageAsync(saveUri, Bitmap.CompressFormat.JPEG, 90, 0, 0);
-    }
-
-    /**
-     * Save the cropped image based on the current crop window to the given uri.<br>
-     * The result will be invoked to listener set by {@link #setOnGetCroppedImageCompleteListener(OnGetCroppedImageCompleteListener)}.
-     *
-     * @param saveUri the Android Uri to save the cropped image to
-     * @param saveCompressFormat the compression format to use when writting the image
-     * @param saveCompressQuality the quility (if applicable) to use when writting the image (0 - 100)
-     */
-    public void saveCroppedImageAsync(Uri saveUri, Bitmap.CompressFormat saveCompressFormat, int saveCompressQuality) {
-        saveCroppedImageAsync(saveUri, saveCompressFormat, saveCompressQuality, 0, 0);
-    }
-
-    /**
-     * Save the cropped image based on the current crop window to the given uri.<br>
-     * If (reqWidth,reqHeight) is given AND image is loaded from URI cropping will try to use sample size to fit in
-     * the requested width and height down-sampling if possible - optimization to get best size to quality.<br>
-     * NOTE: resulting image will not be exactly (reqWidth, reqHeight)
-     * see: <a href="http://developer.android.com/training/displaying-bitmaps/load-bitmap.html">Loading Large
-     * Bitmaps Efficiently</a><br>
-     * The result will be invoked to listener set by {@link #setOnGetCroppedImageCompleteListener(OnGetCroppedImageCompleteListener)}.
-     *
-     * @param saveUri the Android Uri to save the cropped image to
-     * @param saveCompressFormat the compression format to use when writting the image
-     * @param saveCompressQuality the quility (if applicable) to use when writting the image (0 - 100)
-     * @param reqWidth the width to downsample the cropped image to
-     * @param reqHeight the height to downsample the cropped image to
-     */
-    public void saveCroppedImageAsync(Uri saveUri, Bitmap.CompressFormat saveCompressFormat, int saveCompressQuality, int reqWidth, int reqHeight) {
-        if (mOnSaveCroppedImageCompleteListener == null) {
-            throw new IllegalArgumentException("mOnSaveCroppedImageCompleteListener is not set");
-        }
-        startCropWorkerTask(reqWidth, reqHeight, saveUri, saveCompressFormat, saveCompressQuality);
-    }
 
     /**
      * Set the callback to be invoked when image async loading ({@link #setImageUriAsync(Uri)})
@@ -664,45 +386,6 @@ public class CropImageView extends FrameLayout {
         mOnGetCroppedImageCompleteListener = listener != null ? new WeakReference<>(listener) : null;
     }
 
-    /**
-     * Set the callback to be invoked when image async save cropping image ({@link #saveCroppedImageAsync(Uri)})
-     * is complete (successful or failed).
-     */
-    public void setOnSaveCroppedImageCompleteListener(OnSaveCroppedImageCompleteListener listener) {
-        mOnSaveCroppedImageCompleteListener = listener != null ? new WeakReference<>(listener) : null;
-    }
-
-    /**
-     * Sets a Bitmap as the content of the CropImageView.
-     *
-     * @param bitmap the Bitmap to set
-     */
-    public void setImageBitmap(Bitmap bitmap) {
-        mCropOverlayView.setInitialCropWindowRect(null);
-        setBitmap(bitmap, true);
-    }
-
-    /**
-     * Sets a Bitmap and initializes the image rotation according to the EXIT data.<br>
-     * <br>
-     * The EXIF can be retrieved by doing the following:
-     * <code>ExifInterface exif = new ExifInterface(path);</code>
-     *
-     * @param bitmap the original bitmap to set; if null, this
-     * @param exif the EXIF information about this bitmap; may be null
-     */
-    public void setImageBitmap(Bitmap bitmap, ExifInterface exif) {
-        Bitmap setBitmap;
-        if (bitmap != null && exif != null) {
-            BitmapUtils.RotateBitmapResult result = BitmapUtils.rotateBitmapByExif(bitmap, exif);
-            setBitmap = result.bitmap;
-            mDegreesRotated = result.degrees;
-        } else {
-            setBitmap = bitmap;
-        }
-        mCropOverlayView.setInitialCropWindowRect(null);
-        setBitmap(setBitmap, true);
-    }
 
     /**
      * Sets a Drawable as the content of the CropImageView.
@@ -742,13 +425,6 @@ public class CropImageView extends FrameLayout {
         }
     }
 
-    /**
-     * Clear the current image set for cropping.
-     */
-    public void clearImage() {
-        clearImage(true);
-        mCropOverlayView.setInitialCropWindowRect(null);
-    }
 
     /**
      * Rotates image by the specified number of degrees clockwise.<br>

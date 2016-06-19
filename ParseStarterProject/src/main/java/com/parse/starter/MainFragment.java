@@ -72,81 +72,24 @@ public final class MainFragment extends Fragment
     }
 
 
-
     /**
      * Set the image to show for cropping.
      */
     public void setImageUri(Uri imageUri) {
         mCropImageView.setImageUriAsync(imageUri);
-        //        CropImage.activity(imageUri)
-        //                .start(getContext(), this);
     }
 
-    /**
-     * Set the options of the crop image view to the given values.
-     */
-    public void setCropImageViewOptions(CropImageViewOptions options) {
-        mCropImageView.setScaleType(options.scaleType);
-        mCropImageView.setCropShape(options.cropShape);
-        mCropImageView.setGuidelines(options.guidelines);
-        mCropImageView.setAspectRatio(options.aspectRatio.first, options.aspectRatio.second);
-        mCropImageView.setFixedAspectRatio(options.fixAspectRatio);
-        mCropImageView.setShowCropOverlay(options.showCropOverlay);
-        mCropImageView.setShowProgressBar(options.showProgressBar);
-        mCropImageView.setAutoZoomEnabled(options.autoZoomEnabled);
-        mCropImageView.setMaxZoom(options.maxZoomLevel);
-    }
-
-    /**
-     * Set the initial rectangle to use.
-     */
-    public void setInitialCropRect() {
-        mCropImageView.setCropRect(new Rect(100, 300, 500, 1200));
-    }
-
-    /**
-     * Reset crop window to initial rectangle.
-     */
-    public void resetCropRect() {
-        mCropImageView.resetCropRect();
-    }
-
-    public void updateCurrentCropViewOptions() {
-        CropImageViewOptions options = new CropImageViewOptions();
-        options.scaleType = mCropImageView.getScaleType();
-        options.cropShape = mCropImageView.getCropShape();
-        options.guidelines = mCropImageView.getGuidelines();
-        options.aspectRatio = mCropImageView.getAspectRatio();
-        options.fixAspectRatio = mCropImageView.isFixAspectRatio();
-        options.showCropOverlay = mCropImageView.isShowCropOverlay();
-        options.showProgressBar = mCropImageView.isShowProgressBar();
-        options.autoZoomEnabled = mCropImageView.isAutoZoomEnabled();
-        options.maxZoomLevel = mCropImageView.getMaxZoom();
-        ((ACTImgCrop) getActivity()).setCurrentOptions(options);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView;
         switch (mDemoPreset) {
-            case RECT:
-                rootView = inflater.inflate(R.layout.fragment_main_rect, container, false);
-                break;
+//            case RECT:
+//                rootView = inflater.inflate(R.layout.fragment_main_rect, container, false);
+//                break;
             case CIRCULAR:
                 rootView = inflater.inflate(R.layout.fragment_main_oval, container, false);
-                break;
-            case CUSTOMIZED_OVERLAY:
-                rootView = inflater.inflate(R.layout.fragment_main_customized, container, false);
-                break;
-            case MIN_MAX_OVERRIDE:
-                rootView = inflater.inflate(R.layout.fragment_main_min_max, container, false);
-                break;
-            case SCALE_CENTER_INSIDE:
-                rootView = inflater.inflate(R.layout.fragment_main_scale_center, container, false);
-                break;
-            case CUSTOM:
-                rootView = inflater.inflate(R.layout.fragment_main_rect, container, false);
                 break;
             default:
                 throw new IllegalStateException("Unknown preset: " + mDemoPreset);
@@ -157,22 +100,14 @@ public final class MainFragment extends Fragment
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        Log.d("jm", "onViewCreated");
-
         super.onViewCreated(view, savedInstanceState);
 
         mCropImageView = (CropImageView) view.findViewById(R.id.cropImageView);
         mCropImageView.setOnSetImageUriCompleteListener(this);
         mCropImageView.setOnGetCroppedImageCompleteListener(this);
 
-        updateCurrentCropViewOptions();
-
         if (savedInstanceState == null) {
-            if (mDemoPreset == CropDemoPreset.SCALE_CENTER_INSIDE) {
-                mCropImageView.setImageResource(R.drawable.cat_small);
-            } else {
-                mCropImageView.setImageResource(R.drawable.cat);
-            }
+            Toast.makeText(getActivity(), "no image selected", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -191,9 +126,6 @@ public final class MainFragment extends Fragment
     @Override
     public void onAttach(Context context) {
 
-        Log.d("onAttach", "onAttach" + context);
-
-
         super.onAttach(context);
         mDemoPreset = CropDemoPreset.valueOf(getArguments().getString("DEMO_PRESET"));
         ((ACTImgCrop) context).setCurrentFragment(this);
@@ -201,9 +133,6 @@ public final class MainFragment extends Fragment
 
     @Override
     public void onAttach(Activity activity) {
-
-        Log.d("onAttach", "onAttach" + activity);
-
 
         super.onAttach(activity);
         mDemoPreset = CropDemoPreset.valueOf(getArguments().getString("DEMO_PRESET"));
@@ -235,20 +164,18 @@ public final class MainFragment extends Fragment
     @Override
     public void onGetCroppedImageComplete(CropImageView view, Bitmap bitmap, Exception error) {
 
-        Log.d("JM", "onGetCroppedImageComplete");
         handleCropResult(null, bitmap, error);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("JM", "onActivityResult");
-
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            handleCropResult(result.getUri(), null, result.getError());
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+//            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+//            handleCropResult(result.getUri(), null, result.getError());
+//        }
+//    }
 
     private void handleCropResult(Uri uri, Bitmap bitmap, Exception error) {
           if (error == null) {
@@ -265,16 +192,11 @@ public final class MainFragment extends Fragment
         getActivity().setResult(300, i);
         getActivity().finish();
 
-
-
     }
 
 
 
     private void storeImage(Bitmap image) {
-
-        Log.d("JM", "storeImage inside");
-
 
         File pictureFile = getOutputMediaFile();
         if (pictureFile == null) {

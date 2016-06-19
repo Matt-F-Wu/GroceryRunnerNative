@@ -140,10 +140,6 @@
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_main_scale_center.xml",
-        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\layout\\fragment_main_scale_center.xml"
-    },
-    {
         "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\layout\\crop_image_activity.xml",
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\layout\\crop_image_activity.xml"
     },
@@ -188,14 +184,6 @@
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_dialog_title_material.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_main_rect.xml",
-        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\layout\\fragment_main_rect.xml"
-    },
-    {
-        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_main_customized.xml",
-        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\layout\\fragment_main_customized.xml"
-    },
-    {
         "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\layout\\content_actmsg.xml",
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\layout\\content_actmsg.xml"
     },
@@ -214,10 +202,6 @@
     {
         "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_activity_chooser_view.xml"
-    },
-    {
-        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_main_min_max.xml",
-        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\layout\\fragment_main_min_max.xml"
     },
     {
         "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
@@ -262,10 +246,6 @@
     {
         "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\layout\\login.xml",
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\layout\\login.xml"
-    },
-    {
-        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\layout\\activity_crop_result.xml",
-        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\layout\\activity_crop_result.xml"
     },
     {
         "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",

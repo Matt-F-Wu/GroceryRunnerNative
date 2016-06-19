@@ -14,7 +14,7 @@
         android:id="@+id/image_crop_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="#d44535"
         android:orientation="horizontal">
 
         <TextView

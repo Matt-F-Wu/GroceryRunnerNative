@@ -103,8 +103,6 @@
             android:theme="@style/ThemeOverlay.MyNoTitleActivity"
             android:parentActivityName=".ACTRequest"></activity>
 
-        <activity android:name="com.parse.starter.CropImageActivity">
-        </activity>
 
     </application>
 

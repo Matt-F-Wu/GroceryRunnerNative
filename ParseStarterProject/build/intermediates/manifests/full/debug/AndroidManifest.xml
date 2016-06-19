@@ -122,8 +122,6 @@
             android:theme="@style/ThemeOverlay.MyNoTitleActivity" />
         <activity android:name="com.parse.starter.CropImageActivity" >
         </activity>
-        <activity android:name="com.parse.starter.CropResultActivity" >
-        </activity>
 
         <provider
             android:name="com.google.android.gms.measurement.AppMeasurementContentProvider"

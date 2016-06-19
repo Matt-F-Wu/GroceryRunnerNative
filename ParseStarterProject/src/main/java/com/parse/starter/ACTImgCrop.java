@@ -38,8 +38,6 @@ public class ACTImgCrop extends AppCompatActivity{
 
     private String picture_filename;
 
-    private CropImageViewOptions mCropImageViewOptions = new CropImageViewOptions();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +63,6 @@ public class ACTImgCrop extends AppCompatActivity{
 
         mCurrentFragment.setImageUri(mCropImageUri);
 
-        mCurrentFragment.updateCurrentCropViewOptions();
     }
 
     public void onClick_img_crop_option(View v){
@@ -78,52 +75,6 @@ public class ACTImgCrop extends AppCompatActivity{
 
 
     }
-
-    private void storeImage(Bitmap image) {
-        File pictureFile = getOutputMediaFile();
-        if (pictureFile == null) {
-            Log.d("JM",
-                    "Error creating media file, check storage permissions: ");// e.getMessage());
-            return;
-        }
-        try {
-            FileOutputStream fos = new FileOutputStream(pictureFile);
-            image.compress(Bitmap.CompressFormat.PNG, 90, fos);
-            fos.close();
-        } catch (FileNotFoundException e) {
-            Log.d("JM", "File not found: " + e.getMessage());
-        } catch (IOException e) {
-            Log.d("JM", "Error accessing file: " + e.getMessage());
-        }
-    }
-
-
-    /** Create a File for saving an image or video */
-    private  File getOutputMediaFile(){
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
-                + "/Android/data/"
-                + getApplicationContext().getPackageName()
-                + "/Files");
-
-        // This location works best if you want the created images to be shared
-        // between applications and persist after your app has been uninstalled.
-
-        // Create the storage directory if it does not exist
-        if (! mediaStorageDir.exists()){
-            if (! mediaStorageDir.mkdirs()){
-                return null;
-            }
-        }
-        // Create a media file name
-        String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
-        File mediaFile;
-        picture_filename="MI_"+ timeStamp +".jpg";
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator + picture_filename);
-        return mediaFile;
-    }
-
 
     private void setMainFragmentByPreset(CropDemoPreset demoPreset) {
 
@@ -138,13 +89,6 @@ public class ACTImgCrop extends AppCompatActivity{
 
         mCurrentFragment = fragment;
     }
-
-
-
-    public void setCurrentOptions(CropImageViewOptions options) {
-        mCropImageViewOptions = options;
-    }
-
 
 
 }

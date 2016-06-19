@@ -26,6 +26,12 @@
                 android:textColor="@android:color/black"
                 android:maxWidth="240dp" />
 
+            <ImageView
+                android:id="@+id/txtPicture"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
         <TextView

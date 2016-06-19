@@ -502,7 +502,7 @@
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
     <string name="store_picture_title">Save image</string>
-    <string name="title_activity_actimgcrop">ACT img crop</string>
+    <string name="title_activity_actimgcrop">Favourama Crop</string>
     <string name="title_activity_actmsg">ACTMsg</string>
     <string name="wallet_buy_button_place_holder">Buy with Google</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
