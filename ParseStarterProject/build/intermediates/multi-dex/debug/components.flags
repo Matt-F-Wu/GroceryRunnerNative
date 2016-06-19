@@ -49,10 +49,6 @@
     <init>();
 }
 
--keep class com.parse.starter.CropImageActivity {
-    <init>();
-}
-
 -keep class com.google.android.gms.measurement.AppMeasurementContentProvider {
     <init>();
 }
