@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:9:1-111:12
+ADDED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:9:1-109:12
 	xmlns:android
 		ADDED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:9:11-69
 	package
@@ -86,7 +86,7 @@ ADDED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\Parse
 	android:name
 		ADDED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:30:22-77
 application
-ADDED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:32:5-109:19
+ADDED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:32:5-107:19
 MERGED from [com.google.android.gms:play-services-measurement:8.1.0] C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.1.0\AndroidManifest.xml:26:5-46:19
 MERGED from [com.google.android.gms:play-services-basement:8.1.0] C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\AndroidManifest.xml:20:5-24:19
 MERGED from [com.android.support:support-v4:23.1.1] C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
@@ -390,10 +390,6 @@ ADDED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\Parse
 		ADDED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:104:13-53
 	android:name
 		ADDED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:101:13-39
-activity#com.parse.starter.CropImageActivity
-ADDED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:106:9-107:20
-	android:name
-		ADDED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:106:19-69
 uses-sdk
 INJECTED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:multidex:1.0.1] C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\build\intermediates\exploded-aar\com.android.support\multidex\1.0.1\AndroidManifest.xml:18:5-42
@@ -625,7 +621,7 @@ MERGED from [com.google.android.gms:play-services-maps:8.1.0] C:\Users\Jeremy\Do
 	android:glEsVersion
 		ADDED from [com.google.android.gms:play-services-maps:8.1.0] C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.1.0\AndroidManifest.xml:24:8-40
 android:uses-permission#android.permission.READ_EXTERNAL_STORAGE
-IMPLIED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:9:1-111:12 reason: com.google.android.gms.maps requested WRITE_EXTERNAL_STORAGE
+IMPLIED from C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\src\main\AndroidManifest.xml:9:1-109:12 reason: com.google.android.gms.maps requested WRITE_EXTERNAL_STORAGE
 uses-permission#android.permission.USE_CREDENTIALS
 ADDED from [com.google.android.gms:play-services-wallet:8.1.0] C:\Users\Jeremy\Documents\GitHub\favourama4\GroceryRunnerNative\ParseStarterProject\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\8.1.0\AndroidManifest.xml:22:5-73
 	android:name
