@@ -1,9 +1,7 @@
 package com.parse.starter;
 
-import android.*;
-import android.Manifest;
+
 import android.app.Activity;
-import android.app.LauncherActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,12 +11,10 @@ import android.content.IntentSender;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -30,7 +26,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -67,9 +62,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.parse.GetDataCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
@@ -82,14 +76,8 @@ import com.parse.SendCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -139,16 +127,6 @@ public class ACTRequest extends AppCompatActivity
 		setContentView(R.layout.user_main_page);
 		// Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
-        /*Beta test code*/
-        if (beta_test.debug){
-            ParseObject parseObject = new ParseObject("TestObject");
-            ParseObject parseObject1 = new ParseObject("subObject");
-            parseObject1.saveInBackground();
-            parseObject.put("sub", parseObject1);
-            parseObject.put("message", "test nested parse object representaion");
-            parseObject.saveInBackground();
-            Log.d("NESTED", parseObject.toString());
-        }
 
         // Associate this user with this device
         installation = ParseInstallation.getCurrentInstallation();
@@ -354,7 +332,7 @@ public class ACTRequest extends AppCompatActivity
         registerReceiver(receiver, filter);
 
         edittext_ids = new HashSet<>();
-        setProfilePic();
+        setProfilePic(false);
 	}
 
     @Override
@@ -791,7 +769,10 @@ public class ACTRequest extends AppCompatActivity
             e.printStackTrace();
         }
         try {
-            post.put("userpic", ((ParseFile)user.get("userpic")).getUrl());
+            Object object = user.get("userpic");
+            if( object != null) {
+                post.put("userpic", ((ParseObject)object).getObjectId());
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -1196,16 +1177,42 @@ public class ACTRequest extends AppCompatActivity
             //delete cache, read back picture from local phone storage
             deleteCache(this);
 
-            byte[] image = BitmapUtils.toByteArray(setProfilePic());
-            // Create the ParseFile
+            String image = ImageChannel.BitMapToStringPNG(setProfilePic(true));
             if (image != null) {
-                ParseFile file = new ParseFile(user_name + "_profile_picture.png", image);
-                // Upload the image into Parse Cloud
-                file.saveInBackground();
-                // Create a column named "userPic" and insert the image
-                user.put("userpic", file);
-                user.saveInBackground();
-                // Create the class and the columns
+                /*ParseFile file = new ParseFile(user_name + "_profile_picture.png", image);
+                file.saveInBackground();*/
+                final ParseObject parseObject = new ParseObject("ImageBox");
+                parseObject.put("data", image);
+                parseObject.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            Toast.makeText(context,
+                                    "Could not send image, please try later!", Toast.LENGTH_LONG)
+                                    .show();
+                        } else {
+                            // Create a column named "userPic" and insert the image
+                            ImageChannel.eraseImageFromCloud(user.get("userpic"));
+                            user.put("userpic", parseObject);
+                            String poID = parseObject.getObjectId();
+                            user.put("userpicID", poID);
+                            user.saveInBackground();
+                            JSONObject jsonObject = new JSONObject();
+                            try {
+                                jsonObject.put("userpicID", poID);
+                                MyThreads.fileWrite(jsonObject, "profile_image_id.json", context);
+                            } catch (JSONException e1) {
+                                Log.d("I/OError", "Cannot write to profile_image_id.json");
+                            }
+                        }
+                    }
+                });
+
+            }else{
+                Toast.makeText(context,
+                        "Image is too big, please try a smaller one! >_<", Toast.LENGTH_LONG)
+                        .show();
+                return;
             }
         }
 
@@ -1506,7 +1513,7 @@ public class ACTRequest extends AppCompatActivity
         }
     }
 
-    private Bitmap setProfilePic(){
+    private Bitmap setProfilePic(Boolean update){
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         View navHeader = navigationView.getHeaderView(0);
@@ -1522,33 +1529,65 @@ public class ACTRequest extends AppCompatActivity
 
         Log.d("PIC_PATH", "picture_file_path" + picture_file_path);
 
-        Bitmap bmImg = BitmapFactory.decodeFile(picture_file_path);
+        final Bitmap bmImg = BitmapFactory.decodeFile(picture_file_path);
 
-        if( bmImg != null) {
+        if( bmImg != null && update) {
             profile_user_pic.setImageBitmap(bmImg);
             nav_user_pic.setImageBitmap(bmImg);
             //check if it will successfully show default image.
         }else{
+            if(update) return null;
             // Hao; Set to the default image, I use the logo for now, but change this to something later
-            Object cloudImg = user.get("userpic");
-            if (cloudImg != null){
-                ((ParseFile)cloudImg).getDataInBackground(new GetDataCallback() {
-                    public void done(byte[] data, ParseException e) {
-                        if (e == null) {
-                            Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                            profile_user_pic.setImageBitmap(bmp);
-                            nav_user_pic.setImageBitmap(bmp);
-                        } else {
-                            profile_user_pic.setImageResource(R.drawable.logo);
-                            //set logo as default user picture for now
+            if(bmImg != null) {
+                Object cloudImg = user.get("userpic");
+                final String imageID = user.getString("userpicID");
+                if (cloudImg != null) {
+                    ParseObject imageObj = (ParseObject) cloudImg;
+                    imageObj.fetchIfNeededInBackground(new GetCallback<ParseObject>() {
+                        @Override
+                        public void done(ParseObject parseObject, ParseException e) {
+                            String imgData = parseObject.getString("data");
+                            if (imgData != null) {
+                                Bitmap bmp = ImageChannel.StringToBitMap(imgData);
+                                if (bmp != null) {
+                                    if(checkProfilePictureIDSndSetImage(profile_user_pic, nav_user_pic, imageID, bmImg)){
+                                        //return bmImg;
+                                    }else {
+                                /*Not storing locally, a trade off between larger code/apk and larger data usage*/
+                                        profile_user_pic.setImageBitmap(bmp);
+                                        nav_user_pic.setImageBitmap(bmp);
+                                    }
+                                }
+                            }
                         }
-                    }
-                });
-            }else {
-                profile_user_pic.setImageResource(R.drawable.logo);
+                    });
+
+                } else {
+                    profile_user_pic.setImageResource(R.drawable.logo);
+                }
             }
         }
         return bmImg;
+    }
+
+    public Boolean checkProfilePictureIDSndSetImage(ImageView profile_user_pic, ImageView nav_user_pic, String imageID, Bitmap bmImg){
+        LinkedList<JSONObject> jsonObjectArrayList = new LinkedList<>();
+        MyThreads.readLine(new File(context.getFilesDir(), "profile_image_id.json"), jsonObjectArrayList, context);
+        try {
+            JSONObject imgj = jsonObjectArrayList.poll();
+            if(imgj != null) {
+                if(imgj.getString("userpicID").equals(imageID)){
+                    profile_user_pic.setImageBitmap(bmImg);
+                    nav_user_pic.setImageBitmap(bmImg);
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

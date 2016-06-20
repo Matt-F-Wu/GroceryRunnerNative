@@ -3,14 +3,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <LinearLayout
-        android:id="@+id/content"
+        android:id="@+id/picture_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/contentWithBackground"
+            android:id="@+id/picture_content_bg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -19,17 +19,17 @@
             android:paddingBottom="10dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtMessage"
+            <ImageView
+                android:id="@+id/txtPicture"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:maxWidth="240dp" />
+                android:src="@drawable/image_not_load"/>
 
         </LinearLayout>
 
         <TextView
-            android:id="@+id/txtInfo"
+            android:id="@+id/picInfo"
             android:layout_width="wrap_content"
             android:layout_height="30sp"
             android:layout_gravity="right"

@@ -5,6 +5,7 @@ package com.parse.starter;
  */
 public class beta_test {
     public static boolean debug = true;
+    public static boolean debug_notification = false;
 
     /*A file containing global flags and variables to assist testing*/
 }

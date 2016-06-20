@@ -21,7 +21,8 @@
             android:layout_marginRight="10dip"
             android:layout_marginTop="10dip"
             android:id="@+id/request_user_picture"
-            android:src="@drawable/logo"/>
+            android:src="@drawable/holemask"
+            android:background="@drawable/logo"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

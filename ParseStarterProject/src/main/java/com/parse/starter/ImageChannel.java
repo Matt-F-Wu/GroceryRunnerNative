@@ -40,8 +40,15 @@ public class ImageChannel {
     public static String file_self = "FavouramaSelfIMG";
 
     public static void makeImageBox(Bitmap bitmap, final Activity activity){
-        final ParseObject parseObject = new ParseObject("ImageBox");
+
         final String imgData = BitMapToString(bitmap);
+        if(imgData == null) {
+            Toast.makeText(activity.getApplicationContext(),
+                    "Image is too big, please try a smaller one! >_<", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+        final ParseObject parseObject = new ParseObject("ImageBox");
         parseObject.put("data", imgData);
         parseObject.saveInBackground(new SaveCallback() {
             @Override
@@ -67,6 +74,8 @@ public class ImageChannel {
     }
 
     public static String BitMapToString(Bitmap bitmap){
+        if(bitmap == null) return null;
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         /*Maybe compress to WEBP to shrink size, since we can't convert to gif >_<*/
         byte [] b;
@@ -77,14 +86,36 @@ public class ImageChannel {
         do {
             bitmap.compress(Bitmap.CompressFormat.JPEG, i, baos);
             b = baos.toByteArray();
+            baos.reset();
             temp = Base64.encodeToString(b, Base64.DEFAULT);
+            Log.d("IMGSIZE", temp.length() * 2 / 1000 + "KB");
             i-=10;
-        } while ( temp.length() * 2 / 1000 > 128 && i >=50 );
+        } while ( temp.length() * 2 / 1000 > 127 && i >=0 );
 
         Log.d("IMGSIZE", temp.length() * 2 / 1000 + "KB");
 
-        if(temp.length() * 2 / 1000 > 128){
+        if(temp.length() * 2 / 1000 > 127){
             return null;
+        }
+
+        return temp;
+    }
+
+    public static String BitMapToStringPNG(Bitmap bitmap){
+        if(bitmap == null) return null;
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        /*Maybe compress to WEBP to shrink size, since we can't convert to gif >_<*/
+        byte [] b;
+        String temp;
+
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        b = baos.toByteArray();
+        baos.reset();
+        temp = Base64.encodeToString(b, Base64.DEFAULT);
+
+        if(temp.length() * 2 / 1000 > 127){
+            return BitMapToString(bitmap);
         }
 
         return temp;
@@ -136,6 +167,7 @@ public class ImageChannel {
                             try {
                                 jsonObject.put("img", imgData);
                                 MyThreads.fileWrite(jsonObject, file_pre + data, context);
+                                eraseImageFromCloud(object);
                                 ((ACTMsg)activity).chat_show_image(data, ChatMessage.PICTURE_TYPE);
                             } catch (JSONException e1) {
                                 e1.printStackTrace();
@@ -148,6 +180,17 @@ public class ImageChannel {
                     }
                 }
             });
+        }
+    }
+
+    public static void eraseImageFromCloud(Object parseObject){
+        if(parseObject != null){
+            try {
+                ((ParseObject)parseObject).delete();
+            } catch (ParseException e) {
+                Log.d("DELETEIMG", "FAIL");
+                e.printStackTrace();
+            }
         }
     }
 

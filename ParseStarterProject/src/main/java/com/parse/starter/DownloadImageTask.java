@@ -1,9 +1,21 @@
 package com.parse.starter;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.util.Log;
 import android.widget.ImageView;
+
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.InputStream;
 
@@ -18,18 +30,29 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
     }
 
     protected Bitmap doInBackground(String... urls) {
-        String urldisplay = urls[0];
+        String imageID = urls[0];
         Bitmap bitmap = null;
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("ImageBox");
         try {
-            InputStream in = new java.net.URL(urldisplay).openStream();
-            bitmap = BitmapFactory.decodeStream(in);
-        } catch (Exception e) {
+            ParseObject parseObject = query.get(imageID);
+            return ImageChannel.StringToBitMap(parseObject.getString("data"));
+        } catch (ParseException e) {
             e.printStackTrace();
         }
+
         return bitmap;
     }
 
     protected void onPostExecute(Bitmap result) {
-        bmImage.setImageBitmap(result);
+        if(result != null) {
+            BitmapDrawable bitmapDrawable = new BitmapDrawable(bmImage.getResources(), result);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                bmImage.setBackground(bitmapDrawable);
+            }else{
+                bmImage.setBackgroundDrawable(bitmapDrawable);
+            }
+            //bmImage.setImageBitmap(result);
+        }
     }
 }

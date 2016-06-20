@@ -52,7 +52,7 @@ public final class MainFragment extends Fragment
 
     private CropImageView mCropImageView;
 
-    private String picture_filename;
+    private static String picture_filename = "profile_picture.jpg";
 
     //endregion
 
@@ -198,7 +198,7 @@ public final class MainFragment extends Fragment
 
     private void storeImage(Bitmap image) {
 
-        File pictureFile = getOutputMediaFile();
+        File pictureFile = getOutputMediaFile(picture_filename);
         if (pictureFile == null) {
             Log.d("JM",
                     "Error creating media file, check storage permissions: ");// e.getMessage());
@@ -217,7 +217,7 @@ public final class MainFragment extends Fragment
 
 
     /** Create a File for saving an image or video */
-    private  File getOutputMediaFile(){
+    private File getOutputMediaFile(String picture_name){
 
         Log.d("JM", "getOutputMediaFile inside");
 
@@ -238,12 +238,10 @@ public final class MainFragment extends Fragment
             }
         }
         // Create a media file name
-        String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
-        File mediaFile;
-        //picture_filename="MI_"+ timeStamp +".jpg";
 
-        picture_filename = "profile_picture.jpg";
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator + picture_filename);
+        File mediaFile;
+
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator + picture_name);
 
         if(mediaFile != null)
             Log.d("jm", "MEDIA FILE IS NOT NULL");
