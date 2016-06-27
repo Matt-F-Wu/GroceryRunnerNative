@@ -41,15 +41,17 @@ public class ImageChannel {
 
     public static void makeImageBox(Bitmap bitmap, final Activity activity){
 
-        final String imgData = BitMapToString(bitmap);
+        final LinkedList<String> imgData = BitMapToString(bitmap);
         if(imgData == null) {
             Toast.makeText(activity.getApplicationContext(),
-                    "Image is too big, please try a smaller one! >_<", Toast.LENGTH_LONG)
+                    "Image is too big or is corrupted, please try a smaller one! >_<", Toast.LENGTH_LONG)
                     .show();
             return;
         }
         final ParseObject parseObject = new ParseObject("ImageBox");
-        parseObject.put("data", imgData);
+
+        final String whole = fillImageBox(parseObject, imgData);
+
         parseObject.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -61,7 +63,7 @@ public class ImageChannel {
                     String imageID = parseObject.getObjectId();
                     JSONObject jsonObject = new JSONObject();
                     try {
-                        jsonObject.put("img", imgData);
+                        jsonObject.put("img", whole);
                         MyThreads.fileWrite(jsonObject, file_self + imageID, activity.getApplicationContext());
                     } catch (JSONException e1) {
                         e1.printStackTrace();
@@ -73,7 +75,7 @@ public class ImageChannel {
 
     }
 
-    public static String BitMapToString(Bitmap bitmap){
+    public static LinkedList<String> BitMapToString(Bitmap bitmap){
         if(bitmap == null) return null;
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -88,22 +90,27 @@ public class ImageChannel {
             b = baos.toByteArray();
             baos.reset();
             temp = Base64.encodeToString(b, Base64.DEFAULT);
-            Log.d("IMGSIZE", temp.length() * 2 / 1000 + "KB");
+            Log.d("IMGSIZE", temp.length() * 2 / 1024 + "KB");
             i-=10;
-        } while ( temp.length() * 2 / 1000 > 127 && i >=0 );
+        } while ( temp.length() * 2 / 1024 > 127 && i >=0 );
 
-        Log.d("IMGSIZE", temp.length() * 2 / 1000 + "KB");
+        Log.d("LENGHT", "is " + temp.length());
 
-        if(temp.length() * 2 / 1000 > 127){
-            return null;
+        LinkedList<String> imageList = new LinkedList<>();
+        while(temp.length() > 127 * 1024 / 2){
+            imageList.add(temp.substring(0, 127 * 1024 / 2));
+            temp = temp.substring(127 * 1024 / 2);
         }
 
-        return temp;
+        imageList.add(temp);
+
+        return imageList;
     }
 
-    public static String BitMapToStringPNG(Bitmap bitmap){
+    public static LinkedList<String> BitMapToStringPNG(Bitmap bitmap){
         if(bitmap == null) return null;
 
+        LinkedList<String> imageList = new LinkedList<>();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         /*Maybe compress to WEBP to shrink size, since we can't convert to gif >_<*/
         byte [] b;
@@ -114,12 +121,18 @@ public class ImageChannel {
         baos.reset();
         temp = Base64.encodeToString(b, Base64.DEFAULT);
 
-        if(temp.length() * 2 / 1000 > 127){
-            return BitMapToString(bitmap);
+        Log.d("LENGHT", "is " + temp.length());
+
+        while(temp.length() > 127 * 1024 / 2){
+            imageList.add(temp.substring(0, 127 * 1024 / 2));
+            temp = temp.substring(127 * 1024 / 2);
         }
 
-        return temp;
+        imageList.add(temp);
+
+        return imageList;
     }
+
 
     public static Bitmap StringToBitMap(String encodedString){
         if (encodedString == null) return null;
@@ -160,7 +173,7 @@ public class ImageChannel {
             query.getInBackground(data, new GetCallback<ParseObject>() {
                 public void done(ParseObject object, ParseException e) {
                     if (e == null) {
-                        String imgData = object.getString("data");
+                        String imgData = getImageString(object);
                         if (imgData != null) {
 
                             JSONObject jsonObject = new JSONObject();
@@ -168,7 +181,7 @@ public class ImageChannel {
                                 jsonObject.put("img", imgData);
                                 MyThreads.fileWrite(jsonObject, file_pre + data, context);
                                 eraseImageFromCloud(object);
-                                ((ACTMsg)activity).chat_show_image(data, ChatMessage.PICTURE_TYPE);
+                                ((ACTMsg) activity).chat_show_image(data, ChatMessage.PICTURE_TYPE);
                             } catch (JSONException e1) {
                                 e1.printStackTrace();
                             }
@@ -184,14 +197,62 @@ public class ImageChannel {
     }
 
     public static void eraseImageFromCloud(Object parseObject){
+        if (parseObject == null) return;
+        ParseObject imgBox = (ParseObject) parseObject;
+        if( !imgBox.has("num") ) return;
         if(parseObject != null){
             try {
-                ((ParseObject)parseObject).delete();
+                int num = imgBox.getInt("num");
+                for (int i = 1; i <= num; i++){
+                    imgBox.getParseObject("data" + i).delete();
+                }
+                imgBox.delete();
             } catch (ParseException e) {
                 Log.d("DELETEIMG", "FAIL");
                 e.printStackTrace();
             }
         }
+    }
+
+    public static String fillImageBox(ParseObject parseObject, LinkedList<String> imgData){
+        String data = "";
+        int i = 1;
+        for (String s : imgData){
+            ParseObject p = new ParseObject("ImageData");
+            p.put("data", s);
+            p.saveInBackground();
+            data += s;
+            parseObject.put("data" + i, p);
+            i++;
+        }
+
+        parseObject.put("num", i - 1);
+        return data;
+    }
+
+    public static String getImageString(ParseObject parseObject) {
+        if(parseObject == null) return null;
+        String imgData = "";
+        LinkedList<String> res = new LinkedList<>();
+        int num = parseObject.getInt("num");
+        for (int i = 1; i <= num; i++) {
+            final ParseObject obj = parseObject.getParseObject("data" + i);
+            try {
+                obj.fetchIfNeeded();
+                res.add(obj.getString("data"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        for (String s : res){
+            imgData += s;
+        }
+
+        Log.d("LENGHT", "is " + imgData.length());
+
+        return imgData;
     }
 
 }

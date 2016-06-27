@@ -36,7 +36,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ImageBox");
         try {
             ParseObject parseObject = query.get(imageID);
-            return ImageChannel.StringToBitMap(parseObject.getString("data"));
+            return ImageChannel.StringToBitMap(ImageChannel.getImageString(parseObject));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -46,13 +46,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
     protected void onPostExecute(Bitmap result) {
         if(result != null) {
-            BitmapDrawable bitmapDrawable = new BitmapDrawable(bmImage.getResources(), result);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                bmImage.setBackground(bitmapDrawable);
-            }else{
-                bmImage.setBackgroundDrawable(bitmapDrawable);
-            }
-            //bmImage.setImageBitmap(result);
+            bmImage.setImageBitmap(result);
         }
     }
 }

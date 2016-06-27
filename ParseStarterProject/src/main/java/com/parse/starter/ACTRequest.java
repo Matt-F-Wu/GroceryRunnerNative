@@ -452,29 +452,6 @@ public class ACTRequest extends AppCompatActivity
 		}
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_main, menu);
-
-		return true;
-	}
-
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_notification) {
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
 
 	@SuppressWarnings("StatementWithEmptyBody")
 	@Override
@@ -993,6 +970,11 @@ public class ACTRequest extends AppCompatActivity
         builder.create().show();
     }
 
+    public void editProfile(View view) {
+        flip(3);
+        populate_profile();
+    }
+
     private class StableArrayAdapter extends ArrayAdapter<String> {
 
         HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
@@ -1177,12 +1159,12 @@ public class ACTRequest extends AppCompatActivity
             //delete cache, read back picture from local phone storage
             deleteCache(this);
 
-            String image = ImageChannel.BitMapToStringPNG(setProfilePic(true));
+            LinkedList<String> image = ImageChannel.BitMapToStringPNG(setProfilePic(true));
             if (image != null) {
                 /*ParseFile file = new ParseFile(user_name + "_profile_picture.png", image);
                 file.saveInBackground();*/
                 final ParseObject parseObject = new ParseObject("ImageBox");
-                parseObject.put("data", image);
+                ImageChannel.fillImageBox(parseObject, image);
                 parseObject.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -1546,7 +1528,7 @@ public class ACTRequest extends AppCompatActivity
                     imageObj.fetchIfNeededInBackground(new GetCallback<ParseObject>() {
                         @Override
                         public void done(ParseObject parseObject, ParseException e) {
-                            String imgData = parseObject.getString("data");
+                            String imgData = ImageChannel.getImageString(parseObject);
                             if (imgData != null) {
                                 Bitmap bmp = ImageChannel.StringToBitMap(imgData);
                                 if (bmp != null) {
