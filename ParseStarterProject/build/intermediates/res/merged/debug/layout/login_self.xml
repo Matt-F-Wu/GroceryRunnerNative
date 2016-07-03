@@ -56,7 +56,8 @@
 
     <ViewFlipper android:id="@+id/viewFlipper"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent">
+        android:layout_width="fill_parent"
+        android:measureAllChildren="false">
 
         <LinearLayout android:id="@+id/signInLayout"
                         android:layout_width="fill_parent"

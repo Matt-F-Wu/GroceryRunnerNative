@@ -155,6 +155,7 @@ com/google/android/gms/measurement/internal/zzc.class
 android/support/design/widget/AppBarLayout$Behavior$DragCallback.class
 com/google/android/gms/ads/internal/formats/zzc.class
 android/support/design/widget/Snackbar$10.class
+com/parse/starter/ACTRequest$18.class
 android/support/v4/media/MediaMetadataCompat$TextKey.class
 com/google/android/gms/wallet/fragment/WalletFragmentStyle$Dimension.class
 android/support/v7/recyclerview/R$styleable.class
@@ -232,7 +233,6 @@ android/support/v4/app/SharedElementCallback.class
 com/google/android/gms/measurement/AppMeasurementService$1.class
 com/google/ads/mediation/MediationBannerAdapter.class
 com/google/android/gms/location/internal/zzf.class
-com/parse/GetDataCallback.class
 com/google/ads/mediation/AbstractAdViewAdapter.class
 android/support/v4/view/ViewCompat$JbMr1ViewCompatImpl.class
 android/support/v7/widget/Toolbar.class
@@ -531,7 +531,6 @@ com/parse/ParsePin.class
 com/google/android/gms/maps/GoogleMap$OnMyLocationChangeListener.class
 com/google/android/gms/wallet/MaskedWallet.class
 com/google/android/gms/ads/internal/request/zzb$zza.class
-com/parse/starter/BitmapUtils.class
 com/google/android/gms/internal/zzhz.class
 android/support/design/widget/Snackbar$1.class
 com/google/android/gms/ads/internal/request/zzm.class
@@ -746,13 +745,13 @@ com/google/android/gms/internal/zzeb.class
 com/google/android/gms/internal/zzjd$zza.class
 com/google/android/gms/maps/StreetViewPanoramaFragment.class
 android/support/v7/widget/RecyclerView$State.class
+com/parse/GetCallback.class
 com/parse/PushType.class
 android/support/design/widget/CoordinatorLayout$DefaultBehavior.class
 com/google/android/gms/drive/query/Query$Builder.class
 com/parse/starter/CropDemoPreset.class
 com/google/android/gms/internal/zzgk.class
 com/parse/starter/ACTLoginSelf.class
-com/parse/ParseFile.class
 com/google/android/gms/wallet/Wallet.class
 com/google/android/gms/internal/zzgl.class
 com/google/android/gms/internal/zzgc.class
@@ -777,9 +776,9 @@ android/support/annotation/FloatRange.class
 com/parse/RequestPasswordResetCallback.class
 com/google/android/gms/ads/internal/util/client/zzb.class
 android/support/design/widget/Snackbar$Callback$DismissEvent.class
-com/parse/starter/ACTMsg$7.class
 com/parse/starter/ACTRequest$5.class
 com/google/android/gms/location/places/AutocompletePrediction$Substring.class
+com/parse/starter/ImageChannel.class
 android/support/design/widget/TabLayout$Mode.class
 com/google/android/gms/ads/internal/purchase/zzb.class
 android/support/v4/media/session/PlaybackStateCompatApi22.class

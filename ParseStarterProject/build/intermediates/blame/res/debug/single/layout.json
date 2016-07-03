@@ -196,6 +196,10 @@
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\layout\\list_item_chat_message.xml"
     },
     {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_chat_picture.xml",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\layout\\list_item_chat_picture.xml"
+    },
+    {
         "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_activity_chooser_view.xml"
     },

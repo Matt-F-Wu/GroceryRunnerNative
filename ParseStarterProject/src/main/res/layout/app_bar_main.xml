@@ -108,27 +108,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@color/userBottomBar">
-                <!--<android.support.v7.widget.AppCompatButton
-                    android:id="@+id/ask_favour"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:textAllCaps="false"
-                    android:text="Ask Favour"
-                    android:onClick="onClickNewRequest" />
-                <android.support.v7.widget.AppCompatButton
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:text="Offer Favour"
-                    android:textAllCaps="false"
-                    android:backgroundTint="@color/requestbox_color"
-                    android:onClick="onClickNewOffer"
-                    />-->
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -208,21 +187,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:gravity="center_horizontal|top"
-                android:text="Ask a favour here"
+                android:text="Do you need any help? Ask a favour!"
                 android:textSize="24sp"
                 android:textColor="#FFFFFF"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:id="@+id/tut_askfavour_next_button"
                 android:onClick="onClickTutNext"
                 android:text="next"/>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/tut_arrow1"/>
+            <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/tut_arrow1"/>-->
 
             </LinearLayout>
 
@@ -240,53 +220,111 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center_horizontal|top"
-                    android:text="Offer a favour here"
+                    android:text="Do you want to make extra cash? Offer a favour!"
                     android:textSize="24sp"
                     android:textColor="#FFFFFF"/>
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:text="finish tutorial"
                     android:onClick="onTutorialExit" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/arrow2"/>
+                <!--<ImageView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/arrow2"/>-->
 
             </LinearLayout>
 
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:padding="10dip">-->
+                <!--<android.support.v7.widget.AppCompatButton-->
+                    <!--android:id="@+id/tut_ask_favour"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_marginTop="12dp"-->
+                    <!--android:layout_marginBottom="12dp"-->
+                    <!--android:textAllCaps="false"-->
+                    <!--android:text="Ask Favour"-->
+                    <!--android:visibility="invisible"-->
+                    <!--android:onClick="onClickNewRequest" />-->
+                <!--<android.support.v7.widget.AppCompatButton-->
+                    <!--android:id="@+id/tut_offer_favour"-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:layout_marginTop="12dp"-->
+                    <!--android:layout_marginBottom="12dp"-->
+                    <!--android:text="Offer Favour"-->
+                    <!--android:textAllCaps="false"-->
+                    <!--android:backgroundTint="@color/requestbox_color"-->
+                    <!--android:visibility="invisible"-->
+                    <!--android:onClick="onClickNewOffer"-->
+                    <!--/>-->
+            <!--</LinearLayout>-->
+            <!--android:background="@color/userBottomBar"-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="10dip">
-                <android.support.v7.widget.AppCompatButton
+                >
+                <Button
                     android:id="@+id/tut_ask_favour"
-                    android:layout_width="fill_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
+                    android:layout_weight="2"
+                    android:background="#00ffffff"
+                    android:textColor="#ffffff"
                     android:textAllCaps="false"
+                    android:textStyle="bold"
                     android:text="Ask Favour"
                     android:visibility="invisible"
-                    android:onClick="onClickNewRequest" />
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/tut_offer_favour"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:text="Offer Favour"
-                    android:textAllCaps="false"
-                    android:backgroundTint="@color/requestbox_color"
+                    android:onClick="onClickNewRequest"/>
+                <View
+                    android:layout_width="4dip"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="7dip"
+                    android:layout_marginBottom="7dip"
                     android:visibility="invisible"
-                    android:onClick="onClickNewOffer"
+                    android:background="@drawable/bottom_bar_separator"
                     />
+                <Button
+                    android:id="@+id/tut_offer_favour"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="#00ffffff"
+                    android:textColor="#ffffff"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:text="Offer Favour"
+                    android:visibility="invisible"
+                    android:onClick="onClickNewOffer"/>
+                <View
+                    android:layout_width="4dip"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="7dip"
+                    android:layout_marginBottom="7dip"
+                    android:visibility="invisible"
+                    android:background="@drawable/bottom_bar_separator"
+                    />
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tut_topbar_spinner"
+                    style="@style/spinner_addr_style"
+                    android:textColor="#ffffff"
+                    android:visibility="invisible"
+                    android:layout_weight="2" />
             </LinearLayout>
+
+
 
 
         </LinearLayout>

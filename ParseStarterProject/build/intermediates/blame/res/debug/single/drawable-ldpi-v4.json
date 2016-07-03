@@ -1,11 +1,11 @@
 [
     {
-        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_menu_slideshow.png",
-        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_menu_slideshow.png"
-    },
-    {
         "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_menu_camera.png",
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_menu_camera.png"
+    },
+    {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_menu_slideshow.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_menu_slideshow.png"
     },
     {
         "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_menu_gallery.png",
@@ -16,11 +16,11 @@
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_menu_manage.png"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_menu_share.png",
-        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_menu_share.png"
-    },
-    {
         "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_menu_send.png",
         "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_menu_send.png"
+    },
+    {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_menu_share.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama4\\GroceryRunnerNative\\ParseStarterProject\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_menu_share.png"
     }
 ]
