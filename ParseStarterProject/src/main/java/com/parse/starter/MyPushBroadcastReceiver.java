@@ -82,10 +82,11 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             i.setAction("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES");
             context.sendBroadcast(i);
         } else if(type.equals(RATING_TYPE)){
-            Intent i = new Intent();
+            //do nothing now
+            /*Intent i = new Intent();
             i.putExtra("CONTENT", data.toString());
             i.setAction("com.parse.favourama.HANDLE_FAVOURAMA_RATINGS");
-            context.sendBroadcast(i);
+            context.sendBroadcast(i);*/
         }
 
         if ( !StarterApplication.isActivityVisible() || beta_test.debug_notification) {

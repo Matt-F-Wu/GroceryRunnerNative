@@ -62,7 +62,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.FunctionCallback;
 import com.parse.GetCallback;
+import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseInstallation;
@@ -688,74 +690,32 @@ public class ACTRequest extends AppCompatActivity
         }
 
 		String note = postEditText.getText().toString().trim();
-		final JSONObject post = new JSONObject();
 		double rad = (double) (radius.getProgress() + RADIUS_OFFSET)/1000;
-        try {
-            post.put("TYPE", "REQUEST");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            post.put("purpose", request_purpose);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            post.put("latitude", location.getLatitude());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            post.put("longitude", location.getLongitude());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            post.put("note", note);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            post.put("rad", rad);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            post.put("category", cateSelected);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            post.put("reward", rewardSelected);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            post.put("address", addrSelected);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            post.put("username", user_name);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            post.put("rating", user.get("Rating"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            Object object = user.get("userpic");
-            if( object != null) {
-                post.put("userpic", ((ParseObject)object).getObjectId());
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        // Query users in vicinity, and send the post to them via cloud
-		queryAndSend(location, rad, post);
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("TYPE", "REQUEST");
+        params.put("purpose", request_purpose);
+        params.put("latitude", location.getLatitude());
+        params.put("longitude", location.getLongitude());
+        params.put("note", note);
+        params.put("rad", rad);
+        params.put("category", cateSelected);
+        params.put("reward", rewardSelected);
+        params.put("address", addrSelected);
+        params.put("username", user_name);
+        params.put("rating", user.get("Rating"));
+        Object object = user.get("userpic");
+        if( object != null) params.put("userpic", ((ParseObject)object).getObjectId());
+
+        ParseCloud.callFunctionInBackground("sendRequestToUser", params, new FunctionCallback<String>() {
+            public void done(String success, ParseException e) {
+                if (e == null) {
+                    // Push sent successfully
+                }else{
+                    Log.d("RFAILED", "Request did not work at cloud " + e.getCode() + " " + e.getMessage());
+                }
+            }
+        });
 	    
 	    flip(0);
 	}
@@ -1274,7 +1234,7 @@ public class ACTRequest extends AppCompatActivity
         layout3.setVisibility(View.INVISIBLE);
 
         Button b2 = (Button)findViewById(R.id.tut_offer_favour);
-        b2.setVisibility(View.INVISIBLE);
+        b2.setVisibility(View.GONE);
 
 
     }

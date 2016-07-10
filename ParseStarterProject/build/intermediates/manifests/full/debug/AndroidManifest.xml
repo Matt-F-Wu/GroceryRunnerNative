@@ -49,12 +49,19 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <meta-data
-            android:name="com.parse.APPLICATION_ID"
-            android:value="@string/parse_app_id" />
-        <meta-data
+
+        <!--
+            <meta-data
             android:name="com.parse.CLIENT_KEY"
             android:value="@string/parse_client_key" />
+        -->
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
         <activity
             android:name="com.parse.starter.MainActivity"
@@ -68,11 +75,6 @@
         <activity
             android:name="com.parse.starter.ACTLoginSelf"
             android:parentActivityName="com.parse.starter.MainActivity" />
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
         <activity
             android:name="com.parse.starter.ACTRequest"
             android:launchMode="singleTask"
@@ -82,10 +84,16 @@
                 <action android:name="com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+        <activity
+            android:name="com.parse.starter.ACTMsg"
+            android:label="@string/title_activity_actmsg"
+            android:parentActivityName="com.parse.starter.ACTRequest"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.parse.starter.ACTImgCrop"
+            android:label="@string/title_activity_actimgcrop"
+            android:parentActivityName="com.parse.starter.ACTRequest"
+            android:theme="@style/ThemeOverlay.MyNoTitleActivity" />
 
         <service android:name="com.parse.PushService" />
 
@@ -110,16 +118,9 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name="com.parse.starter.ACTMsg"
-            android:label="@string/title_activity_actmsg"
-            android:parentActivityName="com.parse.starter.ACTRequest"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name="com.parse.starter.ACTImgCrop"
-            android:label="@string/title_activity_actimgcrop"
-            android:parentActivityName="com.parse.starter.ACTRequest"
-            android:theme="@style/ThemeOverlay.MyNoTitleActivity" />
+        <meta-data
+            android:name="com.parse.push.gcm_sender_id"
+            android:value="id:528033395445" />
 
         <provider
             android:name="com.google.android.gms.measurement.AppMeasurementContentProvider"

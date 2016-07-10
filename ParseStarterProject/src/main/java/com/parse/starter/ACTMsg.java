@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,19 +17,21 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParsePush;
@@ -43,6 +46,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 
@@ -174,7 +178,7 @@ public class ACTMsg extends AppCompatActivity {
                 }
                 else if(action.equals("com.parse.favourama.HANDLE_FAVOURAMA_RATINGS")){
                     /*The action is rating*/
-                    processRating(jsonObject);
+                    //processRating(jsonObject);
                 }
             }
         };
@@ -234,8 +238,16 @@ public class ACTMsg extends AppCompatActivity {
         }
 
 
-        ParsePush.sendDataInBackground(msg, chatQuery, new SendCallback() {
-            public void done(ParseException e) {
+        HashMap<String, Object> params = new HashMap<String, Object>();
+
+        params.put("TYPE", "MESSAGE");
+        params.put("ctype", ChatMessage.TEXT_TYPE);
+        params.put("content", content);
+        params.put("time", DateFormat.getDateTimeInstance().format(new Date()));
+        params.put("username", header[0]);
+
+        ParseCloud.callFunctionInBackground("sendMessageToUser", params, new FunctionCallback<String>() {
+            public void done(String success, ParseException e) {
                 if (e == null) {
                     Log.d("push", "Message Sent!");
                 } else {
@@ -395,21 +407,18 @@ public class ACTMsg extends AppCompatActivity {
                         RatingBar ratingBar = (RatingBar) ((AlertDialog)dialog).findViewById(R.id.rate_user);
                         float rating = ratingBar.getRating();
 
-                        JSONObject msg = new JSONObject();
+                        HashMap<String, Object> params = new HashMap<String, Object>();
 
-                        try {
-                            msg.put("TYPE", "RATING");
-                            msg.put("Rating", rating);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        params.put("TYPE", "RATING");
+                        params.put("Rating", rating);
+                        params.put("username", header[0]);
 
-                        ParsePush.sendDataInBackground(msg, chatQuery, new SendCallback() {
-                            public void done(ParseException e) {
+                        ParseCloud.callFunctionInBackground("RateUser", params, new FunctionCallback<String>() {
+                            public void done(String success, ParseException e) {
                                 if (e == null) {
-                                    Log.d("Rating", "Message Sent!");
+                                    Log.d("push", "Rating Sent!");
                                 } else {
-                                    Log.d("Rating", "Message failure >_< \n" + "Plese check your internet connection!\n"
+                                    Log.d("push", "Rating failure >_< \n" + "Plese check your internet connection!\n"
                                             + e.getMessage() + " <><><><><><> Code: " + e.getCode());
                                 }
                             }
@@ -444,40 +453,6 @@ public class ACTMsg extends AppCompatActivity {
         });
 
         rdialog.show();
-    }
-
-    static void processRating(JSONObject jsonObject){
-
-        double ratingReceived = 2.5;
-
-        try {
-            ratingReceived = jsonObject.getDouble("Rating");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        ParseUser user = ParseUser.getCurrentUser();
-        double ratingCurrent = user.getDouble("Rating");
-
-        int numRatings = user.getInt("NumRating");
-
-        double ratingNew = ((ratingCurrent * numRatings) + ratingReceived)/(numRatings + 1);
-
-        numRatings++;
-
-        user.put("NumRating", numRatings);
-        user.put("Rating", ratingNew);
-
-        user.saveInBackground();
-
-        /*TBD:
-        * write a flag to the conversations.json file corresponding to this conversation
-        *
-        * rated = true;
-        *
-        * So the user cannot rate one person multiple times, implement this later.
-        *
-        * */
     }
 
     public void send_picture(View view) {
@@ -549,8 +524,16 @@ public class ACTMsg extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        ParsePush.sendDataInBackground(msg, chatQuery, new SendCallback() {
-            public void done(ParseException e) {
+        HashMap<String, Object> params = new HashMap<String, Object>();
+
+        params.put("TYPE", "MESSAGE");
+        params.put("ctype", ChatMessage.PICTURE_TYPE);
+        params.put("content", imageID);
+        params.put("time", DateFormat.getDateTimeInstance().format(new Date()));
+        params.put("username", header[0]);
+
+        ParseCloud.callFunctionInBackground("sendMessageToUser", params, new FunctionCallback<String>() {
+            public void done(String success, ParseException e) {
                 if (e == null) {
                     Log.d("push", "Message Sent!");
                 } else {
@@ -584,26 +567,44 @@ public class ACTMsg extends AppCompatActivity {
     }
 
     public void fullScreenDisplay(View view) {
-        ImageView imageView = (ImageView) view;
-        int smallWidth = imageView.getWidth();
-        int smallHeight = imageView.getHeight();
-
+        //Get screen size
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int height = displaymetrics.heightPixels;
         int width = displaymetrics.widthPixels;
 
-        int stretchFactor = 1;
-        stretchFactor = (width/smallWidth > height/smallHeight)? height/smallHeight : width/smallWidth;
+        Drawable image = ((ImageView) view).getDrawable();
+        double sw = (double) view.getWidth();
+        double sh = (double) view.getHeight();
 
-        LayoutInflater inflater = (LayoutInflater)
-                this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        double scale = (width/sw > height/sh)? height/sh : width/sw;
+
+        Log.d("IMGSize", "Ori: " + sw + " " + sh + ", " + "Scale: " + scale);
+
+        double fw = sw*scale;
+        double fh = sh*scale;
+
+        LayoutInflater inflater = this.getLayoutInflater();
         View fullView = inflater.inflate(R.layout.image_popup, null, false);
-        ImageView fullImage = (ImageView) fullView.findViewById(R.id.fullImageBox);
-        Drawable img = imageView.getDrawable();
-        fullImage.setImageDrawable(img);
+        ImageView dView = ((ImageView) fullView.findViewById(R.id.image_full_screen));
 
-        PopupWindow popupWindow = new PopupWindow(fullView,smallWidth*stretchFactor,smallHeight*stretchFactor,true);
-        popupWindow.showAtLocation(this.findViewById(R.id.textContainer),Gravity.CENTER, 0, 0);
+        dView.setImageDrawable(image);
+        dView.getLayoutParams().width = (int) fw;
+        dView.getLayoutParams().height = (int) fh;
+
+        Log.d("IMGSize", "Final: " + fw + " " + fh + ", " + "Window width: " + width);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(fullView);
+        AlertDialog fullImage = builder.create();
+        fullImage.show();
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = fullImage.getWindow();
+        window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        lp.copyFrom(window.getAttributes());
+        lp.width = (int) fw;
+        lp.height = (int) fh;
+        window.setAttributes(lp);
     }
 }

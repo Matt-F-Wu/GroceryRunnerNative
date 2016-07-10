@@ -27,10 +27,15 @@ public class StarterApplication extends Application {
     Parse.enableLocalDatastore(this);
 
     // Add your initialization code here
-    Parse.initialize(this, "6dbcPqUr5RosqVTD2I0OvU3avi4cmcMhS4LwCH5c", "41XraMw9cHxpDBthj5UZVs748XZBiHhcGsJWKqMW");
+    //Parse.initialize(this, "6dbcPqUr5RosqVTD2I0OvU3avi4cmcMhS4LwCH5c", "41XraMw9cHxpDBthj5UZVs748XZBiHhcGsJWKqMW");
+    Parse.initialize(new Parse.Configuration.Builder(this)
+            .applicationId("favouramahj")
+            .clientKey(null)
+            .server("http://favourama.herokuapp.com/parse/")
+            .build()
+    );
     ParseInstallation.getCurrentInstallation().saveInBackground();
-
-      ParseUser.enableAutomaticUser();
+    ParseUser.enableAutomaticUser();
     ParseACL defaultACL = new ParseACL();
     // Optionally enable public read access.
     // defaultACL.setPublicReadAccess(true);

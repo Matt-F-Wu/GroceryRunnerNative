@@ -5,11 +5,11 @@
 -keep class com.parse.starter.MainActivity { <init>(); }
 -keep class com.parse.starter.ACTLoginSelf { <init>(); }
 -keep class com.parse.starter.ACTRequest { <init>(); }
+-keep class com.parse.starter.ACTMsg { <init>(); }
+-keep class com.parse.starter.ACTImgCrop { <init>(); }
 -keep class com.parse.PushService { <init>(); }
 -keep class com.parse.starter.MyPushBroadcastReceiver { <init>(); }
 -keep class com.parse.GcmBroadcastReceiver { <init>(); }
--keep class com.parse.starter.ACTMsg { <init>(); }
--keep class com.parse.starter.ACTImgCrop { <init>(); }
 -keep class com.google.android.gms.measurement.AppMeasurementContentProvider { <init>(); }
 -keep class com.google.android.gms.measurement.AppMeasurementReceiver { <init>(); }
 -keep class com.google.android.gms.measurement.AppMeasurementService { <init>(); }
