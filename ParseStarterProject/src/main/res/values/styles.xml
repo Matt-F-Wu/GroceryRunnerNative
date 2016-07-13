@@ -25,7 +25,13 @@
 
     <!-- Dark Buttons -->
     <style name="ThemeOverlay.MyDarkButton" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="colorButtonNormal">@color/blue_grey_500</item>
+        <item name="colorButtonNormal">@color/userBottomBar</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!--Red Buttons-->
+    <style name="ThemeOverlay.MyRedButton" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorButtonNormal">@color/dark_red</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 

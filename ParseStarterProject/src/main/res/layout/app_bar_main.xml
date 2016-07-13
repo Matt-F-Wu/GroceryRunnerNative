@@ -84,6 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!--Main List displaying requests-->
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical"
             android:layout_width="fill_parent"
@@ -108,32 +109,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="@color/userBottomBar">
-                <!--<android.support.v7.widget.AppCompatButton
-                    android:id="@+id/ask_favour"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:textAllCaps="false"
-                    android:text="Ask Favour"
-                    android:onClick="onClickNewRequest" />
-                <android.support.v7.widget.AppCompatButton
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
-                    android:text="Offer Favour"
-                    android:textAllCaps="false"
-                    android:backgroundTint="@color/requestbox_color"
-                    android:onClick="onClickNewOffer"
-                    />-->
+
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:background="#00ffffff"
+                    android:background="@drawable/dark_gray_effect"
                     android:textColor="#ffffff"
                     android:textAllCaps="false"
                     android:text="Ask Favour"
@@ -149,7 +130,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:background="#00ffffff"
+                    android:background="@drawable/dark_gray_effect"
                     android:textColor="#ffffff"
                     android:textAllCaps="false"
                     android:text="Offer Favour"
@@ -311,10 +292,11 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#ffffff"
                 android:text="&lt; Back"
                 android:onClick="onClickFlip"
                 android:layout_weight="0"
-                style="@style/ButtonRequestBox"/>
+                android:theme="@style/ThemeOverlay.MyDarkButton"/>
         </LinearLayout>
 
         <LinearLayout

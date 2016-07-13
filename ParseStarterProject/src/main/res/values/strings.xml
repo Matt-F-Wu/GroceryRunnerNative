@@ -33,4 +33,6 @@
 
     <string name="pick_image_intent_chooser_title">Select source</string>
     <string name="title_activity_actimgcrop">Favourama Crop</string>
+
+    <string name="sign_up_prompt">No account yet?</string>
 </resources>
