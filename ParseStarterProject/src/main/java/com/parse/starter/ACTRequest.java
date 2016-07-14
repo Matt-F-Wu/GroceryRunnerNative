@@ -99,7 +99,6 @@ public class ACTRequest extends AppCompatActivity
 	public static int RADIUS_OFFSET = 100;
 	public static int MAX_QUERY_RESULTS = 100;
     final Context context = this;
-    //PopupWindow pwGlobal;
     private GoogleMap mMap;
     private static int UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
     private static int FAST_INTERVAL_CEILING_IN_MILLISECONDS = 2500;
@@ -226,14 +225,7 @@ public class ACTRequest extends AppCompatActivity
 
         configurePostButton(request);
 
-        /*Note to self: chatValues is just a reference to the actual header list, we can bypass it*/
         convList  = new MyThreads(this);
-        chatValues = convList.getHeader();
-
-        /*For testing purposes*/
-        /*chatValues.add(new String[]{"Hao Wu", "4", "Can someone please lend me a iPad Charger, thank you!"});
-        chatValues.add(new String[]{"J. Ma", "3", "Will any one pass by Starbucks on their way to Robarts? Can you grep me some coffee?"});*/
-
 
         configureChatView();
 
@@ -319,7 +311,7 @@ public class ACTRequest extends AppCompatActivity
                     fname = MyThreads.toFile(fname);
                     convList.fileChange(fname, jsonObject);
                     convList.numChange.add(fname);
-
+                    chatValues = convList.getHeader();
                     highLightConv(); //HAO: highlight this updated conversation
 
                     msgAdapterChat.notifyDataSetChanged();
@@ -353,10 +345,29 @@ public class ACTRequest extends AppCompatActivity
             int enter = b.getInt("enter");
             if(enter == 1){
                 flip(0);
+                r_values.add(b.getStringArray("valueList"));
+                user_pics.add(b.getString("userPic"));
+                msgAdapterReq.notifyDataSetChanged();
             }else if(enter == 2){
                 flip(1);
                 clearCounter();
+                String fname = MyThreads.toFile(b.getString("username"));
+
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(b.getString("CONTENT"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                convList.fileChange(fname, jsonObject);
+                convList.numChange.add(fname);
+                chatValues = convList.getHeader();
+                highLightConv(); //HAO: highlight this updated conversation
+
+                msgAdapterChat.notifyDataSetChanged();
             }
+
         }
     }
 
@@ -393,6 +404,7 @@ public class ACTRequest extends AppCompatActivity
             startPeriodicUpdates();
         }
         StarterApplication.activityResumed();
+        StarterApplication.setNotInMessage();
     }
 
     @Override
@@ -906,6 +918,8 @@ public class ACTRequest extends AppCompatActivity
                     public void onClick(DialogInterface dialog, int id) {
                         // Actually Delete
                         if (!file_long_clicked.isEmpty()) convList.deleteFile(file_long_clicked);
+
+                        chatValues = convList.getHeader();
                         msgAdapterChat.notifyDataSetChanged();
                         Log.d("File Deletion: ", "User deleted file " + file_long_clicked);
                     }
@@ -993,23 +1007,15 @@ public class ACTRequest extends AppCompatActivity
                     return;
                 }
 
-                /*boolean thread_exist = false;
-                for (String[] s : chatValues) {
-                    if (s[0].equals(item[0]) && s[2].equals(item[2])) {
-                        thread_exist = true;
-                    }
-                }*/
 
                 String[] chatItem = new String[]{item[0], String.valueOf(r_values.get(position)[4]), item[2]};
 
+                beta_test.logStringArray(chatItem, "chatItem");
+
                 if (convList.newConversation(chatItem)) {
+                    chatValues = convList.getHeader();
                     msgAdapterChat.notifyDataSetChanged();
                 }
-
-                /*if (!thread_exist) {
-                    chatValues.add(chatItem);
-                    msgAdapterChat.notifyDataSetChanged();
-                }*/
 
 
                 Bundle b = new Bundle();
@@ -1026,6 +1032,8 @@ public class ACTRequest extends AppCompatActivity
 
     private void configureChatView(){
         int[] fields = new int[]{R.id.thread_uname, R.id.thread_rating, R.id.thread_description};
+
+        chatValues = convList.getHeader();
 
         msgAdapterChat = new MsgAdapter(this, R.layout.threads_row_layout, fields, chatValues);
 
@@ -1087,7 +1095,7 @@ public class ACTRequest extends AppCompatActivity
     /*Hightlight conversations that have received an update/message*/
     private void highLightConv(){
         int index = 0;
-        for (String[] s : chatValues){
+        for (String[] s : convList.getHeader()){
             System.out.println("array length" + s.length);
             String gn = MyThreads.toFile(s[0]);
             if (convList.numChange.contains(gn)){
@@ -1284,7 +1292,7 @@ public class ACTRequest extends AppCompatActivity
         EditText []addresses = {editAddr1, editAddr2, editAddr3};
 
         TextView name = (TextView)findViewById(R.id.name_edit);
-        name.setText("wuhao");
+        name.setText(user_name);
 
         editEmail.setText(user.getEmail());
         if ( !invalid(user.getString("phoneNumber"))) {
@@ -1473,43 +1481,49 @@ public class ACTRequest extends AppCompatActivity
 
         final Bitmap bmImg = BitmapFactory.decodeFile(picture_file_path);
 
-        if( bmImg != null && update) {
-            profile_user_pic.setImageBitmap(bmImg);
-            nav_user_pic.setImageBitmap(bmImg);
-            //check if it will successfully show default image.
+        if( bmImg != null) {
+            if(update) {
+                /*update with proper picture*/
+                profile_user_pic.setImageBitmap(bmImg);
+                nav_user_pic.setImageBitmap(bmImg);
+            }else{
+                loadProfilePicture(profile_user_pic, nav_user_pic, bmImg);
+            }
         }else{
             if(update) return null;
             // Hao; Set to the default image, I use the logo for now, but change this to something later
-            if(bmImg != null) {
-                Object cloudImg = user.get("userpic");
-                final String imageID = user.getString("userpicID");
-                if (cloudImg != null) {
-                    ParseObject imageObj = (ParseObject) cloudImg;
-                    imageObj.fetchIfNeededInBackground(new GetCallback<ParseObject>() {
-                        @Override
-                        public void done(ParseObject parseObject, ParseException e) {
-                            String imgData = ImageChannel.getImageString(parseObject);
-                            if (imgData != null) {
-                                Bitmap bmp = ImageChannel.StringToBitMap(imgData);
-                                if (bmp != null) {
-                                    if(checkProfilePictureIDSndSetImage(profile_user_pic, nav_user_pic, imageID, bmImg)){
-                                        //return bmImg;
-                                    }else {
-                                /*Not storing locally, a trade off between larger code/apk and larger data usage*/
-                                        profile_user_pic.setImageBitmap(bmp);
-                                        nav_user_pic.setImageBitmap(bmp);
-                                    }
-                                }
-                            }
-                        }
-                    });
-
-                } else {
-                    profile_user_pic.setImageResource(R.drawable.logo);
-                }
-            }
+            loadProfilePicture(profile_user_pic, nav_user_pic, bmImg);
         }
         return bmImg;
+    }
+
+    public void loadProfilePicture(final ImageView profile_user_pic, final ImageView nav_user_pic, final Bitmap bmImg){
+        Object cloudImg = user.get("userpic");
+        final String imageID = user.getString("userpicID");
+        if (cloudImg != null) {
+            ParseObject imageObj = (ParseObject) cloudImg;
+            imageObj.fetchIfNeededInBackground(new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject parseObject, ParseException e) {
+                    String imgData = ImageChannel.getImageString(parseObject);
+                    if (imgData != null) {
+                        Bitmap bmp = ImageChannel.StringToBitMap(imgData);
+                        if (bmp != null) {
+                                    /*See if the local image is up to date*/
+                            if (checkProfilePictureIDSndSetImage(profile_user_pic, nav_user_pic, imageID, bmImg)) {
+                                //return bmImg;
+                            } else {
+                                        /*Not storing locally, a trade off between larger code/apk and larger data usage*/
+                                profile_user_pic.setImageBitmap(bmp);
+                                nav_user_pic.setImageBitmap(bmp);
+                            }
+                        }
+                    }
+                }
+            });
+        } else {
+            profile_user_pic.setImageResource(R.drawable.logo);
+        }
     }
 
     public Boolean checkProfilePictureIDSndSetImage(ImageView profile_user_pic, ImageView nav_user_pic, String imageID, Bitmap bmImg){

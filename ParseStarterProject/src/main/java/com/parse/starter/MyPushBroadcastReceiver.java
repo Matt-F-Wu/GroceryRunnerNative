@@ -44,6 +44,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             Log.d("GET PUSH DATA", "FAILED");
         }
 
+        boolean ignore = false;
         String type = null;
         String description = null;
 
@@ -55,9 +56,56 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             return;
         }
 
-        if (type.equals(REQUEST_TYPE)){
-            /*RequestObject requestObject = new RequestObject(data);
-            description = requestObject.getNote();*/
+        if ( !StarterApplication.isActivityVisible() || (StarterApplication.isActivityVisible() && StarterApplication.isInMessage()) ) {
+            NotificationManager notificationManager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+            Intent openIntent = new Intent(context, ACTRequest.class);
+            PendingIntent pIntent = null;
+            if(type.equals(REQUEST_TYPE)){
+                /*Go to the main page where requests are displayed*/
+                openIntent.putExtra("enter", 1);
+                RequestObject requestObject = new RequestObject(data);
+                openIntent.putExtra("valueList", requestObject.spitValueList());
+                openIntent.putExtra("userPic", requestObject.getUserPic());
+                builder.setContentTitle("New Favourama Request");
+            }
+            else if(type.equals(MESSAGE_TYPE)){
+                openIntent.putExtra("enter", 2);
+                String fname = new String();
+                try{
+                    fname = data.getString("username");
+                }catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if(fname.equals(StarterApplication.getToWhom())){
+                    ignore = true;
+                }
+                if(!ignore) {
+                    openIntent.putExtra("username", fname);
+                    openIntent.putExtra("CONTENT", data.toString());
+                /*Hao to Jeremy: Enter the message page, should we try directly open the conversation or just the threads?*/
+                    builder.setContentTitle("New Favourama Message");
+                }
+            }
+
+            if(!ignore) {
+                openIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                pIntent = PendingIntent.getActivity(context, 0, openIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+                builder.setContentText(description);
+                builder.setSmallIcon(R.drawable.logo);
+                builder.setContentIntent(pIntent);
+                builder.setAutoCancel(true);
+                notificationManager.notify("MyTag", 0, builder.build());
+                // OPTIONAL create soundUri and set sound:
+            /*builder.setSound(soundUri);*/
+                return;
+            }
+        }
+
+        if (type.equals(REQUEST_TYPE)) {
             try {
                 description = data.getString("note");
             } catch (JSONException e) {
@@ -68,12 +116,8 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             i.putExtra("CONTENT", data.toString());
             i.setAction("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS");
             context.sendBroadcast(i);
-        } else if (type.equals(MESSAGE_TYPE)){
-
-            /* HAO to JEREMY
-            *Everytime you receive a message, you write to the message file and notify there has been changes made to the files
-            * Make subclass MessageObject and make a constructor and constructs from JSONObject
-            *
+        } else if (type.equals(MESSAGE_TYPE)) {
+            /* HAO
             * MessageObject messageObject = new MessageObject(data);
             * description = messageObject.getNote();
             * */
@@ -81,42 +125,9 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             i.putExtra("CONTENT", data.toString());
             i.setAction("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES");
             context.sendBroadcast(i);
-        } else if(type.equals(RATING_TYPE)){
+        } else if (type.equals(RATING_TYPE)) {
             //do nothing now
-            /*Intent i = new Intent();
-            i.putExtra("CONTENT", data.toString());
-            i.setAction("com.parse.favourama.HANDLE_FAVOURAMA_RATINGS");
-            context.sendBroadcast(i);*/
         }
-
-        if ( !StarterApplication.isActivityVisible() || beta_test.debug_notification) {
-            NotificationManager notificationManager =
-                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-            Intent openIntent = new Intent(context, ACTRequest.class);
-            PendingIntent pIntent = null;
-            if(type.equals(REQUEST_TYPE)){
-                /*Go to the main page where requests are displayed*/
-                openIntent.putExtra("enter", 1);
-                builder.setContentTitle("New Favourama Request");
-            }
-            else if(type.equals(MESSAGE_TYPE)){
-                openIntent.putExtra("enter", 2);
-                /*Hao to Jeremy: Enter the message page, should we try directly open the conversation or just the threads?*/
-                builder.setContentTitle("New Favourama Message");
-            }
-            openIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-            pIntent = PendingIntent.getActivity(context, 0, openIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-            builder.setContentText(description);
-            builder.setSmallIcon(R.drawable.logo);
-            builder.setContentIntent(pIntent);
-            builder.setAutoCancel(true);
-            notificationManager.notify("MyTag", 0, builder.build());
-        }
-        // OPTIONAL create soundUri and set sound:
-        /*builder.setSound(soundUri);*/
 
     }
 

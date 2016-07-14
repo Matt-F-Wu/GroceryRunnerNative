@@ -52,11 +52,10 @@ import java.util.LinkedList;
 
 public class ACTMsg extends AppCompatActivity {
     private String[] header;
-    ParseQuery<ParseInstallation> chatQuery;
     private BroadcastReceiver msgReceiver;
     private ArrayList<String> requestCollector;
     private int msgCounter;
-
+    private ParseUser me;
     //message file global
     private File common_dir;
 
@@ -69,26 +68,7 @@ public class ACTMsg extends AppCompatActivity {
     static private File conversation_file;
     static Activity activity;
 
-/*  example Json Format in conversation files
-    {
-        "TYPE": "HEADER",
-        "content": "{\n  \"uname\": \"junwei\",\n  \"topic\": \"hi\"\n}",
-        "time": 1456634111506,
-        "username": "junwei"
-    }
-    {
-        "TYPE": "MESSAGE",
-        "content": "sup",
-        "time": 1456634115145,
-        "username": "junwei"
-    }
-    {
-        "TYPE": "MESSAGE",
-        "content": "sup",
-        "time": 1456634115145,
-        "username": "junwei"
-    }
-*/
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +76,7 @@ public class ACTMsg extends AppCompatActivity {
         setContentView(R.layout.activity_actmsg);
 
         activity = this;
-
+        me = ParseUser.getCurrentUser();
         Bundle b = this.getIntent().getExtras();
         if (b != null)
             header = b.getStringArray("ThreadHeader");
@@ -105,9 +85,6 @@ public class ACTMsg extends AppCompatActivity {
         headerView.setText( formatHeader() );
 
         requestCollector = new ArrayList<String>();
-
-        chatQuery = ParseInstallation.getQuery();
-        chatQuery.whereEqualTo("username", header[0]);
 
         //manage files
         common_dir = getApplicationContext().getFilesDir();
@@ -136,7 +113,7 @@ public class ACTMsg extends AppCompatActivity {
                 }
 
                 if(action.equals("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS")){
-                    //Hao to Self: Suspicion is that we don't need to update request list here
+                    //Hao: Suspicion is that we don't need to update request list here
                     // requestCollector.add(jsonObject.toString());
                     //Record all the requests coming during the period where the user is on this activity
                     /*Return all the requests received to ACTRequest to be handled when this activity finishes*/
@@ -148,9 +125,6 @@ public class ACTMsg extends AppCompatActivity {
                     * */
                     updateCounter(jsonObject);
 
-                    /*HAO to JEREMY:
-                    * You need to implement this, I declared an empty function for you*/
-                    //update screen
                     Log.d("MCONTENT", jsonObject.toString());
 
                     String chat_content = new String();
@@ -200,6 +174,20 @@ public class ACTMsg extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onPause() {
+        StarterApplication.activityPaused();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StarterApplication.activityResumed();
+        StarterApplication.setInMessage();
+        StarterApplication.setToWhom(header[0]);
+    }
+
     public void onClickSend(View view) {
         EditText editText = (EditText) findViewById(R.id.typing_box);
 
@@ -232,7 +220,13 @@ public class ACTMsg extends AppCompatActivity {
         }
 
         try {
-            msg.put("username", header[0]);
+            msg.put("username", me.getUsername());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            msg.put("destination", header[0]);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -244,7 +238,8 @@ public class ACTMsg extends AppCompatActivity {
         params.put("ctype", ChatMessage.TEXT_TYPE);
         params.put("content", content);
         params.put("time", DateFormat.getDateTimeInstance().format(new Date()));
-        params.put("username", header[0]);
+        params.put("destination", header[0]);
+        params.put("username", me.getUsername());
 
         ParseCloud.callFunctionInBackground("sendMessageToUser", params, new FunctionCallback<String>() {
             public void done(String success, ParseException e) {
@@ -519,7 +514,13 @@ public class ACTMsg extends AppCompatActivity {
         }
 
         try {
-            msg.put("username", header[0]);
+            msg.put("username", me.getUsername());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            msg.put("destination", header[0]);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -530,7 +531,8 @@ public class ACTMsg extends AppCompatActivity {
         params.put("ctype", ChatMessage.PICTURE_TYPE);
         params.put("content", imageID);
         params.put("time", DateFormat.getDateTimeInstance().format(new Date()));
-        params.put("username", header[0]);
+        params.put("username", me.getUsername());
+        params.put("destination", header[0]);
 
         ParseCloud.callFunctionInBackground("sendMessageToUser", params, new FunctionCallback<String>() {
             public void done(String success, ParseException e) {

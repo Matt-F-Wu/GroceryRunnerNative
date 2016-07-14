@@ -65,7 +65,7 @@
                         android:orientation="vertical" >
 
             <!-- put the sign_in button and the sign_up_init button, alert msg, and the forget password link -->
-            <android.support.v7.widget.AppCompatButton
+            <Button
                 android:id="@+id/sign_in"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -86,15 +86,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/sign_up_prompt"
                     android:textColor="@color/dark_red"
-                    android:textSize="16dip"
-                    android:onClick="onClickSignUpInit"/>
-                <android.support.v7.widget.AppCompatButton
+                    android:textSize="16dip" />
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="Sign Up"
-                    android:theme="@style/ThemeOverlay.MyDarkButton"
-                    android:onClick="onClickSignUpInit"/>
+                    android:onClick="onClickSignUpInit"
+                    android:theme="@style/ThemeOverlay.MyDarkButton"/>
             </LinearLayout>
 
 
@@ -176,7 +175,7 @@
                     android:background="@drawable/requestbox_edit_text_holo_light" />
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.v7.widget.AppCompatButton
+            <Button
                 android:id="@+id/sign_up"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

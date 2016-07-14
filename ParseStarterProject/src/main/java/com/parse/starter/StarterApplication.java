@@ -18,29 +18,31 @@ import com.parse.ParseInstallation;
 
 public class StarterApplication extends Application {
 
-  private static boolean activityVisible;
-  @Override
-  public void onCreate() {
-    super.onCreate();
+    private static boolean activityVisible;
+    private static boolean inMessage;
+    private static String toWhom;
 
-    // Enable Local Datastore.
-    Parse.enableLocalDatastore(this);
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
-    // Add your initialization code here
-    //Parse.initialize(this, "6dbcPqUr5RosqVTD2I0OvU3avi4cmcMhS4LwCH5c", "41XraMw9cHxpDBthj5UZVs748XZBiHhcGsJWKqMW");
-    Parse.initialize(new Parse.Configuration.Builder(this)
-            .applicationId("favouramahj")
-            .clientKey(null)
-            .server("http://favourama.herokuapp.com/parse/")
-            .build()
-    );
-    ParseInstallation.getCurrentInstallation().saveInBackground();
-    ParseUser.enableAutomaticUser();
-    ParseACL defaultACL = new ParseACL();
-    // Optionally enable public read access.
-    // defaultACL.setPublicReadAccess(true);
-    ParseACL.setDefaultACL(defaultACL, true);
-  }
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+
+        // Initialize Parse
+        Parse.initialize(new Parse.Configuration.Builder(this)
+                .applicationId("favouramahj")
+                .clientKey(null)
+                .server("http://favourama.herokuapp.com/parse/")
+                .build()
+        );
+        ParseInstallation.getCurrentInstallation().saveInBackground();
+        ParseUser.enableAutomaticUser();
+        ParseACL defaultACL = new ParseACL();
+        // Optionally enable public read access.
+        // defaultACL.setPublicReadAccess(true);
+        ParseACL.setDefaultACL(defaultACL, true);
+    }
 
     public static boolean isActivityVisible() {
         return activityVisible;
@@ -53,4 +55,25 @@ public class StarterApplication extends Application {
     public static void activityPaused() {
         activityVisible = false;
     }
+
+    public static void setInMessage(){
+        inMessage = true;
+    }
+
+    public static void setNotInMessage(){
+        inMessage = false;
+    }
+
+    public static boolean isInMessage(){
+        return inMessage;
+    }
+
+    public static void setToWhom(String name){
+        toWhom = name;
+    }
+
+    public static String getToWhom(){
+        return toWhom;
+    }
+
 }

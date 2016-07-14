@@ -29,11 +29,10 @@ import java.util.List;
 
 public class MyThreads {
     List<MsgThread> converThreads;
-    List<String[]> headers;
-    LinkedList<JSONObject> allConvs;
     int numFile;
     HashSet<String> numChange;
     File dir;
+    File conv_cata_file;
     Context context;
     static private String cList = "conversation_list.json";
 
@@ -42,7 +41,6 @@ public class MyThreads {
         dir = context.getFilesDir();
         this.context = context;
         converThreads = new LinkedList<>();
-        headers = new ArrayList<>();
         numChange = new HashSet<>();
         String[] list = dir.list(new FilenameFilter() {
             @Override
@@ -50,11 +48,22 @@ public class MyThreads {
                 return name.matches("MSG_.*");
             }
         });
-        allConvs = new LinkedList<>();
-        readLine(new File(context.getFilesDir(), cList), allConvs, context);
-        for(String fname : list){
+        LinkedList<JSONObject> allConvs = new LinkedList<>();
+        conv_cata_file = new File(context.getFilesDir(), cList);
+        if(!conv_cata_file.exists()) {
+            try {
+                conv_cata_file.createNewFile();
+            } catch (IOException e) {
+                /*If the conv cata file cannot be created*/
+                return;
+            }
+        }
+        readLine(conv_cata_file, allConvs, context);
+
+        for (JSONObject convHeader : allConvs){
+            String fname = toFile(convHeader.optString("username"));
             File file = new File(dir, fname);
-            MsgThread th = new MsgThread(fname, file);
+            MsgThread th = new MsgThread(convHeader, file);
             converThreads.add(th);
             numFile++;
         }
@@ -63,6 +72,7 @@ public class MyThreads {
     }
 
     public boolean newConversation(String[] header){
+        beta_test.logStringArray(header, "header");
         String uname = header[0];
         String fname = "MSG_" + uname + ".json";
 
@@ -70,45 +80,34 @@ public class MyThreads {
 
         for (MsgThread mt : converThreads){
             if (mt.filename.equals(fname)){
-                if(headers.get(index)[2].equals(header[2])){
+                if(mt.header[2].equals(header[2])){
 					/*If the user is trying to respond to a request they already responded to,
 					we don't create new file*/
                     return false;
                 }else{
                     /*Hao: now the user is responding to the same person under a different topic
-                    * update headers
                     * update conversation_list.json
-                    * update allConvs
                     * update convThreads*/
-                    headers.get(index)[2] = header[2];
-                    converThreads.get(index).setHeader(header);
-                    for (JSONObject conv : allConvs){
-                        String name = conv.optString("username");
+                    mt.setHeader(header);
 
-                        if(  name != null && !name.isEmpty()){
-                            String ffname = "MSG_" + name + ".json";
-                            if (ffname.equals(fname)) {
-                                try {
-                                    conv.put("rating", header[1]);
-                                    conv.put("note", header[2]);
-                                }catch (JSONException e){
-                                    e.printStackTrace();
-                                    Log.d("Update Topic", "FAILED TO UPDATE");
-                                }
-                                break;
-                            }
-                        }
+                    try {
+                        mt.jsonHeader.put("rating", header[1]);
+                        mt.jsonHeader.put("note", header[2]);
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                        Log.d("Update Topic", "FAILED TO UPDATE");
                     }
 
                     Log.d("Intense file write", "Rewriting conversation_list.json");
                     File clfile = new File(dir, cList);
+                    Log.d("conv_list", beta_test.fileRead(clfile));
                     boolean deleted = clfile.delete();
 
                     while (!deleted){
                         deleted = clfile.delete();
                     }
 
-                    rewritCList();
+                    rewriteCList();
 
                     /*Rewrite the content of the conversation list*/
                     return true;
@@ -118,13 +117,13 @@ public class MyThreads {
         }
 
         File file = new File(dir, fname);
-        JSONObject cData = writeConvList(header);
-        allConvs.add(cData);
-        MsgThread mt = new MsgThread(fname, file);
+        JSONObject jsonHeader = writeConvList(header);
+        if(jsonHeader == null) return false;
+
+        MsgThread mt = new MsgThread(jsonHeader, file);
         numFile++;
         converThreads.add(0, mt);
 
-        headers.add(0, mt.spitHeader());
         return true;
     }
 
@@ -167,16 +166,16 @@ public class MyThreads {
 
     private void makeHeaderArray(){
         Collections.sort(converThreads);
-        headers.clear();
-
-
-        for(MsgThread mt : converThreads){
-            headers.add(mt.spitHeader());
-        }
     }
 
     public List<String[]> getHeader(){
-        return headers;
+        List<String[] > res = new LinkedList<>();
+
+        for (MsgThread mt : converThreads){
+            res.add(mt.spitHeader());
+        }
+
+        return res;
     }
 
     public static String toFile(String name){
@@ -187,37 +186,20 @@ public class MyThreads {
         private String filename;
         private File file;
         private long time;
+        private JSONObject jsonHeader;
         /*Hao to Jeremy: This array member shouldn't exist after your implementation*/
         private String[] header;
 
-        public MsgThread(String fname, Context context){
-            this.filename = fname;
-            this.file = new File(context.getFilesDir(), fname);
-            this.time = file.lastModified();
-        }
-
-        public MsgThread(String fname, File file){
-            this.filename = fname;
+        public MsgThread(JSONObject convHeader, File file){
+            this.jsonHeader = convHeader;
             this.file = file;
             this.time = file.lastModified();
-
-            for (JSONObject conv : allConvs){
-                String name = conv.optString("username");
-                String rate = new String();
-                String note = new String();
-
-                if(  name != null && !name.isEmpty()){
-                    String ffname = "MSG_" + name + ".json";
-                    if (ffname.equals(filename)) {
-                        rate = conv.optString("rating");
-                        note = conv.optString("note");
-                        header = new String[]{name, rate, note};
-                        headers.add(header);
-                        break;
-                    }
-                }
-            }
-
+            String name = convHeader.optString("username");
+            this.filename = toFile(name);
+            String rate = convHeader.optString("rating");
+            String note = convHeader.optString("note");
+            header = new String[]{name, rate, note};
+            beta_test.logStringArray(header, "cheader");
         }
 
         public void setTime(){
@@ -297,22 +279,11 @@ public class MyThreads {
     public boolean deleteFile(String fname){
         File clfile = new File(dir, fname);
         boolean res0 = false, res1 = false;
-        for (JSONObject conv : allConvs){
-            String name = conv.optString("username");
 
-            if(  name != null && !name.isEmpty()){
-                String ffname = toFile(name);
-                if (ffname.equals(fname)) {
-                    res0 = allConvs.remove(conv);
-                    break;
-                }
-            }
-        }
 
         for (int i = 0; i < numFile; i++){
-            String ffname = toFile(headers.get(i)[0]);
+            String ffname = toFile(converThreads.get(i).header[0]);
             if (ffname.equals(fname)) {
-                headers.remove(i);
                 MsgThread msgThread = converThreads.remove(i);
                 if(msgThread.filename.equals(fname)) res1 = true;
                 break;
@@ -320,7 +291,7 @@ public class MyThreads {
         }
 
         if (res0){
-            rewritCList();
+            rewriteCList();
             numFile--;
         }
 
@@ -329,11 +300,11 @@ public class MyThreads {
         return res0 && res1 && res2;
     }
 
-    private void rewritCList(){
+    private void rewriteCList(){
         String dummy = new String();
-        for (JSONObject conv : allConvs){
-            if( !conv.optString("username").equals(dummy) ) fileWrite(conv, cList, context);
-            dummy = conv.optString("username");
+        for (MsgThread mt : converThreads){
+            if( !mt.jsonHeader.optString("username").equals(dummy) ) fileWrite(mt.jsonHeader, cList, context);
+            dummy = mt.jsonHeader.optString("username");
         }
     }
 
