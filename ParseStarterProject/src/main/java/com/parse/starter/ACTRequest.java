@@ -141,12 +141,15 @@ public class ACTRequest extends AppCompatActivity
 
         installation.saveInBackground();
 
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
+	Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+	setSupportActionBar(toolbar);
+	
+	/*Get rid of the default title*/
+	getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         /*Hao to Jeremy: What should we do with the Logo? For now, I hide it*/
         toolbar.setLogo(R.drawable.new_logo);
-	    View logoView = getToolbarLogoIcon(toolbar);
+        View logoView = getToolbarLogoIcon(toolbar);
 
         if (logoView != null) {
             logoView.setOnClickListener(new View.OnClickListener() {
@@ -878,15 +881,17 @@ public class ACTRequest extends AppCompatActivity
         }
 
         flipperIndex = index;
+        //Remove the index from the flipper stack if it already exists, and add it to tali
+        if(flipperStack.contains(index)) flipperStack.remove(index);
+        
         flipperStack.add(index);
         viewFlipper.setDisplayedChild(index);
     }
 
     public void flipback(){
         int index = flipperStack.get(flipperStack.size() - 2);
+        flipperStack.removeLast();
         flip(index);
-        flipperStack.removeLast(); //removes the one you just added
-        flipperStack.removeLast(); //remove the one you are returning from
     }
 
     public void onClickNewOffer(View view) {
