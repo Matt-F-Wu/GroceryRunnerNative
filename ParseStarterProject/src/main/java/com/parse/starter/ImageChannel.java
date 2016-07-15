@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.parse.GetCallback;
+import com.parse.ParseACL;
 import com.parse.ParseException;
-import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
@@ -50,16 +50,21 @@ public class ImageChannel {
         }
         final ParseObject parseObject = new ParseObject("ImageBox");
 
-        final String whole = fillImageBox(parseObject, imgData);
+        ParseACL parseACL = new ParseACL();
+        parseACL.setPublicReadAccess(true);
+        parseACL.setPublicWriteAccess(true);
+        parseObject.setACL(parseACL);
+
+        final String whole = fillImageBox(parseObject, imgData, true);
 
         parseObject.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if(e != null) {
+                if (e != null) {
                     Toast.makeText(activity.getApplicationContext(),
-                        "Could not send image, please try later!", Toast.LENGTH_LONG)
-                        .show();
-                }else {
+                            "Could not send image, please try later!", Toast.LENGTH_LONG)
+                            .show();
+                } else {
                     String imageID = parseObject.getObjectId();
                     JSONObject jsonObject = new JSONObject();
                     try {
@@ -214,12 +219,18 @@ public class ImageChannel {
         }
     }
 
-    public static String fillImageBox(ParseObject parseObject, LinkedList<String> imgData){
+    public static String fillImageBox(ParseObject parseObject, LinkedList<String> imgData, boolean publicWrite){
         String data = "";
         int i = 1;
         for (String s : imgData){
             ParseObject p = new ParseObject("ImageData");
             p.put("data", s);
+            if(publicWrite) {
+                ParseACL parseACL = new ParseACL();
+                parseACL.setPublicReadAccess(true);
+                parseACL.setPublicWriteAccess(true);
+                p.setACL(parseACL);
+            }
             p.saveInBackground();
             data += s;
             parseObject.put("data" + i, p);

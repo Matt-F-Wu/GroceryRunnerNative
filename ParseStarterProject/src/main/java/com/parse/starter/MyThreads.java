@@ -145,11 +145,39 @@ public class MyThreads {
 
 
     public void fileChange(String fname, JSONObject data){
+        boolean foundFile = false;
         for (MsgThread mt : converThreads){
             if (mt.filename.equals(fname)){
                 mt.writeBody(data);
                 mt.setTime();
+                foundFile = true;
             }
+        }
+
+        /*If no previous conversation exist from the sender, we make a new conversation*/
+        if(!foundFile){
+            String[] header = {data.optString("username"), data.optString("rating"), "In Response to your request"};
+            newConversation(header);
+
+            File file = new File(dir, fname);
+
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+
+            String[] namesToWrite = {"TYPE","content","ctype","time","username"};
+            JSONObject jsonObjectToWrite = null;
+            try {
+                jsonObjectToWrite = new JSONObject(data, namesToWrite);
+            }catch(JSONException e){
+                e.printStackTrace();
+            }
+
+            //write to file
+            MyThreads.fileWrite(jsonObjectToWrite, fname, context);
         }
 
         makeHeaderArray();

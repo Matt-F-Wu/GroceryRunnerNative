@@ -115,7 +115,8 @@ public class ACTRequest extends AppCompatActivity
     private List<Integer> resources;
     private LinkedList<String> user_pics;
     private LinkedList<Integer> flipperStack;
-    private MsgAdapter msgAdapterReq, msgAdapterChat;
+    private MsgAdapter msgAdapterReq;
+    private ThreadAdapter msgAdapterChat;
     private ListView listViewRequest, listViewChat;
     MyThreads convList;
     private HashSet<Integer> edittext_ids;
@@ -127,7 +128,6 @@ public class ACTRequest extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_main_page);
 		// Obtain the SupportMapFragment and get notified when the map is ready to be used.
-
 
         // Associate this user with this device
         installation = ParseInstallation.getCurrentInstallation();
@@ -292,12 +292,7 @@ public class ACTRequest extends AppCompatActivity
                     //scrollToBottom(msgAdapterReq, listViewRequest);
                 }
                 else if (action.equals("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES")){
-                    /* HAO to JEREMY
-                    *Everytime you receive a message, you write to the message file and notify there has been changes made to the files
-                    * Make subclass MessageObject and make a constructor and constructs from JSONObject
-                    *
-                    * MessageObject messageObject = new MessageObject(data);
-                    * description = messageObject.getNote();
+                    /* HAO
                     * Update the count at the top bar
                     * Write message to corresponding files, messgaeObject => file
                     * */
@@ -311,10 +306,10 @@ public class ACTRequest extends AppCompatActivity
                     fname = MyThreads.toFile(fname);
                     convList.fileChange(fname, jsonObject);
                     convList.numChange.add(fname);
-                    chatValues = convList.getHeader();
-                    highLightConv(); //HAO: highlight this updated conversation
-
+                    //chatValues = convList.getHeader();
                     msgAdapterChat.notifyDataSetChanged();
+                    //HAO: highlight this updated conversation
+                    highLightConv();
                 }
 
             }
@@ -362,10 +357,9 @@ public class ACTRequest extends AppCompatActivity
 
                 convList.fileChange(fname, jsonObject);
                 convList.numChange.add(fname);
-                chatValues = convList.getHeader();
-                highLightConv(); //HAO: highlight this updated conversation
-
+                //chatValues = convList.getHeader();
                 msgAdapterChat.notifyDataSetChanged();
+                highLightConv(); //HAO: highlight this updated conversation
             }
 
         }
@@ -919,7 +913,7 @@ public class ACTRequest extends AppCompatActivity
                         // Actually Delete
                         if (!file_long_clicked.isEmpty()) convList.deleteFile(file_long_clicked);
 
-                        chatValues = convList.getHeader();
+                        //chatValues = convList.getHeader();
                         msgAdapterChat.notifyDataSetChanged();
                         Log.d("File Deletion: ", "User deleted file " + file_long_clicked);
                     }
@@ -947,6 +941,8 @@ public class ACTRequest extends AppCompatActivity
     public void editProfile(View view) {
         flip(3);
         populate_profile();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
     }
 
     private class StableArrayAdapter extends ArrayAdapter<String> {
@@ -1013,7 +1009,7 @@ public class ACTRequest extends AppCompatActivity
                 beta_test.logStringArray(chatItem, "chatItem");
 
                 if (convList.newConversation(chatItem)) {
-                    chatValues = convList.getHeader();
+                    //chatValues = convList.getHeader();
                     msgAdapterChat.notifyDataSetChanged();
                 }
 
@@ -1033,9 +1029,9 @@ public class ACTRequest extends AppCompatActivity
     private void configureChatView(){
         int[] fields = new int[]{R.id.thread_uname, R.id.thread_rating, R.id.thread_description};
 
-        chatValues = convList.getHeader();
+        //chatValues = convList.getHeader();
 
-        msgAdapterChat = new MsgAdapter(this, R.layout.threads_row_layout, fields, chatValues);
+        msgAdapterChat = new ThreadAdapter(this, R.layout.threads_row_layout, fields, convList.converThreads);
 
         listViewChat = (ListView) findViewById(R.id.threads);
         listViewChat.setAdapter(msgAdapterChat);
@@ -1045,7 +1041,7 @@ public class ACTRequest extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
-                final String[] item = (String[]) parent.getItemAtPosition(position);
+                final String[] item = ((MyThreads.MsgThread) parent.getItemAtPosition(position)).spitHeader();
                 view.setSelected(false);
                 listViewChat.setItemChecked(position, false);
                 String fname = MyThreads.toFile(item[0]);
@@ -1062,7 +1058,7 @@ public class ACTRequest extends AppCompatActivity
         listViewChat.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                final String[] item = (String[]) parent.getItemAtPosition(position);
+                final String[] item = ((MyThreads.MsgThread) parent.getItemAtPosition(position)).spitHeader();
                 file_long_clicked = MyThreads.toFile(item[0]);
                 PopupMenu popupMenu = new PopupMenu(context, view);
                 MenuInflater inflater = popupMenu.getMenuInflater();
@@ -1095,8 +1091,8 @@ public class ACTRequest extends AppCompatActivity
     /*Hightlight conversations that have received an update/message*/
     private void highLightConv(){
         int index = 0;
-        for (String[] s : convList.getHeader()){
-            System.out.println("array length" + s.length);
+        for (MyThreads.MsgThread mt : convList.converThreads){
+            String[] s = mt.spitHeader();
             String gn = MyThreads.toFile(s[0]);
             if (convList.numChange.contains(gn)){
                 listViewChat.setItemChecked(index, true);
@@ -1132,13 +1128,14 @@ public class ACTRequest extends AppCompatActivity
                 /*ParseFile file = new ParseFile(user_name + "_profile_picture.png", image);
                 file.saveInBackground();*/
                 final ParseObject parseObject = new ParseObject("ImageBox");
-                ImageChannel.fillImageBox(parseObject, image);
+
+                ImageChannel.fillImageBox(parseObject, image, false);
                 parseObject.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
                         if (e != null) {
                             Toast.makeText(context,
-                                    "Could not send image, please try later!", Toast.LENGTH_LONG)
+                                    "Could not send image, please try later! " + e.getMessage(), Toast.LENGTH_LONG)
                                     .show();
                         } else {
                             // Create a column named "userPic" and insert the image

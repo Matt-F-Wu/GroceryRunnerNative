@@ -349,7 +349,7 @@ public class ACTMsg extends AppCompatActivity {
             }catch(JSONException e){
                 e.printStackTrace();
             }
-            if(username_read == theOtherPersonUsername){
+            if( username_read.equals(theOtherPersonUsername) ){
                 msg.setMe(false);
             }else{
                 msg.setMe(true);
