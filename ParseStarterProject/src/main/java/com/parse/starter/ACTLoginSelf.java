@@ -28,6 +28,17 @@ public class ACTLoginSelf extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_self);
+        
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null && currentUser.getUsername() != null) {
+            // Go to User Main Page directly if user already signed up
+            //
+            Log.d("Log In Previous User", "SUCESSFUL" + currentUser.getUsername());
+            Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
+            startActivity(mainP);
+            //!!!
+        } 
+        
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
         phoneNum = (EditText) findViewById(R.id.phone_num);
@@ -37,17 +48,7 @@ public class ACTLoginSelf extends AppCompatActivity {
         alertMsg.setTextColor(Color.parseColor("#ff0000"));
         addr2 = (EditText) findViewById(R.id.addr_two);
         addr3 = (EditText) findViewById(R.id.addr_three);
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if (currentUser != null && currentUser.getUsername() != null) {
-            // Go to User Main Page directly
-            //
-            Log.d("Log In Previous User", "SUCESSFUL" + currentUser.getUsername());
-            Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
-            startActivity(mainP);
-            //!!!
-        } else {
-            // show the signup or login screen
-        }
+        
     }
 
     private boolean missInfo(String s) {
