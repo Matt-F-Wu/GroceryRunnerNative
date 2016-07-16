@@ -44,7 +44,7 @@ public class GeoAssistant {
 
         try {
             address = coder.getFromLocationName(strAddress, 5);
-            if (address==null) {
+            if ( address == null || address.isEmpty()) {
                 p1.put("latitude", "NF");
                 p1.put("longitude", "NF");
                 return p1;

@@ -141,11 +141,11 @@ public class ACTRequest extends AppCompatActivity
 
         installation.saveInBackground();
 
-	Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-	setSupportActionBar(toolbar);
-	
-	/*Get rid of the default title*/
-	getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        /*Get rid of the default title*/
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         /*Hao to Jeremy: What should we do with the Logo? For now, I hide it*/
         toolbar.setLogo(R.drawable.new_logo);
@@ -218,7 +218,7 @@ public class ACTRequest extends AppCompatActivity
         });
 
         flipperStack = new LinkedList<>();
-        flipperStack.add(0);
+        flipperStack.add(new Integer(0));
 
         configureRequestView();
 
@@ -231,6 +231,10 @@ public class ACTRequest extends AppCompatActivity
         convList  = new MyThreads(this);
 
         configureChatView();
+
+        /*Hao:  opened by clicking notification, we handle the intent's data here*/
+        onNewIntent(getIntent());
+
 
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -281,17 +285,7 @@ public class ACTRequest extends AppCompatActivity
                 }
 
                 if(action.equals("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS")){
-                    RequestObject requestObject = new RequestObject(jsonObject);
-                    r_values.add(requestObject.spitValueList());
-                    user_pics.add(requestObject.getUserPic());
-                    if(requestObject.getPurpose().equals("ask")){
-                        //alignment.add(-50);
-                        resources.add(R.drawable.gray_req_bg); /*speech__bubble_white*/
-                    }else{
-                        //alignment.add(50);
-                        resources.add(R.drawable.red_req_bg);
-                    }
-                    msgAdapterReq.notifyDataSetChanged();
+                    addRequest(jsonObject);
                     //scrollToBottom(msgAdapterReq, listViewRequest);
                 }
                 else if (action.equals("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES")){
@@ -335,36 +329,68 @@ public class ACTRequest extends AppCompatActivity
     }
 
 
+    private void addRequest(JSONObject jsonObject){
+        RequestObject requestObject = new RequestObject(jsonObject);
+        r_values.add(requestObject.spitValueList());
+        user_pics.add(requestObject.getUserPic());
+        if(requestObject.getPurpose().equals("ask")){
+            //alignment.add(-50);
+            resources.add(R.drawable.gray_req_bg); /*speech__bubble_white*/
+        }else{
+            //alignment.add(50);
+            resources.add(R.drawable.red_req_bg);
+        }
+        msgAdapterReq.notifyDataSetChanged();
+    }
+
     @Override
     protected void onNewIntent(Intent intent){
         /*Handle the intent sent from notifications*/
-        Bundle b = intent.getExtras();
-        if (b != null) {
-            int enter = b.getInt("enter");
+        if (intent != null && intent.getBooleanExtra("notification", false)) {
+
+            LinkedList<JSONObject> notificationList = new LinkedList<>();
+
+            int enter = intent.getIntExtra("enter", 1);
             if(enter == 1){
                 flip(0);
-                r_values.add(b.getStringArray("valueList"));
-                user_pics.add(b.getString("userPic"));
-                msgAdapterReq.notifyDataSetChanged();
             }else if(enter == 2){
                 flip(1);
                 clearCounter();
-                String fname = MyThreads.toFile(b.getString("username"));
-
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(b.getString("CONTENT"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                convList.fileChange(fname, jsonObject);
-                convList.numChange.add(fname);
-                //chatValues = convList.getHeader();
-                msgAdapterChat.notifyDataSetChanged();
-                highLightConv(); //HAO: highlight this updated conversation
             }
 
+            File notiFile = new File(getFilesDir(), "favouramaNotification.json");
+            MyThreads.readLine(notiFile, notificationList, this);
+
+            String type;
+            for (JSONObject jsonObject : notificationList){
+                try {
+                    type = jsonObject.getString("TYPE");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.d("Push Receive Exception", "failed to retrieve type");
+                    continue;
+                }
+
+                if(type.equals("REQUEST")){
+                    addRequest(jsonObject);
+                }else{
+                    String uname = new String();
+                    try{
+                        uname = jsonObject.getString("username");
+                    }catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    String fname = MyThreads.toFile(uname);
+
+                    convList.fileChange(fname, jsonObject);
+                    convList.numChange.add(fname);
+                    //chatValues = convList.getHeader();
+                    msgAdapterChat.notifyDataSetChanged();
+                    highLightConv();
+                }
+            }
+            notiFile.delete(); /*Empty notifications stored*/
         }
     }
 
@@ -882,9 +908,9 @@ public class ACTRequest extends AppCompatActivity
 
         flipperIndex = index;
         //Remove the index from the flipper stack if it already exists, and add it to tali
-        if(flipperStack.contains(index)) flipperStack.remove(index);
+        if(flipperStack.contains(index)) flipperStack.remove(new Integer(index));
         
-        flipperStack.add(index);
+        flipperStack.add(new Integer(index));
         viewFlipper.setDisplayedChild(index);
     }
 
@@ -1481,7 +1507,7 @@ public class ACTRequest extends AppCompatActivity
 
         Log.d("PIC_PATH", "picture_file_path" + picture_file_path);
 
-        final Bitmap bmImg = BitmapFactory.decodeFile(picture_file_path);
+        final Bitmap bmImg = ImageChannel.decodeScaledDownBitmap(picture_file_path);
 
         if( bmImg != null) {
             if(update) {

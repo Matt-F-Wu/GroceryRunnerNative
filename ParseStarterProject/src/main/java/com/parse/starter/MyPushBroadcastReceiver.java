@@ -3,8 +3,10 @@ package com.parse.starter;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -56,19 +58,22 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             return;
         }
 
+        MyThreads.fileWrite(data, "favouramaNotification.json", context);
+
         if ( !StarterApplication.isActivityVisible() || (StarterApplication.isActivityVisible() && StarterApplication.isInMessage()) ) {
             NotificationManager notificationManager =
                     (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
             Intent openIntent = new Intent(context, ACTRequest.class);
+            openIntent.putExtra("notification", true);
             PendingIntent pIntent = null;
             if(type.equals(REQUEST_TYPE)){
                 /*Go to the main page where requests are displayed*/
                 openIntent.putExtra("enter", 1);
-                RequestObject requestObject = new RequestObject(data);
+                /*RequestObject requestObject = new RequestObject(data);
                 openIntent.putExtra("valueList", requestObject.spitValueList());
-                openIntent.putExtra("userPic", requestObject.getUserPic());
+                openIntent.putExtra("userPic", requestObject.getUserPic());*/
                 builder.setContentTitle("New Favourama Request");
             }
             else if(type.equals(MESSAGE_TYPE)){
@@ -83,8 +88,8 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
                     ignore = true;
                 }
                 if(!ignore) {
-                    openIntent.putExtra("username", fname);
-                    openIntent.putExtra("CONTENT", data.toString());
+                    /*openIntent.putExtra("username", fname);
+                    openIntent.putExtra("CONTENT", data.toString());*/
                 /*Hao to Jeremy: Enter the message page, should we try directly open the conversation or just the threads?*/
                     builder.setContentTitle("New Favourama Message");
                 }

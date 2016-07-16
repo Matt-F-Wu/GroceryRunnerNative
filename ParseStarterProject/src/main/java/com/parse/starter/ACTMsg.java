@@ -239,7 +239,9 @@ public class ACTMsg extends AppCompatActivity {
         params.put("time", DateFormat.getDateTimeInstance().format(new Date()));
         params.put("destination", header[0]);
         params.put("username", me.getUsername());
-        params.put("rating", me.getString("Rating"));
+        params.put("rating", me.get("Rating"));
+
+        Log.d("RATING", " " + me.get("Rating"));
 
         ParseCloud.callFunctionInBackground("sendMessageToUser", params, new FunctionCallback<String>() {
             public void done(String success, ParseException e) {
@@ -533,7 +535,7 @@ public class ACTMsg extends AppCompatActivity {
         params.put("time", DateFormat.getDateTimeInstance().format(new Date()));
         params.put("username", me.getUsername());
         params.put("destination", header[0]);
-        params.put("rating", me.getString("Rating"));
+        params.put("rating", me.get("Rating"));
 
         ParseCloud.callFunctionInBackground("sendMessageToUser", params, new FunctionCallback<String>() {
             public void done(String success, ParseException e) {
