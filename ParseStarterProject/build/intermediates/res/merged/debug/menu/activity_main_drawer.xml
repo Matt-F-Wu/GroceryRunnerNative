@@ -16,7 +16,7 @@
         <item
             android:id="@+id/nav_tutorial"
             android:icon="@drawable/ic_menu_send"
-            android:title="run tutorial" />
+            android:title="Run Tutorial" />
     </item>
 
 
@@ -25,7 +25,7 @@
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_power_settings_new_black_24dp"
-                android:title="Log out" />
+                android:title="Log Out" />
             <item
                 android:id="@+id/nav_delete"
                 android:icon="@drawable/ic_pause_dark"

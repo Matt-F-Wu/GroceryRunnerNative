@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:paddingLeft="10dip"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingBottom="10dip"
         android:orientation="horizontal"
         android:textSize="12sp"

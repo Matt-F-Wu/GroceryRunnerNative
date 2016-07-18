@@ -4,6 +4,14 @@
         "source": "G:\\GroceryRunner\\ParseStarterProject\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_menu_manage.png"
     },
     {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama5\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_menu_send.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama5\\GroceryRunnerNative\\ParseStarterProject\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_menu_send.png"
+    },
+    {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama5\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_menu_manage.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama5\\GroceryRunnerNative\\ParseStarterProject\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_menu_manage.png"
+    },
+    {
         "merged": "G:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\ic_menu_send.png",
         "source": "G:\\GroceryRunner\\ParseStarterProject\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_menu_send.png"
     }

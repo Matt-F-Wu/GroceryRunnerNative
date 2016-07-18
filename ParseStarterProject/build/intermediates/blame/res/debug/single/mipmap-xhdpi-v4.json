@@ -2,5 +2,9 @@
     {
         "merged": "G:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\ic_launcher.png",
         "source": "G:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama5\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi-v4\\ic_launcher.png",
+        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama5\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     }
 ]

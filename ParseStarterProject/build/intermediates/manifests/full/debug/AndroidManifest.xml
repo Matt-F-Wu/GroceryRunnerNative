@@ -65,7 +65,8 @@
 
         <activity
             android:name="com.parse.starter.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -74,7 +75,9 @@
         </activity>
         <activity
             android:name="com.parse.starter.ACTLoginSelf"
-            android:parentActivityName="com.parse.starter.MainActivity" />
+            android:noHistory="true"
+            android:parentActivityName="com.parse.starter.MainActivity" >
+        </activity>
         <activity
             android:name="com.parse.starter.ACTRequest"
             android:launchMode="singleTask"

@@ -1270,7 +1270,7 @@ public class ACTRequest extends AppCompatActivity
         layout3.setVisibility(View.INVISIBLE);
 
         Button b2 = (Button)findViewById(R.id.tut_offer_favour);
-        b2.setVisibility(View.GONE);
+        b2.setVisibility(View.INVISIBLE);
 
 
     }

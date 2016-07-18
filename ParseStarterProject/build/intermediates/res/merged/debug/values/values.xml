@@ -396,6 +396,7 @@
     <string name="rating_warning">You can only rate your experience with this person once, please be advised before you submit your review</string>
     <string name="send_b">SEND</string>
     <string name="sign_out">Sign Out</string>
+    <string name="sign_up_prompt">No account yet?</string>
     <string name="signed_in_fmt">Signed in as: %s</string>
     <string name="signed_out">Signed out</string>
     <string name="status_bar_notification_info_overflow">999+</string>
@@ -1672,12 +1673,16 @@
     <style name="ThemeOverlay.AppCompat.Dark.ActionBar" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Light" parent="Base.ThemeOverlay.AppCompat.Light"/>
     <style name="ThemeOverlay.MyDarkButton" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="colorButtonNormal">@color/blue_grey_500</item>
+        <item name="colorButtonNormal">@color/userBottomBar</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
     <style name="ThemeOverlay.MyNoTitleActivity" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+    <style name="ThemeOverlay.MyRedButton" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorButtonNormal">@color/dark_red</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
     <style name="WalletFragmentDefaultButtonTextAppearance">
         <item name="android:textColor">@color/wallet_primary_text_holo_light</item>
