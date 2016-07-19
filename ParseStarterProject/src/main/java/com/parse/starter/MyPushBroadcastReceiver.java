@@ -58,12 +58,24 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             return;
         }
 
-        MyThreads.fileWrite(data, "favouramaNotification.json", context);
+        /*If application is not visible (aka closed or running in background), the best way is to process the notifications received
+        * in onResume and onNewIntent by reading the notification file.
+        * On the other hand, if the application is visible, we should just stop making notifications but to process them quietly
+        * with our alerting the user.
+        * One special case to consider is that when the user is in ACTMsg, talking to someone, in this case the app is still active, meaning
+        * it is capable of processing notifications quietly, however it is necessary to let the user know that new requests, or messages
+        * from another party than the one he/she is talking to has arrived. In thie case, we make notifications but not write to the
+        * favouramaNotification.json.
+        */
 
         if ( !StarterApplication.isActivityVisible() || (StarterApplication.isActivityVisible() && StarterApplication.isInMessage()) ) {
             NotificationManager notificationManager =
                     (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
+                    
+            if ( !StarterApplication.isActivityVisible() ){
+                MyThreads.fileWrite(data, "favouramaNotification.json", context);
+            }
+            
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
             Intent openIntent = new Intent(context, ACTRequest.class);
             openIntent.putExtra("notification", true);
@@ -71,9 +83,6 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             if(type.equals(REQUEST_TYPE)){
                 /*Go to the main page where requests are displayed*/
                 openIntent.putExtra("enter", 1);
-                /*RequestObject requestObject = new RequestObject(data);
-                openIntent.putExtra("valueList", requestObject.spitValueList());
-                openIntent.putExtra("userPic", requestObject.getUserPic());*/
                 builder.setContentTitle("New Favourama Request");
             }
             else if(type.equals(MESSAGE_TYPE)){
@@ -88,9 +97,6 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
                     ignore = true;
                 }
                 if(!ignore) {
-                    /*openIntent.putExtra("username", fname);
-                    openIntent.putExtra("CONTENT", data.toString());*/
-                /*Hao to Jeremy: Enter the message page, should we try directly open the conversation or just the threads?*/
                     builder.setContentTitle("New Favourama Message");
                 }
             }
@@ -105,8 +111,10 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
                 builder.setAutoCancel(true);
                 notificationManager.notify("MyTag", 0, builder.build());
                 // OPTIONAL create soundUri and set sound:
-            /*builder.setSound(soundUri);*/
-                return;
+                /*builder.setSound(soundUri);*/
+                
+                //When the activity is not visible, no need to send broadcasts to activities, just exit
+                if( !StarterApplication.isActivityVisible() ) return;
             }
         }
 
@@ -130,8 +138,6 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             i.putExtra("CONTENT", data.toString());
             i.setAction("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES");
             context.sendBroadcast(i);
-        } else if (type.equals(RATING_TYPE)) {
-            //do nothing now
         }
 
     }
