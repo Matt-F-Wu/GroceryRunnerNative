@@ -53,8 +53,6 @@ import java.util.LinkedList;
 public class ACTMsg extends AppCompatActivity {
     private String[] header;
     private BroadcastReceiver msgReceiver;
-    private ArrayList<String> requestCollector;
-    private int msgCounter;
     private ParseUser me;
     //message file global
     private File common_dir;
@@ -84,8 +82,6 @@ public class ACTMsg extends AppCompatActivity {
         TextView headerView = (TextView) findViewById(R.id.msg_thread_header);
         headerView.setText( formatHeader() );
 
-        requestCollector = new ArrayList<String>();
-
         //manage files
         common_dir = getApplicationContext().getFilesDir();
         msg_filename = "MSG_"+header[0]+".json";//todo change this later
@@ -113,17 +109,11 @@ public class ACTMsg extends AppCompatActivity {
                 }
 
                 if(action.equals("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS")){
-                    //Hao: Suspicion is that we don't need to update request list here
-                    // requestCollector.add(jsonObject.toString());
-                    //Record all the requests coming during the period where the user is on this activity
-                    /*Return all the requests received to ACTRequest to be handled when this activity finishes*/
+                   //Hao: do nothing here
                 }
                 else if (action.equals("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES")){
-                    /* HAO to JEREMY
-                    In updateCounter(), I check if the message incoming is with in the current thread. If not, I update
-                    counter number to be returned to the ACTRequest Activity, otherwise, I do nothing
+                    /* HAO
                     * */
-                    updateCounter(jsonObject);
 
                     Log.d("MCONTENT", jsonObject.toString());
 
@@ -276,8 +266,7 @@ public class ACTMsg extends AppCompatActivity {
         unregisterReceiver(msgReceiver);
 
         Intent result = new Intent();
-        result.putStringArrayListExtra("RequestCollection", requestCollector);
-        result.putExtra("CounterValue", msgCounter);
+        
         setResult(Activity.RESULT_OK, result);
         finish();
     }
@@ -294,20 +283,6 @@ public class ACTMsg extends AppCompatActivity {
     }
 
 
-    public void updateCounter(JSONObject jsonObject){
-        String nameOfThread;
-        try {
-            nameOfThread = jsonObject.getString("username");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        if ( !nameOfThread.equals(header[0]) ){
-            msgCounter ++;
-        }
-
-    }
 
     public void updateDisplay(JSONObject jsonObject){
         /*HAO to Jeremy:
