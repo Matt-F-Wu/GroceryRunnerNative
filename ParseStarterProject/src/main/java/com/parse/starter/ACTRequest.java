@@ -293,7 +293,6 @@ public class ACTRequest extends AppCompatActivity
                     * Update the count at the top bar
                     * Write message to corresponding files, messgaeObject => file
                     * */
-                    updateCounter(1);
                     String fname = new String();
                     try{
                         fname = jsonObject.getString("username");
@@ -303,6 +302,7 @@ public class ACTRequest extends AppCompatActivity
                     fname = MyThreads.toFile(fname);
                     convList.fileChange(fname, jsonObject);
                     convList.numChange.add(fname);
+                    updateCounter(convList.numChange.size());
                     //chatValues = convList.getHeader();
                     msgAdapterChat.notifyDataSetChanged();
                     //HAO: highlight this updated conversation
@@ -347,18 +347,26 @@ public class ACTRequest extends AppCompatActivity
     protected void onNewIntent(Intent intent){
         /*Handle the intent sent from notifications*/
         if (intent != null && intent.getBooleanExtra("notification", false)) {
-
-            LinkedList<JSONObject> notificationList = new LinkedList<>();
-
-            int enter = intent.getIntExtra("enter", 1);
+	    int enter = intent.getIntExtra("enter", 1);
             if(enter == 1){
                 flip(0);
             }else if(enter == 2){
                 flip(1);
                 clearCounter();
             }
-
+            
+            notificationFileProcessing();
+            
+        }
+    }
+    
+    private void notificationFileProcessing(){
             File notiFile = new File(getFilesDir(), "favouramaNotification.json");
+            
+            //If the file doesn't exist, just return
+            if( !notiFile.exists() ) return;
+            
+            LinkedList<JSONObject> notificationList = new LinkedList<>();
             MyThreads.readLine(notiFile, notificationList, this);
 
             String type;
@@ -385,13 +393,13 @@ public class ACTRequest extends AppCompatActivity
 
                     convList.fileChange(fname, jsonObject);
                     convList.numChange.add(fname);
+                    updateCounter(convList.numChange.size());
                     //chatValues = convList.getHeader();
                     msgAdapterChat.notifyDataSetChanged();
                     highLightConv();
                 }
             }
             notiFile.delete(); /*Empty notifications stored*/
-        }
     }
 
     @Override
@@ -428,6 +436,10 @@ public class ACTRequest extends AppCompatActivity
         }
         StarterApplication.activityResumed();
         StarterApplication.setNotInMessage();
+        
+        //Process possible notifications
+        
+        notificationFileProcessing();
     }
 
     @Override
@@ -1077,6 +1089,8 @@ public class ACTRequest extends AppCompatActivity
                 listViewChat.setItemChecked(position, false);
                 String fname = MyThreads.toFile(item[0]);
                 convList.numChange.remove(fname);
+                updateCounter(convList.numChange.size());
+                highLightConv();
                 Bundle b = new Bundle();
                 b.putStringArray("ThreadHeader", item);
                 Intent i = new Intent(ACTRequest.this, ACTMsg.class);
@@ -1107,11 +1121,9 @@ public class ACTRequest extends AppCompatActivity
 
     }
 
-    private void updateCounter(int increment){
+    private void updateCounter(int value){
         TextView countView = (TextView) findViewById(R.id.topbar_textview);
-        int count = Integer.parseInt(countView.getText().toString());
-        count = count + increment;
-        countView.setText(String.valueOf(count));
+        countView.setText(String.valueOf(value));
     }
 
     private void clearCounter(){
@@ -1194,26 +1206,6 @@ public class ACTRequest extends AppCompatActivity
             }
         }
 
-
-        if(resultCode == Activity.RESULT_OK && requestCode == 0){
-            ArrayList<String> requestCollected = data.getStringArrayListExtra("RequestCollection");
-            if ( !requestCollected.isEmpty() ){
-                for ( String s : requestCollected){
-                    JSONObject jobject;
-                    try {
-                        jobject = new JSONObject(s);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        continue;
-                    }
-                    RequestObject requestObject = new RequestObject(jobject);
-                    r_values.add(requestObject.spitValueList());
-                }
-            }
-            msgAdapterReq.notifyDataSetChanged();
-            int additionalCounter = data.getIntExtra("CounterValue", 0);
-            updateCounter(additionalCounter);
-        }
         if (resultCode == Activity.RESULT_CANCELED) {
             //Write your code if there's no result
             /*HAO: Don't think this will ever happen to be honest*/
