@@ -64,17 +64,13 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
         * with our alerting the user.
         * One special case to consider is that when the user is in ACTMsg, talking to someone, in this case the app is still active, meaning
         * it is capable of processing notifications quietly, however it is necessary to let the user know that new requests, or messages
-        * from another party than the one he/she is talking to has arrived. In thie case, we make notifications but not write to the
-        * favouramaNotification.json.
+        * from another party than the one he/she is talking to has arrived. In thie case, we make notifications and write to the
+        * favouramaNotification.json too.
         */
 
         if ( !StarterApplication.isActivityVisible() || (StarterApplication.isActivityVisible() && StarterApplication.isInMessage()) ) {
             NotificationManager notificationManager =
                     (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    
-            if ( !StarterApplication.isActivityVisible() ){
-                MyThreads.fileWrite(data, "favouramaNotification.json", context);
-            }
             
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
             Intent openIntent = new Intent(context, ACTRequest.class);
@@ -102,6 +98,10 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             }
 
             if(!ignore) {
+                //Making notifications, write data to file
+                
+                MyThreads.fileWrite(data, "favouramaNotification.json", context);
+                
                 openIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 pIntent = PendingIntent.getActivity(context, 0, openIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
@@ -109,12 +109,11 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
                 builder.setSmallIcon(R.drawable.logo);
                 builder.setContentIntent(pIntent);
                 builder.setAutoCancel(true);
-                notificationManager.notify("MyTag", 0, builder.build());
+                notificationManager.notify("FavouramaTag", 0, builder.build());
                 // OPTIONAL create soundUri and set sound:
                 /*builder.setSound(soundUri);*/
                 
-                //When the activity is not visible, no need to send broadcasts to activities, just exit
-                if( !StarterApplication.isActivityVisible() ) return;
+                return;
             }
         }
 
