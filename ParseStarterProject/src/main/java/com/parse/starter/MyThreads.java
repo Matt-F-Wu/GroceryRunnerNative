@@ -156,7 +156,7 @@ public class MyThreads {
 
         /*If no previous conversation exist from the sender, we make a new conversation*/
         if(!foundFile){
-            String[] header = {data.optString("username"), data.optString("rating"), "In Response to your request"};
+            String[] header = {data.optString("username"), data.optString("rating"), "Your request"};
             newConversation(header);
 
             File file = new File(dir, fname);
