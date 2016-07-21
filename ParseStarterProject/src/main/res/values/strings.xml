@@ -35,4 +35,5 @@
     <string name="title_activity_actimgcrop">Favourama Crop</string>
 
     <string name="sign_up_prompt">No account yet?</string>
+    <string name="forget_password_link"><u>Forget your password? Click here</u></string>
 </resources>
