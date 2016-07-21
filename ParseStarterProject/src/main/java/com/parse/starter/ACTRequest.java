@@ -301,12 +301,15 @@ public class ACTRequest extends AppCompatActivity
                     }
                     fname = MyThreads.toFile(fname);
                     convList.fileChange(fname, jsonObject);
-                    convList.numChange.add(fname);
-                    updateCounter(convList.numChange.size());
-                    //chatValues = convList.getHeader();
                     msgAdapterChat.notifyDataSetChanged();
-                    //HAO: highlight this updated conversation
-                    highLightConv();
+
+                    if(!StarterApplication.isInMessage()) {
+                        convList.numChange.add(fname);
+                        updateCounter(convList.numChange.size());
+
+                        //HAO: highlight this updated conversation
+                        highLightConv();
+                    }
                 }
 
             }
@@ -1135,8 +1138,7 @@ public class ACTRequest extends AppCompatActivity
     private void highLightConv(){
         int index = 0;
         for (MyThreads.MsgThread mt : convList.converThreads){
-            String[] s = mt.spitHeader();
-            String gn = MyThreads.toFile(s[0]);
+            String gn = mt.getFilename();
             if (convList.numChange.contains(gn)){
                 listViewChat.setItemChecked(index, true);
             }
