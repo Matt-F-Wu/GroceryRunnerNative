@@ -1,8 +1,6 @@
 package com.parse.starter;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,7 +12,6 @@ import android.widget.ViewFlipper;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
-import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 import com.parse.RequestPasswordResetCallback;
 import com.parse.SignUpCallback;
@@ -45,7 +42,6 @@ public class ACTLoginSelf extends AppCompatActivity {
         addr1 = (EditText) findViewById(R.id.addr_one);
         email = (EditText) findViewById(R.id.email);
         alertMsg = (TextView) findViewById(R.id.alert_msg);
-        alertMsg.setTextColor(Color.parseColor("#ff0000"));
         addr2 = (EditText) findViewById(R.id.addr_two);
         addr3 = (EditText) findViewById(R.id.addr_three);
         
@@ -60,6 +56,7 @@ public class ACTLoginSelf extends AppCompatActivity {
     }
 
     public void onClickSignIn(View v) {
+        alertMsg.setText("Processing...");
         uname = username.getText().toString();
         pw = password.getText().toString();
         Log.d("Username", uname);
@@ -83,7 +80,9 @@ public class ACTLoginSelf extends AppCompatActivity {
     }
 
     public void onClickForgetPassword(View v) {
-        String email_s = email.getText().toString();
+        alertMsg.setText("");
+        EditText email_forget = (EditText) findViewById(R.id.email_forget_password);
+        String email_s = email_forget.getText().toString();
         if (!missInfo(email_s)) {
             ParseUser.requestPasswordResetInBackground(email_s,
                     new RequestPasswordResetCallback() {
@@ -97,8 +96,7 @@ public class ACTLoginSelf extends AppCompatActivity {
                     });
         } else {
             //send an alert saying that the email is not entered or something
-            alertMsg.setTextColor(Color.parseColor("#ff0000"));
-            alertMsg.setText("Please Enter Your Email First, Then Click the 'Forget My Password'.");
+            alertMsg.setText("Please Enter Your Email, Then Click the 'RESET PASSWORD'");
 
         }
     }
@@ -110,7 +108,7 @@ public class ACTLoginSelf extends AppCompatActivity {
     }
 
     public void onClickSignUp(View v) {
-
+        alertMsg.setText("Processing...");
         String email_s = email.getText().toString();
         uname = username.getText().toString();
         pw = password.getText().toString();
@@ -161,7 +159,7 @@ public class ACTLoginSelf extends AppCompatActivity {
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong
                     Log.d("FAILED", "AHA, DIDN'T SEE THIS COMING!" + e.getMessage());
-                    alertMsg.setText("Missing information, cannot proceed! " + e.getMessage());
+                    alertMsg.setText("Something went wrong, cannot proceed: " + e.getMessage());
                     //report is there are duplicate accounts existing and such! ============TBD============
                 }
             }
@@ -182,6 +180,20 @@ public class ACTLoginSelf extends AppCompatActivity {
     }
 
     public void flipToLogIn(View view) {
+        ViewFlipper vf = (ViewFlipper) findViewById(R.id.viewFlipper);
+        vf.setDisplayedChild(0);
+    }
+
+    public void onClickForgetPasswordDisplay(View view) {
+        ViewFlipper viewFlipper = (ViewFlipper) findViewById(R.id.forget_password_flipper);
+        viewFlipper.setDisplayedChild(1);
+        alertMsg.setText("");
+    }
+
+    public void flipTwiceToLogIn(View view) {
+        ViewFlipper viewFlipper = (ViewFlipper) findViewById(R.id.forget_password_flipper);
+        viewFlipper.setDisplayedChild(0);
+
         ViewFlipper vf = (ViewFlipper) findViewById(R.id.viewFlipper);
         vf.setDisplayedChild(0);
     }
