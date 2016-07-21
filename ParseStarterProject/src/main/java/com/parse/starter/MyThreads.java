@@ -233,6 +233,10 @@ public class MyThreads {
         public void setTime(){
             this.time = file.lastModified();
         }
+        
+        public String getFilename(){
+            return this.filename;
+        }
 
         public void writeBody(JSONObject data){
             //TBD: write body, aka dialog,  to file
@@ -310,7 +314,7 @@ public class MyThreads {
 
 
         for (int i = 0; i < numFile; i++){
-            String ffname = toFile(converThreads.get(i).header[0]);
+            String ffname = converThreads.get(i).filename;
             if (ffname.equals(fname)) {
                 MsgThread msgThread = converThreads.remove(i);
                 if(msgThread.filename.equals(fname)) res1 = true;
