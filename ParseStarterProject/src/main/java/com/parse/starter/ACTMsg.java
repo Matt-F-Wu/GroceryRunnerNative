@@ -182,6 +182,10 @@ public class ACTMsg extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.typing_box);
 
         String content = editText.getText().toString();
+        
+        if( content == null || content.isEmpty() ){
+            return;
+        }
 
         JSONObject msg = new JSONObject();
 
