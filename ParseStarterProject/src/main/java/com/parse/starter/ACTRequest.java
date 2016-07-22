@@ -740,6 +740,14 @@ public class ACTRequest extends AppCompatActivity
         }
 
 		String note = postEditText.getText().toString().trim();
+		
+		if(missInfo(note)) {
+			Toast.makeText(this,
+                                    "Request is empty, please edit", Toast.LENGTH_SHORT)
+                                    .show();
+			return;
+		}
+		
 		double rad = (double) (radius.getProgress() + RADIUS_OFFSET)/1000;
 
         HashMap<String, Object> params = new HashMap<String, Object>();
