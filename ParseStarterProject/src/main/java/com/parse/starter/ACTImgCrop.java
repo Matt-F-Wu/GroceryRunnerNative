@@ -36,7 +36,6 @@ public class ACTImgCrop extends AppCompatActivity{
 
     private Uri mCropImageUri;
 
-    private String picture_filename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

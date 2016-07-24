@@ -30,9 +30,13 @@ public class ACTLoginSelf extends AppCompatActivity {
         if (currentUser != null && currentUser.getUsername() != null) {
             // Go to User Main Page directly if user already signed up
             //
-            Log.d("Log In Previous User", "SUCESSFUL" + currentUser.getUsername());
-            Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
-            startActivity(mainP);
+            if( !currentUser.getBoolean("emailVerified") ){
+                waitForVerify();
+            }else {
+                Log.d("Log In Previous User", "SUCESSFUL" + currentUser.getUsername());
+                Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
+                startActivity(mainP);
+            }
             //!!!
         } 
         
@@ -56,8 +60,9 @@ public class ACTLoginSelf extends AppCompatActivity {
     }
 
     public void onClickSignIn(View v) {
-        alertMsg.setText("Processing...");
-        uname = username.getText().toString();
+        Toast.makeText(this, "Signing in...", Toast.LENGTH_LONG).show();
+        alertMsg.setText("");
+        uname = username.getText().toString().trim();
         pw = password.getText().toString();
         Log.d("Username", uname);
         Log.d("Password", pw);
@@ -66,9 +71,15 @@ public class ACTLoginSelf extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
                     // Hooray! The user is logged in. Go to the mainpage activity
-                    Log.d("Log In", "SUCESSFUL");
-                    Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
-                    startActivity(mainP);
+                    if ( !user.getBoolean("emailVerified") ){
+                        /*The user has not confirmed his/her email address*/
+
+                        waitForVerify();
+                    } else {
+                        Log.d("Log In", "SUCESSFUL");
+                        Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
+                        startActivity(mainP);
+                    }
                     //!!!!!!!!!!!!!!
                 } else {
                     // Signup failed. Look at the ParseException to see what happened. =======TBD=========
@@ -82,7 +93,7 @@ public class ACTLoginSelf extends AppCompatActivity {
     public void onClickForgetPassword(View v) {
         alertMsg.setText("");
         EditText email_forget = (EditText) findViewById(R.id.email_forget_password);
-        String email_s = email_forget.getText().toString();
+        String email_s = email_forget.getText().toString().trim();
         if (!missInfo(email_s)) {
             ParseUser.requestPasswordResetInBackground(email_s,
                     new RequestPasswordResetCallback() {
@@ -108,11 +119,12 @@ public class ACTLoginSelf extends AppCompatActivity {
     }
 
     public void onClickSignUp(View v) {
-        alertMsg.setText("Processing...");
-        String email_s = email.getText().toString();
-        uname = username.getText().toString();
+        Toast.makeText(this, "Signing up...", Toast.LENGTH_LONG).show();
+        alertMsg.setText("");
+        String email_s = email.getText().toString().trim();
+        uname = username.getText().toString().trim();
         pw = password.getText().toString();
-        String phone = phoneNum.getText().toString();
+        String phone = phoneNum.getText().toString().trim();
         String addr1_s = addr1.getText().toString();
         String addr2_s = null;
         String addr3_s = null;
@@ -147,13 +159,18 @@ public class ACTLoginSelf extends AppCompatActivity {
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
                 if (e == null) {
-                    // Hooray! Now sign in with the account that has just been created
+                    // Hooray! automatically sign in with the account that has just been created
+                    if ( !ParseUser.getCurrentUser().getBoolean("emailVerified") ){
+                        /*The user has not confirmed his/her email address*/
 
-                    Log.d("DONE SIGNUP", "JUMP");
-                    alertMsg.setText("Signed In");
-                    //Go to the usermainpage activity
-                    Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
-                    startActivity(mainP);
+                        waitForVerify();
+                    }else {
+                        Log.d("DONE SIGNUP", "JUMP");
+                        alertMsg.setText("Signed In");
+                        //Go to the usermainpage activity
+                        Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
+                        startActivity(mainP);
+                    }
 
                 } else {
                     // Sign up didn't succeed. Look at the ParseException
@@ -196,5 +213,45 @@ public class ACTLoginSelf extends AppCompatActivity {
 
         ViewFlipper vf = (ViewFlipper) findViewById(R.id.viewFlipper);
         vf.setDisplayedChild(0);
+    }
+
+    public void onClickSendVerification(View view) {
+        String email_new = ((EditText) findViewById(R.id.email_revise_resend)).getText().toString().trim();
+        ParseUser user = ParseUser.getCurrentUser();
+        user.setEmail(email_new);
+        user.saveInBackground();
+        //Maybe we should just save in UI thread, since the UI has nothing elase to do.
+        // but this way we give user immediate feed back
+        Toast.makeText(this, "New email verification sent!", Toast.LENGTH_LONG);
+        findViewById(R.id.resend_email_display).setVisibility(View.GONE);
+    }
+
+    public void showResend(View view) {
+        findViewById(R.id.resend_email_display).setVisibility(View.VISIBLE);
+        String cur_email = email.getText().toString().trim();
+        if(cur_email == null || cur_email.isEmpty()){
+            cur_email = ParseUser.getCurrentUser().getEmail();
+        }
+        ((EditText) findViewById(R.id.email_revise_resend)).setText(cur_email);
+    }
+
+    public void waitForVerify(){
+        ViewFlipper viewFlipper = (ViewFlipper) findViewById(R.id.forget_password_flipper);
+        viewFlipper.setDisplayedChild(2);
+    }
+
+    public void checkAndLogin(View view) {
+        ParseUser user = ParseUser.getCurrentUser();
+        try {
+            user.fetch();
+            if(user.getBoolean("emailVerified")){
+                Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
+                startActivity(mainP);
+            }else{
+                Toast.makeText(this, "You have not verified your email!", Toast.LENGTH_SHORT).show();
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

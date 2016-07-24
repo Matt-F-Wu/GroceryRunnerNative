@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true"
-    android:fillViewport="false">
+    android:fillViewport="false"
+    android:animateLayoutChanges="true">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -24,200 +25,278 @@
             android:layout_height="wrap_content"
             android:measureAllChildren="false">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <!-- UserName Label -->
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-                <EditText android:id="@+id/username"
+                android:orientation="vertical">
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:background="@drawable/requestbox_edit_text_holo_light"
-                    android:hint="Username" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/flowerboard"
+                    android:text="@string/email_verification_notice"/>
 
-            <!-- Password Label -->
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-                <EditText android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:background="@drawable/requestbox_edit_text_holo_light"
-                    android:hint="Password"/>
-            </android.support.design.widget.TextInputLayout>
-
-
-
-        <ViewFlipper android:id="@+id/viewFlipper"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:measureAllChildren="false">
-
-            <LinearLayout android:id="@+id/signInLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <!-- put the sign_in button and the sign_up_init button, alert msg, and the forget password link -->
                 <Button
-                    android:id="@+id/sign_in"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="24dp"
-                    android:padding="12dp"
-                    android:text="Log in"
-                    android:onClick="onClickSignIn"
-                    android:theme="@style/ThemeOverlay.MyRedButton" />
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:gravity="center"
+                    android:theme="@style/ThemeOverlay.MyRedButton"
+                    android:text="@string/email_received_verified"
+                    android:onClick="checkAndLogin"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:gravity="center"
+                    android:theme="@style/ThemeOverlay.MyDarkButton"
+                    android:text="@string/no_verification_received"
+                    android:onClick="showResend"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-                    <TextView android:id="@+id/sign_up_init"
-                        android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:id="@+id/resend_email_display">
+                    <!-- Email Label -->
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/sign_up_prompt"
-                        android:textColor="@color/dark_red"
-                        android:textSize="16dip" />
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp">
+                        <EditText android:id="@+id/email_revise_resend"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:background="@drawable/requestbox_edit_text_holo_light"
+                            android:hint="Email" />
+                    </android.support.design.widget.TextInputLayout>
+
                     <Button
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:text="Sign Up"
-                        android:onClick="onClickSignUpInit"
-                        android:theme="@style/ThemeOverlay.MyDarkButton"/>
+                        android:layout_marginTop="24dp"
+                        android:theme="@style/ThemeOverlay.MyRedButton"
+                        android:text="Resend Verification"
+                        android:onClick="onClickSendVerification"/>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/start_over"
+                        android:textColor="@color/dark_red"
+                        android:gravity="center"
+                        android:textSize="16dip"
+                        android:onClick="flipTwiceToLogIn"/>
                 </LinearLayout>
 
-
             </LinearLayout>
-
-            <LinearLayout android:id="@+id/signUpLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+            <LinearLayout
                 android:orientation="vertical"
-                android:paddingLeft="24dp"
-                android:paddingRight="24dp">
-                <!-- put the actual sign_up button, phone number, and address edittext fields -->
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-                <!-- Email Label -->
+                <!-- UserName Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp">
-                    <EditText android:id="@+id/email"
+                    <EditText android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
+                        android:inputType="text"
                         android:background="@drawable/requestbox_edit_text_holo_light"
-                        android:hint="Email" />
+                        android:hint="Username" />
                 </android.support.design.widget.TextInputLayout>
 
-                <!-- Phone Label -->
+                <!-- Password Label -->
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp">
-                    <EditText android:id="@+id/phone_num"
+                    <EditText android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="phone"
-                        android:hint="Phone Number"
-                        android:background="@drawable/requestbox_edit_text_holo_light" />
+                        android:inputType="textPassword"
+                        android:background="@drawable/requestbox_edit_text_holo_light"
+                        android:hint="Password"/>
                 </android.support.design.widget.TextInputLayout>
 
-                <!-- Address Label, we can dynamically add more address bar -->
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp">
-                    <EditText android:id="@+id/addr_one"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPostalAddress|textNoSuggestions"
-                        android:hint="Home Adress (optional)"
-                        android:background="@drawable/requestbox_edit_text_holo_light" />
-                </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp">
-                    <EditText android:id="@+id/addr_two"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPostalAddress|textNoSuggestions"
-                        android:hint="Work Address (optional)"
-                        android:background="@drawable/requestbox_edit_text_holo_light" />
-                </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp">
-                    <EditText android:id="@+id/addr_three"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPostalAddress|textNoSuggestions"
-                        android:hint="Other Address (optional)"
-                        android:background="@drawable/requestbox_edit_text_holo_light" />
-                </android.support.design.widget.TextInputLayout>
+            <ViewFlipper android:id="@+id/viewFlipper"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:measureAllChildren="false">
 
-                <Button
-                    android:id="@+id/sign_up"
+                <LinearLayout android:id="@+id/signInLayout"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="24dp"
-                    android:padding="12dp"
-                    android:text="Sign Up"
-                    android:onClick="onClickSignUp"
-                    android:theme="@style/ThemeOverlay.MyRedButton"/>
+                    android:orientation="vertical" >
 
-                <TextView
+                    <!-- put the sign_in button and the sign_up_init button, alert msg, and the forget password link -->
+                    <Button
+                        android:id="@+id/sign_in"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:padding="12dp"
+                        android:text="Log in"
+                        android:onClick="onClickSignIn"
+                        android:theme="@style/ThemeOverlay.MyRedButton" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <TextView android:id="@+id/sign_up_init"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sign_up_prompt"
+                            android:textColor="@color/dark_red"
+                            android:textSize="16dip" />
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="Sign Up"
+                            android:onClick="onClickSignUpInit"
+                            android:theme="@style/ThemeOverlay.MyDarkButton"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/signUpLayout"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="We will log you in automatically after you sign up!"
-                    android:gravity="center"
-                    android:textSize="16dip"/>
+                    android:orientation="vertical"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp">
+                    <!-- put the actual sign_up button, phone number, and address edittext fields -->
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:text="@string/link_log_in"
-                    android:textColor="@color/dark_red"
-                    android:gravity="center"
-                    android:textSize="16dip"
-                    android:onClick="flipToLogIn"/>
+                    <!-- Email Label -->
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                        <EditText android:id="@+id/email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:background="@drawable/requestbox_edit_text_holo_light"
+                            android:hint="Email" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!-- Phone Label -->
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                        <EditText android:id="@+id/phone_num"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:hint="Phone Number"
+                            android:background="@drawable/requestbox_edit_text_holo_light" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!-- Address Label, we can dynamically add more address bar -->
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                        <EditText android:id="@+id/addr_one"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPostalAddress|textNoSuggestions"
+                            android:hint="Home Adress (optional)"
+                            android:background="@drawable/requestbox_edit_text_holo_light" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                        <EditText android:id="@+id/addr_two"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPostalAddress|textNoSuggestions"
+                            android:hint="Work Address (optional)"
+                            android:background="@drawable/requestbox_edit_text_holo_light" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp">
+                        <EditText android:id="@+id/addr_three"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPostalAddress|textNoSuggestions"
+                            android:hint="Other Address (optional)"
+                            android:background="@drawable/requestbox_edit_text_holo_light" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/sign_up"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:padding="12dp"
+                        android:text="Sign Up"
+                        android:onClick="onClickSignUp"
+                        android:theme="@style/ThemeOverlay.MyRedButton"/>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="We will log you in automatically after you sign up!"
+                        android:gravity="center"
+                        android:textSize="16dip"/>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="@string/link_log_in"
+                        android:textColor="@color/dark_red"
+                        android:gravity="center"
+                        android:textSize="16dip"
+                        android:onClick="flipToLogIn"/>
+
+                </LinearLayout>
+
+            </ViewFlipper>
 
             </LinearLayout>
-
-        </ViewFlipper>
-
-        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -266,6 +345,8 @@
                     android:onClick="flipTwiceToLogIn"/>
 
             </LinearLayout>
+
+
 
         </ViewFlipper>
 

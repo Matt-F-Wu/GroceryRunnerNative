@@ -28,6 +28,7 @@
     <string name="title_activity_actmsg">ACTMsg</string>
     <string name="send_b">SEND</string>
     <string name="link_log_in"><u>Log In</u></string>
+    <string name="start_over"><u>Start Over</u></string>
     <string name="rating_warning">You can only rate your experience with this person once, please be advised before you submit your review</string>
 
 
@@ -36,4 +37,9 @@
 
     <string name="sign_up_prompt">No account yet?</string>
     <string name="forget_password_link"><u>Forget your password? Click here</u></string>
+
+    <string name="email_verification_notice">Please check your mailbox for our verification email,
+        including your spam folder.</string>
+    <string name="no_verification_received"><u>I didn\'t receive an email after 5 minutes</u></string>
+    <string name="email_received_verified"><u>I verified my email</u></string>
 </resources>
