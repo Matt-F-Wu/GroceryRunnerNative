@@ -99,9 +99,13 @@ public class ACTLoginSelf extends AppCompatActivity {
                     new RequestPasswordResetCallback() {
                         public void done(ParseException e) {
                             if (e == null) {
-                                requestedSuccessfully();
+                                Toast.makeText(getApplicationContext(),
+                                    "Please check you email in a few minutes for reset link.", Toast.LENGTH_LONG)
+                                    .show();
                             } else {
-                                requestDidNotSucceed();
+                                Toast.makeText(getApplicationContext(),
+                                    "Sorry, " + e.getMessage(), Toast.LENGTH_LONG)
+                                    .show();
                             }
                         }
                     });
@@ -183,18 +187,6 @@ public class ACTLoginSelf extends AppCompatActivity {
         });
     }
 
-
-    public void requestedSuccessfully() {
-        Toast.makeText(getApplicationContext(),
-                "Please check you email in a few minutes for reset link.", Toast.LENGTH_LONG)
-                .show();
-    }
-
-    public void requestDidNotSucceed() {
-        Toast.makeText(getApplicationContext(),
-                "Sorry our server is having a glitch, please try later!", Toast.LENGTH_LONG)
-                .show();
-    }
 
     public void flipToLogIn(View view) {
         ViewFlipper vf = (ViewFlipper) findViewById(R.id.viewFlipper);
