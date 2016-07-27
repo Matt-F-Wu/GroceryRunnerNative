@@ -25,84 +25,7 @@
             android:layout_height="wrap_content"
             android:measureAllChildren="false">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_horizontal_margin"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginRight="24dp"
-                    android:padding="@dimen/activity_horizontal_margin"
-                    android:background="@drawable/flowerboard"
-                    android:text="@string/email_verification_notice"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_horizontal_margin"
-                    android:gravity="center"
-                    android:theme="@style/ThemeOverlay.MyRedButton"
-                    android:text="@string/email_received_verified"
-                    android:onClick="checkAndLogin"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_horizontal_margin"
-                    android:gravity="center"
-                    android:theme="@style/ThemeOverlay.MyDarkButton"
-                    android:text="@string/no_verification_received"
-                    android:onClick="showResend"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    android:id="@+id/resend_email_display">
-                    <!-- Email Label -->
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/activity_horizontal_margin"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginRight="24dp">
-                        <EditText android:id="@+id/email_revise_resend"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress"
-                            android:background="@drawable/requestbox_edit_text_holo_light"
-                            android:hint="Email" />
-                    </android.support.design.widget.TextInputLayout>
-
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:theme="@style/ThemeOverlay.MyRedButton"
-                        android:text="Resend Verification"
-                        android:onClick="onClickSendVerification"/>
-
-                    <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="@string/start_over"
-                        android:textColor="@color/dark_red"
-                        android:gravity="center"
-                        android:textSize="16dip"
-                        android:onClick="flipTwiceToLogIn"/>
-                </LinearLayout>
-
-            </LinearLayout>
+            
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -151,6 +74,13 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" >
+                    
+                    <CheckBox android:id="@+id/sign_in_use_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sign in using Email"
+                        android:checked="false"
+                        android:layout_marginLeft="24dp" />
 
                     <!-- put the sign_in button and the sign_up_init button, alert msg, and the forget password link -->
                     <Button
@@ -346,7 +276,84 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:background="@drawable/flowerboard"
+                    android:text="@string/email_verification_notice"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:gravity="center"
+                    android:theme="@style/ThemeOverlay.MyRedButton"
+                    android:text="@string/email_received_verified"
+                    android:onClick="checkAndLogin"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_horizontal_margin"
+                    android:gravity="center"
+                    android:theme="@style/ThemeOverlay.MyDarkButton"
+                    android:text="@string/no_verification_received"
+                    android:onClick="showResend"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:id="@+id/resend_email_display">
+                    <!-- Email Label -->
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp">
+                        <EditText android:id="@+id/email_revise_resend"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:background="@drawable/requestbox_edit_text_holo_light"
+                            android:hint="Email" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:theme="@style/ThemeOverlay.MyRedButton"
+                        android:text="Resend Verification"
+                        android:onClick="onClickSendVerification"/>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/start_over"
+                        android:textColor="@color/dark_red"
+                        android:gravity="center"
+                        android:textSize="16dip"
+                        android:onClick="flipTwiceToLogIn"/>
+                </LinearLayout>
+
+            </LinearLayout>
 
         </ViewFlipper>
 
