@@ -9,7 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
-
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -49,6 +50,20 @@ public class ACTLoginSelf extends AppCompatActivity {
         addr2 = (EditText) findViewById(R.id.addr_two);
         addr3 = (EditText) findViewById(R.id.addr_three);
         
+        CheckBox checkBox = (CheckBox) findViewById(R.id.sign_in_use_email);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+                                                @Override
+                                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                    
+                                                    if(isChecked) {
+                                                        username.setHint("Email");
+                                                    }else{
+                                                        username.setHint("Username");
+                                                    }
+
+                                                }
+                                            });
     }
 
     private boolean missInfo(String s) {
@@ -58,11 +73,37 @@ public class ACTLoginSelf extends AppCompatActivity {
             return false;
         }
     }
+    
+    public void reportErrorMessage(ParseException e){
+        Toast.makeText(getApplicationContext(),
+                "Sorry, " + e.getMessage(), Toast.LENGTH_LONG)
+                .show();
+    }
 
     public void onClickSignIn(View v) {
         Toast.makeText(this, "Signing in...", Toast.LENGTH_LONG).show();
         alertMsg.setText("");
         uname = username.getText().toString().trim();
+        CheckBox checkBox = (CheckBox) findViewById(R.id.sign_in_use_email);
+        if(checkBox.isChecked()){
+            //The user intends to sign in with email
+            ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
+            userQuery.whereEqualTo("email", uname);
+            ParseUser user = null;
+
+            try{
+                user = userQuery.getFirst();
+            } catch (ParseException e) {
+                e.printStackTrace();
+                reportErrorMessage(e);
+                return;
+            }
+
+            if(user == null) return;
+
+            uname = user.getUsername();
+            
+        }
         pw = password.getText().toString();
         Log.d("Username", uname);
         Log.d("Password", pw);
@@ -103,9 +144,7 @@ public class ACTLoginSelf extends AppCompatActivity {
                                     "Please check you email in a few minutes for reset link.", Toast.LENGTH_LONG)
                                     .show();
                             } else {
-                                Toast.makeText(getApplicationContext(),
-                                    "Sorry, " + e.getMessage(), Toast.LENGTH_LONG)
-                                    .show();
+                                reportErrorMessage(e);
                             }
                         }
                     });
