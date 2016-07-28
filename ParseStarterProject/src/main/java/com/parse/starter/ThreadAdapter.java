@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
+import android.text.util.Linkify;
 import java.util.List;
 
 public class ThreadAdapter extends ArrayAdapter<MyThreads.MsgThread> {
@@ -46,6 +46,7 @@ public class ThreadAdapter extends ArrayAdapter<MyThreads.MsgThread> {
             if(view instanceof TextView){
                 TextView textView = (TextView) view;
                 textView.setText(value);
+                Linkify.addLinks(textView, Linkify.WEB_URLS);
             }
             else if (view instanceof Button) {
                 Button button = (Button) view;
