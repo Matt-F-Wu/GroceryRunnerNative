@@ -6,7 +6,7 @@ package com.parse.starter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.text.util.Linkify;
 import android.content.ClipData;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -76,6 +76,7 @@ public class MsgAdapter extends ArrayAdapter<String[]> {
             if(view instanceof TextView){
                 TextView textView = (TextView) view;
                 textView.setText(value);
+                Linkify.addLinks(textView, Linkify.WEB_URLS);
             }
             else if (view instanceof Button) {
                 Button button = (Button) view;
