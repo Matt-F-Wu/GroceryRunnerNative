@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import android.text.util.Linkify;
 import java.util.List;
 
 /**
@@ -72,6 +72,7 @@ public class ChatAdapter extends BaseAdapter {
         if (chatMessage.getMessageType().equals(ChatMessage.TEXT_TYPE)){
             setAlignment(holder, myMsg, false);
             holder.txtMessage.setText(chatMessage.getMessage());
+            Linkify.addLinks(holder.txtMessage, Linkify.WEB_URLS);
             holder.txtMessage.setTextColor(Color.WHITE);
         }else{
             setAlignment(holder, myMsg, true);
