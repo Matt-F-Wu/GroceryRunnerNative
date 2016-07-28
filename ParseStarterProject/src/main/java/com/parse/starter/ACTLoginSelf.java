@@ -157,6 +157,10 @@ public class ACTLoginSelf extends AppCompatActivity {
 
     //This button isn't actually for signing up, it just brings up the sign up form
     public void onClickSignUpInit(View v) {
+        CheckBox checkBox = (CheckBox) findViewById(R.id.sign_in_use_email);
+        if(checkBox.isChecked()) {
+            checkBox.setChecked(false);
+        }
         ViewFlipper vf = (ViewFlipper) findViewById(R.id.viewFlipper);
         vf.showNext();
     }
