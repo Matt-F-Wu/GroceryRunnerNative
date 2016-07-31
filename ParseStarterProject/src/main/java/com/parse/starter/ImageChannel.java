@@ -186,7 +186,10 @@ public class ImageChannel {
                                 jsonObject.put("img", imgData);
                                 MyThreads.fileWrite(jsonObject, file_pre + data, context);
                                 eraseImageFromCloud(object);
-                                ((ACTMsg) activity).chat_show_image(data, ChatMessage.PICTURE_TYPE);
+                                if( StarterApplication.isInMessage() ){
+                                    // If in message interface, show right after the file write
+                                    ((ACTMsg) activity).chat_show_image(data, ChatMessage.PICTURE_TYPE);
+                                }
                             } catch (JSONException e1) {
                                 e1.printStackTrace();
                             }
