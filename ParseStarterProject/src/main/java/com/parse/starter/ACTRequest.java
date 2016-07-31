@@ -120,6 +120,7 @@ public class ACTRequest extends AppCompatActivity
     private ListView listViewRequest, listViewChat;
     MyThreads convList;
     private HashSet<Integer> edittext_ids;
+    static Activity activity;
 
 
 
@@ -128,7 +129,7 @@ public class ACTRequest extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_main_page);
 		// Obtain the SupportMapFragment and get notified when the map is ready to be used.
-
+	activity = this;
         // Associate this user with this device
         installation = ParseInstallation.getCurrentInstallation();
         user = ParseUser.getCurrentUser();
@@ -301,6 +302,17 @@ public class ACTRequest extends AppCompatActivity
                     }
                     fname = MyThreads.toFile(fname);
                     convList.fileChange(fname, jsonObject);
+                    if( !StarterApplication.isInMessage() ){
+	                    try{
+	                        chat_content = jsonObject.getString("content");
+	                        txt_type = jsonObject.getString("ctype");
+	                        if (txt_type.equals(ChatMessage.PICTURE_TYPE)){
+	                            ImageChannel.saveImageToFile(chat_content, getApplicationContext(), activity);
+	                        }
+	                    }catch(org.json.JSONException e){
+	                        e.printStackTrace();
+	                    }
+                    }
                     msgAdapterChat.notifyDataSetChanged();
 
                     if(!StarterApplication.isInMessage()) {
