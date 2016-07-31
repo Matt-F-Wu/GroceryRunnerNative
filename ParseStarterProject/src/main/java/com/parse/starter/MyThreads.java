@@ -310,7 +310,7 @@ public class MyThreads {
 
     public boolean deleteFile(String fname){
         File clfile = new File(dir, fname);
-        boolean res0 = false, res1 = false;
+        boolean res1 = false;
 
 
         for (int i = 0; i < numFile; i++){
@@ -322,14 +322,14 @@ public class MyThreads {
             }
         }
 
-        if (res0){
+        if (res1){
             rewriteCList();
             numFile--;
         }
 
         boolean res2 = clfile.delete();
 
-        return res0 && res1 && res2;
+        return res1 && res2;
     }
 
     private void rewriteCList(){
