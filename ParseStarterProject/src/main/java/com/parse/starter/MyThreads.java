@@ -42,12 +42,7 @@ public class MyThreads {
         this.context = context;
         converThreads = new LinkedList<>();
         numChange = new HashSet<>();
-        String[] list = dir.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.matches("MSG_.*");
-            }
-        });
+        
         LinkedList<JSONObject> allConvs = new LinkedList<>();
         conv_cata_file = new File(context.getFilesDir(), cList);
         if(!conv_cata_file.exists()) {
@@ -99,14 +94,7 @@ public class MyThreads {
                     }
 
                     Log.d("Intense file write", "Rewriting conversation_list.json");
-                    File clfile = new File(dir, cList);
-                    Log.d("conv_list", beta_test.fileRead(clfile));
-                    boolean deleted = clfile.delete();
-
-                    while (!deleted){
-                        deleted = clfile.delete();
-                    }
-
+                    
                     rewriteCList();
 
                     /*Rewrite the content of the conversation list*/
@@ -333,6 +321,17 @@ public class MyThreads {
     }
 
     private void rewriteCList(){
+    	File clfile = new File(dir, cList);
+        Log.d("conv_list", beta_test.fileRead(clfile));
+        boolean deleted = clfile.delete();
+
+	int i = 1; //already tried to delete once
+        while (!deleted && i < 5){
+            deleted = clfile.delete();
+            i++;
+        }
+
+    	
         String dummy = new String();
         for (MsgThread mt : converThreads){
             if( !mt.jsonHeader.optString("username").equals(dummy) ) fileWrite(mt.jsonHeader, cList, context);
