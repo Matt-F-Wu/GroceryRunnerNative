@@ -14,10 +14,10 @@
         android:id="@+id/image_crop_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#d44535"
+        android:background="@color/dark_red"
         android:orientation="horizontal">
 
-        <TextView
+        <Button
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:id="@+id/main_action_crop"
@@ -26,6 +26,7 @@
             android:textColor="#ffffff"
             android:textSize="20dp"
             android:layout_marginRight="20dp"
+            android:theme="@style/ThemeOverlay.MyDarkButton"
             android:onClick="onClick_img_crop_option"/>
 
 
