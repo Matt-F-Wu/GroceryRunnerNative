@@ -94,10 +94,12 @@ public class MyThreads {
                     }
 
                     Log.d("Intense file write", "Rewriting conversation_list.json");
-                    
+                    /*Rewrite the content of the conversation list*/
                     rewriteCList();
 
-                    /*Rewrite the content of the conversation list*/
+                    /*Create a flag file to indicate that the rating operation can occur within this conversation*/
+                    createRatable(uname);
+
                     return true;
                 }
             }
@@ -111,6 +113,8 @@ public class MyThreads {
         MsgThread mt = new MsgThread(jsonHeader, file);
         numFile++;
         converThreads.add(0, mt);
+
+        createRatable(uname);
 
         return true;
     }
@@ -351,6 +355,27 @@ public class MyThreads {
         }
         return "Sorry, Cannot find any information. \n \n" +
                 " Favourama ® Native Messaging System\n";
+    }
+
+    private void createRatable(String uname){
+        File file = new File(dir, "Ratable_" + uname);
+
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static boolean isRatable(File dir, String uname){
+        File f = new File(dir, "Ratable_" + uname);
+        return f.exists();
+    }
+
+    public static void removeRatable(File dir, String uname){
+        File file = new File(dir, "Ratable_" + uname);
+        file.delete();
     }
 
 }

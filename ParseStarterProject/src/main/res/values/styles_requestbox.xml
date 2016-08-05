@@ -3,22 +3,10 @@
 <!-- Generated with http://android-holo-colors.com -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <style name="AutoCompleteTextViewRequestBox" parent="android:Widget.Holo.Light.AutoCompleteTextView">
-      <item name="android:dropDownSelector">@drawable/requestbox_list_selector_holo_light</item>
-	    <item name="android:background">@drawable/requestbox_edit_text_holo_light</item>
-  </style>
-
-  <style name="ButtonRequestBox" parent="android:Widget.Holo.Light.Button">
-	  <item name="android:background">@drawable/requestbox_btn_default_holo_light</item>
-  </style>
-
-  <style name="ImageButtonRequestBox" parent="android:Widget.Holo.Light.ImageButton">
-	  <item name="android:background">@drawable/requestbox_btn_default_holo_light</item>
-  </style>
-
-  <style name="SpinnerRequestBox" parent="android:Widget.Holo.Light.Spinner">
-      <item name="android:background">@drawable/requestbox_spinner_background_holo_light</item>
-      <item name="android:dropDownSelector">@drawable/requestbox_list_selector_holo_light</item>
+  <style name="SeekBarRequestBox" parent="android:Widget.Holo.Light.SeekBar">
+      <item name="android:progressDrawable">@drawable/requestbox_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/requestbox_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:thumb">@drawable/requestbox_scrubber_control_selector_holo_light</item>
   </style>
 
   <style name="RatingBarRequestBox" parent="android:Widget.Holo.Light.RatingBar">

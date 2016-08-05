@@ -106,7 +106,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
                 pIntent = PendingIntent.getActivity(context, 0, openIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
                 builder.setContentText(description);
-                builder.setSmallIcon(R.drawable.logo);
+                builder.setSmallIcon(R.drawable.ic_notification);
                 builder.setContentIntent(pIntent);
                 builder.setAutoCancel(true);
                 notificationManager.notify("FavouramaTag", 0, builder.build());

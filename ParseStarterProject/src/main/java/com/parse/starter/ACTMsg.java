@@ -33,11 +33,7 @@ import android.widget.TextView;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
-import com.parse.ParseInstallation;
-import com.parse.ParsePush;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SendCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -368,7 +364,16 @@ public class ACTMsg extends AppCompatActivity {
 
 
     public void rateFavour(View view) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        if( !MyThreads.isRatable(common_dir, header[0]) ){
+            builder.setMessage("Sorry, you have already rated this user for this request, you cannot rate again.");
+            AlertDialog error = builder.create();
+            error.show();
+            return;
+        }
+
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
 
@@ -379,7 +384,9 @@ public class ACTMsg extends AppCompatActivity {
                 .setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // sign in the user ...
+                        // Remove ratable indicator, cannot rate again
+                        MyThreads.removeRatable(common_dir, header[0]);
+
                         RatingBar ratingBar = (RatingBar) ((AlertDialog)dialog).findViewById(R.id.rate_user);
                         float rating = ratingBar.getRating();
 

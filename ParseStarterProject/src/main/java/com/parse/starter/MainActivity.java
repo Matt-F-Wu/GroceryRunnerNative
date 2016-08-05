@@ -25,27 +25,16 @@ import com.parse.ParseObject;
 
 
 public class MainActivity extends AppCompatActivity {
-  protected GoogleSignInAccount acct;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
     ParseAnalytics.trackAppOpenedInBackground(getIntent());
-      //Let the app show some advertisement for a few seconds, need to implement later
-      /*try {
-          Thread.sleep(3000);
-      } catch (InterruptedException e) {
-          e.printStackTrace();
-      }*/
-        //Using google login
-      /*Intent i = new Intent(this, ActLogin.class);
-      startActivityForResult(i, 1);*/
 
-      //Try our own login
-      Intent i = new Intent(this, ACTLoginSelf.class);
-      startActivity(i);
-
+    Intent i = new Intent(this, ACTLoginSelf.class);
+    startActivity(i);
 
   }
   

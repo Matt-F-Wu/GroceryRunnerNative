@@ -18,46 +18,45 @@
             <include layout="@layout/content_actmsg" />
     </FrameLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:orientation="horizontal"
         android:background="@drawable/typing_box_bg2">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/send_image"
+            android:src="@drawable/ic_image_black_24dp"
+            android:padding="8dp"
+            android:background="@null"
+            android:onClick="send_picture"/>
+
+        <EditText
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/typing_box"
+            android:inputType="textMultiLine"
+            android:layout_marginTop="2dp"
+            android:gravity="top"
+            android:background="@drawable/typing_box_frame"
+            android:hint="Type here..."
+            />
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/send_button"
-            android:layout_alignParentRight="true"
             android:backgroundTint="#b80202"
             android:text="@string/send_b"
             android:textColor="#FFFFFF"
             android:onClick="onClickSend"/>
-        <!--android:backgroundTint="@color/requestbox_color"-->
-s
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/send_image"
-            android:layout_toStartOf="@+id/send_button"
-            android:layout_toLeftOf="@+id/send_button"
-            android:src="@drawable/ic_image_black_24dp"
-            android:backgroundTint="#00000000"
-            android:onClick="send_picture"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/typing_box"
-            android:inputType="textMultiLine"
-            android:layout_alignTop="@+id/send_button"
-            android:layout_toStartOf="@+id/send_image"
-            android:layout_toLeftOf="@+id/send_image"
-            android:layout_marginTop="2dp"
-            android:gravity="top"
-            android:background="@drawable/typing_box_frame"
-            />
 
-    </RelativeLayout>
+    </LinearLayout>
+
 </LinearLayout>

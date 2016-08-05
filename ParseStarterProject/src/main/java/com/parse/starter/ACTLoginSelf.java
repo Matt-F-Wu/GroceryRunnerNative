@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.RequestPasswordResetCallback;
 import com.parse.SignUpCallback;
@@ -112,7 +113,7 @@ public class ACTLoginSelf extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
                     // Hooray! The user is logged in. Go to the mainpage activity
-                    if ( !user.getBoolean("emailVerified") ){
+                    if (!user.getBoolean("emailVerified")) {
                         /*The user has not confirmed his/her email address*/
 
                         waitForVerify();

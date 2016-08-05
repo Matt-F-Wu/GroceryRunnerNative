@@ -551,7 +551,9 @@ public class ACTRequest extends AppCompatActivity
         } else if (id == R.id.nav_delete){
             deleteUser();
         } else if(id == R.id.nav_logout){
-            ParseUser.logOutInBackground();
+            ParseUser.logOut();
+            Intent i = new Intent(this, ACTLoginSelf.class);
+            startActivity(i);
             finish();
         }
 
