@@ -46,6 +46,8 @@ public class ACTImgCrop extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.image_crop_toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         if (savedInstanceState == null) {
             setMainFragmentByPreset(CropDemoPreset.CIRCULAR);
         }
@@ -90,4 +92,8 @@ public class ACTImgCrop extends AppCompatActivity{
     }
 
 
+    public void cancelAndReturn(View view) {
+        setResult(AppCompatActivity.RESULT_CANCELED);
+        finish();
+    }
 }

@@ -80,7 +80,6 @@
 
         <activity
             android:name=".ACTImgCrop"
-            android:label="@string/title_activity_actimgcrop"
             android:theme="@style/ThemeOverlay.MyNoTitleActivity"
             android:parentActivityName=".ACTRequest"></activity>
 

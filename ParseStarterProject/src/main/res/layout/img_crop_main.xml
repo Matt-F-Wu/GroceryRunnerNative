@@ -14,19 +14,28 @@
         android:id="@+id/image_crop_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/dark_red"
+        android:background="#d44535"
         android:orientation="horizontal">
 
-        <Button
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:onClick="cancelAndReturn"/>
+
+        <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:id="@+id/main_action_crop"
-            android:text="CROP"
+            android:text="Finish"
             android:layout_gravity="right"
             android:textColor="#ffffff"
-            android:textSize="20dp"
-            android:layout_marginRight="20dp"
-            android:theme="@style/ThemeOverlay.MyDarkButton"
+            android:textSize="20sp"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:onClick="onClick_img_crop_option"/>
 
 
@@ -34,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:id="@+id/main_action_rotate"
-            android:src="@android:drawable/ic_menu_rotate"
+            android:src="@drawable/ic_rotate"
             android:layout_gravity="right"
             android:onClick="onClick_img_crop_option"/>
 

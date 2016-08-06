@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.graphics.PointF;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -18,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -62,6 +66,14 @@ public class ACTMsg extends AppCompatActivity {
     static private File conversation_file;
     static Activity activity;
 
+    /*Variables for pinch zoom*/
+    static final int NONE = 0;
+    static final int DRAG = 1;
+    static final int ZOOM = 2;
+    private int mode = NONE;
+    private PointF start, mid;
+    private float oldDist = 1f;
+    private Matrix matrix, savedMatrix;
 
 
     @Override
@@ -158,6 +170,11 @@ public class ACTMsg extends AppCompatActivity {
         if(msg_file.length()!=0){
             msg_reconstruct();
         }
+
+        matrix = new Matrix();
+        savedMatrix = new Matrix();
+        start = new PointF();
+        mid = new PointF();
     }
 
     @Override
@@ -442,6 +459,32 @@ public class ACTMsg extends AppCompatActivity {
         CropImage.startPickImageActivity(this);
     }
 
+    public void confirmSendPic(final Bitmap bitmap){
+        LayoutInflater inflater = this.getLayoutInflater();
+        View fullView = inflater.inflate(R.layout.image_popup, null, false);
+        ImageView dView = ((ImageView) fullView.findViewById(R.id.image_full_screen));
+
+        dView.setImageBitmap(bitmap);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(fullView)
+                .setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ImageChannel.makeImageBox(bitmap, activity);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        /*Do nothing*/
+                    }
+                });
+
+        AlertDialog fullImage = builder.create();
+        fullImage.show();
+    }
+
     public String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = null;
         try {
@@ -469,7 +512,7 @@ public class ACTMsg extends AppCompatActivity {
 
             Bitmap bitmap = ImageChannel.decodeScaledDownBitmap(imgPath);
 
-            ImageChannel.makeImageBox(bitmap, this);
+            confirmSendPic(bitmap);
         }
     }
 
@@ -583,6 +626,64 @@ public class ACTMsg extends AppCompatActivity {
         dView.getLayoutParams().width = (int) fw;
         dView.getLayoutParams().height = (int) fh;
 
+        /*Initial scaling*/
+        matrix.reset();
+        matrix.postScale((float) scale, (float) scale);
+        dView.setImageMatrix(matrix);
+
+        dView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(v.getId() != R.id.image_full_screen){
+                    return false;
+                }
+
+                ImageView view = (ImageView) v;
+                view.setScaleType(ImageView.ScaleType.MATRIX);
+
+                Log.d("ONTOUCH", "Entering onTouch...");
+
+                // Handle touch events here...
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        savedMatrix.set(matrix);
+                        start.set(event.getX(), event.getY());
+                        mode = DRAG;
+                        break;
+                    case MotionEvent.ACTION_POINTER_DOWN:
+                        oldDist = spacing(event);
+                        if (oldDist > 10f) {
+                            savedMatrix.set(matrix);
+                            midPoint(mid, event);
+                            mode = ZOOM;
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_POINTER_UP:
+                        mode = NONE;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        if (mode == DRAG) {
+                            // Leaves a red canvas behind, need to fix this
+                            matrix.set(savedMatrix);
+                            matrix.postTranslate(event.getX() - start.x, event.getY()
+                                    - start.y);
+                        } else if (mode == ZOOM) {
+                            float newDist = spacing(event);
+                            if (newDist > 10f) {
+                                matrix.set(savedMatrix);
+                                float scale = newDist / oldDist;
+                                matrix.postScale(scale, scale, mid.x, mid.y);
+                            }
+                        }
+                        break;
+                }
+
+                view.setImageMatrix(matrix);
+                return true;
+            }
+        });
+
         Log.d("IMGSize", "Final: " + fw + " " + fh + ", " + "Window width: " + width);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -597,5 +698,19 @@ public class ACTMsg extends AppCompatActivity {
         lp.width = (int) fw;
         lp.height = (int) fh;
         window.setAttributes(lp);
+    }
+
+    /** Determine the space between the first two fingers */
+    private float spacing(MotionEvent event) {
+        double x = event.getX(0) - event.getX(1);
+        double y = event.getY(0) - event.getY(1);
+        return (float) Math.sqrt(x * x + y * y);
+    }
+
+    /** Calculate the mid point of the first two fingers */
+    private void midPoint(PointF point, MotionEvent event) {
+        float x = event.getX(0) + event.getX(1);
+        float y = event.getY(0) + event.getY(1);
+        point.set(x / 2, y / 2);
     }
 }

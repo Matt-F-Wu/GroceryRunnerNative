@@ -55,17 +55,17 @@ public final class CropImage {
     //region: Fields and Consts
 
     /**
-     * The key used to pass crop image source URI to {@link CropImageActivity}.
+     * The key used to pass crop image source URI to {@link ACTImgCrop}.
      */
     public static final String CROP_IMAGE_EXTRA_SOURCE = "CROP_IMAGE_EXTRA_SOURCE";
 
     /**
-     * The key used to pass crop image options to {@link CropImageActivity}.
+     * The key used to pass crop image options to {@link ACTImgCrop}.
      */
     public static final String CROP_IMAGE_EXTRA_OPTIONS = "CROP_IMAGE_EXTRA_OPTIONS";
 
     /**
-     * The key used to pass crop image result data back from {@link CropImageActivity}.
+     * The key used to pass crop image result data back from {@link ACTImgCrop}.
      */
     public static final String CROP_IMAGE_EXTRA_RESULT = "CROP_IMAGE_EXTRA_RESULT";
 
@@ -75,13 +75,13 @@ public final class CropImage {
     public static final int PICK_IMAGE_CHOOSER_REQUEST_CODE = 200;
 
     /**
-     * The request code used to start {@link CropImageActivity} to be used on result to identify the this specific
+     * The request code used to start {@link ACTImgCrop} to be used on result to identify the this specific
      * request.
      */
     public static final int CROP_IMAGE_ACTIVITY_REQUEST_CODE = 203;
 
     /**
-     * The result code used to return error from {@link CropImageActivity}.
+     * The result code used to return error from {@link ACTImgCrop}.
      */
     public static final int CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE = 204;
     //endregion

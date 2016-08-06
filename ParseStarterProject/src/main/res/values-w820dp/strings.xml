@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="pick_image_intent_chooser_title">Select source</string>
-    <string name="app_name">Image Cropper Demo</string>
-
-
-</resources>

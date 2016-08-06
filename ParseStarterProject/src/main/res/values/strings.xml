@@ -29,11 +29,11 @@
     <string name="send_b">SEND</string>
     <string name="link_log_in"><u>Log In</u></string>
     <string name="start_over"><u>Start Over</u></string>
-    <string name="rating_warning">You can only rate your experience with this person once, please be advised before you submit your review</string>
+    <string name="rating_warning">Under this topic, you can only rate your experience with this person once. Please be advised before you submit your review</string>
 
 
     <string name="pick_image_intent_chooser_title">Select source</string>
-    <string name="title_activity_actimgcrop">Favourama Crop</string>
+
 
     <string name="sign_up_prompt">No account yet?</string>
     <string name="forget_password_link"><u>Forget your password? Click here</u></string>

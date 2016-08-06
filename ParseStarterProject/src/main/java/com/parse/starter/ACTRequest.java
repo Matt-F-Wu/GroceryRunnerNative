@@ -247,11 +247,11 @@ public class ACTRequest extends AppCompatActivity
 
         View navHeader = navigationView.getHeaderView(0);
         TextView userName = (TextView) navHeader.findViewById(R.id.nav_username);
-        TextView userEmail = (TextView) navHeader.findViewById(R.id.nav_user_email);
+        /*TextView userEmail = (TextView) navHeader.findViewById(R.id.nav_user_email);*/
 
 
         userName.setText(user_name);
-        userEmail.setText(user.getEmail());
+        /*userEmail.setText(user.getEmail());*/
         // Create a new global location parameters object
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
@@ -1167,9 +1167,7 @@ public class ACTRequest extends AppCompatActivity
         }
     }
 
-    public void scrollToBottom(MsgAdapter adapter, ListView listView){
-        listView.setSelection(adapter.getCount() - 1);
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
