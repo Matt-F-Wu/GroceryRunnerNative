@@ -404,6 +404,16 @@ public class ACTRequest extends AppCompatActivity
                     }
 
                     String fname = MyThreads.toFile(uname);
+		    /*Download images*/
+                    try{
+                        String chat_content = jsonObject.getString("content");
+                        String txt_type = jsonObject.getString("ctype");
+                        if (txt_type.equals(ChatMessage.PICTURE_TYPE)){
+                            ImageChannel.saveImageToFile(chat_content, getApplicationContext(), null);
+                        }
+                    }catch(org.json.JSONException e){
+                        e.printStackTrace();
+                    }
 
                     convList.fileChange(fname, jsonObject);
                     convList.numChange.add(fname);
