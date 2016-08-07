@@ -490,6 +490,9 @@ public class ACTMsg extends AppCompatActivity {
         try {
             String[] proj = { MediaStore.Images.Media.DATA };
             cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            if (cursor == null) { // Source is Dropbox or other similar local file path
+                return contentUri.getPath();
+            }
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
             return cursor.getString(column_index);
