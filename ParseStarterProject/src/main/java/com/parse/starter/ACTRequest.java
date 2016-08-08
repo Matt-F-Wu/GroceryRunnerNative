@@ -541,6 +541,9 @@ public class ACTRequest extends AppCompatActivity
             i.setData(Uri.parse(url));
             startActivity(i);
 		} else if(id == R.id.nav_tutorial){
+
+            flip(0);
+
             ImageView iv = (ImageView)findViewById(R.id.tut_appbar_blur);
             iv.setVisibility(View.VISIBLE);
 
