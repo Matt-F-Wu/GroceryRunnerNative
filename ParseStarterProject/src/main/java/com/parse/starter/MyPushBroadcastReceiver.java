@@ -24,7 +24,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
     public static final String PARSE_DATA_KEY = "com.parse.Data";
     private static final String REQUEST_TYPE = "REQUEST";
     private static final String MESSAGE_TYPE = "MESSAGE";
-    private static final String RATING_TYPE = "RATING";
+    private static final String PROMO_TYPE = "PROMOTION";
 
     @Override
     protected Notification getNotification(Context context, Intent intent) {
@@ -48,7 +48,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
 
         boolean ignore = false;
         String type = null;
-        String description = null;
+        String description = "From: ";
 
         try {
             type = data.getString("TYPE");
@@ -79,7 +79,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             if(type.equals(REQUEST_TYPE)){
                 /*Go to the main page where requests are displayed*/
                 openIntent.putExtra("enter", 1);
-                builder.setContentTitle("New Favourama Request");
+                builder.setContentTitle("New Favourama Request(s)");
             }
             else if(type.equals(MESSAGE_TYPE)){
                 openIntent.putExtra("enter", 2);
@@ -93,7 +93,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
                     ignore = true;
                 }
                 if(!ignore) {
-                    builder.setContentTitle("New Favourama Message");
+                    builder.setContentTitle("New Favourama Message(s)");
                 }
             }
 
@@ -105,6 +105,12 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
                 openIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 pIntent = PendingIntent.getActivity(context, 0, openIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
+                try {
+                    description += data.getString("username");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    description += "UNKNOWN";
+                }
                 builder.setContentText(description);
                 builder.setSmallIcon(R.drawable.ic_notification);
                 builder.setContentIntent(pIntent);
@@ -118,12 +124,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
         }
 
         if (type.equals(REQUEST_TYPE)) {
-            try {
-                description = data.getString("note");
-            } catch (JSONException e) {
-                e.printStackTrace();
-                description = "EMPTY";
-            }
+
             Intent i = new Intent();
             i.putExtra("CONTENT", data.toString());
             i.setAction("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS");

@@ -200,13 +200,13 @@ public class RequestObject extends JSONObject {
         }
     }
 
-    public double getLocationLat() {
+    public String getLocationLat() {
       try {
-          return getDouble("latitude");
+          return getString("latitude");
       } catch (JSONException e) {
           e.printStackTrace();
       }
-      return 0;
+      return "0";
     }
 
     public void setLocationLat(double value) {
@@ -217,13 +217,13 @@ public class RequestObject extends JSONObject {
       }
     }
 
-    public double getLocationLong() {
+    public String getLocationLong() {
       try {
-          return getDouble("longitude");
+          return getString("longitude");
       } catch (JSONException e) {
           e.printStackTrace();
       }
-      return 0;
+      return "0";
     }
 
     public void setLocationLong(double value) {
@@ -235,7 +235,7 @@ public class RequestObject extends JSONObject {
     }
 
     public String[] spitValueList(){
-        String[] list = new String[]{getUser(), getCate(), getNote(), getReward(), getRating()};
+        String[] list = new String[]{getUser(), getCate(), getNote(), getReward(), getRating(), getLocationLat(), getLocationLong()};
 
         return list;
     }

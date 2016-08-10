@@ -441,14 +441,8 @@ public class ACTMsg extends AppCompatActivity {
             @Override
             public void onShow(DialogInterface dialog) {
 
-
-                Button pb = rdialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                pb.setTextColor(0xffcaaaaa);
-
                 Button nb = rdialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-                nb.setTextColor(0xff000000);
-                nb.setTextColor(0xff000000);
-
+                nb.setTextColor(0xff909090);
             }
         });
 
@@ -490,6 +484,9 @@ public class ACTMsg extends AppCompatActivity {
         try {
             String[] proj = { MediaStore.Images.Media.DATA };
             cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            if (cursor == null) { // Source is Dropbox or other similar local file path
+                return contentUri.getPath();
+            }
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             cursor.moveToFirst();
             return cursor.getString(column_index);

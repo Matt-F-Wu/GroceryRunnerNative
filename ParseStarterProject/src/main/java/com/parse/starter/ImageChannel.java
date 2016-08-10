@@ -280,11 +280,15 @@ public class ImageChannel {
 
             final int halfHeight = height / 2;
             final int halfWidth = width / 2;
-
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize++;
+    
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            // Using OR logic to make sure both dimensions are around req 
+            while ((halfHeight / inSampleSize) >= reqHeight
+                    || (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
             }
+
         }
 
         return inSampleSize;
@@ -293,7 +297,7 @@ public class ImageChannel {
     public static Bitmap decodeScaledDownBitmap(String imgPath) {
 
         int reqWidth = 350;
-        int reqHeight = 300;
+        int reqHeight = 450;
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;

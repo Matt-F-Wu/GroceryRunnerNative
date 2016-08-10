@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
@@ -27,7 +26,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -93,11 +91,11 @@ public class ACTRequest extends AppCompatActivity
 	private EditText postEditText;
 	private SeekBar radius;
 	private String cateSelected, addrSelected, rewardSelected, user_name, request_purpose, file_long_clicked;
+    private int request_long_clicked;
 	private Button postButton;
     private TextView charCount;
     private ParseInstallation installation;
 	public static int RADIUS_OFFSET = 100;
-	public static int MAX_QUERY_RESULTS = 100;
     final Context context = this;
     private GoogleMap mMap;
     private static int UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
@@ -111,7 +109,6 @@ public class ACTRequest extends AppCompatActivity
     private BroadcastReceiver receiver;
     private int flipperIndex = 0;
     private List<String[]> r_values;
-    private List<String[]> chatValues;
     private List<Integer> resources;
     private LinkedList<String> user_pics;
     private LinkedList<Integer> flipperStack;
@@ -120,7 +117,7 @@ public class ACTRequest extends AppCompatActivity
     private ListView listViewRequest, listViewChat;
     MyThreads convList;
     private HashSet<Integer> edittext_ids;
-
+    private HashSet<String> blocked_users;
 
 
     @Override
@@ -345,6 +342,20 @@ public class ACTRequest extends AppCompatActivity
 
     private void addRequest(JSONObject jsonObject){
         RequestObject requestObject = new RequestObject(jsonObject);
+
+        /*If the user is blocked, don't show his/her request*/
+        String uname = requestObject.getUser();
+        if(blocked_users.contains(uname)){
+            return;
+        }
+
+        /*Maximum list of 100 requests*/
+        if(r_values.size() > 100){
+            /*removes the oldest one*/
+            r_values.remove(0);
+            user_pics.remove(0);
+        }
+
         r_values.add(requestObject.spitValueList());
         user_pics.add(requestObject.getUserPic());
         if(requestObject.getPurpose().equals("ask")){
@@ -404,6 +415,16 @@ public class ACTRequest extends AppCompatActivity
                     }
 
                     String fname = MyThreads.toFile(uname);
+		    /*Download images*/
+                    try{
+                        String chat_content = jsonObject.getString("content");
+                        String txt_type = jsonObject.getString("ctype");
+                        if (txt_type.equals(ChatMessage.PICTURE_TYPE)){
+                            ImageChannel.saveImageToFile(chat_content, getApplicationContext(), null);
+                        }
+                    }catch(org.json.JSONException e){
+                        e.printStackTrace();
+                    }
 
                     convList.fileChange(fname, jsonObject);
                     convList.numChange.add(fname);
@@ -531,6 +552,9 @@ public class ACTRequest extends AppCompatActivity
             i.setData(Uri.parse(url));
             startActivity(i);
 		} else if(id == R.id.nav_tutorial){
+
+            flip(0);
+
             ImageView iv = (ImageView)findViewById(R.id.tut_appbar_blur);
             iv.setVisibility(View.VISIBLE);
 
@@ -1012,31 +1036,6 @@ public class ACTRequest extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
     }
 
-    private class StableArrayAdapter extends ArrayAdapter<String> {
-
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-        public StableArrayAdapter(Context context, int textViewResourceId,
-                                  List<String> objects) {
-            super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
-            }
-        }
-
-        @Override
-        public long getItemId(int position) {
-            String item = getItem(position);
-            return mIdMap.get(item);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
-
-    }
-
     private void configureRequestView(){
         int[] fields = new int[]{R.id.r_list_uname, R.id.r_list_cate, R.id.r_list_note, R.id.r_list_reward};
 
@@ -1053,6 +1052,8 @@ public class ACTRequest extends AppCompatActivity
 
         user_pics = new LinkedList<>();
         user_pics.add(null);
+
+        blocked_users = new HashSet<>();
 
         msgAdapterReq = new MsgAdapter(this, R.layout.request_item, resources, user_pics, fields, r_values);
 
@@ -1088,6 +1089,21 @@ public class ACTRequest extends AppCompatActivity
                 startActivityForResult(i, 0);
             }
 
+        });
+
+        listViewRequest.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                /*Construct intent uri containing user location*/
+                request_long_clicked = position;
+
+                PopupMenu popupMenu = new PopupMenu(context, view);
+                MenuInflater inflater = popupMenu.getMenuInflater();
+                inflater.inflate(R.menu.request_longclick_menu, popupMenu.getMenu());
+                popupMenu.show();
+
+                return true;
+            }
         });
 
         charCount = (TextView) findViewById(R.id.character_count);
@@ -1373,6 +1389,49 @@ public class ACTRequest extends AppCompatActivity
         } else {
             return false;
         }
+    }
+
+    public void showLocationOnMap(MenuItem item) {
+        Uri gmmIntentUri = Uri.parse("geo:" + r_values.get(request_long_clicked)[5] + ", " + r_values.get(request_long_clicked)[6]);
+
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        }else{
+            showErrorDialog("Not Supported", "Sorry we cannot find a map app to display the user's location, please install Google Maps.", null);
+        }
+    }
+
+    public void blockUser(MenuItem item) {
+        String user_to_block = r_values.get(request_long_clicked)[0];
+        if(!invalid(user_to_block)){
+            blocked_users.add(user_to_block);
+        }
+    }
+
+    public void reportSpam(MenuItem item) {
+        ParseQuery query = new ParseQuery("SpamReport");
+        final String bUser = r_values.get(request_long_clicked)[0];
+        final String reason = r_values.get(request_long_clicked)[2];
+        query.whereEqualTo("culprit", bUser);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                if (parseObject == null) {
+                    ParseObject report = new ParseObject("SpamReport");
+                    report.put("culprit", bUser);
+                    report.put("reason", reason);
+                    report.saveInBackground();
+                } else {
+                    parseObject.add("reason", reason);
+                    parseObject.saveInBackground();
+                    Log.d("score", "Retrieved the object.");
+                }
+            }
+
+        });
+
     }
 
 
