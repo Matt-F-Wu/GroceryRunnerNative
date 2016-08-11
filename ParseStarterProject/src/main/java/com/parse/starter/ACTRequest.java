@@ -91,7 +91,7 @@ public class ACTRequest extends AppCompatActivity
 	private EditText postEditText;
 	private SeekBar radius;
 	private String cateSelected, addrSelected, rewardSelected, user_name, request_purpose, file_long_clicked;
-    private int request_long_clicked;
+    private String[] request_long_clicked;
 	private Button postButton;
     private TextView charCount;
     private ParseInstallation installation;
@@ -1098,7 +1098,7 @@ public class ACTRequest extends AppCompatActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 /*Construct intent uri containing user location*/
-                request_long_clicked = position;
+                request_long_clicked = r_values.get(position);
 
                 PopupMenu popupMenu = new PopupMenu(context, view);
                 MenuInflater inflater = popupMenu.getMenuInflater();
@@ -1395,7 +1395,7 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void showLocationOnMap(MenuItem item) {
-        Uri gmmIntentUri = Uri.parse("geo:" + r_values.get(request_long_clicked)[5] + ", " + r_values.get(request_long_clicked)[6]);
+        Uri gmmIntentUri = Uri.parse("geo:" + request_long_clicked[5] + ", " + request_long_clicked[6]);
 
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
@@ -1407,7 +1407,7 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void blockUser(MenuItem item) {
-        String user_to_block = r_values.get(request_long_clicked)[0];
+        String user_to_block = request_long_clicked[0];
         if(!invalid(user_to_block)){
             blocked_users.add(user_to_block);
         }
@@ -1415,8 +1415,8 @@ public class ACTRequest extends AppCompatActivity
 
     public void reportSpam(MenuItem item) {
         ParseQuery query = new ParseQuery("SpamReport");
-        final String bUser = r_values.get(request_long_clicked)[0];
-        final String reason = r_values.get(request_long_clicked)[2];
+        final String bUser = request_long_clicked[0];
+        final String reason = request_long_clicked[2];
         query.whereEqualTo("culprit", bUser);
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
