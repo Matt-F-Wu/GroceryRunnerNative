@@ -931,6 +931,8 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void flip(int index){
+	  if(index == flipperIndex) return;
+
         ViewFlipper viewFlipper = (ViewFlipper) findViewById(R.id.main_flipper);
         /*Contract the keyboard when you go to a new flip*/
         InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -1045,7 +1047,7 @@ public class ACTRequest extends AppCompatActivity
         r_values.add(new String[]{"Favourama Official", "Welcome" + installation.getString("username"),
                 "We wish our service can make your life easier",
                 "Best of luck!",
-                "5"});
+                "5", "43.6628917", "-79.3956564"});
 
         resources = new ArrayList<>();
         resources.add(R.drawable.gray_req_bg);
@@ -1068,6 +1070,7 @@ public class ACTRequest extends AppCompatActivity
                 final String[] item = (String[]) parent.getItemAtPosition(position);
 
                 if (item[0].equals("Favourama Official")) {
+                    startActivity(new Intent(ACTRequest.this, ACTtopics.class));
                     return;
                 }
 
