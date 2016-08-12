@@ -49,6 +49,20 @@ public class ACTtopics extends AppCompatActivity {
     }
 
     @Override
+    public void onPause() {
+        StarterApplication.activityPaused();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StarterApplication.activityResumed();
+        StarterApplication.setInMessage();
+        StarterApplication.setToWhom("admin");
+    }
+
+    @Override
     public void onBackPressed() {
         if (webView.canGoBack()) {
             webView.goBack();
@@ -127,4 +141,5 @@ public class ACTtopics extends AppCompatActivity {
             navButtonChangeState();
         }
     }
+
 }

@@ -24,7 +24,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
     public static final String PARSE_DATA_KEY = "com.parse.Data";
     private static final String REQUEST_TYPE = "REQUEST";
     private static final String MESSAGE_TYPE = "MESSAGE";
-    private static final String PROMO_TYPE = "PROMOTION";
+    private static final String PROMO_TYPE = "TOPICS";
 
     @Override
     protected Notification getNotification(Context context, Intent intent) {
@@ -58,14 +58,9 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             return;
         }
 
-        /*If application is not visible (aka closed or running in background), the best way is to process the notifications received
-        * in onResume and onNewIntent by reading the notification file.
-        * On the other hand, if the application is visible, we should just stop making notifications but to process them quietly
-        * with our alerting the user.
-        * One special case to consider is that when the user is in ACTMsg, talking to someone, in this case the app is still active, meaning
-        * it is capable of processing notifications quietly, however it is necessary to let the user know that new requests, or messages
-        * from another party than the one he/she is talking to has arrived. In thie case, we make notifications and write to the
-        * favouramaNotification.json too.
+        /*If application is not visible (aka closed or running in background), write notification to file then process when app resumes.
+        When app is visible but is message interface, say A conversation, show notification for messages arrived for any conversation
+        other than A, and show notification for rrequests.
         */
 
         if ( !StarterApplication.isActivityVisible() || (StarterApplication.isActivityVisible() && StarterApplication.isInMessage()) ) {
@@ -83,17 +78,22 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             }
             else if(type.equals(MESSAGE_TYPE)){
                 openIntent.putExtra("enter", 2);
-                String fname = new String();
-                try{
-                    fname = data.getString("username");
-                }catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                String fname = data.optString("username");
+
                 if(fname.equals(StarterApplication.getToWhom())){
                     ignore = true;
                 }
                 if(!ignore) {
                     builder.setContentTitle("New Favourama Message(s)");
+                }
+            } else if(type.equals(PROMO_TYPE)){
+                openIntent.putExtra("enter", 2);
+
+                if(StarterApplication.getToWhom().equals("admin")){
+                    ignore = true;
+                }
+                if(!ignore) {
+                    builder.setContentTitle("New Favourama Topics");
                 }
             }
 
@@ -105,12 +105,8 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
                 openIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 pIntent = PendingIntent.getActivity(context, 0, openIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
-                try {
-                    description += data.getString("username");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    description += "UNKNOWN";
-                }
+                description += data.optString("username", "UNKNOWN");
+
                 builder.setContentText(description);
                 builder.setSmallIcon(R.drawable.ic_notification);
                 builder.setContentIntent(pIntent);
@@ -123,20 +119,17 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             }
         }
 
-        if (type.equals(REQUEST_TYPE)) {
+        Intent i = new Intent();
+        i.putExtra("CONTENT", data.toString());
 
-            Intent i = new Intent();
-            i.putExtra("CONTENT", data.toString());
+        if (type.equals(REQUEST_TYPE)) {
             i.setAction("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS");
             context.sendBroadcast(i);
         } else if (type.equals(MESSAGE_TYPE)) {
-            /* HAO
-            * MessageObject messageObject = new MessageObject(data);
-            * description = messageObject.getNote();
-            * */
-            Intent i = new Intent();
-            i.putExtra("CONTENT", data.toString());
             i.setAction("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES");
+            context.sendBroadcast(i);
+        } else if (type.equals(PROMO_TYPE)) {
+            i.setAction("com.parse.favourama.HANDLE_FAVOURAMA_TOPICS");
             context.sendBroadcast(i);
         }
 

@@ -4,6 +4,7 @@ package com.parse.starter;
  * Created by HaoWu on 2/10/2016.
  */
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -300,8 +301,8 @@ public class MyThreads {
         }
     }
 
-    public boolean deleteFile(String fname){
-        File clfile = new File(dir, fname);
+    public boolean deleteFile(final String fname){
+        final File clfile = new File(dir, fname);
         boolean res1 = false;
 
 
@@ -319,9 +320,39 @@ public class MyThreads {
             numFile--;
         }
 
-        boolean res2 = clfile.delete();
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                LinkedList<JSONObject> fileContent = new LinkedList<>();
+                readLine(clfile, fileContent, context);
 
-        return res1 && res2;
+                for(JSONObject msg : fileContent){
+                    String mtype = msg.optString("ctype", ChatMessage.TEXT_TYPE);
+                    /*Delete the img files associated with this chat thread*/
+                    if(mtype.equals(ChatMessage.PICTURE_TYPE)){
+                        String imgCode = msg.optString("content");
+
+                        if(!imgCode.isEmpty()){
+                            File imgFile = new File(dir, ImageChannel.file_pre + imgCode);
+                            if(imgFile.exists()){
+                                boolean r0 = imgFile.delete();
+                                Log.d("DELETE_OTH_IMG", "Result: " + r0);
+                            }else{
+                                File imgSelfFile = new File(dir, ImageChannel.file_self + imgCode);
+                                if(imgSelfFile.exists()) {
+                                    boolean r1 = imgSelfFile.delete();
+                                    Log.d("DELETE_SELF_IMG", "Result: " + r1);
+                                }
+                            }
+                        }
+                    }
+                }
+                /*Finally deleting the chat thread itself*/
+                clfile.delete();
+            }
+        });
+
+        return res1;
     }
 
     private void rewriteCList(){

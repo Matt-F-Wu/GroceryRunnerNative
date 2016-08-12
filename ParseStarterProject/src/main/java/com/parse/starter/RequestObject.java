@@ -166,22 +166,6 @@ public class RequestObject extends JSONObject {
       }
     }
 
-    /*public Object getUserPic() {
-        try {
-            return get("userpic");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void setUserPic(Object value) {
-        try {
-            put("userpic", value);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     public String getUserPic() {
         try {
@@ -201,12 +185,7 @@ public class RequestObject extends JSONObject {
     }
 
     public String getLocationLat() {
-      try {
-          return getString("latitude");
-      } catch (JSONException e) {
-          e.printStackTrace();
-      }
-      return "0";
+        return optString("latitude", "43.6628917");
     }
 
     public void setLocationLat(double value) {
@@ -218,12 +197,7 @@ public class RequestObject extends JSONObject {
     }
 
     public String getLocationLong() {
-      try {
-          return getString("longitude");
-      } catch (JSONException e) {
-          e.printStackTrace();
-      }
-      return "0";
+        return optString("longitude", "-79.3956564");
     }
 
     public void setLocationLong(double value) {

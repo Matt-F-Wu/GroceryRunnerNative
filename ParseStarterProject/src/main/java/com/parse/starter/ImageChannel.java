@@ -2,13 +2,16 @@ package com.parse.starter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.os.Environment;
+import android.graphics.drawable.BitmapDrawable;
+
+import android.os.AsyncTask;
+import android.os.Build;
+
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,11 +27,11 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.LinkedList;
-import java.util.List;
+
 
 
 /**
@@ -186,7 +189,7 @@ public class ImageChannel {
                                 jsonObject.put("img", imgData);
                                 MyThreads.fileWrite(jsonObject, file_pre + data, context);
                                 eraseImageFromCloud(object);
-                                if( StarterApplication.isInMessage() ){
+                                if (StarterApplication.isInMessage()) {
                                     // If in message interface, show right after the file write
                                     ((ACTMsg) activity).chat_show_image(data, ChatMessage.PICTURE_TYPE);
                                 }
@@ -309,6 +312,52 @@ public class ImageChannel {
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeFile(imgPath, options);
+    }
+
+    public static Bitmap getBitmapFromLink(String img_url){
+        if(img_url.isEmpty()) return null;
+
+        URL url;
+        try {
+            url = new URL(img_url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        Bitmap img = null;
+        try {
+            img = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return img;
+    }
+
+    public static class DownloadTPBGTask extends AsyncTask<String, Void, Bitmap> {
+
+        View container;
+        Context context;
+
+        public DownloadTPBGTask(View v, Context c) {
+            this.container = v;
+            this.context = c;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... urls) {
+            return getBitmapFromLink(urls[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                container.setBackground(new BitmapDrawable(context.getResources(), result));
+            }else{
+                container.setBackgroundDrawable(new BitmapDrawable(context.getResources(), result));
+            }
+        }
+
     }
 
 }

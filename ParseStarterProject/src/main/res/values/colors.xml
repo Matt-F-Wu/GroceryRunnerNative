@@ -6,4 +6,8 @@
     <color name="userBottomBar">#909090</color>
     <color name="userBottomBar_pressed">#c0c0c0</color>
     <color name="userBottomBar_focused">#ababab</color>
+    <color name="white">#ffffff</color>
+    <color name="white_trans">#00ffffff</color>
+    <color name="userBottomBar_pressed_trans">#80c0c0c0</color>
+    <color name="userBottomBar_focused_trans">#80ababab</color>
 </resources>

@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -77,6 +79,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -100,6 +103,7 @@ public class ACTRequest extends AppCompatActivity
     private GoogleMap mMap;
     private static int UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
     private static int FAST_INTERVAL_CEILING_IN_MILLISECONDS = 2500;
+    private static String show_topic_file = "SHOWTOPICS";
     private boolean realTime = true;
     private LocationRequest locationRequest;
     private GoogleApiClient locationClient;
@@ -295,6 +299,7 @@ public class ACTRequest extends AppCompatActivity
                         fname = jsonObject.getString("username");
                     }catch (JSONException e) {
                         e.printStackTrace();
+                        return;
                     }
                     fname = MyThreads.toFile(fname);
                     convList.fileChange(fname, jsonObject);
@@ -318,6 +323,8 @@ public class ACTRequest extends AppCompatActivity
                         //HAO: highlight this updated conversation
                         highLightConv();
                     }
+                } else if (action.equals("com.parse.favourama.HANDLE_FAVOURAMA_TOPICS")){
+                        handleTopics(jsonObject);
                 }
 
             }
@@ -326,6 +333,7 @@ public class ACTRequest extends AppCompatActivity
         IntentFilter filter = new IntentFilter();
         filter.addAction("com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS");
         filter.addAction("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES");
+        filter.addAction("com.parse.favourama.HANDLE_FAVOURAMA_TOPICS");
         registerReceiver(receiver, filter);
 
         edittext_ids = new HashSet<>();
@@ -406,7 +414,7 @@ public class ACTRequest extends AppCompatActivity
 
                 if(type.equals("REQUEST")){
                     addRequest(jsonObject);
-                }else{
+                }else if(type.equals("MESSAGE")){
                     String uname = new String();
                     try{
                         uname = jsonObject.getString("username");
@@ -432,6 +440,8 @@ public class ACTRequest extends AppCompatActivity
                     //chatValues = convList.getHeader();
                     msgAdapterChat.notifyDataSetChanged();
                     highLightConv();
+                } else if(type.equals("TOPICS")){
+                    handleTopics(jsonObject);
                 }
             }
             notiFile.delete(); /*Empty notifications stored*/
@@ -1155,6 +1165,11 @@ public class ACTRequest extends AppCompatActivity
                 return true;
             }
         });
+
+        File file = new File(getFilesDir(), show_topic_file);
+        if(file.exists()){
+            findViewById(R.id.topics_board_container).setVisibility(View.VISIBLE);
+        }
     }
     //top bar actions
     public void onChatButtonClicked (View v){
@@ -1437,6 +1452,11 @@ public class ACTRequest extends AppCompatActivity
 
     }
 
+    public void goToTopics(View view) {
+        view.findViewById(R.id.new_topics_alert).setVisibility(View.GONE);
+        startActivity(new Intent(ACTRequest.this, ACTtopics.class));
+    }
+
 
     private class TextWatcherExt implements TextWatcher {
         int id;
@@ -1631,7 +1651,15 @@ public class ACTRequest extends AppCompatActivity
 
     public Boolean checkProfilePictureIDSndSetImage(ImageView profile_user_pic, ImageView nav_user_pic, String imageID, Bitmap bmImg){
         LinkedList<JSONObject> jsonObjectArrayList = new LinkedList<>();
-        MyThreads.readLine(new File(context.getFilesDir(), "profile_image_id.json"), jsonObjectArrayList, context);
+
+        File local_profile_pic = new File(context.getFilesDir(), "profile_image_id.json");
+
+        if(!local_profile_pic.exists()){
+            /*No local profile picture found*/
+            return false;
+        }
+
+        MyThreads.readLine(local_profile_pic, jsonObjectArrayList, context);
         try {
             JSONObject imgj = jsonObjectArrayList.poll();
             if(imgj != null) {
@@ -1647,6 +1675,31 @@ public class ACTRequest extends AppCompatActivity
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void handleTopics(JSONObject jsonObject){
+        String ctype = jsonObject.optString("ctype");
+        if(ctype.equals("INIT")){
+            findViewById(R.id.topics_board_container).setVisibility(View.VISIBLE);
+            File file = new File(getFilesDir(), show_topic_file);
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }else if(ctype.equals("PROMO")){
+            final LinearLayout container = (LinearLayout) findViewById(R.id.topics_board_container);
+            final String img_link = jsonObject.optString("content");
+            new ImageChannel.DownloadTPBGTask(container, this).execute(img_link);
+            final String text = jsonObject.optString("username", "Today's Headlines...");
+            ((TextView)findViewById(R.id.topics_board_brief)).setText(text);
+
+        }else if(ctype.equals("DEACT")){
+            findViewById(R.id.topics_board_container).setVisibility(View.GONE);
+            File file = new File(getFilesDir(), show_topic_file);
+            file.delete();
+        }
     }
 
 }

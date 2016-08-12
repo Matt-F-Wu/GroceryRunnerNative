@@ -179,7 +179,7 @@
                 android:layout_weight="1"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
-                android:background="@drawable/dark_red_effect"
+                android:theme="@style/ThemeOverlay.MyRedButton"
                 android:text="POST"
                 />
             <!--style="@style/ButtonRequestBox"-->
@@ -189,7 +189,7 @@
                 android:layout_weight="1"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
-                android:background="@drawable/dark_gray_effect"
+                android:theme="@style/ThemeOverlay.MyDarkButton"
                 android:text="Cancel"
                 android:onClick="onClickFlip"/>
         </LinearLayout>

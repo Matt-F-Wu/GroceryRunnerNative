@@ -33,7 +33,9 @@
 
 
     <string name="pick_image_intent_chooser_title">Select source</string>
-
+    <string name="topics_intro">Favourama topics is a great place to find info about store discounts,
+        part-time jobs, or just interesting stories!</string>
+    <string name="default_topic">Today\'s Headlines...</string>
 
     <string name="sign_up_prompt">No account yet?</string>
     <string name="forget_password_link"><u>Forget your password? Click here</u></string>
