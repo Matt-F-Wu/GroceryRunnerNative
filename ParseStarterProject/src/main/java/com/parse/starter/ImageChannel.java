@@ -27,6 +27,8 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -338,15 +340,33 @@ public class ImageChannel {
 
         View container;
         Context context;
+        Boolean saveToFile;
 
-        public DownloadTPBGTask(View v, Context c) {
+        public DownloadTPBGTask(View v, Context c, Boolean s) {
             this.container = v;
             this.context = c;
+            this.saveToFile = s;
         }
 
         @Override
         protected Bitmap doInBackground(String... urls) {
-            return getBitmapFromLink(urls[0]);
+            Bitmap bitmap = getBitmapFromLink(urls[0]);
+
+            if(saveToFile && bitmap != null){
+                File imgf = new File(context.getFilesDir(), "TOPICSBoardImg.png");
+                if(imgf.exists()) imgf.delete();
+                try {
+                    FileOutputStream fos = new FileOutputStream(imgf);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
+                    fos.close();
+                } catch (FileNotFoundException e) {
+                    Log.d("TPIMG", "File can't be opened: " + e.getMessage());
+                } catch (IOException e) {
+                    Log.d("TPIMG", "IO Error: " + e.getMessage());
+                }
+            }
+
+            return bitmap;
         }
 
         @Override

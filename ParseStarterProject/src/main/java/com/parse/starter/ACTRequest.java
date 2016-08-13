@@ -9,10 +9,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -1054,7 +1054,7 @@ public class ACTRequest extends AppCompatActivity
         r_values= new ArrayList<String[]>();
 
         /*HAO to JENERMY: A warm welcoming messgae I designed, do you like it?*/
-        r_values.add(new String[]{"Favourama Official", "Welcome" + installation.getString("username"),
+        r_values.add(new String[]{"Favourama Official", "Welcome! " + installation.getString("username"),
                 "We wish our service can make your life easier",
                 "Best of luck!",
                 "5", "43.6628917", "-79.3956564"});
@@ -1169,6 +1169,26 @@ public class ACTRequest extends AppCompatActivity
         File file = new File(getFilesDir(), show_topic_file);
         if(file.exists()){
             findViewById(R.id.topics_board_container).setVisibility(View.VISIBLE);
+            /*Retreive title and display*/
+            LinkedList<JSONObject> body = new LinkedList<>();
+            MyThreads.readLine(file, body, this);
+            if(body.size() > 0) {
+                String title = body.get(0).optString("text");
+                if (!title.isEmpty())
+                    ((TextView) findViewById(R.id.topics_board_brief)).setText(title);
+            }
+            /*Retrieve Img and display*/
+            File imgTP = new File(getFilesDir(), "TOPICSBoardImg.png");
+            if(imgTP.exists()){
+                /*If there was previously a header img saved, use it as background*/
+                Bitmap bmTP = BitmapFactory.decodeFile(getFilesDir().getPath() + File.separator + "TOPICSBoardImg.png");
+                LinearLayout container = (LinearLayout) findViewById(R.id.topics_board_container);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    container.setBackground(new BitmapDrawable(context.getResources(), bmTP));
+                }else{
+                    container.setBackgroundDrawable(new BitmapDrawable(context.getResources(), bmTP));
+                }
+            }
         }
     }
     //top bar actions
@@ -1679,9 +1699,9 @@ public class ACTRequest extends AppCompatActivity
 
     public void handleTopics(JSONObject jsonObject){
         String ctype = jsonObject.optString("ctype");
+        File file = new File(getFilesDir(), show_topic_file);
         if(ctype.equals("INIT")){
             findViewById(R.id.topics_board_container).setVisibility(View.VISIBLE);
-            File file = new File(getFilesDir(), show_topic_file);
             try {
                 file.createNewFile();
             } catch (IOException e) {
@@ -1691,13 +1711,21 @@ public class ACTRequest extends AppCompatActivity
         }else if(ctype.equals("PROMO")){
             final LinearLayout container = (LinearLayout) findViewById(R.id.topics_board_container);
             final String img_link = jsonObject.optString("content");
-            new ImageChannel.DownloadTPBGTask(container, this).execute(img_link);
-            final String text = jsonObject.optString("username", "Today's Headlines...");
-            ((TextView)findViewById(R.id.topics_board_brief)).setText(text);
+            new ImageChannel.DownloadTPBGTask(container, this, true).execute(img_link);
+            final String text = jsonObject.optString("username");
+            if(!text.isEmpty()) ((TextView)findViewById(R.id.topics_board_brief)).setText(text);
+
+            file.delete();
+            JSONObject tbody = new JSONObject();
+            try {
+                tbody.put("text", text);
+                MyThreads.fileWrite(tbody, show_topic_file, context);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
         }else if(ctype.equals("DEACT")){
             findViewById(R.id.topics_board_container).setVisibility(View.GONE);
-            File file = new File(getFilesDir(), show_topic_file);
             file.delete();
         }
     }

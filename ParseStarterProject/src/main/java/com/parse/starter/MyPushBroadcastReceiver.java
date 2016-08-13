@@ -88,8 +88,8 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
                 }
             } else if(type.equals(PROMO_TYPE)){
                 openIntent.putExtra("enter", 2);
-
-                if(StarterApplication.getToWhom().equals("admin")){
+                String admin = "admin";
+                if(admin.equals(StarterApplication.getToWhom())){
                     ignore = true;
                 }
                 if(!ignore) {
