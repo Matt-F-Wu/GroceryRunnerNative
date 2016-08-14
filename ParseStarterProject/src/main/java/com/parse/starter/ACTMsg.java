@@ -2,6 +2,8 @@ package com.parse.starter;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -91,7 +94,7 @@ public class ACTMsg extends AppCompatActivity {
         headerView.setText( formatHeader() );
 
         //manage files
-        common_dir = getApplicationContext().getFilesDir();
+        common_dir = StarterApplication.getUserFilesDir();
         msg_filename = "MSG_"+header[0]+".json";//todo change this later
         msg_file = new File(common_dir, msg_filename);
         conversation_file = new File(common_dir, conversation_list_filename);
@@ -317,7 +320,7 @@ public class ACTMsg extends AppCompatActivity {
         }
 
         //write to file
-        MyThreads.fileWrite(jsonObjectToWrite, msg_filename, this);
+        MyThreads.fileWrite(jsonObjectToWrite, msg_filename);
 
         //read back for testing
         //fileRead(msg_file);
@@ -710,4 +713,5 @@ public class ACTMsg extends AppCompatActivity {
         float y = event.getY(0) + event.getY(1);
         point.set(x / 2, y / 2);
     }
+
 }

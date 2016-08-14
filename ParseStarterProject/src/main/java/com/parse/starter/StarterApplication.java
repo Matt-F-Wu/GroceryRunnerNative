@@ -9,11 +9,14 @@
 package com.parse.starter;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseUser;
 import com.parse.ParseInstallation;
+
+import java.io.File;
 
 
 public class StarterApplication extends Application {
@@ -21,6 +24,7 @@ public class StarterApplication extends Application {
     private static boolean activityVisible;
     private static boolean inMessage;
     private static String toWhom;
+    private static File user_files_dir;
 
     @Override
     public void onCreate() {
@@ -76,4 +80,11 @@ public class StarterApplication extends Application {
         return toWhom;
     }
 
+    public static void setUserFilesDir(File dir){
+        user_files_dir = dir;
+    }
+
+    public static File getUserFilesDir(){
+        return user_files_dir;
+    }
 }

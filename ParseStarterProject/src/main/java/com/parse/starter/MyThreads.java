@@ -39,13 +39,13 @@ public class MyThreads {
 
     public MyThreads (Context context) {
         numFile = 0;
-        dir = context.getFilesDir();
+        dir = StarterApplication.getUserFilesDir();
         this.context = context;
         converThreads = new LinkedList<>();
         numChange = new HashSet<>();
         
         LinkedList<JSONObject> allConvs = new LinkedList<>();
-        conv_cata_file = new File(context.getFilesDir(), cList);
+        conv_cata_file = new File(StarterApplication.getUserFilesDir(), cList);
         if(!conv_cata_file.exists()) {
             try {
                 conv_cata_file.createNewFile();
@@ -132,7 +132,7 @@ public class MyThreads {
             e.printStackTrace();
             return null;
         }
-        fileWrite(data, cList, context);
+        fileWrite(data, cList);
         return data;
     }
 
@@ -170,7 +170,7 @@ public class MyThreads {
             }
 
             //write to file
-            MyThreads.fileWrite(jsonObjectToWrite, fname, context);
+            MyThreads.fileWrite(jsonObjectToWrite, fname);
         }
 
         makeHeaderArray();
@@ -233,7 +233,7 @@ public class MyThreads {
 
         public void writeBody(JSONObject data){
             //TBD: write body, aka dialog,  to file
-            fileWrite(data, filename, context);
+            fileWrite(data, filename);
         }
 
         public String[] spitHeader(){
@@ -257,9 +257,10 @@ public class MyThreads {
     }
 
 
-    static void fileWrite(JSONObject jsonObject, String filename, Context context){
+    static void fileWrite(JSONObject jsonObject, String filename){
         try{
-            FileOutputStream fos = context.openFileOutput(filename, context.MODE_APPEND);
+            File ftw = new File(StarterApplication.getUserFilesDir(), filename);
+            FileOutputStream fos = new FileOutputStream(ftw, true);
             fos.write(jsonObject.toString().getBytes());
             fos.write('\n');
             fos.close();
@@ -286,10 +287,10 @@ public class MyThreads {
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            Toast.makeText(context, "Sorry >_< Favourama cannot find this conversation, please don't delete app files externally", Toast.LENGTH_LONG);
+            Toast.makeText(context, "Sorry (>_<) Favourama cannot find this conversation, please don't delete app files externally", Toast.LENGTH_LONG);
         } catch(IOException e) {
             e.printStackTrace();
-            Toast.makeText(context, "Sorry >_< Favourama runinto a glitch, please try deleting this conversation thread", Toast.LENGTH_LONG);
+            Toast.makeText(context, "Sorry (>_<) Favourama runinto a glitch, please try deleting this conversation thread", Toast.LENGTH_LONG);
         }finally{
             if (in != null) {
                 try {
@@ -369,7 +370,7 @@ public class MyThreads {
     	
         String dummy = new String();
         for (MsgThread mt : converThreads){
-            if( !mt.jsonHeader.optString("username").equals(dummy) ) fileWrite(mt.jsonHeader, cList, context);
+            if( !mt.jsonHeader.optString("username").equals(dummy) ) fileWrite(mt.jsonHeader, cList);
             dummy = mt.jsonHeader.optString("username");
         }
     }

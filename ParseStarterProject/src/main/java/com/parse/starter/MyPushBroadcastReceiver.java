@@ -100,7 +100,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             if(!ignore) {
                 //Making notifications, write data to file
                 
-                MyThreads.fileWrite(data, "favouramaNotification.json", context);
+                MyThreads.fileWrite(data, "favouramaNotification.json");
                 
                 openIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 pIntent = PendingIntent.getActivity(context, 0, openIntent,

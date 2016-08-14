@@ -394,7 +394,7 @@ public class ACTRequest extends AppCompatActivity
     }
     
     private void notificationFileProcessing(){
-            File notiFile = new File(getFilesDir(), "favouramaNotification.json");
+            File notiFile = new File(StarterApplication.getUserFilesDir(), "favouramaNotification.json");
             
             //If the file doesn't exist, just return
             if( !notiFile.exists() ) return;
@@ -1166,7 +1166,7 @@ public class ACTRequest extends AppCompatActivity
             }
         });
 
-        File file = new File(getFilesDir(), show_topic_file);
+        File file = new File(StarterApplication.getUserFilesDir(), show_topic_file);
         if(file.exists()){
             findViewById(R.id.topics_board_container).setVisibility(View.VISIBLE);
             /*Retreive title and display*/
@@ -1178,10 +1178,10 @@ public class ACTRequest extends AppCompatActivity
                     ((TextView) findViewById(R.id.topics_board_brief)).setText(title);
             }
             /*Retrieve Img and display*/
-            File imgTP = new File(getFilesDir(), "TOPICSBoardImg.png");
+            File imgTP = new File(StarterApplication.getUserFilesDir(), "TOPICSBoardImg.png");
             if(imgTP.exists()){
                 /*If there was previously a header img saved, use it as background*/
-                Bitmap bmTP = BitmapFactory.decodeFile(getFilesDir().getPath() + File.separator + "TOPICSBoardImg.png");
+                Bitmap bmTP = BitmapFactory.decodeFile(StarterApplication.getUserFilesDir().getPath() + File.separator + "TOPICSBoardImg.png");
                 LinearLayout container = (LinearLayout) findViewById(R.id.topics_board_container);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     container.setBackground(new BitmapDrawable(context.getResources(), bmTP));
@@ -1265,7 +1265,7 @@ public class ACTRequest extends AppCompatActivity
                             JSONObject jsonObject = new JSONObject();
                             try {
                                 jsonObject.put("userpicID", poID);
-                                MyThreads.fileWrite(jsonObject, "profile_image_id.json", context);
+                                MyThreads.fileWrite(jsonObject, "profile_image_id.json");
                             } catch (JSONException e1) {
                                 Log.d("I/OError", "Cannot write to profile_image_id.json");
                             }
@@ -1672,7 +1672,7 @@ public class ACTRequest extends AppCompatActivity
     public Boolean checkProfilePictureIDSndSetImage(ImageView profile_user_pic, ImageView nav_user_pic, String imageID, Bitmap bmImg){
         LinkedList<JSONObject> jsonObjectArrayList = new LinkedList<>();
 
-        File local_profile_pic = new File(context.getFilesDir(), "profile_image_id.json");
+        File local_profile_pic = new File(StarterApplication.getUserFilesDir(), "profile_image_id.json");
 
         if(!local_profile_pic.exists()){
             /*No local profile picture found*/
@@ -1699,7 +1699,7 @@ public class ACTRequest extends AppCompatActivity
 
     public void handleTopics(JSONObject jsonObject){
         String ctype = jsonObject.optString("ctype");
-        File file = new File(getFilesDir(), show_topic_file);
+        File file = new File(StarterApplication.getUserFilesDir(), show_topic_file);
         if(ctype.equals("INIT")){
             findViewById(R.id.topics_board_container).setVisibility(View.VISIBLE);
             try {
@@ -1719,7 +1719,7 @@ public class ACTRequest extends AppCompatActivity
             JSONObject tbody = new JSONObject();
             try {
                 tbody.put("text", text);
-                MyThreads.fileWrite(tbody, show_topic_file, context);
+                MyThreads.fileWrite(tbody, show_topic_file);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

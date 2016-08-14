@@ -74,7 +74,7 @@ public class ImageChannel {
                     JSONObject jsonObject = new JSONObject();
                     try {
                         jsonObject.put("img", whole);
-                        MyThreads.fileWrite(jsonObject, file_self + imageID, activity.getApplicationContext());
+                        MyThreads.fileWrite(jsonObject, file_self + imageID);
                     } catch (JSONException e1) {
                         e1.printStackTrace();
                     }
@@ -162,7 +162,7 @@ public class ImageChannel {
             Log.d("DATA_EMPTY", "FILE NOT SAVED PROPERLY");
         }else{
             LinkedList<JSONObject> jsonObjectArrayList = new LinkedList<>();
-            MyThreads.readLine(new File(context.getFilesDir(), name), jsonObjectArrayList, context);
+            MyThreads.readLine(new File(StarterApplication.getUserFilesDir(), name), jsonObjectArrayList, context);
             try {
                 JSONObject imgj = jsonObjectArrayList.poll();
                 if(imgj != null) {
@@ -189,7 +189,7 @@ public class ImageChannel {
                             JSONObject jsonObject = new JSONObject();
                             try {
                                 jsonObject.put("img", imgData);
-                                MyThreads.fileWrite(jsonObject, file_pre + data, context);
+                                MyThreads.fileWrite(jsonObject, file_pre + data);
                                 eraseImageFromCloud(object);
                                 if (StarterApplication.isInMessage()) {
                                     // If in message interface, show right after the file write
@@ -353,7 +353,7 @@ public class ImageChannel {
             Bitmap bitmap = getBitmapFromLink(urls[0]);
 
             if(saveToFile && bitmap != null){
-                File imgf = new File(context.getFilesDir(), "TOPICSBoardImg.png");
+                File imgf = new File(StarterApplication.getUserFilesDir(), "TOPICSBoardImg.png");
                 if(imgf.exists()) imgf.delete();
                 try {
                     FileOutputStream fos = new FileOutputStream(imgf);

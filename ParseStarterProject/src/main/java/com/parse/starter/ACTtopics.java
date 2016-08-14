@@ -2,6 +2,7 @@ package com.parse.starter;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 
 import com.parse.ParseUser;
 
@@ -39,13 +41,13 @@ public class ACTtopics extends AppCompatActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-        File file = new File(this.getFilesDir(), topics_notification_disabled);
+        File file = new File(StarterApplication.getUserFilesDir(), topics_notification_disabled);
         
         if(file.exists()){
-		noti_topics_diabled = true;
-	  }else{
-		noti_topics_diabled = false;
-	  }
+            noti_topics_diabled = true;
+        }else{
+            noti_topics_diabled = false;
+        }
     }
 
     @Override
@@ -107,7 +109,7 @@ public class ACTtopics extends AppCompatActivity {
     }
 
     public void turnOffTopicsNT(MenuItem item) {
-        File file = new File(this.getFilesDir(), topics_notification_disabled);
+        File file = new File(StarterApplication.getUserFilesDir(), topics_notification_disabled);
         if(!noti_topics_diabled){
             try {
                 file.createNewFile();
@@ -139,6 +141,18 @@ public class ACTtopics extends AppCompatActivity {
         public void onPageFinished (WebView view,
                              String url){
             navButtonChangeState();
+            /*Hide the progress bar when the loading is done*/
+            ProgressBar pb = (ProgressBar) findViewById(R.id.topics_progress_bar);
+            pb.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onPageStarted (WebView view,
+                                   String url,
+                                   Bitmap favicon){
+            /*Show a progress bar when page starts to load*/
+            ProgressBar pb = (ProgressBar) findViewById(R.id.topics_progress_bar);
+            pb.setVisibility(View.VISIBLE);
         }
     }
 

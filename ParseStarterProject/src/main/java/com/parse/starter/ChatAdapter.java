@@ -1,16 +1,21 @@
 package com.parse.starter;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.text.util.Linkify;
@@ -87,6 +92,12 @@ public class ChatAdapter extends BaseAdapter {
         return rowView;
     }
 
+    /*Disable OnListItemClick for better OnLongClick handling*/
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
+    }
+
     public void add(ChatMessage message) {
         chatMessages.add(message);
     }
@@ -148,6 +159,26 @@ public class ChatAdapter extends BaseAdapter {
             holder.txtInfo = (TextView) v.findViewById(R.id.picInfo);
         }else {
             holder.txtMessage = (TextView) v.findViewById(R.id.txtMessage);
+            holder.txtMessage.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    final String text = ((TextView) v).getText().toString();
+                    PopupMenu popupMenu = new PopupMenu(context, v);
+                    MenuInflater inflater = popupMenu.getMenuInflater();
+                    inflater.inflate(R.menu.chat_msg_longclick_menu, popupMenu.getMenu());
+                    popupMenu.getMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipData clip = ClipData.newPlainText("FCOPY", text);
+                            clipboard.setPrimaryClip(clip);
+                            return false;
+                        }
+                    });
+                    popupMenu.show();
+                    return false;
+                }
+            });
             holder.txtPicture = null;
             holder.content = (LinearLayout) v.findViewById(R.id.content);
             holder.contentWithBG = (LinearLayout) v.findViewById(R.id.contentWithBackground);
