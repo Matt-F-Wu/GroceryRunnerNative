@@ -134,7 +134,7 @@ public class ACTRequest extends AppCompatActivity
         installation = ParseInstallation.getCurrentInstallation();
         user = ParseUser.getCurrentUser();
 
-        user.saveInBackground();
+        helpSetUserDir(user);
 
         user_name = user.getUsername();
         installation.put("username", user_name);
@@ -1046,6 +1046,17 @@ public class ACTRequest extends AppCompatActivity
         populate_profile();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+    }
+
+    /*Creates a directory for this user, and set it gobally for easy access*/
+    private void helpSetUserDir(ParseUser user){
+        String name = user.getUsername();
+        File user_dir = new File(getFilesDir(), name);
+        if(!user_dir.exists()){
+            user_dir.mkdir();
+        }
+
+        StarterApplication.setUserFilesDir(user_dir);
     }
 
     private void configureRequestView(){

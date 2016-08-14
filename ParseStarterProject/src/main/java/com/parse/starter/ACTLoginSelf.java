@@ -25,7 +25,6 @@ import com.parse.ParseUser;
 import com.parse.RequestPasswordResetCallback;
 import com.parse.SignUpCallback;
 
-import java.io.File;
 
 public class ACTLoginSelf extends AppCompatActivity {
     EditText username, password, phoneNum, email, addr1, addr2, addr3;
@@ -45,7 +44,6 @@ public class ACTLoginSelf extends AppCompatActivity {
             if( !currentUser.getBoolean("emailVerified") ){
                 waitForVerify();
             }else {
-                helpSetUserDir(currentUser);
                 Log.d("Log In Previous User", "SUCESSFUL");
                 Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
                 startActivity(mainP);
@@ -130,7 +128,6 @@ public class ACTLoginSelf extends AppCompatActivity {
                         waitForVerify();
                     } else {
                         Log.d("Log In", "SUCESSFUL");
-                        helpSetUserDir(user);
                         Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
                         startActivity(mainP);
                     }
@@ -236,7 +233,6 @@ public class ACTLoginSelf extends AppCompatActivity {
                         Log.d("DONE SIGNUP", "JUMP");
                         alertMsg.setText("Signed In");
                         //Go to the usermainpage activity
-                        helpSetUserDir(ParseUser.getCurrentUser());
                         Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
                         startActivity(mainP);
                     }
@@ -306,7 +302,6 @@ public class ACTLoginSelf extends AppCompatActivity {
         try {
             user.fetch();
             if(user.getBoolean("emailVerified")){
-                helpSetUserDir(user);
                 Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
                 startActivity(mainP);
             }else{
@@ -377,14 +372,4 @@ public class ACTLoginSelf extends AppCompatActivity {
         showErrorDialog(toshow, null);
     }
 
-    /*Creates a directory for this user, and set it gobally for easy access*/
-    private void helpSetUserDir(ParseUser user){
-        String name = user.getUsername();
-        File user_dir = new File(getFilesDir(), name);
-        if(!user_dir.exists()){
-            user_dir.mkdir();
-        }
-
-        StarterApplication.setUserFilesDir(user_dir);
-    }
 }

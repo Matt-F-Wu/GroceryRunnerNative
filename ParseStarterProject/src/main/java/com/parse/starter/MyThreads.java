@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.parse.ParseUser;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -260,6 +262,18 @@ public class MyThreads {
     static void fileWrite(JSONObject jsonObject, String filename){
         try{
             File ftw = new File(StarterApplication.getUserFilesDir(), filename);
+            FileOutputStream fos = new FileOutputStream(ftw, true);
+            fos.write(jsonObject.toString().getBytes());
+            fos.write('\n');
+            fos.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    static void fileWrite(JSONObject jsonObject, String filename, File userDir){
+        try{
+            File ftw = new File(userDir, filename);
             FileOutputStream fos = new FileOutputStream(ftw, true);
             fos.write(jsonObject.toString().getBytes());
             fos.write('\n');

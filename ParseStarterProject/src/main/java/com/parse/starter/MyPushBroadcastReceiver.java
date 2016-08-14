@@ -12,9 +12,12 @@ import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.parse.ParsePushBroadcastReceiver;
+import com.parse.ParseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
 
 /**
  * Created by HaoWu on 1/11/2016.
@@ -99,8 +102,8 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
 
             if(!ignore) {
                 //Making notifications, write data to file
-                
-                MyThreads.fileWrite(data, "favouramaNotification.json");
+                File user_dir = new File(context.getFilesDir(), ParseUser.getCurrentUser().getUsername());
+                MyThreads.fileWrite(data, "favouramaNotification.json", user_dir);
                 
                 openIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 pIntent = PendingIntent.getActivity(context, 0, openIntent,
