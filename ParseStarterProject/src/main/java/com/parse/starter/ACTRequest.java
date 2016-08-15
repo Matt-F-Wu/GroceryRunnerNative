@@ -957,7 +957,7 @@ public class ACTRequest extends AppCompatActivity
             viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
         }else if (index == 1){
             /*HAO to JEREMY: Maybe we want a different animation for this, we will see*/
-            viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
+            viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_right));
         }else if (index == 2){
             Animation bottomUp = AnimationUtils.loadAnimation(this,
                     R.anim.slider_up);

@@ -8,20 +8,15 @@
  */
 package com.parse.starter;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ViewFlipper;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.parse.Parse;
 import com.parse.ParseAnalytics;
-import com.parse.ParseInstallation;
-import com.parse.ParseObject;
+import java.io.File;
+import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -29,13 +24,34 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+      File file = new File(getFilesDir(), "FavouramaLicense");
 
-    ParseAnalytics.trackAppOpenedInBackground(getIntent());
+      if(file.exists()){
+          /*User already accepted license, move on*/
+          ParseAnalytics.trackAppOpenedInBackground(getIntent());
 
-    Intent i = new Intent(this, ACTLoginSelf.class);
-    startActivity(i);
-
+          Intent i = new Intent(this, ACTLoginSelf.class);
+          startActivity(i);
+      }else {
+          setContentView(R.layout.activity_main);
+      }
   }
-  
+
+    public void acceptAndProceed(View view) {
+        File file = new File(getFilesDir(), "FavouramaLicense");
+        try {
+            file.createNewFile();
+            ParseAnalytics.trackAppOpenedInBackground(getIntent());
+
+            Intent i = new Intent(this, ACTLoginSelf.class);
+            startActivity(i);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showAgreement(View view) {
+        ViewFlipper viewFlipper = (ViewFlipper) findViewById(R.id.license_flipper);
+        viewFlipper.setDisplayedChild(1);
+    }
 }
