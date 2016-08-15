@@ -192,6 +192,9 @@ public class ACTMsg extends AppCompatActivity {
 
     @Override
     public void onDestroy(){
+
+        Log.d("onDestroy msg", " " + msgReceiver.getResultData());
+
         unregisterReceiver(msgReceiver);
         super.onDestroy();
     }
@@ -285,7 +288,7 @@ public class ACTMsg extends AppCompatActivity {
 
     public void backToMain(View view) {
 
-        unregisterReceiver(msgReceiver);
+        //unregisterReceiver(msgReceiver);
 
         Intent result = new Intent();
         

@@ -280,6 +280,10 @@ public class MyThreads {
     }
 
     static void readLine(File fileName, List<JSONObject> jsonObjectArrayList, Context context){
+
+        if(fileName == null || !fileName.exists())
+            return;
+
         /*Hao: refactored to support more extensively*/
         InputStream in = null;
         BufferedReader reader;

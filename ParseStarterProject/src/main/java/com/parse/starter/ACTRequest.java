@@ -123,6 +123,7 @@ public class ACTRequest extends AppCompatActivity
     private HashSet<Integer> edittext_ids;
     private HashSet<String> blocked_users;
 
+    private Spinner spinner = null;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +162,7 @@ public class ACTRequest extends AppCompatActivity
                 }
             });
         }
-        final Spinner spinner = (Spinner) findViewById(R.id.topbar_spinner);
+        spinner = (Spinner) findViewById(R.id.topbar_spinner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_user_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -459,6 +460,9 @@ public class ACTRequest extends AppCompatActivity
 
     @Override
     public void onDestroy(){
+
+        Log.d("onDestroy request", " " + receiver.getResultData());
+
         unregisterReceiver(receiver);
         super.onDestroy();
     }
@@ -579,6 +583,10 @@ public class ACTRequest extends AppCompatActivity
 
             Button b1 = (Button)findViewById(R.id.tut_ask_favour);
             b1.setVisibility(View.VISIBLE);
+
+            Button b2 = (Button)findViewById(R.id.tut_offer_favour);
+            b2.setVisibility(View.VISIBLE);
+
 
 
 
@@ -1315,15 +1323,60 @@ public class ACTRequest extends AppCompatActivity
         LinearLayout layout2 = (LinearLayout)findViewById(R.id.tut_overlay_layout_askfavour);
         layout2.setVisibility(View.GONE);
 
+        //hide the superimposed buttons
         Button b1 = (Button)findViewById(R.id.tut_ask_favour);
         b1.setVisibility(View.INVISIBLE);
 
-        LinearLayout layout3 = (LinearLayout)findViewById(R.id.tut_overlay_layout_offerfavour);
+        Button b2 = (Button)findViewById(R.id.tut_offer_favour);
+        b2.setVisibility(View.INVISIBLE);
+
+        LinearLayout layout3 = (LinearLayout)findViewById(R.id.tut_overlay_layout_location_spinner);
         layout3.setVisibility(View.VISIBLE);
 
-        Button b2 = (Button)findViewById(R.id.tut_offer_favour);
-        b2.setVisibility(View.VISIBLE);
+        //change the original spinner back to current
+        spinner.setSelection(0,true);
 
+        //bring up the superimposed spinner
+        Spinner s_tut = (Spinner)findViewById(R.id.tut_topbar_spinner);
+        s_tut.setVisibility(View.VISIBLE);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_user_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        s_tut.setAdapter(adapter);
+
+    }
+
+    public void onClickTutRequest(View v){
+
+        ImageView iv = (ImageView)findViewById(R.id.tut_appbar_blur);
+        iv.setVisibility(View.VISIBLE);
+
+        ImageView iv2 = (ImageView)findViewById(R.id.tut_main_user_space_blur);
+        iv2.setVisibility(View.VISIBLE);
+
+        LinearLayout layout1 = (LinearLayout)findViewById(R.id.tut_overlay_layout);
+        layout1.setVisibility(View.VISIBLE);
+
+        LinearLayout layout2 = (LinearLayout)findViewById(R.id.tut_overlay_layout_location_spinner);
+        layout2.setVisibility(View.GONE);
+
+        LinearLayout layout3 = (LinearLayout)findViewById(R.id.tut_overlay_layout_fav_official);
+        layout3.setVisibility(View.VISIBLE);
+
+        Spinner b2 = (Spinner)findViewById(R.id.tut_topbar_spinner);
+        b2.setVisibility(View.INVISIBLE);
+
+//        //scroll to the bottom
+//        listViewRequest.setSelection(listViewRequest.getCount());
+//
+//        //circle the request
+//        View v_circle = (View)findViewById(R.id.tut_request_circle);
+//        v_circle.setVisibility(View.VISIBLE);
+
+
+        //tutorial arrow
+        ImageView iv1 = (ImageView)findViewById(R.id.tut_arrow);
+        iv1.setVisibility(View.VISIBLE);
 
     }
 
@@ -1338,18 +1391,14 @@ public class ACTRequest extends AppCompatActivity
         LinearLayout layout1 = (LinearLayout)findViewById(R.id.tut_overlay_layout);
         layout1.setVisibility(View.INVISIBLE);
 
-        LinearLayout layout2 = (LinearLayout)findViewById(R.id.tut_overlay_layout_askfavour);
+        LinearLayout layout2 = (LinearLayout)findViewById(R.id.tut_overlay_layout_fav_official);
         layout2.setVisibility(View.GONE);
 
-        Button b1 = (Button)findViewById(R.id.tut_ask_favour);
-        b1.setVisibility(View.INVISIBLE);
+        View v_circle = (View)findViewById(R.id.tut_request_circle);
+        v_circle.setVisibility(View.INVISIBLE);
 
-        LinearLayout layout3 = (LinearLayout)findViewById(R.id.tut_overlay_layout_offerfavour);
-        layout3.setVisibility(View.INVISIBLE);
-
-        Button b2 = (Button)findViewById(R.id.tut_offer_favour);
-        b2.setVisibility(View.INVISIBLE);
-
+        ImageView iv1 = (ImageView)findViewById(R.id.tut_arrow);
+        iv1.setVisibility(View.INVISIBLE);
 
     }
 
