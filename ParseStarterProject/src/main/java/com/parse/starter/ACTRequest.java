@@ -1388,6 +1388,8 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void populate_profile(){
+        /*Refresh from disk*/
+        user = ParseUser.getCurrentUser();
 
         EditText editEmail = (EditText) findViewById(R.id.Email_edit);
         EditText editPhone = (EditText) findViewById(R.id.phone_edit);

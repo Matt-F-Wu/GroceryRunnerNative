@@ -28,6 +28,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
     private static final String REQUEST_TYPE = "REQUEST";
     private static final String MESSAGE_TYPE = "MESSAGE";
     private static final String PROMO_TYPE = "TOPICS";
+    private static final String RATING_TYPE = "RATING";
 
     @Override
     protected Notification getNotification(Context context, Intent intent) {
@@ -58,6 +59,12 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d("Push Receive Exception", "failed to retrieve type");
+            return;
+        }
+
+        /*Process rating secretely, fetch new user data and refresh local copy*/
+        if(RATING_TYPE.equals(type)){
+            ParseUser.getCurrentUser().fetchInBackground();
             return;
         }
 

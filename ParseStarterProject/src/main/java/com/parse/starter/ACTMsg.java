@@ -190,6 +190,12 @@ public class ACTMsg extends AppCompatActivity {
         StarterApplication.setToWhom(header[0]);
     }
 
+    @Override
+    public void onDestroy(){
+        unregisterReceiver(msgReceiver);
+        super.onDestroy();
+    }
+
     public void onClickSend(View view) {
         EditText editText = (EditText) findViewById(R.id.typing_box);
 
