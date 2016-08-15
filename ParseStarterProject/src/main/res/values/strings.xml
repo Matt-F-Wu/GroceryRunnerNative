@@ -39,9 +39,15 @@
 
     <string name="sign_up_prompt">No account yet?</string>
     <string name="forget_password_link"><u>Forget your password? Click here</u></string>
-
+    <string name="read_license"><u>Read End User License Agreement</u></string>
     <string name="email_verification_notice">Please check your mailbox for our verification email,
         including your spam folder.</string>
     <string name="no_verification_received"><u>I didn\'t receive an email after 5 minutes</u></string>
     <string name="email_received_verified"><u>I verified my email</u></string>
+    <string name="eula_text">END USER LICENSE FOR FAVOURAMA ANDROID SOFTWARE
+
+PLEASE READ THIS DOCUMENT CAREFULLY BEFORE USING THIS SOFTWARE. THIS LICENSE PROVIDES IMPORTANT INFORMATION CONCERNING THE SOFTWARE, PROVIDES YOU WITH A LICENSE TO USE THE SOFTWARE AND CONTAINS WARRANTY AND LIABILITY INFORMATION.
+BY USING THE SOFTWARE, YOU ARE ACCEPTING THE SOFTWARE \"AS IS\" AND AGREEING TO BE BOUND BY THE TERMS OF THIS LICENSE AGREEMENT.
+IN NO EVENT WILL THE AUTHORS BE HELD LIABLE FOR ANY DAMAGES ARISING FROM THE USE OF THIS SOFTWARE.
+IF YOU DO NOT WISH TO DO SO, DO NOT USE THE SOFTWARE.</string>
 </resources>
