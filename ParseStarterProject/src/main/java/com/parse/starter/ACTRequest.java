@@ -123,8 +123,6 @@ public class ACTRequest extends AppCompatActivity
     private HashSet<Integer> edittext_ids;
     private HashSet<String> blocked_users;
 
-    private Spinner spinner = null;
-
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -162,7 +160,7 @@ public class ACTRequest extends AppCompatActivity
                 }
             });
         }
-        spinner = (Spinner) findViewById(R.id.topbar_spinner);
+        final Spinner spinner = (Spinner) findViewById(R.id.topbar_spinner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_user_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1334,15 +1332,15 @@ public class ACTRequest extends AppCompatActivity
         layout3.setVisibility(View.VISIBLE);
 
         //change the original spinner back to current
-        spinner.setSelection(0,true);
+        //spinner.setSelection(0,true);
 
         //bring up the superimposed spinner
         Spinner s_tut = (Spinner)findViewById(R.id.tut_topbar_spinner);
         s_tut.setVisibility(View.VISIBLE);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_user_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        s_tut.setAdapter(adapter);
+//
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_user_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        s_tut.setAdapter(adapter);
 
     }
 

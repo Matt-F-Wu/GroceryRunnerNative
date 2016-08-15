@@ -302,7 +302,6 @@
                         android:background="@drawable/tut_button_style"
                         android:textColor="#ffffff"
                         android:textAllCaps="false"
-                        android:text="Ask Favour"
                         android:visibility="invisible"
                         android:onClick="onClickNewRequest"/>
                     <View
@@ -321,7 +320,6 @@
                         android:background="@drawable/tut_button_style"
                         android:textColor="#ffffff"
                         android:textAllCaps="false"
-                        android:text="Offer Favour"
                         android:visibility="invisible"
                         android:onClick="onClickNewOffer"/>
                     <View
