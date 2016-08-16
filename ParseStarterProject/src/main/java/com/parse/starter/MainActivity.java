@@ -1,4 +1,5 @@
 package com.parse.starter;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,9 +16,10 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity{
 
     private float x1,x2;
-    static final int MIN_DISTANCE = 150;
+    static final int MIN_DISTANCE = 300;
     private ViewFlipper welcomeFlipper;
     int f_index;
+    boolean doneSwapping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,23 @@ public class MainActivity extends AppCompatActivity{
             setContentView(R.layout.activity_main);
             welcomeFlipper = (ViewFlipper) findViewById(R.id.welcome_flipper);
             f_index = 0;
+            doneSwapping = false;
         }
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent event){
+        this.onTouchEvent(event);
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event){
+        if(doneSwapping){
+            doneSwapping = false;
+            return super.onTouchEvent(event);
+        }
+
         switch(event.getAction() & MotionEvent.ACTION_MASK)
         {
             case MotionEvent.ACTION_DOWN:
@@ -58,7 +72,7 @@ public class MainActivity extends AppCompatActivity{
                         f_index = 2;
                     }
                     highlightPoint(f_index);
-
+                    doneSwapping = true;
                 } else if(x2 - x1 <= -MIN_DISTANCE){
                     /*Swipe to left, show next page*/
                     welcomeFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_right));
@@ -67,6 +81,7 @@ public class MainActivity extends AppCompatActivity{
                     f_index++;
                     f_index%=3;
                     highlightPoint(f_index);
+                    doneSwapping = true;
                 }
                 break;
         }
