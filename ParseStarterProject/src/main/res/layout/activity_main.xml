@@ -1,78 +1,212 @@
-<!--
-  ~ Copyright (c) 2015-present, Parse, LLC.
-  ~ All rights reserved.
-  ~
-  ~ This source code is licensed under the BSD-style license found in the
-  ~ LICENSE file in the root directory of this source tree. An additional grant
-  ~ of patent rights can be found in the PATENTS file in the same directory.
-  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:gravity="center_horizontal"
+    android:background="@drawable/intro_bg"
+    tools:context=".MainActivity">
 
     <ViewFlipper
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
         android:measureAllChildren="false"
-        android:id="@+id/license_flipper">
+        android:id="@+id/welcome_flipper">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
-            <TextView
-                android:layout_width="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:src="@drawable/logo_final_white"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:gravity="center"
-                android:textColor="@color/dark_red"
-                android:textSize="25sp"
-                android:text="Welcome to Favourama"/>
+                android:textColor="@color/white"
+                android:textStyle="italic"
+                android:textSize="8pt"
+                android:text="Welcome to Favourama!\nLet us help you discover the amazing people and things around you, and how they can change your life."/>
+
         </LinearLayout>
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
-            <TextView
+            android:gravity="center"
+            android:padding="10dip"
+            android:orientation="vertical">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="#000000"
-                android:id="@+id/license_agreement"/>
-        </ScrollView>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:text="Simply click each request\nto respond"
+                    android:textStyle="italic"
+                    android:textSize="8pt"
+                    android:textColor="@color/white"/>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/sample_request"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/location_selection_sample"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:textStyle="italic"
+                    android:textSize="8pt"
+                    android:textColor="@color/white"
+                    android:text="Multiple locations\nto post from"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Long click each request for more options"
+                    android:textStyle="italic"
+                    android:textSize="8pt"
+                    android:textColor="@color/white"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/sample_r_longpress" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:visibility="gone"
+                android:id="@+id/license_agreement_container">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="@string/eula_text"
+                    android:id="@+id/license_agreement"/>
+            </ScrollView>
+
+
+            <TextView
+                android:text="@string/read_license"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:onClick="showAgreement"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accept"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:theme="@style/ThemeOverlay.MyDarkButton"
+                android:layout_weight="0"
+                android:onClick="acceptAndProceed"/>
+
+            <TextView
+                android:text="By clicking ACCEPT, you agree to all terms and conditions specified in the End User License Agreement"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0" />
+        </LinearLayout>
 
     </ViewFlipper>
 
     <TextView
-        android:text="@string/read_license"
-        android:textColor="@color/dark_red"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:onClick="showAgreement"/>
+        android:textColor="@color/white"
+        android:textStyle="italic"
+        android:text="Swipe Left to Proceed"/>
 
-    <Button
+    <LinearLayout
+        android:id="@+id/f_point_panel"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Accept"
-        android:layout_weight="0"
-        android:onClick="acceptAndProceed"/>
+        android:orientation="horizontal">
 
-    <TextView
-        android:text="By clicking ACCEPT, you agree to all terms and conditions specified in the End User License Agreement"
-        android:textColor="@color/userBottomBar"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0" />
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:id="@+id/findex_i1"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:src="@drawable/f_intro_point_hl"/>
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:id="@+id/findex_i2"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:src="@drawable/f_intro_point"/>
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:id="@+id/findex_i3"
+            android:src="@drawable/f_intro_point"/>
+
+    </LinearLayout>
 
 </LinearLayout>
