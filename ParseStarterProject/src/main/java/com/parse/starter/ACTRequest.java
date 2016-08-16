@@ -80,6 +80,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -458,8 +459,22 @@ public class ACTRequest extends AppCompatActivity
 
     @Override
     public void onDestroy(){
+	  /* First delete all stored request profile images */
 
-        Log.d("onDestroy request", " " + receiver.getResultData());
+	  FileFilter filter = new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+               return pathname.startsWith(DownloadImageTask.reqImgPrefix);
+            }
+        };
+
+	  File[] reqImageFiles = StarterApplication.getUserFilesDir().listFiles(filter);
+
+	  if(reqImageFiles != null){
+	  	for (File imgReq : reqImageFiles){
+			imgReq.delete();
+	  	}
+	  }
 
         unregisterReceiver(receiver);
         super.onDestroy();
@@ -953,35 +968,16 @@ public class ACTRequest extends AppCompatActivity
         /*Contract the keyboard when you go to a new flip*/
         InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.hideSoftInputFromWindow(viewFlipper.getWindowToken(), 0);
-        if (index == 0){
-            viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
-        }else if (index == 1){
-            /*HAO to JEREMY: Maybe we want a different animation for this, we will see*/
+        if (flipperIndex == 3 || ((flipperIndex == 0 || flipperIndex == 2) && index == 1)){
             viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_right));
-        }else if (index == 2){
-            Animation bottomUp = AnimationUtils.loadAnimation(this,
-                    R.anim.slider_up);
-            viewFlipper.setInAnimation(bottomUp);
+		viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out_left));
+        }else if (flipperIndex == 0 && index == 2){
+            viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.slider_up);
+        }else if (flipperIndex == 2 && index == 0){
+		viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.slider_down);            
         }else{
-            Animation entrance = AnimationUtils.loadAnimation(this,
-                    android.R.anim.slide_in_left);
-            viewFlipper.setInAnimation(entrance);
-        }
-
-        /*flipperIndex records the current index of the flipper, and decides which fashion should the current flipper fade*/
-        if (flipperIndex == 0){
-            viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right));
-        }else if (flipperIndex == 1){
-            /*HAO to JEREMY: Maybe we want a different animation for this, we will see*/
-            viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right));
-        }else if (flipperIndex == 2){
-            Animation topDown = AnimationUtils.loadAnimation(this,
-                    R.anim.slider_down);
-            viewFlipper.setOutAnimation(topDown);
-        }else{
-            Animation exit = AnimationUtils.loadAnimation(this,
-                    android.R.anim.slide_out_right);
-            viewFlipper.setInAnimation(exit);
+            viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
+		viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right));
         }
 
         flipperIndex = index;
