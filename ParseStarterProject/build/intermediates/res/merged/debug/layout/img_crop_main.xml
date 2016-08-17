@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.parse.starter.ACTImgCrop"
+    tools:context="com.parse.favourama.ACTImgCrop"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.MyNoTitleActivity">
 
@@ -18,14 +18,24 @@
         android:orientation="horizontal">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:onClick="cancelAndReturn"/>
+
+        <TextView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:id="@+id/main_action_crop"
-            android:text="CROP"
+            android:text="Finish"
             android:layout_gravity="right"
             android:textColor="#ffffff"
-            android:textSize="20dp"
-            android:layout_marginRight="20dp"
+            android:textSize="20sp"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:onClick="onClick_img_crop_option"/>
 
 
@@ -33,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:id="@+id/main_action_rotate"
-            android:src="@android:drawable/ic_menu_rotate"
+            android:src="@drawable/ic_rotate"
             android:layout_gravity="right"
             android:onClick="onClick_img_crop_option"/>
 

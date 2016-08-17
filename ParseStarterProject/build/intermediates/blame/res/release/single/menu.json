@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\menu\\request_longclick_menu.xml",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\menu\\request_longclick_menu.xml"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\menu\\chat_msg_longclick_menu.xml",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\menu\\chat_msg_longclick_menu.xml"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\menu\\conv_thread_menu.xml",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\menu\\conv_thread_menu.xml"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\menu\\topics_settings.xml",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\menu\\topics_settings.xml"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\menu\\activity_main_drawer.xml",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\menu\\activity_main_drawer.xml"
+    }
+]

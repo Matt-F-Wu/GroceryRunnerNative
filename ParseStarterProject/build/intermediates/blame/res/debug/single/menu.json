@@ -1,11 +1,19 @@
 [
     {
-        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama5\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main_drawer.xml",
-        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama5\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\menu\\activity_main_drawer.xml"
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main_drawer.xml",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\menu\\activity_main_drawer.xml"
     },
     {
-        "merged": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama5\\GroceryRunnerNative\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\conv_thread_menu.xml",
-        "source": "C:\\Users\\Jeremy\\Documents\\GitHub\\favourama5\\GroceryRunnerNative\\ParseStarterProject\\src\\main\\res\\menu\\conv_thread_menu.xml"
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\chat_msg_longclick_menu.xml",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\menu\\chat_msg_longclick_menu.xml"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\request_longclick_menu.xml",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\menu\\request_longclick_menu.xml"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\conv_thread_menu.xml",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\menu\\conv_thread_menu.xml"
     },
     {
         "merged": "G:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\conv_thread_menu.xml",
@@ -14,5 +22,9 @@
     {
         "merged": "G:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\activity_main_drawer.xml",
         "source": "G:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\menu\\activity_main_drawer.xml"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\debug\\menu\\topics_settings.xml",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\src\\main\\res\\menu\\topics_settings.xml"
     }
 ]

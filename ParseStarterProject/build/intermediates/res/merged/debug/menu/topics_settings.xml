@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Turn Off Notification" android:onClick="turnOffTopicsNT"/>
+    <item android:title="Contribute" android:onClick="applyToContribute"/>
+</menu>

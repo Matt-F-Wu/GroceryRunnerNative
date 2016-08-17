@@ -1,0 +1,83 @@
+-injars 'E:\GroceryRunner\ParseStarterProject\build\intermediates\transforms\jarMerging\release\jars\1\1f\combined.jar'
+-outjars 'E:\GroceryRunner\ParseStarterProject\build\intermediates\multi-dex\release\componentClasses.jar'
+
+-libraryjars 'C:\Users\IBM_ADMIN\AppData\Local\Android\sdk\build-tools\23.0.2\lib\shrinkedAndroid.jar'
+
+-forceprocessing
+-dontoptimize
+-dontobfuscate
+-dontusemixedcaseclassnames
+-dontpreverify
+-dontwarn
+-printconfiguration 'E:\GroceryRunner\ParseStarterProject\build\intermediates\multi-dex\release\components.flags'
+
+
+-keep class com.parse.favourama.StarterApplication {
+    <init>();
+    void attachBaseContext(android.content.Context);
+}
+
+-keep class com.parse.favourama.MainActivity {
+    <init>();
+}
+
+-keep class com.parse.favourama.ACTLoginSelf {
+    <init>();
+}
+
+-keep class com.parse.favourama.ACTRequest {
+    <init>();
+}
+
+-keep class com.parse.favourama.ACTMsg {
+    <init>();
+}
+
+-keep class com.parse.favourama.ACTImgCrop {
+    <init>();
+}
+
+-keep class com.parse.favourama.ACTtopics {
+    <init>();
+}
+
+-keep class com.parse.PushService {
+    <init>();
+}
+
+-keep class com.parse.favourama.MyPushBroadcastReceiver {
+    <init>();
+}
+
+-keep class com.parse.GcmBroadcastReceiver {
+    <init>();
+}
+
+-keep class com.google.android.gms.measurement.AppMeasurementContentProvider {
+    <init>();
+}
+
+-keep class com.google.android.gms.measurement.AppMeasurementReceiver {
+    <init>();
+}
+
+-keep class com.google.android.gms.measurement.AppMeasurementService {
+    <init>();
+}
+
+-keep class com.google.android.gms.ads.AdActivity {
+    <init>();
+}
+
+-keep class com.google.android.gms.ads.purchase.InAppPurchaseActivity {
+    <init>();
+}
+
+-keep public class * extends android.app.backup.BackupAgent {
+    <init>();
+}
+
+-keep public class * extends java.lang.annotation.Annotation {
+    <fields>;
+    <methods>;
+}

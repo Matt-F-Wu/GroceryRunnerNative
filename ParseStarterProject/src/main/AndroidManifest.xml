@@ -7,7 +7,7 @@
   ~ of patent rights can be found in the PATENTS file in the same directory.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.parse.starter">
+    package="com.parse.favourama">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -20,17 +20,17 @@
 
 
     <!--
-      IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
+      IMPORTANT: Change "favouramama.permission.C2D_MESSAGE" in the lines below
       to match your app's package name + ".permission.C2D_MESSAGE".
     -->
     <permission
-        android:name="com.parse.starter.permission.C2D_MESSAGE"
+        android:name="com.parse.favourama.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.parse.starter.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.parse.favourama.permission.C2D_MESSAGE" />
 
     <application
-        android:name=".StarterApplication"
+        android:name="com.parse.favourama.StarterApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -48,7 +48,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.parse.favourama.MainActivity"
 		    android:theme="@style/SplashTheme"
             android:label="@string/app_name"
             android:noHistory="true">
@@ -59,14 +59,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ACTLoginSelf" 
-            android:parentActivityName=".MainActivity"
+        <activity android:name="com.parse.favourama.ACTLoginSelf"
+            android:parentActivityName="com.parse.favourama.MainActivity"
             android:noHistory="true">
           
         </activity>
 
 
-        <activity android:name=".ACTRequest" android:parentActivityName=".ACTLoginSelf" android:launchMode="singleTask">
+        <activity android:name="com.parse.favourama.ACTRequest" android:parentActivityName="com.parse.favourama.ACTLoginSelf" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS"></action>
                 <action android:name="com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES"></action>
@@ -75,23 +75,23 @@
         </activity>
 
         <activity
-            android:name=".ACTMsg"
+            android:name="com.parse.favourama.ACTMsg"
             android:label="@string/title_activity_actmsg"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".ACTRequest"></activity>
+            android:parentActivityName="com.parse.favourama.ACTRequest"></activity>
 
         <activity
-            android:name=".ACTImgCrop"
+            android:name="com.parse.favourama.ACTImgCrop"
             android:theme="@style/ThemeOverlay.MyNoTitleActivity"
-            android:parentActivityName=".ACTRequest"></activity>
+            android:parentActivityName="com.parse.favourama.ACTRequest"></activity>
 
-        <activity android:name=".ACTtopics"
-            android:parentActivityName=".ACTRequest"></activity>
+        <activity android:name="com.parse.favourama.ACTtopics"
+            android:parentActivityName="com.parse.favourama.ACTRequest"></activity>
 
         <service android:name="com.parse.PushService" />
 
         <receiver
-            android:name=".MyPushBroadcastReceiver"
+            android:name="com.parse.favourama.MyPushBroadcastReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
@@ -106,8 +106,8 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <!--                   IMPORTANT: Change "com.parse.starter" to match your app's package name. -->
-                <category android:name="com.parse.starter" />
+                <!--                   IMPORTANT: Change "favouramama" to match your app's package name. -->
+                <category android:name="com.parse.favourama" />
             </intent-filter>
         </receiver>
 

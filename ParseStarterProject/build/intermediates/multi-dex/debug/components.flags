@@ -1,7 +1,7 @@
--injars 'C:\Users\Jeremy\Documents\GitHub\favourama5\GroceryRunnerNative\ParseStarterProject\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
--outjars 'C:\Users\Jeremy\Documents\GitHub\favourama5\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\componentClasses.jar'
+-injars 'E:\GroceryRunner\ParseStarterProject\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
+-outjars 'E:\GroceryRunner\ParseStarterProject\build\intermediates\multi-dex\debug\componentClasses.jar'
 
--libraryjars 'C:\Users\Jeremy\AppData\Local\Android\sdk\build-tools\23.0.2\lib\shrinkedAndroid.jar'
+-libraryjars 'C:\Users\IBM_ADMIN\AppData\Local\Android\sdk\build-tools\23.0.2\lib\shrinkedAndroid.jar'
 
 -forceprocessing
 -dontoptimize
@@ -9,31 +9,35 @@
 -dontusemixedcaseclassnames
 -dontpreverify
 -dontwarn
--printconfiguration 'C:\Users\Jeremy\Documents\GitHub\favourama5\GroceryRunnerNative\ParseStarterProject\build\intermediates\multi-dex\debug\components.flags'
+-printconfiguration 'E:\GroceryRunner\ParseStarterProject\build\intermediates\multi-dex\debug\components.flags'
 
 
--keep class com.parse.starter.StarterApplication {
+-keep class com.parse.favourama.StarterApplication {
     <init>();
     void attachBaseContext(android.content.Context);
 }
 
--keep class com.parse.starter.MainActivity {
+-keep class com.parse.favourama.MainActivity {
     <init>();
 }
 
--keep class com.parse.starter.ACTLoginSelf {
+-keep class com.parse.favourama.ACTLoginSelf {
     <init>();
 }
 
--keep class com.parse.starter.ACTRequest {
+-keep class com.parse.favourama.ACTRequest {
     <init>();
 }
 
--keep class com.parse.starter.ACTMsg {
+-keep class com.parse.favourama.ACTMsg {
     <init>();
 }
 
--keep class com.parse.starter.ACTImgCrop {
+-keep class com.parse.favourama.ACTImgCrop {
+    <init>();
+}
+
+-keep class com.parse.favourama.ACTtopics {
     <init>();
 }
 
@@ -41,7 +45,7 @@
     <init>();
 }
 
--keep class com.parse.starter.MyPushBroadcastReceiver {
+-keep class com.parse.favourama.MyPushBroadcastReceiver {
     <init>();
 }
 

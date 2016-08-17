@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_contact_us_black.png",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_contact_us_black.png"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_tutorial_black.png",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_tutorial_black.png"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_forward_gray.png",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_forward_gray.png"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_manage_settings.png",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_manage_settings.png"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_menu_manage.png",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_menu_manage.png"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_close_white.png",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_close_white.png"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_forward_white.png",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_forward_white.png"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_return_white.png",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_return_white.png"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\tut_arrow.png",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\tut_arrow.png"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_broken_img.png",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_broken_img.png"
+    },
+    {
+        "merged": "E:\\GroceryRunner\\ParseStarterProject\\build\\intermediates\\res\\merged\\release\\drawable-ldpi-v4\\ic_delete_black.png",
+        "source": "E:\\GroceryRunner\\ParseStarterProject\\build\\generated\\res\\pngs\\release\\drawable-ldpi\\ic_delete_black.png"
+    }
+]
