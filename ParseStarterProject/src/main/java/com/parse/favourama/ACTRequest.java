@@ -104,6 +104,10 @@ public class ACTRequest extends AppCompatActivity
     private static int UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
     private static int FAST_INTERVAL_CEILING_IN_MILLISECONDS = 2500;
     private static String show_topic_file = "SHOWTOPICS";
+    public static String REQ_SAVED_BODY = "FavReqBody";
+    public static String REQ_SAVED_PICS = "FavReqPics";
+    public static String REQ_SAVED_RES = "FavReqRes";
+    public static String REQ_SAVED_SIZE = "FavReqSize";
     private boolean realTime = true;
     private LocationRequest locationRequest;
     private GoogleApiClient locationClient;
@@ -220,7 +224,7 @@ public class ACTRequest extends AppCompatActivity
         flipperStack = new LinkedList<>();
         flipperStack.add(new Integer(0));
 
-        configureRequestView();
+        configureRequestView(savedInstanceState);
 
         ViewGroup request = (ViewGroup) findViewById(R.id.request_panel);
 
@@ -1062,23 +1066,33 @@ public class ACTRequest extends AppCompatActivity
         StarterApplication.setUserFilesDir(user_dir);
     }
 
-    private void configureRequestView(){
+    private void configureRequestView(Bundle savedInstanceState){
         int[] fields = new int[]{R.id.r_list_uname, R.id.r_list_cate, R.id.r_list_note, R.id.r_list_reward};
 
+
+
         r_values= new ArrayList<String[]>();
-
-        /*HAO to JENERMY: A warm welcoming messgae I designed, do you like it?*/
-        r_values.add(new String[]{"Favourama Official", "Welcome! " + installation.getString("username"),
-                "We wish our service can make your life easier",
-                "Best of luck!",
-                "5", "43.6628917", "-79.3956564"});
-
         resources = new ArrayList<>();
-        resources.add(R.drawable.gray_req_bg);
-
         user_pics = new LinkedList<>();
-        user_pics.add(null);
+        if (savedInstanceState != null) {
+            // Restore value of members from saved state
+            int savedSize = savedInstanceState.getInt(REQ_SAVED_SIZE);
+            for(int i = 0; i < savedSize; i++){
+                r_values.add(savedInstanceState.getStringArray(REQ_SAVED_BODY + i));
+                user_pics.add(savedInstanceState.getString(REQ_SAVED_PICS + i));
+            }
+            resources.addAll(savedInstanceState.getIntegerArrayList(REQ_SAVED_RES));
+        }else {
+            /*HAO to JENERMY: A warm welcoming messgae I designed, do you like it?*/
+            r_values.add(new String[]{"Favourama Official", "Welcome! " + installation.getString("username"),
+                    "We wish our service can make your life easier",
+                    "Best of luck!",
+                    "5", "43.6628917", "-79.3956564"});
 
+            resources.add(R.drawable.gray_req_bg);
+
+            user_pics.add(null);
+        }
         blocked_users = new HashSet<>();
 
         msgAdapterReq = new MsgAdapter(this, R.layout.request_item, resources, user_pics, fields, r_values);
@@ -1785,6 +1799,17 @@ public class ACTRequest extends AppCompatActivity
             findViewById(R.id.topics_board_container).setVisibility(View.GONE);
             file.delete();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the user's current game state
+        savedInstanceState.putInt(REQ_SAVED_SIZE, r_values.size());
+        for (int i = 0; i < r_values.size(); i++) {
+            savedInstanceState.putStringArray(REQ_SAVED_BODY + i, r_values.get(i));
+            savedInstanceState.putString(REQ_SAVED_PICS + i, user_pics.get(i));
+        }
+        savedInstanceState.putIntegerArrayList(REQ_SAVED_RES, (ArrayList)resources);
     }
 
 }
