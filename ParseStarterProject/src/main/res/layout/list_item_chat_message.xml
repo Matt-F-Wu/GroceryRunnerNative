@@ -23,7 +23,8 @@
                 android:id="@+id/txtMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
+                android:textColor="@color/white"
+                android:textIsSelectable="true"
                 android:maxWidth="240dp" />
 
         </LinearLayout>

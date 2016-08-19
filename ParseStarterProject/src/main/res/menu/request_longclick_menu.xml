@@ -4,7 +4,7 @@
         android:title="Show this user on map"
         android:onClick="showLocationOnMap"/>
     <item
-        android:title="Block this user"
+        android:title="Block this user (temporarily)"
         android:onClick="blockUser"/>
     <item
         android:title="Report spam"

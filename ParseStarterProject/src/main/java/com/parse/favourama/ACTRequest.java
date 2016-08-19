@@ -108,6 +108,8 @@ public class ACTRequest extends AppCompatActivity
     public static String REQ_SAVED_PICS = "FavReqPics";
     public static String REQ_SAVED_RES = "FavReqRes";
     public static String REQ_SAVED_SIZE = "FavReqSize";
+    public static String SAVED_FLIPPER_INDEX = "FavSavedFlipIndex";
+    public static String CONV_TO_HIGHLIGHT = "FavouramaCONVH.json";
     private boolean realTime = true;
     private LocationRequest locationRequest;
     private GoogleApiClient locationClient;
@@ -341,6 +343,10 @@ public class ACTRequest extends AppCompatActivity
 
         edittext_ids = new HashSet<>();
         setProfilePic(false);
+        if (savedInstanceState != null) {
+            int last_index = savedInstanceState.getInt(SAVED_FLIPPER_INDEX);
+            flip(last_index);
+        }
 	}
 
     @Override
@@ -388,7 +394,7 @@ public class ACTRequest extends AppCompatActivity
                 flip(0);
             }else if(enter == 2){
                 flip(1);
-                clearCounter();
+                //clearCounter();
             }
             
             notificationFileProcessing();
@@ -480,6 +486,8 @@ public class ACTRequest extends AppCompatActivity
 			imgReq.delete();
 	  	}
 	  }
+
+        saveCounter(convList.numChange);
 
         unregisterReceiver(receiver);
         super.onDestroy();
@@ -1069,8 +1077,6 @@ public class ACTRequest extends AppCompatActivity
     private void configureRequestView(Bundle savedInstanceState){
         int[] fields = new int[]{R.id.r_list_uname, R.id.r_list_cate, R.id.r_list_note, R.id.r_list_reward};
 
-
-
         r_values= new ArrayList<String[]>();
         resources = new ArrayList<>();
         user_pics = new LinkedList<>();
@@ -1081,7 +1087,7 @@ public class ACTRequest extends AppCompatActivity
                 r_values.add(savedInstanceState.getStringArray(REQ_SAVED_BODY + i));
                 user_pics.add(savedInstanceState.getString(REQ_SAVED_PICS + i));
             }
-            resources.addAll(savedInstanceState.getIntegerArrayList(REQ_SAVED_RES));
+            if(savedSize != 0) resources.addAll(savedInstanceState.getIntegerArrayList(REQ_SAVED_RES));
         }else {
             /*HAO to JENERMY: A warm welcoming messgae I designed, do you like it?*/
             r_values.add(new String[]{"Favourama Official", "Welcome! " + installation.getString("username"),
@@ -1193,7 +1199,8 @@ public class ACTRequest extends AppCompatActivity
                 return true;
             }
         });
-
+        /*Recover counter value from previous instance*/
+        recoverCounter();
         File file = new File(StarterApplication.getUserFilesDir(), show_topic_file);
         if(file.exists()){
             findViewById(R.id.topics_board_container).setVisibility(View.VISIBLE);
@@ -1221,7 +1228,7 @@ public class ACTRequest extends AppCompatActivity
     }
     //top bar actions
     public void onChatButtonClicked (View v){
-        clearCounter();
+        //clearCounter();
         flip(1);
 
 
@@ -1232,9 +1239,21 @@ public class ACTRequest extends AppCompatActivity
         countView.setText(String.valueOf(value));
     }
 
-    private void clearCounter(){
-        TextView countView = (TextView) findViewById(R.id.topbar_textview);
-        countView.setText("0");
+    private void recoverCounter(){
+        File cthFile = new File(StarterApplication.getUserFilesDir(), CONV_TO_HIGHLIGHT);
+        if(cthFile.exists()) {
+            LinkedList<JSONObject> cthList = new LinkedList<>();
+            MyThreads.readLine(cthFile, cthList, this);
+            for (JSONObject j : cthList){
+                String cth = j.optString("fname");
+                if(!cth.isEmpty()){
+                    convList.numChange.add(cth);
+                }
+            }
+            updateCounter(convList.numChange.size());
+            highLightConv();
+            cthFile.delete();
+        }
     }
 
     /*Hightlight conversations that have received an update/message*/
@@ -1548,6 +1567,10 @@ public class ACTRequest extends AppCompatActivity
         startActivity(new Intent(ACTRequest.this, ACTtopics.class));
     }
 
+    public void clearReqBodyText(View view) {
+        ((EditText) findViewById(R.id.r_description)).getText().clear();
+    }
+
 
     private class TextWatcherExt implements TextWatcher {
         int id;
@@ -1809,7 +1832,32 @@ public class ACTRequest extends AppCompatActivity
             savedInstanceState.putStringArray(REQ_SAVED_BODY + i, r_values.get(i));
             savedInstanceState.putString(REQ_SAVED_PICS + i, user_pics.get(i));
         }
-        savedInstanceState.putIntegerArrayList(REQ_SAVED_RES, (ArrayList)resources);
+        savedInstanceState.putIntegerArrayList(REQ_SAVED_RES, (ArrayList) resources);
+        savedInstanceState.putInt(SAVED_FLIPPER_INDEX, flipperIndex);
+
+        saveCounter(convList.numChange);
+    }
+
+    public void saveCounter(HashSet<String> numChange){
+        File cthFile = new File(StarterApplication.getUserFilesDir(), CONV_TO_HIGHLIGHT);
+        /*Add a gaurd just to be safe*/
+        if(cthFile.exists()){
+            cthFile.delete();
+
+        }
+        Object[] pArray = numChange.toArray();
+
+        if(pArray != null){
+            for (Object o : pArray){
+                JSONObject j = new JSONObject();
+                try {
+                    j.put("fname", o);
+                    MyThreads.fileWrite(j, CONV_TO_HIGHLIGHT, StarterApplication.getUserFilesDir());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

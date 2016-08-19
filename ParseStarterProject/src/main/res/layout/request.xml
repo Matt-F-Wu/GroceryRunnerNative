@@ -162,11 +162,26 @@
             android:background="@drawable/requestbox_textfield_default_holo_light">
         </EditText>
 
-        <TextView
-            android:id="@+id/character_count"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="255/255"/>
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/character_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="255/255"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="clear"
+                android:theme="@style/ThemeOverlay.MyDarkButton"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:layout_alignParentRight="true"
+                android:onClick="clearReqBodyText"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

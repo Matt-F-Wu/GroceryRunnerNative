@@ -49,7 +49,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
 
         boolean ignore = false;
         String type = null;
-        String description = "From: ";
+        String description = "";
 
         try {
             type = data.getString("TYPE");
@@ -117,6 +117,12 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
                 pIntent = PendingIntent.getActivity(context, 0, openIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
                 description += data.optString("username", "UNKNOWN");
+
+                if(type.equals(REQUEST_TYPE)){
+                    description += (": " + data.optString("note"));
+                }else if (type.equals(MESSAGE_TYPE)){
+                    description += (": " + data.optString("content"));
+                }
 
                 builder.setContentText(description);
                 builder.setSmallIcon(R.drawable.ic_notification);
