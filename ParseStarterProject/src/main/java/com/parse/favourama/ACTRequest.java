@@ -2,6 +2,7 @@ package com.parse.favourama;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -181,7 +182,7 @@ public class ACTRequest extends AppCompatActivity
                     realTime = false;
                     installation = ParseInstallation.getCurrentInstallation();
                     String streetAddr = user.getString("addr" + position);
-                    if (missInfo(streetAddr)){
+                    if (missInfo(streetAddr)) {
                         realTime = true;
                         spinner.setSelection(0);
                         /*If the selection is not valid, automatically go back to selecting using current address*/
@@ -189,8 +190,8 @@ public class ACTRequest extends AppCompatActivity
                                 ", Please add it to your profile", new FCallback() {
                             @Override
                             public void callBack() {
-                                flip(3);
-                                populate_profile();
+
+                                checkUpdateProfile();
                             }
                         });
                     } else {
@@ -204,8 +205,8 @@ public class ACTRequest extends AppCompatActivity
                                     " Please try to revise this address.", new FCallback() {
                                 @Override
                                 public void callBack() {
-                                    flip(3);
-                                    populate_profile();
+
+                                    checkUpdateProfile();
                                 }
                             });
                         } else {
@@ -238,6 +239,24 @@ public class ACTRequest extends AppCompatActivity
 
         configureChatView();
 
+        edittext_ids = new HashSet<>();
+
+        if (savedInstanceState != null) {
+            int last_index = savedInstanceState.getInt(SAVED_FLIPPER_INDEX);
+
+            if(last_index == 3){
+                checkUpdateProfile();
+            }else{
+                flip(last_index);
+                /*Silently populate profile*/
+                user.fetchInBackground();
+            }
+
+        }else {
+            /*Silently populate profile*/
+            user.fetchInBackground();
+        }
+
         /*Hao:  opened by clicking notification, we handle the intent's data here*/
         onNewIntent(getIntent());
 
@@ -255,8 +274,8 @@ public class ACTRequest extends AppCompatActivity
         TextView userName = (TextView) navHeader.findViewById(R.id.nav_username);
         /*TextView userEmail = (TextView) navHeader.findViewById(R.id.nav_user_email);*/
 
-
         userName.setText(user_name);
+        setProfilePic(false);
         /*userEmail.setText(user.getEmail());*/
         // Create a new global location parameters object
         locationRequest = LocationRequest.create();
@@ -341,12 +360,7 @@ public class ACTRequest extends AppCompatActivity
         filter.addAction("com.parse.favourama.HANDLE_FAVOURAMA_TOPICS");
         registerReceiver(receiver, filter);
 
-        edittext_ids = new HashSet<>();
-        setProfilePic(false);
-        if (savedInstanceState != null) {
-            int last_index = savedInstanceState.getInt(SAVED_FLIPPER_INDEX);
-            flip(last_index);
-        }
+
 	}
 
     @Override
@@ -584,8 +598,8 @@ public class ACTRequest extends AppCompatActivity
 		int id = item.getItemId();
 
 		if (id == R.id.nav_manage) {
-            flip(3);
-            populate_profile();
+
+            checkUpdateProfile();
 		} else if (id == R.id.nav_contactus) {
             String url = "http://favourama.com/";
             Intent i = new Intent(Intent.ACTION_VIEW);
@@ -910,8 +924,8 @@ public class ACTRequest extends AppCompatActivity
                         " Please try updating your address at profile management!", new FCallback() {
                     @Override
                     public void callBack() {
-                        flip(3);
-                        populate_profile();
+
+                        checkUpdateProfile();
                     }
                 });
                 return null;
@@ -1056,9 +1070,22 @@ public class ACTRequest extends AppCompatActivity
         builder.create().show();
     }
 
+    public void checkUpdateProfile(){
+        final ProgressDialog progress = ProgressDialog.show(this, "Retrieving...",
+                "", true);
+        user.fetchInBackground(new GetCallback<ParseUser>() {
+            @Override
+            public void done(ParseUser parseUser, ParseException e) {
+                progress.dismiss();
+                flip(3);
+                populate_profile();
+            }
+        });
+    }
+
     public void editProfile(View view) {
-        flip(3);
-        populate_profile();
+
+        checkUpdateProfile();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
@@ -1172,8 +1199,7 @@ public class ACTRequest extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
                 final String[] item = ((MyThreads.MsgThread) parent.getItemAtPosition(position)).spitHeader();
-                view.setSelected(false);
-                listViewChat.setItemChecked(position, false);
+
                 String fname = MyThreads.toFile(item[0]);
                 convList.numChange.remove(fname);
                 updateCounter(convList.numChange.size());
@@ -1263,6 +1289,8 @@ public class ACTRequest extends AppCompatActivity
             String gn = mt.getFilename();
             if (convList.numChange.contains(gn)){
                 listViewChat.setItemChecked(index, true);
+            }else{
+                listViewChat.setItemChecked(index, false);
             }
             index++;
         }

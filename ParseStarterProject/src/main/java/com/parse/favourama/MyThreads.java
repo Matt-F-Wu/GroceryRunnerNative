@@ -70,7 +70,6 @@ public class MyThreads {
         String uname = header[0];
         String fname = "MSG_" + uname + ".json";
 
-        int index = 0;
 
         for (MsgThread mt : converThreads){
             if (mt.filename.equals(fname)){
@@ -102,7 +101,7 @@ public class MyThreads {
                     return true;
                 }
             }
-            index++;
+
         }
 
         File file = new File(dir, fname);
@@ -111,7 +110,7 @@ public class MyThreads {
 
         MsgThread mt = new MsgThread(jsonHeader, file);
         numFile++;
-        converThreads.add(0, mt);
+        converThreads.add(mt);
 
         createRatable(uname);
 
@@ -147,8 +146,6 @@ public class MyThreads {
 
         /*If no previous conversation exist from the sender, we make a new conversation*/
         if(!foundFile){
-            String[] header = {data.optString("username"), data.optString("rating"), "Your request"};
-            newConversation(header);
 
             File file = new File(dir, fname);
 
@@ -169,6 +166,10 @@ public class MyThreads {
 
             //write to file
             MyThreads.fileWrite(jsonObjectToWrite, fname);
+
+            String[] header = {data.optString("username"), data.optString("rating"), "Your request"};
+            newConversation(header);
+
         }
 
         makeHeaderArray();
