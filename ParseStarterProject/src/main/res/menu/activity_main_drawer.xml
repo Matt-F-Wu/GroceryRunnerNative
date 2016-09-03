@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Manage Profile" />
-    </group>
+    <item
+        android:id="@+id/nav_manage"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Manage Profile" />
 
-    <item android:title="Links">
-        <item
-            android:id="@+id/nav_contactus"
-            android:icon="@drawable/ic_contact_us_black"
-            android:title="Contact Us" />
-        <item
-            android:id="@+id/nav_tutorial"
-            android:icon="@drawable/ic_tutorial_black"
-            android:title="Run Tutorial" />
-    </item>
+    <item
+        android:id="@+id/nav_contactus"
+        android:icon="@drawable/ic_contact_us_black"
+        android:title="Contact Us" />
+    <item
+        android:id="@+id/nav_tutorial"
+        android:icon="@drawable/ic_tutorial_black"
+        android:title="Run Tutorial" />
 
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_power_settings_new_black_24dp"
+        android:title="Log Out" />
+    <item
+        android:id="@+id/nav_delete"
+        android:icon="@drawable/ic_delete_black"
+        android:title="Delete Account" />
 
-    <item android:title="Actions">
-        <menu>
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_power_settings_new_black_24dp"
-                android:title="Log Out" />
-            <item
-                android:id="@+id/nav_delete"
-                android:icon="@drawable/ic_delete_black"
-                android:title="Delete Account" />
-        </menu>
-    </item>
 
 </menu>

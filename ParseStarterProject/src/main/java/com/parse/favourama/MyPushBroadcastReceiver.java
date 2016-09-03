@@ -41,6 +41,7 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
 
     @Override
     protected void onPushReceive(Context context, Intent intent) {
+        ParseUser me = ParseUser.getCurrentUser();
         JSONObject data = getDataFromIntent(intent);
         // Do something with the data. To create a notification do:
         if (data == null) {
@@ -61,8 +62,14 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
 
         /*Process rating secretely, fetch new user data and refresh local copy*/
         if(RATING_TYPE.equals(type)){
-            ParseUser.getCurrentUser().fetchInBackground();
+            me.fetchInBackground();
             return;
+        }else if(MESSAGE_TYPE.equals(type)){
+            String destination = data.optString("destination");
+            if(!destination.equals(me.getUsername())){
+                /*This message is intended for a previous installation, which should be ignored*/
+                return;
+            }
         }
 
         /*If application is not visible (aka closed or running in background), write notification to file then process when app resumes.

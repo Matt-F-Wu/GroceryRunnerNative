@@ -2,7 +2,6 @@ package com.parse.favourama;
 
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -44,6 +43,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -69,11 +69,9 @@ import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
-import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-import com.parse.SendCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -650,7 +648,7 @@ public class ACTRequest extends AppCompatActivity
 
         mMap.setMyLocationEnabled(true);
 
-		// Add a marker in Sydney and move the camera
+
 		LatLng myhome = new LatLng(43.6647340, -79.3842040);
 
 		mMap.addMarker(new MarkerOptions().position(myhome).title("Jeremy's Home"));
@@ -665,6 +663,12 @@ public class ACTRequest extends AppCompatActivity
 
         TextView favourTitle = (TextView) findViewById(R.id.favour_title);
         favourTitle.setText("Ask For a Favour");
+
+        ((TextView) findViewById(R.id.req_det_add)).setText(R.string.r_d_add_a);
+        ((CheckBox) findViewById(R.id.cate_one)).setText(R.string.r_d_cat_a);
+        ((CheckBox) findViewById(R.id.cate_three)).setText(R.string.r_d_cat_event_a);
+        ((TextView) findViewById(R.id.req_det_rad)).setText(R.string.r_d_rad_a);
+        ((TextView) findViewById(R.id.req_det_rew)).setText(R.string.r_d_rew_a);
 
         request_purpose = "ask";
 		
@@ -828,7 +832,12 @@ public class ACTRequest extends AppCompatActivity
 	private void post () {
 		/*Getting all the information needed for this request*/
 		//location variable needs to be retrieved from google map services
-		ParseGeoPoint location = getPILocation();
+        double rad = (double) (radius.getProgress() + RADIUS_OFFSET)/1000;
+        if(beta_test.debug){
+            /*For debugging purposes, the radius is set to fixed 1000km*/
+            rad = 1000;
+        }
+        ParseGeoPoint location = getPILocation(rad);
 
         if(location == null){    //address is invalid, cannot obtain lat or long
             return;
@@ -843,7 +852,7 @@ public class ACTRequest extends AppCompatActivity
 			return;
 		}
 		
-		double rad = (double) (radius.getProgress() + RADIUS_OFFSET)/1000;
+
 
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("TYPE", "REQUEST");
@@ -883,29 +892,6 @@ public class ACTRequest extends AppCompatActivity
 	}
 
 
-	private void queryAndSend(ParseGeoPoint loc, double rad, JSONObject post) {
-		// Do a query among installations
-		final ParseGeoPoint myPoint = new ParseGeoPoint(loc.getLatitude(), loc.getLongitude());
-		
-		ParseQuery insQuery = ParseInstallation.getQuery();
-		insQuery.whereWithinKilometers("location", myPoint, rad);
-				  
-		//insQuery.include("user"); can uncomment this line if we want to retrieve the user object
-        insQuery.orderByDescending("createdAt");
-        //insQuery.setLimit(MAX_QUERY_RESULTS);
-        Log.d("QUERY: ", insQuery.getClassName());
-
-        ParsePush.sendDataInBackground(post, insQuery, new SendCallback() {
-            public void done(ParseException e) {
-                if (e == null) {
-                    Log.d("push", "Request Sent!");
-                } else {
-                    Log.d("push", "Request failure >_<" + e.getMessage() + " <><><><><><> Code: " + e.getCode());
-                }
-            }
-        });
-    }
-
     private void showErrorDialog(String tag, String message, FCallback callback){
         FragmentManager fm = this.getSupportFragmentManager();
         ErrorDialogFragment errorDialogFragment = new ErrorDialogFragment();
@@ -914,7 +900,7 @@ public class ACTRequest extends AppCompatActivity
         errorDialogFragment.show(fm, "location_failure");
     }
 
-    private ParseGeoPoint getPILocation(){
+    private ParseGeoPoint getPILocation(double rad){
         if(!addrSelected.equals("Current Address")){
             ParseGeoPoint useLocation = GeoAssistant.spitGeoPoint(GeoAssistant.getLocationFromAddress(addrSelected, this));
 
@@ -931,6 +917,30 @@ public class ACTRequest extends AppCompatActivity
                 return null;
             }else{
                 Log.d("AlterLoc", "Latitdude: " + useLocation.getLatitude() + " Longitude: " + useLocation.getLongitude());
+
+                if(useLocation.distanceInKilometersTo(geoPointFromLocation(lastLocation)) > rad){
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                    jsonObject.put("address",addrSelected);
+                    jsonObject.put("category",cateSelected);
+                    jsonObject.put("latitude",useLocation.getLatitude());
+                    jsonObject.put("longitude",useLocation.getLongitude());
+                    jsonObject.put("rad",rad);
+                    jsonObject.put("username",user_name);
+                    jsonObject.put("note",postEditText.getText().toString().trim());
+                    jsonObject.put("purpose", request_purpose);
+                    jsonObject.put("reward",rewardSelected);
+                    jsonObject.put("rating", user.get("Rating"));
+                    Object object = user.get("userpic");
+                    if( object != null){
+                        jsonObject.put("userpic", ((ParseObject)object).getObjectId());
+                    }
+                    addRequest(jsonObject);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 return useLocation;
             }
         }
@@ -1027,6 +1037,12 @@ public class ACTRequest extends AppCompatActivity
         TextView favourTitle = (TextView) findViewById(R.id.favour_title);
         favourTitle.setText("Offer a Favour");
 
+        ((TextView) findViewById(R.id.req_det_add)).setText(R.string.r_d_add_o);
+        ((CheckBox) findViewById(R.id.cate_one)).setText(R.string.r_d_cat_o);
+        ((CheckBox) findViewById(R.id.cate_three)).setText(R.string.r_d_cat_event_o);
+        ((TextView) findViewById(R.id.req_det_rad)).setText(R.string.r_d_rad_o);
+        ((TextView) findViewById(R.id.req_det_rew)).setText(R.string.r_d_rew_o);
+
         request_purpose = "offer";
     }
 
@@ -1071,14 +1087,13 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void checkUpdateProfile(){
-        final ProgressDialog progress = ProgressDialog.show(this, "Retrieving...",
-                "", true);
         user.fetchInBackground(new GetCallback<ParseUser>() {
             @Override
             public void done(ParseUser parseUser, ParseException e) {
-                progress.dismiss();
                 flip(3);
                 populate_profile();
+                findViewById(R.id.profile_progressbar).setVisibility(View.GONE);
+                findViewById(R.id.profile_page).setBackgroundColor(0x00ffffff);
             }
         });
     }
@@ -1148,7 +1163,6 @@ public class ACTRequest extends AppCompatActivity
 
                 String[] chatItem = new String[]{item[0], String.valueOf(r_values.get(position)[4]), item[2]};
 
-                beta_test.logStringArray(chatItem, "chatItem");
 
                 if (convList.newConversation(chatItem)) {
                     //chatValues = convList.getHeader();
@@ -1475,14 +1489,20 @@ public class ACTRequest extends AppCompatActivity
 
         if (edittext_ids.contains(editAddr1.getId())) {
             user.put("addr1", editAddr1.getText().toString());
+            addr1.setText(editAddr1.getText().toString());
+            addr1.setVisibility(View.VISIBLE);
         }
 
         if (edittext_ids.contains(editAddr2.getId())) {
             user.put("addr2", editAddr2.getText().toString());
+            addr2.setText(editAddr2.getText().toString());
+            addr2.setVisibility(View.VISIBLE);
         }
 
         if (edittext_ids.contains(editAddr3.getId())) {
             user.put("addr3", editAddr3.getText().toString());
+            addr3.setText(editAddr3.getText().toString());
+            addr3.setVisibility(View.VISIBLE);
         }
 
         user.saveInBackground();
@@ -1511,7 +1531,7 @@ public class ACTRequest extends AppCompatActivity
         if ( !invalid(user.getString("phoneNumber"))) {
             editPhone.setText(user.getString("phoneNumber"));
         }else{
-            editPhone.setText("Not provided");
+            editPhone.setText("");
         }
 
         editEmail.addTextChangedListener(new TextWatcherExt(editEmail));
@@ -1522,7 +1542,7 @@ public class ACTRequest extends AppCompatActivity
             if ( !invalid(user.getString("addr" + j)) ){
                 addresses[i].setText(user.getString("addr" + j));
             }else{
-                addresses[i].setText("Not provided");
+                addresses[i].setText("");
             }
             addresses[i].addTextChangedListener(new TextWatcherExt(addresses[i]));
         }
@@ -1548,7 +1568,7 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void showLocationOnMap(MenuItem item) {
-        Uri gmmIntentUri = Uri.parse("geo:" + request_long_clicked[5] + ", " + request_long_clicked[6]);
+        Uri gmmIntentUri = Uri.parse("geo:" + request_long_clicked[5] + ", " + request_long_clicked[6] + "?q=" + request_long_clicked[5] + ", " + request_long_clicked[6]);
 
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
@@ -1597,6 +1617,44 @@ public class ACTRequest extends AppCompatActivity
 
     public void clearReqBodyText(View view) {
         ((EditText) findViewById(R.id.r_description)).getText().clear();
+    }
+
+    public void showOnMap(View view) {
+        switch (view.getId()){
+            case R.id.show_map_icon_1:
+                showOnMapHelper(R.id.edit_addr1);
+                break;
+            case R.id.show_map_icon_2:
+                showOnMapHelper(R.id.edit_addr2);
+                break;
+            case R.id.show_map_icon_3:
+                showOnMapHelper(R.id.edit_addr3);
+                break;
+        }
+
+    }
+
+    private void showOnMapHelper(int id){
+        EditText editText = (EditText) findViewById(id);
+        String addr = editText.getText().toString();
+        if (addr == null || addr.isEmpty()){
+            showErrorDialog("Address", "Address not provided", null);
+            return;
+        }
+        ParseGeoPoint loc = GeoAssistant.spitGeoPoint(GeoAssistant.getLocationFromAddress(addr, this));
+        if(loc == null){
+            showErrorDialog("Action Failed","Location cannot be verified, please revise your address or check if your google play service is outdated.",null);
+            return;
+        }else{
+            Uri gmmIntentUri = Uri.parse("geo:" + loc.getLatitude() + ", " + loc.getLongitude() + "?q=" + loc.getLatitude() + ", " + loc.getLongitude());
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mapIntent);
+            }else{
+                showErrorDialog("Not Supported", "Sorry we cannot find a map app to display the user's location, please install Google Maps.", null);
+            }
+        }
     }
 
 

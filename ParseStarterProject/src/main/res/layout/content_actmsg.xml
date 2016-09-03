@@ -52,7 +52,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:background="@null"
-                android:src="@drawable/star_small"
+                android:src="@drawable/rating_top_star"
                 android:onClick="rateFavour"
                 android:layout_marginLeft="5dip"
                 android:layout_marginRight="7dip" />

@@ -66,7 +66,7 @@ public class MyThreads {
     }
 
     public boolean newConversation(String[] header){
-        beta_test.logStringArray(header, "header");
+
         String uname = header[0];
         String fname = "MSG_" + uname + ".json";
 
@@ -219,7 +219,7 @@ public class MyThreads {
             String rate = convHeader.optString("rating");
             String note = convHeader.optString("note");
             header = new String[]{name, rate, note};
-            beta_test.logStringArray(header, "cheader");
+
         }
 
         public void setTime(){
@@ -373,7 +373,7 @@ public class MyThreads {
 
     private void rewriteCList(){
     	File clfile = new File(dir, cList);
-        Log.d("conv_list", beta_test.fileRead(clfile));
+
         boolean deleted = clfile.delete();
 
 	int i = 1; //already tried to delete once

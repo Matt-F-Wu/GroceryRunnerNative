@@ -26,7 +26,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
-            android:text="Ask Around Which Address:"
+            android:text="@string/r_d_add_a"
+            android:id="@+id/req_det_add"
             android:textStyle="bold"
             />
 
@@ -53,7 +54,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
-            android:text="Choose a radius your request covers:"
+            android:text="@string/r_d_rad_a"
+            android:id="@+id/req_det_rad"
             android:textStyle="bold"
             />
 
@@ -96,7 +98,7 @@
         <CheckBox android:id="@+id/cate_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Borrow Things"
+            android:text="@string/r_d_cat_a"
             android:checked="true"
             android:onClick="onCheckboxClickedCate"/>
         <CheckBox android:id="@+id/cate_two"
@@ -115,7 +117,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
-            android:text="Give Rewards (Optional):"
+            android:text="@string/r_d_rew_a"
+            android:id="@+id/req_det_rew"
             android:textStyle="bold"
             />
 

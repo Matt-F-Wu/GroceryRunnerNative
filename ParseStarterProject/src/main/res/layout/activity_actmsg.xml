@@ -22,15 +22,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:background="@drawable/typing_box_bg2">
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="bottom"
             android:id="@+id/send_image"
             android:src="@drawable/ic_image_black_24dp"
             android:padding="8dp"
+            android:layout_marginBottom="4dp"
             android:background="@null"
             android:onClick="send_picture"/>
 
@@ -41,7 +43,8 @@
             android:id="@+id/typing_box"
             android:inputType="textMultiLine"
             android:layout_marginTop="2dp"
-            android:gravity="top"
+            android:layout_marginBottom="2dp"
+            android:gravity="bottom"
             android:background="@drawable/typing_box_frame"
             android:hint="Type here..."
             />
@@ -50,6 +53,7 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:id="@+id/send_button"
             android:backgroundTint="#b80202"
             android:text="@string/send_b"

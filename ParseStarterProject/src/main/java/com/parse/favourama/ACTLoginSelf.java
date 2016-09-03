@@ -409,6 +409,6 @@ public class ACTLoginSelf extends AppCompatActivity {
     }
 
     public void showLicAg(View view) {
-        showError(getString(R.string.eula_text));
+        showErrorDialog(getString(R.string.eula_text), null);
     }
 }
