@@ -48,6 +48,11 @@
             android:layout_height="wrap_content"
             android:text="Addr 3:"
             android:onClick="onCheckboxClickedAddr"/>
+        <CheckBox android:id="@+id/addr_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Addr 4:"
+            android:onClick="onCheckboxClickedAddr"/>
 
 
         <TextView

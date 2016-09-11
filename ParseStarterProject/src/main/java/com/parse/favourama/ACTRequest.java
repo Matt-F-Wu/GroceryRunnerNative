@@ -43,7 +43,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
-import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -89,9 +88,7 @@ public class ACTRequest extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback,LocationListener,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
-	private CheckBox addr1, addr2, addr3, cate1, cate2, cate3, reward1, reward2, reward3;
 	private EditText postEditText;
-	private SeekBar radius;
 	private String cateSelected, addrSelected, rewardSelected, user_name, request_purpose, file_long_clicked;
     private String[] request_long_clicked;
 	private Button postButton;
@@ -125,7 +122,6 @@ public class ACTRequest extends AppCompatActivity
     private ThreadAdapter msgAdapterChat;
     private ListView listViewRequest, listViewChat;
     MyThreads convList;
-    private HashSet<Integer> edittext_ids;
     private HashSet<String> blocked_users;
 
     @Override
@@ -184,7 +180,7 @@ public class ACTRequest extends AppCompatActivity
                         realTime = true;
                         spinner.setSelection(0);
                         /*If the selection is not valid, automatically go back to selecting using current address*/
-                        showErrorDialog("Location Conversion Failed", "Sorry, you have not provided this address to us" +
+                        showErrorDialog(null, "Sorry, you have not provided this address to us" +
                                 ", Please add it to your profile", new FCallback() {
                             @Override
                             public void callBack() {
@@ -198,7 +194,7 @@ public class ACTRequest extends AppCompatActivity
                             realTime = true;
                             spinner.setSelection(0);
                         /*If the selection is not valid, automatically go back to selecting using current address*/
-                            showErrorDialog("Location Conversion Failed", "Sorry, Could not " +
+                            showErrorDialog(null, "Sorry, Could not " +
                                     "convert your selected address to latitude/longitude >_<," +
                                     " Please try to revise this address.", new FCallback() {
                                 @Override
@@ -236,8 +232,6 @@ public class ACTRequest extends AppCompatActivity
         convList  = new MyThreads(this);
 
         configureChatView();
-
-        edittext_ids = new HashSet<>();
 
         if (savedInstanceState != null) {
             int last_index = savedInstanceState.getInt(SAVED_FLIPPER_INDEX);
@@ -371,6 +365,17 @@ public class ACTRequest extends AppCompatActivity
 
     private void addRequest(JSONObject jsonObject){
         RequestObject requestObject = new RequestObject(jsonObject);
+
+        Long reqTime = Long.parseLong(requestObject.getTime());
+        Long currentTime = System.currentTimeMillis();
+
+        if(currentTime - reqTime > 5 * 60 * 60 * 1000){
+            //The request is too old, it is longer than 5 hours, not showing it
+            Toast.makeText(this, "Some requests expired and are not shown!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        MyThreads.fileWrite(jsonObject, "reqSaved.json");
 
         /*If the user is blocked, don't show his/her request*/
         String uname = requestObject.getUser();
@@ -675,6 +680,11 @@ public class ACTRequest extends AppCompatActivity
 	}
 
     public void onCheckboxClickedAddr (View v){
+        CheckBox addr1, addr2, addr3, addr4;
+        addr1 = (CheckBox) findViewById(R.id.addr_one);
+        addr2 = (CheckBox) findViewById(R.id.addr_two);
+        addr3 = (CheckBox) findViewById(R.id.addr_three);
+        addr4 = (CheckBox) findViewById(R.id.addr_four);
         CheckBox checkBox = (CheckBox) v;
         if (!checkBox.isChecked()) return;
         switch (v.getId()) {
@@ -698,6 +708,10 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void onCheckboxClickedCate (View v){
+        CheckBox cate1, cate2, cate3;
+        cate1 = (CheckBox) findViewById(R.id.cate_one);
+        cate2 = (CheckBox) findViewById(R.id.cate_two);
+        cate3 = (CheckBox) findViewById(R.id.cate_three);
         CheckBox checkBox = (CheckBox) v;
         if (!checkBox.isChecked()) return;
         switch (v.getId()) {
@@ -721,6 +735,10 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void onCheckboxClickedReward (View v){
+        CheckBox reward1, reward2, reward3;
+        reward1 = (CheckBox) findViewById(R.id.no_reward);
+        reward2 = (CheckBox) findViewById(R.id.material_reward);
+        reward3 = (CheckBox) findViewById(R.id.money_reward);
         CheckBox checkBox = (CheckBox) v;
         if (!checkBox.isChecked()) return;
         switch (v.getId()) {
@@ -748,6 +766,7 @@ public class ACTRequest extends AppCompatActivity
 
 	private void configureMenu(View pop){
 	    //get view members
+        CheckBox addr1, addr2, addr3, addr4, cate1;
         final View p = pop;
 	    postEditText = (EditText) pop.findViewById(R.id.r_description);
         postEditText.addTextChangedListener(new TextWatcher(){
@@ -770,35 +789,30 @@ public class ACTRequest extends AppCompatActivity
             }
         });
 
-		addr1 = (CheckBox) pop.findViewById(R.id.addr_one);
         addr2 = (CheckBox) pop.findViewById(R.id.addr_two);
         addr3 = (CheckBox) pop.findViewById(R.id.addr_three);
-        addrSelected = addr1.getText().toString();
+        addr4 = (CheckBox) pop.findViewById(R.id.addr_four);
+        addrSelected = "Current Address";
 
-        if(!missInfo(user.getString("addr1"))) {
-            addr2.setText(user.getString("addr1"));
-        }else{
-            addr2.setVisibility(View.GONE);
-        }
-        if(!missInfo(user.getString("addr2"))) {
-            addr3.setText(user.getString("addr2"));
-        }else{
-            addr3.setVisibility(View.GONE);
-        }
-
-        radius = (SeekBar) pop.findViewById(R.id.radius);
+        makeAddressSelectable(addr2, "addr1");
+        makeAddressSelectable(addr3, "addr2");
+        makeAddressSelectable(addr4, "addr3");
 
         cate1 = (CheckBox) pop.findViewById(R.id.cate_one);
-        cate2 = (CheckBox) pop.findViewById(R.id.cate_two);
-        cate3 = (CheckBox) pop.findViewById(R.id.cate_three);
         cateSelected = cate1.getText().toString();
 		/*Address 2 and Adress 3 should be addresses from the user's account, implement later*/
-        reward1 = (CheckBox) pop.findViewById(R.id.no_reward);
-        reward2 = (CheckBox) pop.findViewById(R.id.material_reward);
-        reward3 = (CheckBox) pop.findViewById(R.id.money_reward);
         rewardSelected = "No Reward"; //reward1.getText().toString();
 
 	}
+
+    private void makeAddressSelectable(CheckBox addr, String value){
+        if(!missInfo(user.getString(value))) {
+            addr.setVisibility(View.VISIBLE);
+            addr.setText(user.getString(value));
+        }else{
+            addr.setVisibility(View.GONE);
+        }
+    }
 	
 	private void configurePostButton(View pop){
 		postButton = (Button) pop.findViewById(R.id.post_button);
@@ -832,6 +846,8 @@ public class ACTRequest extends AppCompatActivity
 	private void post () {
 		/*Getting all the information needed for this request*/
 		//location variable needs to be retrieved from google map services
+        SeekBar radius = (SeekBar) findViewById(R.id.radius);
+
         double rad = (double) (radius.getProgress() + RADIUS_OFFSET)/1000;
         if(beta_test.debug){
             /*For debugging purposes, the radius is set to fixed 1000km*/
@@ -866,6 +882,7 @@ public class ACTRequest extends AppCompatActivity
         params.put("address", addrSelected);
         params.put("username", user_name);
         params.put("rating", user.get("Rating"));
+        params.put("time", System.currentTimeMillis());
         Object object = user.get("userpic");
         if( object != null) params.put("userpic", ((ParseObject)object).getObjectId());
 
@@ -882,7 +899,7 @@ public class ACTRequest extends AppCompatActivity
 	    flip(0);
 	}
 	
-	private boolean missInfo (String s){
+	public static boolean missInfo (String s){
 		if ( s == null || s.isEmpty() ){
 		return true;
 		}
@@ -892,10 +909,11 @@ public class ACTRequest extends AppCompatActivity
 	}
 
 
-    private void showErrorDialog(String tag, String message, FCallback callback){
+    private void showErrorDialog(String nag, String message, FCallback callback){
         FragmentManager fm = this.getSupportFragmentManager();
         ErrorDialogFragment errorDialogFragment = new ErrorDialogFragment();
         errorDialogFragment.setMsg(message);
+        if (nag != null) {errorDialogFragment.setNag(nag);}
         if (callback != null) {errorDialogFragment.setfCallback(callback);}
         errorDialogFragment.show(fm, "location_failure");
     }
@@ -905,7 +923,7 @@ public class ACTRequest extends AppCompatActivity
             ParseGeoPoint useLocation = GeoAssistant.spitGeoPoint(GeoAssistant.getLocationFromAddress(addrSelected, this));
 
             if (useLocation == null) {
-                showErrorDialog("location_failure", "Cannot obtain the latitude " +
+                showErrorDialog(null, "Cannot obtain the latitude " +
                         "and longitude of the address selected, abort request." +
                         " Please try updating your address at profile management!", new FCallback() {
                     @Override
@@ -1122,62 +1140,13 @@ public class ACTRequest extends AppCompatActivity
         r_values= new ArrayList<String[]>();
         resources = new ArrayList<>();
         user_pics = new LinkedList<>();
-        if (savedInstanceState != null) {
-            // Restore value of members from saved state
-            int savedSize = savedInstanceState.getInt(REQ_SAVED_SIZE);
-            for(int i = 0; i < savedSize; i++){
-                r_values.add(savedInstanceState.getStringArray(REQ_SAVED_BODY + i));
-                user_pics.add(savedInstanceState.getString(REQ_SAVED_PICS + i));
-            }
-            if(savedSize != 0) resources.addAll(savedInstanceState.getIntegerArrayList(REQ_SAVED_RES));
-        }else {
-            /*HAO to JENERMY: A warm welcoming messgae I designed, do you like it?*/
-            r_values.add(new String[]{"Favourama Official", "Welcome! " + installation.getString("username"),
-                    "We wish our service can make your life easier",
-                    "Best of luck!",
-                    "5", "43.6628917", "-79.3956564"});
 
-            resources.add(R.drawable.gray_req_bg);
-
-            user_pics.add(null);
-        }
         blocked_users = new HashSet<>();
 
         msgAdapterReq = new MsgAdapter(this, R.layout.request_item, resources, user_pics, fields, r_values);
 
         listViewRequest = (ListView) findViewById(R.id.show_requests);
         listViewRequest.setAdapter(msgAdapterReq);
-
-        listViewRequest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view,
-                                    int position, long id) {
-                final String[] item = (String[]) parent.getItemAtPosition(position);
-
-                if (item[0].equals("Favourama Official")) {
-                    startActivity(new Intent(ACTRequest.this, ACTtopics.class));
-                    return;
-                }
-
-
-                String[] chatItem = new String[]{item[0], String.valueOf(r_values.get(position)[4]), item[2]};
-
-
-                if (convList.newConversation(chatItem)) {
-                    //chatValues = convList.getHeader();
-                    msgAdapterChat.notifyDataSetChanged();
-                }
-
-
-                Bundle b = new Bundle();
-                b.putStringArray("ThreadHeader", chatItem);
-                Intent i = new Intent(ACTRequest.this, ACTMsg.class);
-                i.putExtras(b);
-                startActivityForResult(i, 0);
-            }
-
-        });
 
         listViewRequest.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -1194,7 +1163,58 @@ public class ACTRequest extends AppCompatActivity
             }
         });
 
+        /*HAO to JENERMY: A warm welcoming messgae I designed, do you like it?*/
+        r_values.add(new String[]{"Favourama Official", "Welcome! " + installation.getString("username"),
+                "We wish our service can make your life easier",
+                "Best of luck!",
+                "5", "43.6628917", "-79.3956564"});
+
+        resources.add(R.drawable.gray_req_bg);
+
+        user_pics.add(null);
+
+        File reqSaved = new File(StarterApplication.getUserFilesDir(), "reqSaved.json");
+        if (reqSaved.exists()) {
+            // Restore value of members from saved state
+            LinkedList<JSONObject> requestList = new LinkedList<>();
+            MyThreads.readLine(reqSaved, requestList, this);
+            /*First clean the file then add requests back*/
+            reqSaved.delete();
+
+            for (JSONObject req : requestList){
+                addRequest(req);
+            }
+        }
+
         charCount = (TextView) findViewById(R.id.character_count);
+    }
+
+    public void respond(MenuItem m) {
+
+        if (request_long_clicked[0].equals("Favourama Official")) {
+            showErrorDialog("Cancel", "Clicking on requests made by Favourama Official will" +
+                    " take you to Favourama Topics, do you want to proceed?", new FCallback() {
+                @Override
+                public void callBack() {
+                    startActivity(new Intent(ACTRequest.this, ACTtopics.class));
+                }
+            });
+            return;
+        }
+
+        String[] chatItem = new String[]{request_long_clicked[0], String.valueOf(request_long_clicked[4]), request_long_clicked[2]};
+
+        if (convList.newConversation(chatItem)) {
+            //chatValues = convList.getHeader();
+            msgAdapterChat.notifyDataSetChanged();
+        }
+
+
+        Bundle b = new Bundle();
+        b.putStringArray("ThreadHeader", chatItem);
+        Intent i = new Intent(ACTRequest.this, ACTMsg.class);
+        i.putExtras(b);
+        startActivityForResult(i, 0);
     }
 
     private void configureChatView(){
@@ -1478,38 +1498,34 @@ public class ACTRequest extends AppCompatActivity
         EditText editAddr1 = (EditText) findViewById(R.id.edit_addr1);
         EditText editAddr2 = (EditText) findViewById(R.id.edit_addr2);
         EditText editAddr3 = (EditText) findViewById(R.id.edit_addr3);
-
-        if (edittext_ids.contains(editEmail.getId())) {
+        CheckBox addr2 = (CheckBox) findViewById(R.id.addr_two);
+        CheckBox addr3 = (CheckBox) findViewById(R.id.addr_three);
+        CheckBox addr4 = (CheckBox) findViewById(R.id.addr_four);
+        if (!user.getEmail().equals(editEmail.getText().toString().trim())) {
             user.setEmail(editEmail.getText().toString());
         }
 
-        if (edittext_ids.contains(editPhone.getId())) {
+        if (missInfo(user.getString("phoneNumber")) || !user.getString("phoneNumber").equals(editPhone.getText().toString())) {
             user.put("phoneNumber", editPhone.getText().toString());
         }
 
-        if (edittext_ids.contains(editAddr1.getId())) {
-            user.put("addr1", editAddr1.getText().toString());
-            addr1.setText(editAddr1.getText().toString());
-            addr1.setVisibility(View.VISIBLE);
-        }
-
-        if (edittext_ids.contains(editAddr2.getId())) {
-            user.put("addr2", editAddr2.getText().toString());
-            addr2.setText(editAddr2.getText().toString());
-            addr2.setVisibility(View.VISIBLE);
-        }
-
-        if (edittext_ids.contains(editAddr3.getId())) {
-            user.put("addr3", editAddr3.getText().toString());
-            addr3.setText(editAddr3.getText().toString());
-            addr3.setVisibility(View.VISIBLE);
-        }
+        updateUserFields("phoneNumber", editPhone);
+        if(updateUserFields("addr1", editAddr1)) makeAddressSelectable(addr2, "addr1");
+        if(updateUserFields("addr2", editAddr2)) makeAddressSelectable(addr3, "addr2");
+        if(updateUserFields("addr3", editAddr3)) makeAddressSelectable(addr4, "addr3");
 
         user.saveInBackground();
 
-        edittext_ids.clear(); //empties the hashset
-
         flip(0);
+    }
+
+    private boolean updateUserFields(String key, EditText editText){
+        if (missInfo(user.getString(key)) || !user.getString("phoneNumber").equals(editText.getText().toString().trim())) {
+            user.put(key, editText.getText().toString().trim());
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public void populate_profile(){
@@ -1534,9 +1550,6 @@ public class ACTRequest extends AppCompatActivity
             editPhone.setText("");
         }
 
-        editEmail.addTextChangedListener(new TextWatcherExt(editEmail));
-        editPhone.addTextChangedListener(new TextWatcherExt(editPhone));
-
         for(int i = 0; i < 3; i++){
             int j = i+1;
             if ( !invalid(user.getString("addr" + j)) ){
@@ -1544,7 +1557,6 @@ public class ACTRequest extends AppCompatActivity
             }else{
                 addresses[i].setText("");
             }
-            addresses[i].addTextChangedListener(new TextWatcherExt(addresses[i]));
         }
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rb_profile);
@@ -1575,7 +1587,7 @@ public class ACTRequest extends AppCompatActivity
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(mapIntent);
         }else{
-            showErrorDialog("Not Supported", "Sorry we cannot find a map app to display the user's location, please install Google Maps.", null);
+            showErrorDialog(null, "Sorry we cannot find a map app to display the user's location, please install Google Maps.", null);
         }
     }
 
@@ -1638,12 +1650,12 @@ public class ACTRequest extends AppCompatActivity
         EditText editText = (EditText) findViewById(id);
         String addr = editText.getText().toString();
         if (addr == null || addr.isEmpty()){
-            showErrorDialog("Address", "Address not provided", null);
+            showErrorDialog(null, "Address not provided", null);
             return;
         }
         ParseGeoPoint loc = GeoAssistant.spitGeoPoint(GeoAssistant.getLocationFromAddress(addr, this));
         if(loc == null){
-            showErrorDialog("Action Failed","Location cannot be verified, please revise your address or check if your google play service is outdated.",null);
+            showErrorDialog(null,"Location cannot be verified, please revise your address or check if your google play service is outdated.",null);
             return;
         }else{
             Uri gmmIntentUri = Uri.parse("geo:" + loc.getLatitude() + ", " + loc.getLongitude() + "?q=" + loc.getLatitude() + ", " + loc.getLongitude());
@@ -1652,34 +1664,11 @@ public class ACTRequest extends AppCompatActivity
             if (mapIntent.resolveActivity(getPackageManager()) != null) {
                 startActivity(mapIntent);
             }else{
-                showErrorDialog("Not Supported", "Sorry we cannot find a map app to display the user's location, please install Google Maps.", null);
+                showErrorDialog(null, "Sorry we cannot find a map app to display the user's location, please install Google Maps.", null);
             }
         }
     }
 
-
-    private class TextWatcherExt implements TextWatcher {
-        int id;
-
-        public TextWatcherExt(EditText editText){
-            id = editText.getId();
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            edittext_ids.add(id);
-        }
-    }
 
     public static View getToolbarLogoIcon(Toolbar toolbar){
         //check if contentDescription previously was set
@@ -1913,12 +1902,6 @@ public class ACTRequest extends AppCompatActivity
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the user's current game state
-        savedInstanceState.putInt(REQ_SAVED_SIZE, r_values.size());
-        for (int i = 0; i < r_values.size(); i++) {
-            savedInstanceState.putStringArray(REQ_SAVED_BODY + i, r_values.get(i));
-            savedInstanceState.putString(REQ_SAVED_PICS + i, user_pics.get(i));
-        }
-        savedInstanceState.putIntegerArrayList(REQ_SAVED_RES, (ArrayList) resources);
         savedInstanceState.putInt(SAVED_FLIPPER_INDEX, flipperIndex);
 
         saveCounter(convList.numChange);

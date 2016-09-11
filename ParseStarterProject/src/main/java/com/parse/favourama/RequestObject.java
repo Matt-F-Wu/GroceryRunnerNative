@@ -3,208 +3,102 @@ package com.parse.favourama;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RequestObject extends JSONObject {
+public class RequestObject{
 /* Note is the description the user give, the details of the request*/
     //This class is used to display request natively
+    JSONObject jsonObject;
 
     public RequestObject(JSONObject base){
-        try {
-            this.setAddr(base.getString("address"));
-            this.setCate(base.getString("category"));
-            this.setLocationLat(base.getDouble("latitude"));
-            this.setLocationLong(base.getDouble("longitude"));
-            this.setRadius(base.getInt("rad"));
-            this.setUser(base.getString("username"));
-            this.setNote(base.getString("note"));
-            this.setPurpose(base.getString("purpose"));
-            this.setReward(base.getString("reward"));
-            this.setRating(base.getString("rating"));
-            this.setUserPic(base.getString("userpic"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        jsonObject = base;
     }
 
     public String getPurpose() {
         try {
-            return getString("purpose");
+            return jsonObject.getString("purpose");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
-    }
-
-    public void setPurpose(String value) {
-        try {
-            put("purpose", value);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        return "ask";
     }
 
     public String getRating() {
         try {
-            return getString("rating");
+            return jsonObject.getString("rating");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public void setRating(String value) {
-        try {
-            put("rating", value);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     public String getNote() {
       try {
-          return getString("note");
+          return jsonObject.getString("note");
       } catch (JSONException e) {
           e.printStackTrace();
       }
       return null;
-    }
-
-    public void setNote(String value) {
-      try {
-          put("note", value);
-      } catch (JSONException e) {
-          e.printStackTrace();
-      }
-    }
-
-    public String getAddr() {
-      try {
-          return getString("addr");
-      } catch (JSONException e) {
-          e.printStackTrace();
-      }
-      return null;
-    }
-
-    public void setAddr(String value) {
-      try {
-          put("addr", value);
-      } catch (JSONException e) {
-          e.printStackTrace();
-      }
     }
 
     public String getCate() {
       try {
-          return getString("cate");
+          return jsonObject.getString("cate");
       } catch (JSONException e) {
           e.printStackTrace();
       }
       return null;
     }
 
-    public void setCate(String value) {
-      try {
-          put("cate", value);
-      } catch (JSONException e) {
-          e.printStackTrace();
-      }
-    }
-
     public String getReward() {
         try {
-            return getString("reward");
+            return jsonObject.getString("reward");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void setReward(String value) {
-        try {
-            put("reward", value);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     public int getRadius() {
       try {
-          return getInt("radius");
+          return jsonObject.getInt("radius");
       } catch (JSONException e) {
           e.printStackTrace();
       }
       return 0;
     }
 
-    public void setRadius(int value) {
-      try {
-          put("radius", value);
-      } catch (JSONException e) {
-          e.printStackTrace();
-      }
-    }
-
     public String getUser() {
       try {
-          return getString("username");
+          return jsonObject.getString("username");
       } catch (JSONException e) {
           e.printStackTrace();
       }
       return null;
     }
 
-    public void setUser(String value) {
-      try {
-          put("username", value);
-      } catch (JSONException e) {
-          e.printStackTrace();
-      }
-    }
-
-
     public String getUserPic() {
         try {
-            return getString("userpic");
+            return jsonObject.getString("userpic");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void setUserPic(String value) {
-        try {
-            put("userpic", value);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public String getTime(){
+        return String.valueOf(jsonObject.optLong("time", System.currentTimeMillis()));
     }
 
     public String getLocationLat() {
-        return optString("latitude", "43.6628917");
-    }
-
-    public void setLocationLat(double value) {
-      try {
-          put("latitude", value);
-      } catch (JSONException e) {
-          e.printStackTrace();
-      }
+        return jsonObject.optString("latitude", "43.6628917");
     }
 
     public String getLocationLong() {
-        return optString("longitude", "-79.3956564");
-    }
-
-    public void setLocationLong(double value) {
-      try {
-          put("longitude", value);
-      } catch (JSONException e) {
-          e.printStackTrace();
-      }
+        return jsonObject.optString("longitude", "-79.3956564");
     }
 
     public String[] spitValueList(){
-        String[] list = new String[]{getUser(), getCate(), getNote(), getReward(), getRating(), getLocationLat(), getLocationLong()};
+        String[] list = new String[]{getUser(), getCate(), getNote(), getReward(), getRating(), getLocationLat(), getLocationLong(), getTime()};
 
         return list;
     }

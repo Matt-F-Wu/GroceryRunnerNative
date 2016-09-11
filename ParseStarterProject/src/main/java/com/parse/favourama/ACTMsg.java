@@ -36,6 +36,8 @@ import android.widget.TextView;
 import com.parse.FunctionCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 
 import org.json.JSONException;
@@ -464,7 +466,20 @@ public class ACTMsg extends AppCompatActivity {
     }
 
     public void send_picture(View view) {
+        findViewById(R.id.send_options).setVisibility(View.GONE);
         CropImage.startPickImageActivity(this);
+    }
+
+
+
+    public void send_location(View view){
+        findViewById(R.id.send_options).setVisibility(View.GONE);
+        EditText editText = (EditText) findViewById(R.id.typing_box);
+        ParseGeoPoint location = ParseInstallation.getCurrentInstallation().getParseGeoPoint("location");
+        String locStr = "http://maps.google.com/maps?q=" + location.getLatitude()
+                + "," + location.getLongitude();
+        editText.setText(locStr);
+        onClickSend(null);
     }
 
     public void confirmSendPic(final Bitmap bitmap){
@@ -725,4 +740,22 @@ public class ACTMsg extends AppCompatActivity {
         point.set(x / 2, y / 2);
     }
 
+    public void showSendOptions(View view) {
+        findViewById(R.id.send_options).setVisibility(View.VISIBLE);
+    }
+
+    public void send_card(View view) {
+        findViewById(R.id.send_options).setVisibility(View.GONE);
+        EditText editText = (EditText) findViewById(R.id.typing_box);
+        String email = me.getEmail();
+        String phone = me.getString("phoneNumber");
+        String msg = me.getUsername() + ", Email: " + email;
+
+        if(!ACTRequest.missInfo(phone)){
+            msg += ", Phone: ";
+            msg += phone;
+        }
+
+        editText.setText(msg);
+    }
 }

@@ -29,12 +29,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:id="@+id/send_image"
-            android:src="@drawable/ic_image_black_24dp"
+            android:id="@+id/show_send_options"
+            android:src="@drawable/ic_add"
             android:padding="8dp"
             android:layout_marginBottom="4dp"
             android:background="@null"
-            android:onClick="send_picture"/>
+            android:onClick="showSendOptions"/>
 
         <EditText
             android:layout_width="0dip"
@@ -60,6 +60,84 @@
             android:textColor="#FFFFFF"
             android:onClick="onClickSend"/>
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:id="@+id/send_options"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/light_gray_effect"
+            android:onClick="send_picture">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/send_image"
+                android:src="@drawable/ic_image_black_24dp"
+                android:padding="8dp"
+                android:background="@null" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Image"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/light_gray_effect"
+            android:onClick="send_location">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/send_location"
+                android:src="@drawable/ic_room_white_24dp"
+                android:tint="#ff000000"
+                android:padding="8dp"
+                android:background="@null" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Current Location"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/light_gray_effect"
+            android:onClick="send_card">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/send_card"
+                android:src="@drawable/ic_contact_us_black"
+                android:padding="8dp"
+                android:background="@null" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="Contact Info"/>
+        </LinearLayout>
 
     </LinearLayout>
 
