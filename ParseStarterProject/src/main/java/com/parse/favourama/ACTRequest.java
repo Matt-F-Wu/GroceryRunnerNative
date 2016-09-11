@@ -686,7 +686,11 @@ public class ACTRequest extends AppCompatActivity
         addr3 = (CheckBox) findViewById(R.id.addr_three);
         addr4 = (CheckBox) findViewById(R.id.addr_four);
         CheckBox checkBox = (CheckBox) v;
-        if (!checkBox.isChecked()) return;
+        if (!checkBox.isChecked()) {
+	    checkBox.setChecked(true);
+	    return;
+	}
+
         switch (v.getId()) {
             case R.id.addr_one:
                 addr2.setChecked(false);
@@ -714,7 +718,10 @@ public class ACTRequest extends AppCompatActivity
         cate3 = (CheckBox) findViewById(R.id.cate_three);	
         cate4 = (CheckBox) findViewById(R.id.cate_four);	
         CheckBox checkBox = (CheckBox) v;
-        if (!checkBox.isChecked()) return;
+        if (!checkBox.isChecked()) {
+	    checkBox.setChecked(true);
+	    return;
+	}
         switch (v.getId()) {
             case R.id.cate_one:
                 cate2.setChecked(false);
@@ -750,7 +757,11 @@ public class ACTRequest extends AppCompatActivity
         reward2 = (CheckBox) findViewById(R.id.material_reward);
         reward3 = (CheckBox) findViewById(R.id.money_reward);
         CheckBox checkBox = (CheckBox) v;
-        if (!checkBox.isChecked()) return;
+        if (!checkBox.isChecked()) {
+	    checkBox.setChecked(true);
+	    return;
+	}
+
         switch (v.getId()) {
             case R.id.no_reward:
                 reward2.setChecked(false);
