@@ -14,7 +14,7 @@ import java.io.InputStream;
  */
 /*A file containing global flags and variables to assist testing*/
 public class beta_test {
-    public static boolean debug = true;
+    public static boolean debug = false;
     public static boolean debug_notification = false;
 
     public static void logStringArray(String[] arr, String tag){

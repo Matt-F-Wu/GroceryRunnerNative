@@ -862,10 +862,10 @@ public class ACTRequest extends AppCompatActivity
         SeekBar radius = (SeekBar) findViewById(R.id.radius);
 
         double rad = (double) (radius.getProgress() + RADIUS_OFFSET)/1000;
-        if(beta_test.debug){
+        //if(beta_test.debug){
             /*For debugging purposes, the radius is set to fixed 1000km*/
-            rad = 1000;
-        }
+           // rad = 1000;
+        //}
         ParseGeoPoint location = getPILocation(rad);
 
         if(location == null){    //address is invalid, cannot obtain lat or long
