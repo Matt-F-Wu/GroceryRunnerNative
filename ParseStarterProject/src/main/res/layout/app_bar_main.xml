@@ -256,7 +256,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:gravity="center_horizontal|top"
-                        android:text="long press to respond"
+                        android:text="Long press to respond or to choose other options"
                         android:textSize="24sp"
                         android:textColor="#FFFFFF"/>
 
