@@ -30,6 +30,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
@@ -107,6 +108,8 @@ public class ACTRequest extends AppCompatActivity
     public static String SAVED_FLIPPER_INDEX = "FavSavedFlipIndex";
     public static String CONV_TO_HIGHLIGHT = "FavouramaCONVH.json";
     private boolean realTime = true;
+    private float x1,x2,prevX, prevY, initY;
+    static final int MIN_DISTANCE = 200;
     private LocationRequest locationRequest;
     private GoogleApiClient locationClient;
     private Location currentLocation;
@@ -593,6 +596,64 @@ public class ACTRequest extends AppCompatActivity
 		}
 	}
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event){
+        this.onTouchEvent(event);
+        Log.d("EVENT", "X: " + event.getX() + "Y: " + event.getY());
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+
+        switch(event.getAction() & MotionEvent.ACTION_MASK)
+        {
+            case MotionEvent.ACTION_DOWN:
+                x1 = event.getX();
+                prevX = x1;
+                prevY = event.getY();
+                initY = event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float curX = event.getX();
+                float curY = event.getY();
+                Log.d("MOVING", "y: " + curY);
+                if(Math.abs(curX - prevX) > Math.abs(curY - prevY)){
+                    /*Mostly horizontally moving*/
+                    event.setLocation(curX, initY);
+                    prevX = curX;
+                    prevY = curY;
+                }else {
+                    prevX = curX;
+                    prevY = curY;
+                    initY = curY;
+                }
+
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
+
+                if (x2 - x1 >= MIN_DISTANCE)
+                {
+                    /*Swipe to right, show previous page*/
+                    if(flipperIndex == 1) {
+                        event.setLocation(x2, prevY);
+                        Log.d("EVENT", "X: " + event.getX() + "Y: " + event.getY() + "prevY: " + prevY);
+                        flip(0);
+                    }
+                } else if(x2 - x1 <= -MIN_DISTANCE){
+                    /*Swipe to left, show next page*/
+                    if(flipperIndex == 0){
+                        event.setLocation(x2, prevY);
+                        Log.d("EVENT", "X: " + event.getX() + "Y: " + event.getY() + "prevY: " + prevY);
+                        flip(1);
+                    }
+                }
+                break;
+        }
+
+        return super.onTouchEvent(event);
+    }
 
 	@SuppressWarnings("StatementWithEmptyBody")
 	@Override

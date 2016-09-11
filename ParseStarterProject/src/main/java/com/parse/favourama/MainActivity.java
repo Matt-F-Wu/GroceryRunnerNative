@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity{
                 break;
             case MotionEvent.ACTION_UP:
                 x2 = event.getX();
-                float deltaX = x2 - x1;
+
                 if (x2 - x1 >= MIN_DISTANCE)
                 {
                     /*Swipe to right, show previous page*/

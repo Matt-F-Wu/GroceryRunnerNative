@@ -742,7 +742,12 @@ public class ACTMsg extends AppCompatActivity {
     }
 
     public void showSendOptions(View view) {
-        findViewById(R.id.send_options).setVisibility(View.VISIBLE);
+        View v = findViewById(R.id.send_options);
+        if(v.getVisibility() == View.VISIBLE){
+            v.setVisibility(View.GONE);
+        }else {
+            v.setVisibility(View.VISIBLE);
+        }
     }
 
     public void send_card(View view) {

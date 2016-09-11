@@ -69,8 +69,8 @@
             android:layout_height="match_parent">
 
             <SeekBar android:id="@+id/radius"
-                android:max="1900"
-		android:progress="950"
+                android:max="2900"
+		        android:progress="950"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/radius"
-                android:text="2 km" />
+                android:text="3 km" />
         </RelativeLayout>
 
         <TextView
