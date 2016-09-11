@@ -41,7 +41,7 @@ public class RequestObject{
 
     public String getCate() {
       try {
-          return jsonObject.getString("cate");
+          return jsonObject.getString("category");
       } catch (JSONException e) {
           e.printStackTrace();
       }
@@ -60,7 +60,7 @@ public class RequestObject{
 
     public int getRadius() {
       try {
-          return jsonObject.getInt("radius");
+          return jsonObject.getInt("rad");
       } catch (JSONException e) {
           e.printStackTrace();
       }
