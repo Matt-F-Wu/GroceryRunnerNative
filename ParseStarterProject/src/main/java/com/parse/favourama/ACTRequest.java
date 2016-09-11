@@ -833,10 +833,13 @@ public class ACTRequest extends AppCompatActivity
                     alert1.show();
                     // Show Alert if the user did not provide all necessary information
                 }
-                Toast.makeText(getApplicationContext(),
-                        "Sending Request", Toast.LENGTH_LONG)
-                        .show();
-                post();
+
+                if(!LocationServices.FusedLocationApi.getLocationAvailability(locationClient).isLocationAvailable()){
+                    showErrorDialog(null,"Please enable GPS service!",null);
+                }else{
+                    post();
+                }
+
                 //dismiss popup after posting request
                 /*pwGlobal.dismiss();*/
             }
@@ -860,15 +863,17 @@ public class ACTRequest extends AppCompatActivity
         }
 
 		String note = postEditText.getText().toString().trim();
-		
+
 		if(missInfo(note)) {
 			Toast.makeText(this,
                                     "Request is empty, please edit", Toast.LENGTH_SHORT)
                                     .show();
 			return;
 		}
-		
 
+        Toast.makeText(getApplicationContext(),
+                "Sending Request", Toast.LENGTH_LONG)
+                .show();
 
         HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("TYPE", "REQUEST");
@@ -981,6 +986,7 @@ public class ACTRequest extends AppCompatActivity
             return LocationServices.FusedLocationApi.getLastLocation(locationClient);
         }
         else{
+            showErrorDialog(null,"Please enable GPS service!",null);
             Location targetLocation = new Location("");
             targetLocation.setLatitude(43.7d);
             targetLocation.setLongitude(79.4d);

@@ -49,6 +49,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Locale;
 
 
 public class ACTMsg extends AppCompatActivity {
@@ -140,7 +141,7 @@ public class ACTMsg extends AppCompatActivity {
                             chatmsg.setMe(false);
                             chatmsg.setMessage(chat_content);
                             chatmsg.setMessageType(txt_type);
-                            chatmsg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+                            chatmsg.setDate(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.CANADA).format(new Date()));
                             displayMessage(chatmsg);
                         }
                     }catch(org.json.JSONException e){
@@ -231,7 +232,7 @@ public class ACTMsg extends AppCompatActivity {
         }
 
         try {
-            msg.put("time", DateFormat.getDateTimeInstance().format(new Date()));
+            msg.put("time", DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.CANADA).format(new Date()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -253,7 +254,7 @@ public class ACTMsg extends AppCompatActivity {
         params.put("TYPE", "MESSAGE");
         params.put("ctype", ChatMessage.TEXT_TYPE);
         params.put("content", content);
-        params.put("time", DateFormat.getDateTimeInstance().format(new Date()));
+        params.put("time", DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.CANADA).format(new Date()));
         params.put("destination", header[0]);
         params.put("username", me.getUsername());
         params.put("rating", me.get("Rating"));
@@ -282,7 +283,7 @@ public class ACTMsg extends AppCompatActivity {
         chatmsg.setMe(true);
         chatmsg.setMessage(content);
         chatmsg.setMessageType(ChatMessage.TEXT_TYPE);
-        chatmsg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+        chatmsg.setDate(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.CANADA).format(new Date()));
         displayMessage(chatmsg);
 
         updateDisplay(msg);
@@ -565,7 +566,7 @@ public class ACTMsg extends AppCompatActivity {
         }
 
         try {
-            msg.put("time", DateFormat.getDateTimeInstance().format(new Date()));
+            msg.put("time", DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.CANADA).format(new Date()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -587,7 +588,7 @@ public class ACTMsg extends AppCompatActivity {
         params.put("TYPE", "MESSAGE");
         params.put("ctype", ChatMessage.PICTURE_TYPE);
         params.put("content", imageID);
-        params.put("time", DateFormat.getDateTimeInstance().format(new Date()));
+        params.put("time", DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.CANADA).format(new Date()));
         params.put("username", me.getUsername());
         params.put("destination", header[0]);
         params.put("rating", me.get("Rating"));
@@ -610,7 +611,7 @@ public class ACTMsg extends AppCompatActivity {
         chatmsg.setMe(true);
         chatmsg.setMessage(imageID);
         chatmsg.setMessageType(ChatMessage.PICTURE_TYPE);
-        chatmsg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+        chatmsg.setDate(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.CANADA).format(new Date()));
         displayMessage(chatmsg);
 
         updateDisplay(msg);
@@ -622,7 +623,7 @@ public class ACTMsg extends AppCompatActivity {
         chatmsg.setMe(false);
         chatmsg.setMessage(chat_content);
         chatmsg.setMessageType(txt_type);
-        chatmsg.setDate(DateFormat.getDateTimeInstance().format(new Date()));
+        chatmsg.setDate(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.CANADA).format(new Date()));
         displayMessage(chatmsg);
     }
 
