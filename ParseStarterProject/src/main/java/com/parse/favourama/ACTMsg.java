@@ -48,6 +48,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Locale;
 
@@ -58,7 +59,7 @@ public class ACTMsg extends AppCompatActivity {
     private ParseUser me;
     //message file global
     private File common_dir;
-
+    private HashSet<Long> msgId;
     //display global
     private ChatAdapter adapter;
     private ListView messagesContainer;
@@ -177,6 +178,7 @@ public class ACTMsg extends AppCompatActivity {
         savedMatrix = new Matrix();
         start = new PointF();
         mid = new PointF();
+        msgId = new HashSet<>();
     }
 
     @Override
@@ -259,16 +261,35 @@ public class ACTMsg extends AppCompatActivity {
         params.put("username", me.getUsername());
         params.put("rating", me.get("Rating"));
 
-        Log.d("RATING", " " + me.get("Rating"));
-
+        final long mId = System.currentTimeMillis();
+        msgId.add(mId);
+        /*Hao: 2 seconds delay before showing progress bar*/
+        findViewById(R.id.send_msg_pbar).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(msgId.contains(mId)) {
+                    findViewById(R.id.send_msg_pbar).setVisibility(View.VISIBLE);
+                }
+            }
+        }, 2000);
         ParseCloud.callFunctionInBackground("sendMessageToUser", params, new FunctionCallback<String>() {
             public void done(String success, ParseException e) {
+                msgId.remove(mId);
                 if (e == null) {
-                    Log.d("push", "Message Sent!");
+                    //Log.d("push", "Message Sent!");
                 } else {
-                    Log.d("push", "Message failure >_< \n" + "Plese check your internet connection!\n"
-                            + e.getMessage() + " <><><><><><> Code: " + e.getCode());
+                    /*Log.d("push", "Message failure >_< \n" + "Plese check your internet connection!\n"
+                            + e.getMessage() + " <><><><><><> Code: " + e.getCode());*/
+                    String msg = "Could not send: ";
+                    if(e.getCode() == 100){
+                        /*Poor internet connection*/
+                        msg += "please check you internet connection.";
+                    }else{
+                        msg += e.getMessage();
+                    }
+                    showErrorDialog(null, msg);
                 }
+                findViewById(R.id.send_msg_pbar).setVisibility(View.GONE);
             }
         });
 
@@ -389,7 +410,25 @@ public class ACTMsg extends AppCompatActivity {
     }
 
     //TO HAO: My read function for reading entire file, testing purposes
-
+    private void showErrorDialog(String nag, String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message);
+        if (nag != null) {
+            builder.setNegativeButton(nag, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                /*Do nothing*/
+            }
+            });
+        }
+        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                /*Do nothing*/
+            }
+        });
+        builder.create().show();
+    }
 
     public void rateFavour(View view) {
 
@@ -433,10 +472,18 @@ public class ACTMsg extends AppCompatActivity {
                         ParseCloud.callFunctionInBackground("RateUser", params, new FunctionCallback<String>() {
                             public void done(String success, ParseException e) {
                                 if (e == null) {
-                                    Log.d("push", "Rating Sent!");
+                                    //Log.d("push", "Rating Sent!");
                                 } else {
-                                    Log.d("push", "Rating failure >_< \n" + "Plese check your internet connection!\n"
-                                            + e.getMessage() + " <><><><><><> Code: " + e.getCode());
+                                    /*Log.d("push", "Rating failure >_< \n" + "Plese check your internet connection!\n"
+                                            + e.getMessage() + " <><><><><><> Code: " + e.getCode());*/
+                                    String msg = "Action failed: ";
+                                    if(e.getCode() == 100){
+                                        /*Poor internet connection*/
+                                        msg += "please check you internet connection.";
+                                    }else{
+                                        msg += e.getMessage();
+                                    }
+                                    showErrorDialog(null, msg);
                                 }
                             }
                         });
@@ -593,14 +640,35 @@ public class ACTMsg extends AppCompatActivity {
         params.put("destination", header[0]);
         params.put("rating", me.get("Rating"));
 
+        final long mId = System.currentTimeMillis();
+        msgId.add(mId);
+        /*Hao: 2 seconds delay before showing progress bar*/
+        findViewById(R.id.send_msg_pbar).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(msgId.contains(mId)) {
+                    findViewById(R.id.send_msg_pbar).setVisibility(View.VISIBLE);
+                }
+            }
+        }, 2000);
         ParseCloud.callFunctionInBackground("sendMessageToUser", params, new FunctionCallback<String>() {
             public void done(String success, ParseException e) {
+                msgId.remove(mId);
                 if (e == null) {
-                    Log.d("push", "Message Sent!");
+                    //Log.d("push", "Message Sent!");
                 } else {
-                    Log.d("push", "Message failure >_< \n" + "Plese check your internet connection!\n"
-                            + e.getMessage() + " <><><><><><> Code: " + e.getCode());
+                    /*Log.d("push", "Message failure >_< \n" + "Plese check your internet connection!\n"
+                            + e.getMessage() + " <><><><><><> Code: " + e.getCode());*/
+                    String msg = "Could not send: ";
+                    if(e.getCode() == 100){
+                        /*Poor internet connection*/
+                        msg += "please check you internet connection.";
+                    }else{
+                        msg += e.getMessage();
+                    }
+                    showErrorDialog(null, msg);
                 }
+                findViewById(R.id.send_msg_pbar).setVisibility(View.GONE);
             }
         });
 
@@ -661,7 +729,7 @@ public class ACTMsg extends AppCompatActivity {
         dView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(v.getId() != R.id.image_full_screen){
+                if (v.getId() != R.id.image_full_screen) {
                     return false;
                 }
 
@@ -711,7 +779,7 @@ public class ACTMsg extends AppCompatActivity {
             }
         });
 
-        Log.d("IMGSize", "Final: " + fw + " " + fh + ", " + "Window width: " + width);
+        //Log.d("IMGSize", "Final: " + fw + " " + fh + ", " + "Window width: " + width);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(fullView);

@@ -109,7 +109,7 @@ public class ACTRequest extends AppCompatActivity
     public static String CONV_TO_HIGHLIGHT = "FavouramaCONVH.json";
     private boolean realTime = true;
     private float x1,x2,prevX, prevY, initY;
-    static final int MIN_DISTANCE = 200;
+    static final int MIN_DISTANCE = 300;
     private LocationRequest locationRequest;
     private GoogleApiClient locationClient;
     private Location currentLocation;

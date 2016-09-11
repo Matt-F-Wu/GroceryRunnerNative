@@ -70,7 +70,7 @@
 
             <SeekBar android:id="@+id/radius"
                 android:max="2900"
-		        android:progress="950"
+		        android:progress="1900"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
