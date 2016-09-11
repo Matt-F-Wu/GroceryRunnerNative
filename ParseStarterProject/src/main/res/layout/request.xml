@@ -117,6 +117,11 @@
             android:layout_height="wrap_content"
             android:text="Find Events"
             android:onClick="onCheckboxClickedCate"/>
+	<CheckBox android:id="@+id/cate_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Other"
+            android:onClick="onCheckboxClickedCate"/>
 
         <TextView
             android:layout_width="fill_parent"

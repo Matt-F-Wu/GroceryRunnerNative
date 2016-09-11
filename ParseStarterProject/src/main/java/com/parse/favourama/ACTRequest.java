@@ -708,28 +708,38 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void onCheckboxClickedCate (View v){
-        CheckBox cate1, cate2, cate3;
+        CheckBox cate1, cate2, cate3, cate4;
         cate1 = (CheckBox) findViewById(R.id.cate_one);
         cate2 = (CheckBox) findViewById(R.id.cate_two);
-        cate3 = (CheckBox) findViewById(R.id.cate_three);
+        cate3 = (CheckBox) findViewById(R.id.cate_three);	
+        cate4 = (CheckBox) findViewById(R.id.cate_four);	
         CheckBox checkBox = (CheckBox) v;
         if (!checkBox.isChecked()) return;
         switch (v.getId()) {
             case R.id.cate_one:
                 cate2.setChecked(false);
-                cate3.setChecked(false);
+		cate3.setChecked(false);
+                cate4.setChecked(false);
                 cateSelected = cate1.getText().toString();
                 break;
 // We probably don't want the following buttons, and the visual should definitely be different,but I guess we can change it later
             case R.id.cate_two:
                 cate1.setChecked(false);
                 cate3.setChecked(false);
+		cate4.setChecked(false);
                 cateSelected = cate2.getText().toString();
                 break;
             case R.id.cate_three:
                 cate1.setChecked(false);
                 cate2.setChecked(false);
+		cate4.setChecked(false);
                 cateSelected = cate3.getText().toString();
+                break;
+	    case R.id.cate_four:
+                cate1.setChecked(false);
+                cate2.setChecked(false);
+		cate3.setChecked(false);
+                cateSelected = cate4.getText().toString();
                 break;
         }
     }
