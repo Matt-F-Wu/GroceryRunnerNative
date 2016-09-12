@@ -537,10 +537,22 @@ public class ACTMsg extends AppCompatActivity {
         dView.setImageBitmap(bitmap);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final long mId = System.currentTimeMillis();
+        msgId.add(mId);
+        /*Hao: 2 seconds delay before showing progress bar*/
+        
         builder.setView(fullView)
                 .setPositiveButton("Send", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        findViewById(R.id.send_msg_pbar).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(msgId.contains(mId)) {
+                    findViewById(R.id.send_msg_pbar).setVisibility(View.VISIBLE);
+                }
+            }
+        }, 2000);
                         ImageChannel.makeImageBox(bitmap, activity);
                     }
                 })
@@ -686,6 +698,12 @@ public class ACTMsg extends AppCompatActivity {
         displayMessage(chatmsg);
 
         updateDisplay(msg);
+    }
+
+    public void hideSendPBar(){
+
+        msgId.remove(mId);
+        findViewById(R.id.send_msg_pbar).setVisibility(View.GONE);
     }
 
     public void chat_show_image(String chat_content, String txt_type){
