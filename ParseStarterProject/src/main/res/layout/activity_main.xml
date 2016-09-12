@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:text="Simply click each request\nto respond"
+                    android:text="Browse posts from\npeople around you\nor around a\nlocation of your choosing"
                     android:textStyle="italic"
                     android:textSize="8pt"
                     android:textColor="@color/white"/>

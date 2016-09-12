@@ -54,15 +54,29 @@
             android:text="Addr 4:"
             android:onClick="onCheckboxClickedAddr"/>
 
-
-        <TextView
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
-            android:text="@string/r_d_rad_a"
-            android:id="@+id/req_det_rad"
-            android:textStyle="bold"
-            />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="@string/r_d_rad_a"
+                android:id="@+id/req_det_rad"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radius_display"
+                android:layout_marginTop="10dip"
+                android:layout_marginLeft="5dip"
+                android:text="2 km"/>
+
+        </LinearLayout>
 
         <!--Slider for radious of coverage-->
         <RelativeLayout android:layout_width="match_parent"

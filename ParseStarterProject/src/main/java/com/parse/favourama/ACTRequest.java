@@ -81,6 +81,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileFilter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -363,6 +364,29 @@ public class ACTRequest extends AppCompatActivity
         filter.addAction("com.parse.favourama.HANDLE_FAVOURAMA_TOPICS");
         registerReceiver(receiver, filter);
 
+
+        //radius seekbar
+        SeekBar radius = (SeekBar) findViewById(R.id.radius);
+        radius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                double rad = (double) (seekBar.getProgress() + RADIUS_OFFSET) / 1000;
+                String rad_str = new DecimalFormat("#.# km").format(rad);
+                ((TextView) findViewById(R.id.radius_display)).setText(rad_str);
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
 	}
 
@@ -944,6 +968,8 @@ public class ACTRequest extends AppCompatActivity
         SeekBar radius = (SeekBar) findViewById(R.id.radius);
 
         double rad = (double) (radius.getProgress() + RADIUS_OFFSET)/1000;
+
+
         //if(beta_test.debug){
             /*For debugging purposes, the radius is set to fixed 1000km*/
            // rad = 1000;
