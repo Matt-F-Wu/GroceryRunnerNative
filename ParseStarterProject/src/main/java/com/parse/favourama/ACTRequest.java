@@ -182,6 +182,8 @@ public class ACTRequest extends AppCompatActivity
 
                     if(!isNetworkAvailable()){
                         showErrorDialog(null,"Please connect to the Internet!",null);
+                        realTime = true;
+                        spinner.setSelection(0);
                     }else{
 
                     realTime = false;
