@@ -65,10 +65,25 @@ public class ImageChannel {
         parseObject.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
+
+                Log.d("JM","save in background is called");
+
                 if (e != null) {
-                    Toast.makeText(activity.getApplicationContext(),
-                            "Could not send image, please try later!", Toast.LENGTH_LONG)
-                            .show();
+//                    Toast.makeText(activity.getApplicationContext(),
+//                            "Could not send image, please try later!", Toast.LENGTH_LONG)
+//                            .show();
+                    String imageID = parseObject.getObjectId();
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("img", whole);
+                        MyThreads.fileWrite(jsonObject, file_self + imageID);
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
+
+                    ((ACTMsg) activity).SendPictureHelper(imageID);
+
+
                 } else {
                     String imageID = parseObject.getObjectId();
                     JSONObject jsonObject = new JSONObject();
@@ -78,6 +93,7 @@ public class ImageChannel {
                     } catch (JSONException e1) {
                         e1.printStackTrace();
                     }
+
                     ((ACTMsg) activity).SendPictureHelper(imageID);
                 }
             }

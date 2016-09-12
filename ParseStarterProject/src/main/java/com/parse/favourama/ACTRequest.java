@@ -12,6 +12,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -176,6 +178,11 @@ public class ACTRequest extends AppCompatActivity
                 if (position == 0) {
                     realTime = true;
                 } else {
+
+                    if(!isNetworkAvailable()){
+                        showErrorDialog(null,"Please connect to the Internet!",null);
+                    }else{
+
                     realTime = false;
                     installation = ParseInstallation.getCurrentInstallation();
                     String streetAddr = user.getString("addr" + position);
@@ -210,6 +217,7 @@ public class ACTRequest extends AppCompatActivity
                             installation.put("location", locPoint);
                             installation.saveInBackground();
                         }
+                    }
                     }
                 }
             }
@@ -918,6 +926,8 @@ public class ACTRequest extends AppCompatActivity
 
                 if(!LocationServices.FusedLocationApi.getLocationAvailability(locationClient).isLocationAvailable()){
                     showErrorDialog(null,"Please enable GPS service!",null);
+                }else if(!isNetworkAvailable()) {
+                    showErrorDialog(null,"Please connect to the Internet!",null);
                 }else{
                     post();
                 }
@@ -1193,15 +1203,16 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void checkUpdateProfile(){
-        user.fetchInBackground(new GetCallback<ParseUser>() {
-            @Override
-            public void done(ParseUser parseUser, ParseException e) {
-                flip(3);
-                populate_profile();
-                findViewById(R.id.profile_progressbar).setVisibility(View.GONE);
-                findViewById(R.id.profile_page).setBackgroundColor(0x00ffffff);
-            }
-        });
+
+            user.fetchInBackground(new GetCallback<ParseUser>() {
+                @Override
+                public void done(ParseUser parseUser, ParseException e) {
+                    flip(3);
+                    populate_profile();
+                    findViewById(R.id.profile_progressbar).setVisibility(View.GONE);
+                    findViewById(R.id.profile_page).setBackgroundColor(0x00ffffff);
+                }
+            });
     }
 
     public void editProfile(View view) {
@@ -1720,16 +1731,22 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void showOnMap(View view) {
-        switch (view.getId()){
-            case R.id.show_map_icon_1:
-                showOnMapHelper(R.id.edit_addr1);
-                break;
-            case R.id.show_map_icon_2:
-                showOnMapHelper(R.id.edit_addr2);
-                break;
-            case R.id.show_map_icon_3:
-                showOnMapHelper(R.id.edit_addr3);
-                break;
+
+        if(!isNetworkAvailable()) {
+            showErrorDialog(null,"Please connect to the Internet!",null);
+        }else {
+
+            switch (view.getId()) {
+                case R.id.show_map_icon_1:
+                    showOnMapHelper(R.id.edit_addr1);
+                    break;
+                case R.id.show_map_icon_2:
+                    showOnMapHelper(R.id.edit_addr2);
+                    break;
+                case R.id.show_map_icon_3:
+                    showOnMapHelper(R.id.edit_addr3);
+                    break;
+            }
         }
 
     }
@@ -2015,6 +2032,13 @@ public class ACTRequest extends AppCompatActivity
                 }
             }
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }

@@ -409,7 +409,6 @@ public class ACTMsg extends AppCompatActivity {
         /*scroll();*/
     }
 
-    //TO HAO: My read function for reading entire file, testing purposes
     private void showErrorDialog(String nag, String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message);
@@ -591,6 +590,10 @@ public class ACTMsg extends AppCompatActivity {
     }
 
     public void SendPictureHelper(String imageID) {
+
+        Log.d("JM","function called");
+
+
         /*String url was previous paramter*/
         JSONObject msg = new JSONObject();
 
