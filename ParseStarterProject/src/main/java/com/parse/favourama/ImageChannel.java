@@ -45,7 +45,11 @@ public class ImageChannel {
     public static String file_self = "FavouramaSelfIMG";
 
     public static void makeImageBox(Bitmap bitmap, final Activity activity){
-
+        
+        final long mId = System.currentTimeMillis();
+        ((ACTMsg) activity).setPostDelayed(mId);
+        /*Hao: 2 seconds delay before showing progress bar*/
+        
         final LinkedList<String> imgData = BitMapToString(bitmap);
         if(imgData == null) {
             Toast.makeText(activity.getApplicationContext(),
@@ -66,7 +70,7 @@ public class ImageChannel {
             @Override
             public void done(ParseException e) {
 
-                ((ACTMsg) activity).hideSendPBar();
+                ((ACTMsg) activity).hideSendPBar(mId);
 
                 if (e != null) {
 //                    Toast.makeText(activity.getApplicationContext(),
