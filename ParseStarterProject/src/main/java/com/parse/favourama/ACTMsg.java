@@ -556,7 +556,7 @@ public class ACTMsg extends AppCompatActivity {
         fullImage.show();
     }
     
-    public void setPostDelayed(long mId){
+    public void setPostDelayed(final long mId){
         msgId.add(mId);
         findViewById(R.id.send_msg_pbar).postDelayed(new Runnable() {
                             @Override
