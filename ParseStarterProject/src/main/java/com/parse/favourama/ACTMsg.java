@@ -409,7 +409,7 @@ public class ACTMsg extends AppCompatActivity {
         /*scroll();*/
     }
 
-    private void showErrorDialog(String nag, String message){
+    public void showErrorDialog(String nag, String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message);
         if (nag != null) {
