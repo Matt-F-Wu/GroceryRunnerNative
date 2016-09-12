@@ -20,8 +20,8 @@
                 android:layout_width="25dip"
                 android:layout_height="25dip"
                 android:id="@+id/send_msg_pbar"
-                android:layout_gravity="bottom|right"
-                android:layout_marginRight="150dip"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginRight="0dip"
                 android:layout_marginBottom="10dip"
                 android:visibility="gone"/>
     </FrameLayout>
