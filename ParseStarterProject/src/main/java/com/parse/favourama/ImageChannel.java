@@ -72,7 +72,14 @@ public class ImageChannel {
 //                    Toast.makeText(activity.getApplicationContext(),
 //                            "Could not send image, please try later!", Toast.LENGTH_LONG)
 //                            .show();
-                    
+                    String msg = "Could not send: ";
+                    if(e.getCode() == 100){
+                        /*Poor internet connection*/
+                        msg += "please check you internet connection.";
+                    }else{
+                        msg += e.getMessage();
+                    }
+                    ((ACTMsg) activity).showErrorDialog(null, msg);
 
                 } else {
                     String imageID = parseObject.getObjectId();
