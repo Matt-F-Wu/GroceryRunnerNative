@@ -98,7 +98,7 @@
                     android:layout_weight="1"
                     android:dividerHeight="3dip"
                     android:stackFromBottom="true"
-                    android:transcriptMode="normal">
+                    android:transcriptMode="alwaysScroll">
                     <!--The background color is just for now, later we will set divider, android:divider="@null"-->
 
                 </ListView>
