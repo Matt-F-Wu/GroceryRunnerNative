@@ -66,9 +66,7 @@
         </activity>
 
 
-        <activity android:name="com.parse.favourama.ACTRequest" android:parentActivityName="com.parse.favourama.ACTLoginSelf" android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan"
-            >
+        <activity android:name="com.parse.favourama.ACTRequest" android:parentActivityName="com.parse.favourama.ACTLoginSelf" android:launchMode="singleTask">
 
             <intent-filter>
                 <action android:name="com.parse.favourama.HANDLE_FAVOURAMA_REQUESTS"></action>
