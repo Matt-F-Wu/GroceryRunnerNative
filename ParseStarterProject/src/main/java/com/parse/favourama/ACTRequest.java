@@ -1244,7 +1244,7 @@ public class ACTRequest extends AppCompatActivity
                     	String msg = "Could not retrieve profile: ";
 	                if(e.getCode() == 100){
 	                        /*Poor internet connection*/
-	                    msg += "please check you internet connection.";
+	                    msg += "please check your internet connection.";
 	                }else{
 	                    msg += e.getMessage();
 	                }
