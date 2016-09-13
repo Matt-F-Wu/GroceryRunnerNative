@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:text="Browse posts from\npeople around you\nor around a\nlocation of your choosing"
+                    android:text="\nBrowse posts from\npeople around you\nor around a\nlocation of your choosing"
                     android:textStyle="italic"
                     android:textSize="8pt"
                     android:textColor="@color/white"/>
@@ -106,7 +106,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Long click each request for more options"
+                    android:text="Long press to respond or perform other actions"
                     android:textStyle="italic"
                     android:textSize="8pt"
                     android:textColor="@color/white"/>
