@@ -1234,6 +1234,8 @@ public class ACTRequest extends AppCompatActivity
 
     public void checkUpdateProfile(){
 	    flip(3);
+	    findViewById(R.id.profile_progressbar).setVisibility(View.VISIBLE);
+	    findViewById(R.id.profile_page).setBackgroundColor(0x80c0c0c0);
             user.fetchInBackground(new GetCallback<ParseUser>() {
                 @Override
                 public void done(ParseUser parseUser, ParseException e) {
