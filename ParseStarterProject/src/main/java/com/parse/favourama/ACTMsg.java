@@ -294,7 +294,7 @@ public class ACTMsg extends AppCompatActivity {
                     String msg = "Could not send: ";
                     if(e.getCode() == 100){
                         /*Poor internet connection*/
-                        msg += "please check you internet connection.";
+                        msg += "please check your internet connection.";
                     }else{
                         msg += e.getMessage();
                     }
@@ -476,7 +476,7 @@ public class ACTMsg extends AppCompatActivity {
                                     String msg = "Action failed: ";
                                     if(e.getCode() == 100){
                                         /*Poor internet connection*/
-                                        msg += "please check you internet connection.";
+                                        msg += "please check your internet connection.";
                                     }else{
                                         msg += e.getMessage();
                                     }
@@ -674,7 +674,7 @@ public class ACTMsg extends AppCompatActivity {
                     String msg = "Could not send: ";
                     if(e.getCode() == 100){
                         /*Poor internet connection*/
-                        msg += "please check you internet connection.";
+                        msg += "please check your internet connection.";
                     }else{
                         msg += e.getMessage();
                     }
