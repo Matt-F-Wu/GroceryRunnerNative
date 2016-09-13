@@ -207,7 +207,7 @@ public class ACTMsg extends AppCompatActivity {
     public void onClickSend(View view) {
         EditText editText = (EditText) findViewById(R.id.typing_box);
 
-        String content = editText.getText().toString();
+        final String content = editText.getText().toString();
         
         if( content == null || content.isEmpty() ){
             return;
@@ -277,6 +277,17 @@ public class ACTMsg extends AppCompatActivity {
                 msgId.remove(mId);
                 if (e == null) {
                     //Log.d("push", "Message Sent!");
+                    editText.getText().clear();
+                    //update screen
+                    ChatMessage chatmsg = new ChatMessage();
+                    chatmsg.setId(0);//todo do I need an id?
+                    chatmsg.setMe(true);
+                    chatmsg.setMessage(content);
+                    chatmsg.setMessageType(ChatMessage.TEXT_TYPE);
+                    chatmsg.setDate(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.CANADA).format(new Date()));
+                    displayMessage(chatmsg);
+            
+                    updateDisplay(msg);
                 } else {
                     /*Log.d("push", "Message failure >_< \n" + "Plese check your internet connection!\n"
                             + e.getMessage() + " <><><><><><> Code: " + e.getCode());*/
@@ -293,21 +304,8 @@ public class ACTMsg extends AppCompatActivity {
             }
         });
 
-        editText.getText().clear();
-
         InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-
-        //update screen
-        ChatMessage chatmsg = new ChatMessage();
-        chatmsg.setId(0);//todo do I need an id?
-        chatmsg.setMe(true);
-        chatmsg.setMessage(content);
-        chatmsg.setMessageType(ChatMessage.TEXT_TYPE);
-        chatmsg.setDate(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.CANADA).format(new Date()));
-        displayMessage(chatmsg);
-
-        updateDisplay(msg);
     }
 
     public void backToMain(View view) {
@@ -492,8 +490,6 @@ public class ACTMsg extends AppCompatActivity {
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
-
                         /*dialog.dismiss();*/
                     }
                 });
