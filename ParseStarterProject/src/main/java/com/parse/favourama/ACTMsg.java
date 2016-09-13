@@ -205,7 +205,7 @@ public class ACTMsg extends AppCompatActivity {
     }
 
     public void onClickSend(View view) {
-        EditText editText = (EditText) findViewById(R.id.typing_box);
+        final EditText editText = (EditText) findViewById(R.id.typing_box);
 
         final String content = editText.getText().toString();
         
@@ -213,7 +213,7 @@ public class ACTMsg extends AppCompatActivity {
             return;
         }
 
-        JSONObject msg = new JSONObject();
+        final JSONObject msg = new JSONObject();
 
         try {
             msg.put("TYPE", "MESSAGE");
