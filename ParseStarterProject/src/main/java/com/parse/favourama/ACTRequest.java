@@ -208,8 +208,9 @@ public class ACTRequest extends AppCompatActivity
                             spinner.setSelection(0);
                         /*If the selection is not valid, automatically go back to selecting using current address*/
                             showErrorDialog(null, "Sorry, Could not " +
-                                    "convert your selected address to latitude/longitude >_<," +
-                                    " Please try to revise this address.", new FCallback() {
+                                    "recognize selected address\n" +
+                                    "Please try to:\n 1. revise this address\n" + 
+                                    "2. Use an adjacent address to your desired location instead", new FCallback() {
                                 @Override
                                 public void callBack() {
 
@@ -246,7 +247,8 @@ public class ACTRequest extends AppCompatActivity
         convList  = new MyThreads(this);
 
         configureChatView();
-
+        
+	populate_profile();
         if (savedInstanceState != null) {
             int last_index = savedInstanceState.getInt(SAVED_FLIPPER_INDEX);
 
@@ -610,9 +612,9 @@ public class ACTRequest extends AppCompatActivity
         } else {
             //Connection failure cannot be resolved
             Toast.makeText(getApplicationContext(),
-                    "Unable to connect to Google Service, sorry >_<" + connectionResult.getErrorMessage(), Toast.LENGTH_LONG)
+                    "Unable to connect to Google Service, sorry! " + connectionResult.getErrorMessage(), Toast.LENGTH_LONG)
                     .show();
-            Log.d("CONNECTION FAIL", connectionResult.getErrorCode() + " Unable to connect to Google Service, sorry >_<");
+            //Log.d("CONNECTION FAIL", connectionResult.getErrorCode() + " Unable to connect to Google Service, sorry >_<");
         }
     }
 
@@ -937,7 +939,7 @@ public class ACTRequest extends AppCompatActivity
                 if (missInfo(cateSelected) || missInfo(addrSelected)) {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
                     builder1.setTitle("Missing Info");
-                    builder1.setMessage("You did not choose address OR category! >_<");
+                    builder1.setMessage("You did not choose address OR category!");
                     builder1.setCancelable(true);
                     builder1.setPositiveButton("Okay",
                             new DialogInterface.OnClickListener() {
@@ -1231,12 +1233,23 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void checkUpdateProfile(){
-
+	    flip(3);
             user.fetchInBackground(new GetCallback<ParseUser>() {
                 @Override
                 public void done(ParseUser parseUser, ParseException e) {
-                    flip(3);
-                    populate_profile();
+                    /*Fills with new data*/
+                    if(e == null){
+                    	populate_profile();
+                    }else{
+                    	String msg = "Could not retrieve profile: ";
+	                if(e.getCode() == 100){
+	                        /*Poor internet connection*/
+	                    msg += "please check you internet connection.";
+	                }else{
+	                    msg += e.getMessage();
+	                }
+	                showErrorDialog(null, msg, null);
+                    }
                     findViewById(R.id.profile_progressbar).setVisibility(View.GONE);
                     findViewById(R.id.profile_page).setBackgroundColor(0x00ffffff);
                 }
@@ -1511,7 +1524,7 @@ public class ACTRequest extends AppCompatActivity
 
             }else{
                 Toast.makeText(context,
-                        "Image is too big, please try a smaller one! >_<", Toast.LENGTH_LONG)
+                        "Image is too big, please try a smaller one!", Toast.LENGTH_LONG)
                         .show();
                 return;
             }
