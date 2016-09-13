@@ -792,18 +792,27 @@ public class ACTRequest extends AppCompatActivity
             case R.id.addr_one:
                 addr2.setChecked(false);
                 addr3.setChecked(false);
+                addr4.setChecked(false);
                 addrSelected = addr1.getText().toString();
                 break;
             // We probably don't want the following buttons, and the visual should definitely be different,but I guess we can change it later
             case R.id.addr_two:
                 addr1.setChecked(false);
                 addr3.setChecked(false);
+                addr4.setChecked(false);
                 addrSelected = addr2.getText().toString();
                 break;
             case R.id.addr_three:
                 addr1.setChecked(false);
                 addr2.setChecked(false);
+                addr4.setChecked(false);
                 addrSelected = addr3.getText().toString();
+                break;
+            case R.id.addr_four:
+                addr1.setChecked(false);
+                addr2.setChecked(false);
+                addr3.setChecked(false);
+                addrSelected = addr4.getText().toString();
                 break;
         }
     }
