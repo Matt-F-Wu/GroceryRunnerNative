@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.LinkedList;
 
 /**
  * Created by HaoWu on 1/11/2016.
@@ -88,26 +89,21 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
             if(type.equals(REQUEST_TYPE)){
                 /*Go to the main page where requests are displayed*/
                 openIntent.putExtra("enter", 1);
-                builder.setContentTitle("New Favourama Request(s)");
+
             }
             else if(type.equals(MESSAGE_TYPE)){
                 openIntent.putExtra("enter", 2);
                 String fname = data.optString("username");
 
-                if(fname.equals(StarterApplication.getToWhom())){
+                if(StarterApplication.isActivityVisible() && StarterApplication.isInMessage() && fname.equals(StarterApplication.getToWhom())){
                     ignore = true;
                 }
-                if(!ignore) {
-                    builder.setContentTitle("New Favourama Message(s)");
-                }
+
             } else if(type.equals(PROMO_TYPE)){
                 openIntent.putExtra("enter", 2);
                 String admin = "admin";
-                if(admin.equals(StarterApplication.getToWhom())){
+                if(StarterApplication.isActivityVisible() && StarterApplication.isInMessage() && admin.equals(StarterApplication.getToWhom())){
                     ignore = true;
-                }
-                if(!ignore) {
-                    builder.setContentTitle("New Favourama Topics");
                 }
             }
 
@@ -119,7 +115,37 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
 
                 File user_dir = new File(context.getFilesDir(), curUser.getUsername());
                 MyThreads.fileWrite(data, "favouramaNotification.json", user_dir);
-                
+
+                LinkedList<JSONObject> notis = new LinkedList<>();
+                MyThreads.readLine(new File(user_dir, "favouramaNotification.json"), notis, context);
+
+                int req=0, msg=0, tpc=0;
+
+                for (JSONObject noti : notis){
+                    String tp = noti.optString("TYPE");
+                    if(tp.equals(MESSAGE_TYPE)){
+                        msg++;
+                    }else if(tp.equals(REQUEST_TYPE)){
+                        req++;
+                    }else if(tp.equals(PROMO_TYPE)){
+                        tpc++;
+                    }
+                }
+
+                String title = "";
+
+                if(req != 0){
+                    title += (req + " New Request(s) ");
+                }
+                if(msg != 0){
+                    title += (msg + " New Message(s) ");
+                }
+                if(tpc != 0){
+                    title += (tpc + " New Topic(s)");
+                }
+
+                builder.setContentTitle(title);
+
                 openIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 pIntent = PendingIntent.getActivity(context, 0, openIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
@@ -129,6 +155,12 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
                     description += (": " + data.optString("note"));
                 }else if (type.equals(MESSAGE_TYPE)){
                     description += (": " + data.optString("content"));
+                    /*Message type vibrate*/
+                    builder.setVibrate(new long[] { 1000, 1000});
+                }
+
+                if(req + msg + tpc > 1){
+                    description += " ... ...";
                 }
 
                 builder.setContentText(description);
@@ -163,10 +195,10 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
         JSONObject data = null;
         try {
             data = new JSONObject(intent.getExtras().getString(PARSE_DATA_KEY));
-            Log.d("RECDATA", intent.getExtras().get(PARSE_DATA_KEY).toString());
+
         } catch (JSONException e) {
             // Json was not readable...
-            Log.d("PUSH RECEIVE FAILURE", ">>>COULD NOT PROCESS JSON DATA");
+            //Log.d("PUSH RECEIVE FAILURE", ">>>COULD NOT PROCESS JSON DATA");
         }
         return data;
     }

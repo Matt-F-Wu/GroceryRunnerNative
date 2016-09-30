@@ -123,31 +123,8 @@ public class ACTMsg extends AppCompatActivity {
                    //Hao: do nothing here
                 }
                 else if (action.equals("com.parse.favourama.HANDLE_FAVOURAMA_MESSAGES")){
-                    /* HAO
-                    * */
 
-                    Log.d("MCONTENT", jsonObject.toString());
-
-                    String chat_content = new String();
-                    String txt_type =  new String();
-                    try{
-                        chat_content = jsonObject.getString("content");
-                        txt_type = jsonObject.getString("ctype");
-                        if (txt_type.equals(ChatMessage.PICTURE_TYPE)){
-                            ImageChannel.saveImageToFile(chat_content, getApplicationContext(), activity);
-
-                        }else{
-                            ChatMessage chatmsg = new ChatMessage();
-                            chatmsg.setId(0);//todo do I need an id?
-                            chatmsg.setMe(false);
-                            chatmsg.setMessage(chat_content);
-                            chatmsg.setMessageType(txt_type);
-                            chatmsg.setDate(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.CANADA).format(new Date()));
-                            displayMessage(chatmsg);
-                        }
-                    }catch(org.json.JSONException e){
-                        e.printStackTrace();
-                    }
+                    showMsg(jsonObject);
 
                     //updateDisplay(jsonObject);
                 }
@@ -193,12 +170,11 @@ public class ACTMsg extends AppCompatActivity {
         StarterApplication.activityResumed();
         StarterApplication.setInMessage();
         StarterApplication.setToWhom(header[0]);
+        notificationFileProcessing();
     }
 
     @Override
     public void onDestroy(){
-
-        Log.d("onDestroy msg", " " + msgReceiver.getResultData());
 
         unregisterReceiver(msgReceiver);
         super.onDestroy();
@@ -271,7 +247,7 @@ public class ACTMsg extends AppCompatActivity {
                     findViewById(R.id.send_msg_pbar).setVisibility(View.VISIBLE);
                 }
             }
-        }, 2000);
+        }, 500);
         ParseCloud.callFunctionInBackground("sendMessageToUser", params, new FunctionCallback<String>() {
             public void done(String success, ParseException e) {
                 msgId.remove(mId);
@@ -555,13 +531,13 @@ public class ACTMsg extends AppCompatActivity {
     public void setPostDelayed(final long mId){
         msgId.add(mId);
         findViewById(R.id.send_msg_pbar).postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                if(msgId.contains(mId)) {
-                                    findViewById(R.id.send_msg_pbar).setVisibility(View.VISIBLE);
-                                }
-                            }
-                        }, 2000);
+            @Override
+            public void run() {
+                if (msgId.contains(mId)) {
+                    findViewById(R.id.send_msg_pbar).setVisibility(View.VISIBLE);
+                }
+            }
+        }, 500);
     }
 
     public String getRealPathFromURI(Context context, Uri contentUri) {
@@ -590,8 +566,6 @@ public class ACTMsg extends AppCompatActivity {
 
             String imgPath = getRealPathFromURI(this, imageUri);
 
-            Log.d("RPATH", imgPath);
-
             Bitmap bitmap = ImageChannel.decodeScaledDownBitmap(imgPath);
 
             confirmSendPic(bitmap);
@@ -599,10 +573,6 @@ public class ACTMsg extends AppCompatActivity {
     }
 
     public void SendPictureHelper(String imageID) {
-
-        Log.d("JM","function called");
-
-
         /*String url was previous paramter*/
         JSONObject msg = new JSONObject();
 
@@ -662,7 +632,7 @@ public class ACTMsg extends AppCompatActivity {
                     findViewById(R.id.send_msg_pbar).setVisibility(View.VISIBLE);
                 }
             }
-        }, 2000);
+        }, 500);
         ParseCloud.callFunctionInBackground("sendMessageToUser", params, new FunctionCallback<String>() {
             public void done(String success, ParseException e) {
                 msgId.remove(mId);
@@ -726,7 +696,7 @@ public class ACTMsg extends AppCompatActivity {
 
         double scale = (width/sw > height/sh)? height/sh : width/sw;
 
-        Log.d("IMGSize", "Ori: " + sw + " " + sh + ", " + "Scale: " + scale);
+
 
         double fw = sw*scale;
         double fh = sh*scale;
@@ -754,7 +724,7 @@ public class ACTMsg extends AppCompatActivity {
                 ImageView view = (ImageView) v;
                 view.setScaleType(ImageView.ScaleType.MATRIX);
 
-                Log.d("ONTOUCH", "Entering onTouch...");
+                //Log.d("ONTOUCH", "Entering onTouch...");
 
                 // Handle touch events here...
                 switch (event.getAction() & MotionEvent.ACTION_MASK) {
@@ -849,5 +819,72 @@ public class ACTMsg extends AppCompatActivity {
         }
 
         editText.setText(msg);
+    }
+
+    private void notificationFileProcessing() {
+        File notiFile = new File(StarterApplication.getUserFilesDir(), "favouramaNotification.json");
+
+        //If the file doesn't exist, just return
+        if (!notiFile.exists()) return;
+
+        LinkedList<JSONObject> notificationList = new LinkedList<>();
+        MyThreads.readLine(notiFile, notificationList, this);
+
+        LinkedList<JSONObject> toRemove = new LinkedList<>();
+
+        String type;
+        for (JSONObject jsonObject : notificationList) {
+            try {
+                type = jsonObject.getString("TYPE");
+            } catch (JSONException e) {
+                e.printStackTrace();
+                //Log.d("Push Receive Exception", "failed to retrieve type");
+                continue;
+            }
+
+            if (type.equals("REQUEST")) {
+                /*Do nothing*/
+            } else if (type.equals("MESSAGE")) {
+                if (jsonObject.optString("username").equals(header[0])) {
+                    showMsg(jsonObject);
+                    toRemove.add(jsonObject);
+                }
+            } else if (type.equals("TOPICS")) {
+                /*Do nothing*/
+            }
+        }
+        notiFile.delete(); /*Empty notifications stored*/
+
+        for (JSONObject jsonObject : toRemove){
+            MyThreads.fileWrite(jsonObject, msg_filename);
+            notificationList.remove(jsonObject);
+        }
+
+        for(JSONObject jsonObject : notificationList){
+            MyThreads.fileWrite(jsonObject, "favouramaNotification.json");
+        }
+    }
+
+    private void showMsg(JSONObject jsonObject){
+        String chat_content = new String();
+        String txt_type = new String();
+        try {
+            chat_content = jsonObject.getString("content");
+            txt_type = jsonObject.getString("ctype");
+            if (txt_type.equals(ChatMessage.PICTURE_TYPE)) {
+                ImageChannel.saveImageToFile(chat_content, getApplicationContext(), activity);
+
+            } else {
+                ChatMessage chatmsg = new ChatMessage();
+                chatmsg.setId(0);//todo do I need an id?
+                chatmsg.setMe(false);
+                chatmsg.setMessage(chat_content);
+                chatmsg.setMessageType(txt_type);
+                chatmsg.setDate(DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.CANADA).format(new Date()));
+                displayMessage(chatmsg);
+            }
+        } catch (org.json.JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

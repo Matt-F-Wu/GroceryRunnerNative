@@ -117,11 +117,10 @@ public class ImageChannel {
             b = baos.toByteArray();
             baos.reset();
             temp = Base64.encodeToString(b, Base64.DEFAULT);
-            Log.d("IMGSIZE", temp.length() * 2 / 1024 + "KB");
+            //Log.d("IMGSIZE", temp.length() * 2 / 1024 + "KB");
             i-=10;
         } while ( temp.length() * 2 / 1024 > 127 && i >=0 );
 
-        Log.d("LENGHT", "is " + temp.length());
 
         LinkedList<String> imageList = new LinkedList<>();
         while(temp.length() > 127 * 1024 / 2){
@@ -148,7 +147,6 @@ public class ImageChannel {
         baos.reset();
         temp = Base64.encodeToString(b, Base64.DEFAULT);
 
-        Log.d("LENGHT", "is " + temp.length());
 
         while(temp.length() > 127 * 1024 / 2){
             imageList.add(temp.substring(0, 127 * 1024 / 2));

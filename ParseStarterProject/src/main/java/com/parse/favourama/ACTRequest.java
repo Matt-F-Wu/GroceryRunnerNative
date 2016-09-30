@@ -54,7 +54,6 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -80,7 +79,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.FileFilter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -163,7 +161,7 @@ public class ACTRequest extends AppCompatActivity
                 @Override
                 public void onClick(View v) {
                     flip(0);
-                    Log.d("LOGO_CLICK", "Logo Click is Successfully Handled");
+                    //Log.d("LOGO_CLICK", "Logo Click is Successfully Handled");
                 }
             });
         }
@@ -177,40 +175,21 @@ public class ACTRequest extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 if (position == 0) {
-                    realTime = true;
+                    setRealTime();
                 } else {
-
                     if(!isNetworkAvailable()){
                         showErrorDialog(null,"Please connect to the Internet!",null);
-                        realTime = true;
+                        setRealTime();
                         spinner.setSelection(0);
                     }else{
-
-                    realTime = false;
-                    installation = ParseInstallation.getCurrentInstallation();
-                    String streetAddr = user.getString("addr" + position);
-                    if (missInfo(streetAddr)) {
-                        realTime = true;
-                        spinner.setSelection(0);
-                        /*If the selection is not valid, automatically go back to selecting using current address*/
-                        showErrorDialog(null, "Sorry, you have not provided this address to us" +
-                                ", Please add it to your profile", new FCallback() {
-                            @Override
-                            public void callBack() {
-
-                                checkUpdateProfile();
-                            }
-                        });
-                    } else {
-                        ParseGeoPoint locPoint = GeoAssistant.spitGeoPoint(GeoAssistant.getLocationFromAddress(streetAddr, context));
-                        if (locPoint == null) {
-                            realTime = true;
+                        realTime = false;
+                        String streetAddr = user.getString("addr" + position);
+                        if (missInfo(streetAddr)) {
+                            setRealTime();
                             spinner.setSelection(0);
-                        /*If the selection is not valid, automatically go back to selecting using current address*/
-                            showErrorDialog(null, "Sorry, Could not " +
-                                    "recognize selected address\n" +
-                                    "Please try to:\n 1. revise this address\n" + 
-                                    "2. Use an adjacent address to your desired location instead", new FCallback() {
+                            /*If the selection is not valid, automatically go back to selecting using current address*/
+                            showErrorDialog(null, "Sorry, you have not provided this address to us" +
+                                    ", Please add it to your profile", new FCallback() {
                                 @Override
                                 public void callBack() {
 
@@ -218,10 +197,17 @@ public class ACTRequest extends AppCompatActivity
                                 }
                             });
                         } else {
-                            installation.put("location", locPoint);
-                            installation.saveInBackground();
+                            ParseGeoPoint locPoint = GeoAssistant.spitGeoPoint(GeoAssistant.getLocationFromAddress(streetAddr, context));
+                            if (locPoint == null) {
+                                setRealTime();
+                                spinner.setSelection(0);
+                            /*If the selection is not valid, automatically go back to selecting using current address*/
+                                addressError();
+                            } else {
+                                installation.put("location", locPoint);
+                                installation.saveInBackground();
+                            }
                         }
-                    }
                     }
                 }
             }
@@ -248,7 +234,7 @@ public class ACTRequest extends AppCompatActivity
 
         configureChatView();
         
-	populate_profile();
+	    populate_profile();
         if (savedInstanceState != null) {
             int last_index = savedInstanceState.getInt(SAVED_FLIPPER_INDEX);
 
@@ -398,7 +384,15 @@ public class ACTRequest extends AppCompatActivity
     protected void onStart() {
         locationClient.connect();
         super.onStart();
-        Log.d("START", "!!!!!!!!!!!!!!!!!!!!!!!! + " + GoogleApiAvailability.getInstance().GOOGLE_PLAY_SERVICES_VERSION_CODE);
+
+    }
+
+    private void setRealTime(){
+        realTime = true;
+        if(lastLocation != null) {
+            installation.put("location", geoPointFromLocation(lastLocation));
+            installation.saveInBackground();
+        }
     }
 
 
@@ -411,6 +405,9 @@ public class ACTRequest extends AppCompatActivity
         if(currentTime - reqTime > 5 * 60 * 60 * 1000){
             //The request is too old, it is longer than 5 hours, not showing it
             Toast.makeText(this, "Some requests expired and are not shown!", Toast.LENGTH_LONG).show();
+            String imgId = requestObject.getUserPic();
+            File iFile = new File(StarterApplication.getUserFilesDir(), DownloadImageTask.reqImgPrefix + imgId);
+            iFile.delete();
             return;
         }
 
@@ -426,7 +423,9 @@ public class ACTRequest extends AppCompatActivity
         if(r_values.size() > 100){
             /*removes the oldest one*/
             r_values.remove(0);
-            user_pics.remove(0);
+            String imgToRemove = user_pics.remove(0);
+            File iFile = new File(StarterApplication.getUserFilesDir(), DownloadImageTask.reqImgPrefix + imgToRemove);
+            iFile.delete();
         }
 
         r_values.add(requestObject.spitValueList());
@@ -473,7 +472,7 @@ public class ACTRequest extends AppCompatActivity
                     type = jsonObject.getString("TYPE");
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.d("Push Receive Exception", "failed to retrieve type");
+                    //Log.d("Push Receive Exception", "failed to retrieve type");
                     continue;
                 }
 
@@ -524,25 +523,6 @@ public class ACTRequest extends AppCompatActivity
 
     @Override
     public void onDestroy(){
-	  /* First delete all stored request profile images */
-
-	  FileFilter filter = new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                //Log.d("imgToDelete", pathname.getName());
-               return pathname.getName().startsWith(DownloadImageTask.reqImgPrefix);
-            }
-        };
-
-	  File[] reqImageFiles = StarterApplication.getUserFilesDir().listFiles(filter);
-
-	  if(reqImageFiles != null){
-	  	for (File imgReq : reqImageFiles){
-            //Log.d("imgToDeleteACT", imgReq.getName());
-			imgReq.delete();
-	  	}
-	  }
-
         saveCounter(convList.numChange);
 
         unregisterReceiver(receiver);
@@ -569,31 +549,34 @@ public class ACTRequest extends AppCompatActivity
         StarterApplication.setNotInMessage();
         
         //Process possible notifications
-        
         notificationFileProcessing();
     }
 
     @Override
     public void onConnected(Bundle bundle) {
-        Log.d("CONNECT GOOGLEAPI", ">>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        //while (currentLocation == null) {
-            currentLocation = getLocation();
-        //}
-        if(currentLocation != null) {
-            Log.d("GET INSTALLATION", "ENTER");
+        currentLocation = getLocation();
+
+        if(currentLocation != null && realTime) {
             installation = ParseInstallation.getCurrentInstallation();
             installation.put("location", geoPointFromLocation(currentLocation));
             installation.saveInBackground(new SaveCallback() {
                 public void done(ParseException e) {
                     if (e == null) {
-                        Log.d("SAVE INSTALLATION", "SUCCESS");
+                        //Log.d("SAVE INSTALLATION", "SUCCESS");
                     } else {
-                        Log.d("SAVE INSTALLATION", "FAIL " + e.getMessage() + " <><><><><><> Code: " + e.getCode());
+                        String msg;
+                        if(e.getCode() == 100){
+                        /*Poor internet connection*/
+                            msg = "please check your internet connection.";
+                        }else{
+                            msg = e.getMessage();
+                        }
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
-        Log.d("CONNECT GOOGLEAPI", "!!!!!!!!!!!!!!!!!!!!!!!!");
+
         startPeriodicUpdates();
     }
 
@@ -635,7 +618,6 @@ public class ACTRequest extends AppCompatActivity
     @Override
     public boolean dispatchTouchEvent(MotionEvent event){
         this.onTouchEvent(event);
-        Log.d("EVENT", "X: " + event.getX() + "Y: " + event.getY());
         return super.dispatchTouchEvent(event);
     }
 
@@ -653,7 +635,7 @@ public class ACTRequest extends AppCompatActivity
             case MotionEvent.ACTION_MOVE:
                 float curX = event.getX();
                 float curY = event.getY();
-                Log.d("MOVING", "y: " + curY);
+
                 if(Math.abs(curX - prevX) > Math.abs(curY - prevY)){
                     /*Mostly horizontally moving*/
                     event.setLocation(curX, initY);
@@ -674,14 +656,14 @@ public class ACTRequest extends AppCompatActivity
                     /*Swipe to right, show previous page*/
                     if(flipperIndex == 1) {
                         event.setLocation(x2, prevY);
-                        Log.d("EVENT", "X: " + event.getX() + "Y: " + event.getY() + "prevY: " + prevY);
+
                         flip(0);
                     }
                 } else if(x2 - x1 <= -MIN_DISTANCE){
                     /*Swipe to left, show next page*/
                     if(flipperIndex == 0){
                         event.setLocation(x2, prevY);
-                        Log.d("EVENT", "X: " + event.getX() + "Y: " + event.getY() + "prevY: " + prevY);
+
                         flip(1);
                     }
                 }
@@ -784,9 +766,9 @@ public class ACTRequest extends AppCompatActivity
         addr4 = (CheckBox) findViewById(R.id.addr_four);
         CheckBox checkBox = (CheckBox) v;
         if (!checkBox.isChecked()) {
-	    checkBox.setChecked(true);
-	    return;
-	}
+            checkBox.setChecked(true);
+            return;
+        }
 
         switch (v.getId()) {
             case R.id.addr_one:
@@ -1027,7 +1009,14 @@ public class ACTRequest extends AppCompatActivity
                 if (e == null) {
                     // Push sent successfully
                 }else{
-                    Log.d("RFAILED", "Request did not work at cloud " + e.getCode() + " " + e.getMessage());
+                    String msg;
+                    if(e.getCode() == 100){
+                        /*Poor internet connection*/
+                        msg = "please check your internet connection.";
+                    }else{
+                        msg = e.getMessage();
+                    }
+                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -1054,24 +1043,27 @@ public class ACTRequest extends AppCompatActivity
         errorDialogFragment.show(fm, "location_failure");
     }
 
+    private void addressError(){
+        showErrorDialog(null, "Sorry, Could not " +
+                "recognize selected address\n" +
+                "Please try to:\n1. revise this address\n" +
+                "2. Use an adjacent address to your desired location instead", new FCallback() {
+            @Override
+            public void callBack() {
+
+                checkUpdateProfile();
+            }
+        });
+    }
+
     private ParseGeoPoint getPILocation(double rad){
         if(!addrSelected.equals("Current Address")){
             ParseGeoPoint useLocation = GeoAssistant.spitGeoPoint(GeoAssistant.getLocationFromAddress(addrSelected, this));
 
             if (useLocation == null) {
-                showErrorDialog(null, "Cannot obtain the latitude " +
-                        "and longitude of the address selected, abort request." +
-                        " Please try updating your address at profile management!", new FCallback() {
-                    @Override
-                    public void callBack() {
-
-                        checkUpdateProfile();
-                    }
-                });
+                addressError();
                 return null;
             }else{
-                Log.d("AlterLoc", "Latitdude: " + useLocation.getLatitude() + " Longitude: " + useLocation.getLongitude());
-
                 if(useLocation.distanceInKilometersTo(geoPointFromLocation(lastLocation)) > rad){
                     JSONObject jsonObject = new JSONObject();
                     try {
@@ -1097,10 +1089,9 @@ public class ACTRequest extends AppCompatActivity
 
                 return useLocation;
             }
+        }else {
+            return geoPointFromLocation(lastLocation);
         }
-
-        installation = ParseInstallation.getCurrentInstallation();
-        return (ParseGeoPoint) installation.get("location");
     }
 
     protected void startPeriodicUpdates() {
@@ -1112,7 +1103,7 @@ public class ACTRequest extends AppCompatActivity
     }
 
     private Location getLocation() {
-        Log.d("GET", "###### Service " + LocationServices.FusedLocationApi.getLocationAvailability(locationClient).toString());
+
         if(LocationServices.FusedLocationApi.getLocationAvailability(locationClient).isLocationAvailable()){
             return LocationServices.FusedLocationApi.getLastLocation(locationClient);
         }
@@ -1127,7 +1118,6 @@ public class ACTRequest extends AppCompatActivity
 
     @Override
     public void onLocationChanged(Location location) {
-        if(!realTime) return; //Hao: if the user is not using current address do not update his/her current address
         currentLocation = location;
         if (lastLocation != null
                 && geoPointFromLocation(location)
@@ -1136,10 +1126,11 @@ public class ACTRequest extends AppCompatActivity
         }
         lastLocation = location;
 
-        // Update the display
-        installation = ParseInstallation.getCurrentInstallation();
-        installation.put("location", geoPointFromLocation(lastLocation));
-        installation.saveInBackground();
+        // Update the location of the installation only when the user choose to receive at current address
+        if(realTime) {
+            installation.put("location", geoPointFromLocation(lastLocation));
+            installation.saveInBackground();
+        }
     }
 
 
@@ -1218,7 +1209,7 @@ public class ACTRequest extends AppCompatActivity
 
                         //chatValues = convList.getHeader();
                         msgAdapterChat.notifyDataSetChanged();
-                        Log.d("File Deletion: ", "User deleted file " + file_long_clicked);
+
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -1527,7 +1518,8 @@ public class ACTRequest extends AppCompatActivity
                                 jsonObject.put("userpicID", poID);
                                 MyThreads.fileWrite(jsonObject, "profile_image_id.json");
                             } catch (JSONException e1) {
-                                Log.d("I/OError", "Cannot write to profile_image_id.json");
+                                //Log.d("I/OError", "Cannot write to profile_image_id.json");
+                                Toast.makeText(context,"Cannot write to file", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -1760,12 +1752,15 @@ public class ACTRequest extends AppCompatActivity
                 if (parseObject == null) {
                     ParseObject report = new ParseObject("SpamReport");
                     report.put("culprit", bUser);
-                    report.put("reason", reason);
+                    report.put("reason1", reason);
+                    report.put("num", 1);
                     report.saveInBackground();
                 } else {
-                    parseObject.add("reason", reason);
+                    int num = parseObject.getInt("num");
+                    num++;
+                    parseObject.put("reason" + num, reason);
+                    parseObject.put("num", num);
                     parseObject.saveInBackground();
-                    Log.d("score", "Retrieved the object.");
                 }
             }
 
@@ -1946,7 +1941,7 @@ public class ACTRequest extends AppCompatActivity
                 + getApplicationContext().getPackageName()
                 + "/Files/" + picture_filename;
 
-        Log.d("PIC_PATH", "picture_file_path" + picture_file_path);
+        //Log.d("PIC_PATH", "picture_file_path" + picture_file_path);
 
         final Bitmap bmImg = ImageChannel.decodeScaledDownBitmap(picture_file_path);
 
@@ -2093,5 +2088,19 @@ public class ACTRequest extends AppCompatActivity
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+    public void SCrespond(View view) {
+        View cur = view;
+        while(cur.getId() != R.id.request_row_container){
+            cur = (View) cur.getParent();
+        }
+        /*get the overall row*/
+        cur = (View) cur.getParent();
+        /*Get the listview*/
+        ListView listView = (ListView) cur.getParent();
+        final int position = listView.getPositionForView(cur);
+
+        request_long_clicked = r_values.get(position);
+        respond(null);
+    }
 }
 

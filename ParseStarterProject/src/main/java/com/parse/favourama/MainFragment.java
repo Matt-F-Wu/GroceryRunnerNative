@@ -191,8 +191,6 @@ public final class MainFragment extends Fragment
 
         File pictureFile = getOutputMediaFile(picture_filename);
         if (pictureFile == null) {
-            Log.d("JM",
-                    "Error creating media file, check storage permissions: ");// e.getMessage());
             return;
         }
         try {
@@ -200,9 +198,9 @@ public final class MainFragment extends Fragment
             image.compress(Bitmap.CompressFormat.PNG, 90, fos);
             fos.close();
         } catch (FileNotFoundException e) {
-            Log.d("JM", "File not found: " + e.getMessage());
+            //Log.d("JM", "File not found: " + e.getMessage());
         } catch (IOException e) {
-            Log.d("JM", "Error accessing file: " + e.getMessage());
+            //Log.d("JM", "Error accessing file: " + e.getMessage());
         }
     }
 
@@ -210,7 +208,7 @@ public final class MainFragment extends Fragment
     /** Create a File for saving an image or video */
     private File getOutputMediaFile(String picture_name){
 
-        Log.d("JM", "getOutputMediaFile inside");
+        //Log.d("JM", "getOutputMediaFile inside");
 
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
@@ -233,9 +231,6 @@ public final class MainFragment extends Fragment
         File mediaFile;
 
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + picture_name);
-
-        if(mediaFile != null)
-            Log.d("jm", "MEDIA FILE IS NOT NULL");
 
         return mediaFile;
     }

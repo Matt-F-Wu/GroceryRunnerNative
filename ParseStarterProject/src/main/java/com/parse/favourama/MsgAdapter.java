@@ -4,7 +4,11 @@ package com.parse.favourama;
  * Created by HaoWu on 1/7/2016.
  */
 
+import java.io.File;
 import java.util.List;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.util.Linkify;
 import android.content.Context;
 import android.util.Log;
@@ -53,8 +57,22 @@ public class MsgAdapter extends ArrayAdapter<String[]> {
             if (images.get(position) != null){
 
                 ImageView user_pic_view = (ImageView) rowView.findViewById(R.id.request_user_picture);
-                new DownloadImageTask(user_pic_view)
-                        .execute(images.get(position));
+
+                File iFile = new File(StarterApplication.getUserFilesDir(), DownloadImageTask.reqImgPrefix + images.get(position));
+                //Try to read from file if the image exists on file
+                if(iFile.exists()){
+                    Log.d("Something", "Fishy");
+                    Bitmap bitmap = BitmapFactory.decodeFile(iFile.getPath());
+                    if(bitmap != null){
+                        user_pic_view.setImageBitmap(bitmap);
+                    }else{
+                        new DownloadImageTask(user_pic_view)
+                                .execute(images.get(position));
+                    }
+                }else {
+                    new DownloadImageTask(user_pic_view)
+                            .execute(images.get(position));
+                }
 
             }
         }

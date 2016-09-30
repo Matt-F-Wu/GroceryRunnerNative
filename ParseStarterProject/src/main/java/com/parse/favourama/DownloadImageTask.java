@@ -32,16 +32,11 @@ public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 
 	  File iFile = new File(StarterApplication.getUserFilesDir(), reqImgPrefix + imageID);
 
-	  //Try to read from file if the image exists on file
-	  if(iFile.exists()){
-	  	bitmap = BitmapFactory.decodeFile(iFile.getPath());
-		if(bitmap != null) return bitmap;
-	  }
-
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ImageBox");
         try {
             ParseObject parseObject = query.get(imageID);
             bitmap = ImageChannel.StringToBitMap(ImageChannel.getImageString(parseObject));
+            bitmap = bitmap.createScaledBitmap(bitmap, 100, 100, true);
 		try {
                     FileOutputStream fos = new FileOutputStream(iFile);
                     bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);

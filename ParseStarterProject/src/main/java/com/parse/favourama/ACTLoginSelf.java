@@ -46,7 +46,7 @@ public class ACTLoginSelf extends AppCompatActivity {
             if( !currentUser.getBoolean("emailVerified") ){
                 waitForVerify();
             }else {
-                Log.d("Log In Previous User", "SUCESSFUL");
+                //Log.d("Log In Previous User", "SUCESSFUL");
                 Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
                 startActivity(mainP);
             }
@@ -138,8 +138,8 @@ public class ACTLoginSelf extends AppCompatActivity {
             
         }
         pw = password.getText().toString();
-        Log.d("Username", uname);
-        Log.d("Password", pw);
+
+
         ParseUser.logInInBackground(uname, pw, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
@@ -150,7 +150,7 @@ public class ACTLoginSelf extends AppCompatActivity {
 
                         waitForVerify();
                     } else {
-                        Log.d("Log In", "SUCESSFUL");
+
                         Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
                         startActivity(mainP);
                     }
@@ -255,7 +255,7 @@ public class ACTLoginSelf extends AppCompatActivity {
         if (!missInfo(addr1_s)) user.put("addr1", addr1_s);
         if (!missInfo(addr2_s)) user.put("addr2", addr2_s);
         if (!missInfo(addr3_s)) user.put("addr3", addr3_s);
-        Log.d("SIGNING UP", uname + " PLEASE WAIT");
+
 
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {
@@ -266,7 +266,7 @@ public class ACTLoginSelf extends AppCompatActivity {
 
                         waitForVerify();
                     }else {
-                        Log.d("DONE SIGNUP", "JUMP");
+
                         alertMsg.setText("Signed In");
                         //Go to the usermainpage activity
                         Intent mainP = new Intent(ACTLoginSelf.this, ACTRequest.class);
@@ -276,7 +276,7 @@ public class ACTLoginSelf extends AppCompatActivity {
                 } else {
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong
-                    Log.d("FAILED", "AHA, DIDN'T SEE THIS COMING!" + e.getMessage());
+
                     showError("Cannot proceed: " + e.getMessage());
                     //report is there are duplicate accounts existing and such! ============TBD============
                 }
