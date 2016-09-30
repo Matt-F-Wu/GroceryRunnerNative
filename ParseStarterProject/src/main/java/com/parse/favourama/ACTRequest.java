@@ -1057,6 +1057,7 @@ public class ACTRequest extends AppCompatActivity
     }
 
     private ParseGeoPoint getPILocation(double rad){
+	ParseGeoPoint tLocation;
         if(!addrSelected.equals("Current Address")){
             ParseGeoPoint useLocation = GeoAssistant.spitGeoPoint(GeoAssistant.getLocationFromAddress(addrSelected, this));
 
@@ -1064,34 +1065,34 @@ public class ACTRequest extends AppCompatActivity
                 addressError();
                 return null;
             }else{
-                if(useLocation.distanceInKilometersTo(geoPointFromLocation(lastLocation)) > rad){
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                    jsonObject.put("address",addrSelected);
-                    jsonObject.put("category",cateSelected);
-                    jsonObject.put("latitude",useLocation.getLatitude());
-                    jsonObject.put("longitude",useLocation.getLongitude());
-                    jsonObject.put("rad",rad);
-                    jsonObject.put("username",user_name);
-                    jsonObject.put("note",postEditText.getText().toString().trim());
-                    jsonObject.put("purpose", request_purpose);
-                    jsonObject.put("reward",rewardSelected);
-                    jsonObject.put("rating", user.get("Rating"));
-                    Object object = user.get("userpic");
-                    if( object != null){
-                        jsonObject.put("userpic", ((ParseObject)object).getObjectId());
-                    }
-                    addRequest(jsonObject);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                return useLocation;
+                tLocation = useLocation;
             }
         }else {
-            return geoPointFromLocation(lastLocation);
+            tLocation = geoPointFromLocation(lastLocation);
         }
+	if(tLocation.distanceInKilometersTo((ParseGeoPoint) installation.get("location")) > rad){
+	    JSONObject jsonObject = new JSONObject();
+	    try {
+	    jsonObject.put("address",addrSelected);
+	    jsonObject.put("category",cateSelected);
+	    jsonObject.put("latitude",tLocation.getLatitude());
+	    jsonObject.put("longitude",tLocation.getLongitude());
+	    jsonObject.put("rad",rad);
+	    jsonObject.put("username",user_name);
+	    jsonObject.put("note",postEditText.getText().toString().trim());
+	    jsonObject.put("purpose", request_purpose);
+	    jsonObject.put("reward",rewardSelected);
+	    jsonObject.put("rating", user.get("Rating"));
+	    Object object = user.get("userpic");
+	    if( object != null){
+		jsonObject.put("userpic", ((ParseObject)object).getObjectId());
+	    }
+	    addRequest(jsonObject);
+	    } catch (JSONException e) {
+		e.printStackTrace();
+	    }
+	}
+	return tLocation;
     }
 
     protected void startPeriodicUpdates() {
