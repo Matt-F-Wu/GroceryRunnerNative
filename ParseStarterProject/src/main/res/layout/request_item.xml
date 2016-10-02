@@ -26,11 +26,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dip">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dip">
+
+
+
                 <TextView
                     android:id="@+id/r_list_uname"
                     android:layout_width="wrap_content"
@@ -45,7 +54,21 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:text="Request Category"/>
+
+
             </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/r_distance_to_receiver"
+                    android:layout_marginTop="10dip"
+                    android:textStyle="bold"
+                    android:text="xkm"/>
+
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/r_list_note"

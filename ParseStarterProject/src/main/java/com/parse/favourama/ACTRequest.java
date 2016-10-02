@@ -138,11 +138,12 @@ public class ACTRequest extends AppCompatActivity
         installation = ParseInstallation.getCurrentInstallation();
         user = ParseUser.getCurrentUser();
 		
-	if(user == null){
+	if(user == null || user.getUsername() == null){
 		/*User did not login*/
 		Intent i = new Intent(this, ACTLoginSelf.class);
 	    startActivity(i);
 	    finish();
+        return;
 	}
 
         helpSetUserDir(user);
@@ -530,9 +531,14 @@ public class ACTRequest extends AppCompatActivity
 
     @Override
     public void onDestroy(){
-        saveCounter(convList.numChange);
 
-        unregisterReceiver(receiver);
+        if(convList!=null)
+            saveCounter(convList.numChange);
+
+        if(receiver!=null)
+            unregisterReceiver(receiver);
+
+
         super.onDestroy();
     }
 
@@ -1119,7 +1125,7 @@ public class ACTRequest extends AppCompatActivity
             showErrorDialog(null,"Please enable GPS service!",null);
             Location targetLocation = new Location("");
             targetLocation.setLatitude(43.7d);
-            targetLocation.setLongitude(79.4d);
+            targetLocation.setLongitude(-79.4d);
             return targetLocation;
         }
     }

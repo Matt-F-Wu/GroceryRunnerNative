@@ -5,6 +5,7 @@ package com.parse.favourama;
  */
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import android.graphics.Bitmap;
@@ -35,7 +36,7 @@ public class MsgAdapter extends ArrayAdapter<String[]> {
     private ParseInstallation installation;
 
 
-    public MsgAdapter(Context context, int default_resource, List<Integer> drawable_resources, List<String> images, int[] fields, List<String[]> values, Installation ins) {
+    public MsgAdapter(Context context, int default_resource, List<Integer> drawable_resources, List<String> images, int[] fields, List<String[]> values, ParseInstallation ins) {
         super(context, default_resource, values);
         this.context = context;
         this.values = values;
@@ -109,9 +110,18 @@ public class MsgAdapter extends ArrayAdapter<String[]> {
         }
         
         TextView distV = (TextView) rowView.findViewById(R.id.r_distance_to_receiver);
-        ParseGeoPoint senderLoc = new ParseGeoPoint(Double.parseDouble(values.get(position)[5]), Double.parseDouble(values.get(position)[5]));
-        distV.setText(senderLoc.distanceInKilometersTo((ParseGeoPoint) installation.get("location")) + " away");
 
+        ParseGeoPoint senderLoc = new ParseGeoPoint(Double.parseDouble(values.get(position)[5]), Double.parseDouble(values.get(position)[6]));
+
+
+    if(installation.get("location") != null) {
+
+        String dis_str = new DecimalFormat("#.# km").format(senderLoc.distanceInKilometersTo((ParseGeoPoint) installation.get("location")));
+
+        distV.setText(dis_str);
+    }else{
+        distV.setText("unknown distance");
+    }
         return rowView;
     }
 }
