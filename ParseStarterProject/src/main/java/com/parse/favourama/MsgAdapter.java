@@ -120,7 +120,7 @@ public class MsgAdapter extends ArrayAdapter<String[]> {
 
         distV.setText(dis_str);
     }else{
-        distV.setText("unknown distance");
+        distV.setText("Unknown Distance");
     }
         return rowView;
     }
