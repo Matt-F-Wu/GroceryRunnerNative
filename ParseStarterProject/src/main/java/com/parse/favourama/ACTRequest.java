@@ -137,6 +137,13 @@ public class ACTRequest extends AppCompatActivity
         // Associate this user with this device
         installation = ParseInstallation.getCurrentInstallation();
         user = ParseUser.getCurrentUser();
+		
+	if(user == null){
+		/*User did not login*/
+		Intent i = new Intent(this, ACTLoginSelf.class);
+	    startActivity(i);
+	    finish();
+	}
 
         helpSetUserDir(user);
 
@@ -1286,7 +1293,7 @@ public class ACTRequest extends AppCompatActivity
 
         blocked_users = new HashSet<>();
 
-        msgAdapterReq = new MsgAdapter(this, R.layout.request_item, resources, user_pics, fields, r_values);
+        msgAdapterReq = new MsgAdapter(this, R.layout.request_item, resources, user_pics, fields, r_values, installation);
 
         listViewRequest = (ListView) findViewById(R.id.show_requests);
         listViewRequest.setAdapter(msgAdapterReq);
