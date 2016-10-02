@@ -21,6 +21,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import com.parse.ParseInstallation;
+import com.parse.ParseGeoPoint;
+import java.lang.Double;
 
 public class MsgAdapter extends ArrayAdapter<String[]> {
     private final Context context;
@@ -29,9 +32,10 @@ public class MsgAdapter extends ArrayAdapter<String[]> {
     private final List<String[]> values;
     private List<Integer> backgrounds;
     private List<String> images;
+    private ParseInstallation installation;
 
 
-    public MsgAdapter(Context context, int default_resource, List<Integer> drawable_resources, List<String> images, int[] fields, List<String[]> values) {
+    public MsgAdapter(Context context, int default_resource, List<Integer> drawable_resources, List<String> images, int[] fields, List<String[]> values, Installation ins) {
         super(context, default_resource, values);
         this.context = context;
         this.values = values;
@@ -39,6 +43,7 @@ public class MsgAdapter extends ArrayAdapter<String[]> {
         this.resource = default_resource;
         this.backgrounds = drawable_resources;
         this.images = images;
+        this.installation = ins;
     }
 
     @Override
@@ -102,7 +107,10 @@ public class MsgAdapter extends ArrayAdapter<String[]> {
                 Log.d("MsgAdapter Error: ", "Does not support your view type.");
             }
         }
-
+        
+        TextView distV = (TextView) rowView.findViewById(R.id.r_distance_to_receiver);
+        ParseGeoPoint senderLoc = new ParseGeoPoint(Double.parseDouble(values.get(position)[5]), Double.parseDouble(values.get(position)[5]));
+        distV.setText(senderLoc.distanceInKilometersTo((ParseGeoPoint) installation.get("location")) + " away");
 
         return rowView;
     }
