@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:paddingLeft="10dip"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingBottom="10dip"
         android:orientation="horizontal"
         android:textSize="12sp"
         android:background="@drawable/gray_req_bg">
@@ -27,25 +26,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dip">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dip">
 
-
-
                 <TextView
                     android:id="@+id/r_list_uname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textColor="@color/requestbox_color"
+                    android:textColor="@color/dark_red_tint"
                     android:text="Username"/>
                 <TextView
                     android:layout_marginLeft="15dip"
@@ -55,18 +47,41 @@
                     android:textStyle="bold"
                     android:text="Request Category"/>
 
-
             </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:id="@+id/r_distance_to_receiver"
-                    android:layout_marginTop="10dip"
-                    android:textStyle="bold"
-                    android:text="xkm"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/r_time_stamp"
+                android:text="0 hours ago"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:id="@+id/r_distance_to_receiver"
+                android:layout_toRightOf="@id/r_time_stamp"
+                android:layout_toEndOf="@id/r_time_stamp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:text="Unknown Distance"/>
 
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/r_distance_to_receiver"
+                android:layout_toEndOf="@id/r_distance_to_receiver"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
+                android:id="@+id/pin_in_r"
+                android:src="@drawable/ic_room_white_24dp"
+                android:tint="@color/dark_red_tint"
+                android:background="#00ffffff"
+                android:onClick="SCpinOnMap"/>
 
             </RelativeLayout>
 
@@ -88,17 +103,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/requestbox_color"
+                    android:textColor="@color/dark_red_tint"
                     android:text="Your Reward" />
 
                 <ImageButton
                     android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_send_black"
+                    android:tint="@color/dark_red_tint"
                     android:background="#00ffffff"
                     android:onClick="SCrespond"/>
+
             </RelativeLayout>
 
         </LinearLayout>

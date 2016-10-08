@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--Main List displaying requests-->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_user_space"><!--android:padding="10dip" was there before-->
+
+        <ListView
+            android:id="@+id/show_requests"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:dividerHeight="3dip"
+            android:stackFromBottom="true"
+            android:transcriptMode="alwaysScroll">
+            <!--The background color is just for now, later we will set divider, android:divider="@null"-->
+
+        </ListView>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/tut_main_user_space_blur"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/trans_testing"
+            android:scaleType="fitXY"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/tut_layout"/>
+
+</FrameLayout>

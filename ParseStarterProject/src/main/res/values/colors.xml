@@ -3,6 +3,8 @@
     <color name="dark_red">#c53a2a</color>
     <color name="dark_red_pressed">#d8584a</color>
     <color name="dark_red_focused">#d44535</color>
+    <color name="red_tint">#30c53a2a</color>
+    <color name="dark_red_tint">#99b52a1a</color>
     <color name="userBottomBar">#909090</color>
     <color name="userBottomBar_pressed">#c0c0c0</color>
     <color name="userBottomBar_focused">#ababab</color>

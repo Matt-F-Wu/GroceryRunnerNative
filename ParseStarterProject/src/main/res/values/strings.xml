@@ -81,13 +81,15 @@ If you do not choose to use the software, please refrain from doing so and do no
     <string name="l_a_name"><u>End User License Agreement</u></string>
     <string name="i_accept">I accept the</string>
     <string name="r_d_add_o">Offer Around Which Address:</string>
-    <string name="r_d_cat_o">Lend/Sell Things</string>
     <string name="r_d_cat_event_o">Promote Events</string>
     <string name="r_d_rad_o">Radius of coverage:</string>
     <string name="r_d_rew_o">Need Rewards (Optional)</string>
-    <string name="r_d_add_a">Ask Around Which Address:</string>
-    <string name="r_d_cat_a">Borrow/Buy Things</string>
-    <string name="r_d_cat_event_a">Find Events</string>
+    <string name="r_d_add_a">Broadcast Around:</string>
+    <string name="r_d_cat_bo">Borrow</string>
+    <string name="r_d_cat_bu">Buying</string>
+    <string name="r_d_cat_le">Lend</string>
+    <string name="r_d_cat_se">Selling</string>
+    <string name="r_d_cat_event_a">Events</string>
     <string name="r_d_rad_a">Radius of coverage:</string>
-    <string name="r_d_rew_a">Give Rewards (Optional):</string>
+    <string name="r_d_rew_a">Reward/Payment Options:</string>
 </resources>

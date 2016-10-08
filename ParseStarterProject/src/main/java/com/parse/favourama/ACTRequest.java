@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,6 +19,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -41,6 +43,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CheckedTextView;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,6 +53,7 @@ import android.widget.PopupMenu;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.support.v7.widget.SwitchCompat;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -158,21 +163,8 @@ public class ACTRequest extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         /*Get rid of the default title*/
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        /*Hao to Jeremy: What should we do with the Logo? For now, I hide it*/
-        toolbar.setLogo(R.drawable.new_logo);
-        View logoView = getToolbarLogoIcon(toolbar);
-
-        if (logoView != null) {
-            logoView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    flip(0);
-                    //Log.d("LOGO_CLICK", "Logo Click is Successfully Handled");
-                }
-            });
-        }
         final Spinner spinner = (Spinner) findViewById(R.id.topbar_spinner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_user_item);
@@ -438,7 +430,7 @@ public class ACTRequest extends AppCompatActivity
 
         r_values.add(requestObject.spitValueList());
         user_pics.add(requestObject.getUserPic());
-        if(requestObject.getPurpose().equals("ask")){
+        if(requestObject.getPurpose().equals("seek")){
             //alignment.add(-50);
             resources.add(R.drawable.gray_req_bg); /*speech__bubble_white*/
         }else{
@@ -456,7 +448,7 @@ public class ACTRequest extends AppCompatActivity
             if(enter == 1){
                 flip(0);
             }else if(enter == 2){
-                flip(1);
+                flip(2);
                 //clearCounter();
             }
             
@@ -578,10 +570,10 @@ public class ACTRequest extends AppCompatActivity
                         //Log.d("SAVE INSTALLATION", "SUCCESS");
                     } else {
                         String msg;
-                        if(e.getCode() == 100){
+                        if (e.getCode() == 100) {
                         /*Poor internet connection*/
                             msg = "please check your internet connection.";
-                        }else{
+                        } else {
                             msg = e.getMessage();
                         }
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
@@ -667,17 +659,17 @@ public class ACTRequest extends AppCompatActivity
                 if (x2 - x1 >= MIN_DISTANCE)
                 {
                     /*Swipe to right, show previous page*/
-                    if(flipperIndex == 1) {
+                    if(flipperIndex != 0) {
                         event.setLocation(x2, prevY);
 
-                        flip(0);
+                        flip(flipperIndex - 1);
                     }
                 } else if(x2 - x1 <= -MIN_DISTANCE){
                     /*Swipe to left, show next page*/
-                    if(flipperIndex == 0){
+                    if(flipperIndex != 3){
                         event.setLocation(x2, prevY);
 
-                        flip(1);
+                        flip(flipperIndex + 1);
                     }
                 }
                 break;
@@ -755,20 +747,7 @@ public class ACTRequest extends AppCompatActivity
 
 
 	public void onClickNewRequest(View v){
-
-        flip(2);
-
-        TextView favourTitle = (TextView) findViewById(R.id.favour_title);
-        favourTitle.setText("Ask For a Favour");
-
-        ((TextView) findViewById(R.id.req_det_add)).setText(R.string.r_d_add_a);
-        ((CheckBox) findViewById(R.id.cate_one)).setText(R.string.r_d_cat_a);
-        ((CheckBox) findViewById(R.id.cate_three)).setText(R.string.r_d_cat_event_a);
-        ((TextView) findViewById(R.id.req_det_rad)).setText(R.string.r_d_rad_a);
-        ((TextView) findViewById(R.id.req_det_rew)).setText(R.string.r_d_rew_a);
-
-        request_purpose = "ask";
-		
+        flip(1);
 	}
 
     public void onCheckboxClickedAddr (View v){
@@ -813,42 +792,24 @@ public class ACTRequest extends AppCompatActivity
     }
 
     public void onCheckboxClickedCate (View v){
-        CheckBox cate1, cate2, cate3, cate4;
-        cate1 = (CheckBox) findViewById(R.id.cate_one);
-        cate2 = (CheckBox) findViewById(R.id.cate_two);
-        cate3 = (CheckBox) findViewById(R.id.cate_three);	
-        cate4 = (CheckBox) findViewById(R.id.cate_four);	
-        CheckBox checkBox = (CheckBox) v;
-        if (!checkBox.isChecked()) {
-	    checkBox.setChecked(true);
-	    return;
-	}
-        switch (v.getId()) {
-            case R.id.cate_one:
-                cate2.setChecked(false);
-		cate3.setChecked(false);
-                cate4.setChecked(false);
-                cateSelected = cate1.getText().toString();
-                break;
-// We probably don't want the following buttons, and the visual should definitely be different,but I guess we can change it later
-            case R.id.cate_two:
-                cate1.setChecked(false);
-                cate3.setChecked(false);
-		cate4.setChecked(false);
-                cateSelected = cate2.getText().toString();
-                break;
-            case R.id.cate_three:
-                cate1.setChecked(false);
-                cate2.setChecked(false);
-		cate4.setChecked(false);
-                cateSelected = cate3.getText().toString();
-                break;
-	    case R.id.cate_four:
-                cate1.setChecked(false);
-                cate2.setChecked(false);
-		cate3.setChecked(false);
-                cateSelected = cate4.getText().toString();
-                break;
+
+        CheckedTextView checkBox = (CheckedTextView) v;
+        if (checkBox.isChecked()) {
+            return;
+	    }
+
+        checkBox.setChecked(true);
+
+        cateSelected = checkBox.getText().toString();
+
+        Resources resources = getResources();
+        String pname = getPackageName();
+
+        for(int i = 1; i <= 11; i++){
+            int resID = resources.getIdentifier("cate_" + i, "id", pname);
+            if(v.getId() != resID){
+                ((CheckedTextView)findViewById(resID)).setChecked(false);
+            }
         }
     }
 
@@ -888,7 +849,8 @@ public class ACTRequest extends AppCompatActivity
 
 	private void configureMenu(View pop){
 	    //get view members
-        CheckBox addr1, addr2, addr3, addr4, cate1;
+        CheckedTextView cate1;
+        CheckBox addr2, addr3, addr4;
         final View p = pop;
 	    postEditText = (EditText) pop.findViewById(R.id.r_description);
         postEditText.addTextChangedListener(new TextWatcher(){
@@ -920,7 +882,20 @@ public class ACTRequest extends AppCompatActivity
         makeAddressSelectable(addr3, "addr2");
         makeAddressSelectable(addr4, "addr3");
 
-        cate1 = (CheckBox) pop.findViewById(R.id.cate_one);
+        SwitchCompat p_switch = (SwitchCompat) findViewById(R.id.favour_purpose);
+        p_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    request_purpose = "offer";
+                }else{
+                    request_purpose = "seek";
+                }
+            }
+        });
+
+        request_purpose = "seek";
+
+        cate1 = (CheckedTextView) pop.findViewById(R.id.cate_1);
         cateSelected = cate1.getText().toString();
 		/*Address 2 and Adress 3 should be addresses from the user's account, implement later*/
         rewardSelected = "No Reward"; //reward1.getText().toString();
@@ -956,7 +931,7 @@ public class ACTRequest extends AppCompatActivity
                     // Show Alert if the user did not provide all necessary information
                 }
 
-                if(!LocationServices.FusedLocationApi.getLocationAvailability(locationClient).isLocationAvailable()){
+                if(!LocationServices.FusedLocationApi.getLocationAvailability(locationClient).isLocationAvailable() && addrSelected.equals("Current Address")){
                     showErrorDialog(null,"Please enable GPS service!",null);
                 }else if(!isNetworkAvailable()) {
                     showErrorDialog(null,"Please connect to the Internet!",null);
@@ -1086,21 +1061,22 @@ public class ACTRequest extends AppCompatActivity
 	if(tLocation.distanceInKilometersTo((ParseGeoPoint) installation.get("location")) > rad){
 	    JSONObject jsonObject = new JSONObject();
 	    try {
-	    jsonObject.put("address",addrSelected);
-	    jsonObject.put("category",cateSelected);
-	    jsonObject.put("latitude",tLocation.getLatitude());
-	    jsonObject.put("longitude",tLocation.getLongitude());
-	    jsonObject.put("rad",rad);
-	    jsonObject.put("username",user_name);
-	    jsonObject.put("note",postEditText.getText().toString().trim());
-	    jsonObject.put("purpose", request_purpose);
-	    jsonObject.put("reward",rewardSelected);
-	    jsonObject.put("rating", user.get("Rating"));
-	    Object object = user.get("userpic");
-	    if( object != null){
-		jsonObject.put("userpic", ((ParseObject)object).getObjectId());
-	    }
-	    addRequest(jsonObject);
+            jsonObject.put("address",addrSelected);
+            jsonObject.put("category",cateSelected);
+            jsonObject.put("latitude",tLocation.getLatitude());
+            jsonObject.put("longitude",tLocation.getLongitude());
+            jsonObject.put("rad",rad);
+            jsonObject.put("username",user_name);
+            jsonObject.put("note",postEditText.getText().toString().trim());
+            jsonObject.put("purpose", request_purpose);
+            jsonObject.put("reward",rewardSelected);
+            jsonObject.put("rating", user.get("Rating"));
+            Object object = user.get("userpic");
+            if( object != null){
+                jsonObject.put("userpic", ((ParseObject)object).getObjectId());
+            }
+            jsonObject.put("time", System.currentTimeMillis());
+	        addRequest(jsonObject);
 	    } catch (JSONException e) {
 		e.printStackTrace();
 	    }
@@ -1165,16 +1141,25 @@ public class ACTRequest extends AppCompatActivity
         /*Contract the keyboard when you go to a new flip*/
         InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mgr.hideSoftInputFromWindow(viewFlipper.getWindowToken(), 0);
-        if (flipperIndex == 3 || ((flipperIndex == 0 || flipperIndex == 2) && index == 1)){
+
+        if ( index > flipperIndex){
             viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_right));
-		viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out_left));
-        }else if (flipperIndex == 0 && index == 2){
-            viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.slider_up));
-        }else if (flipperIndex == 2 && index == 0){
-		viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.slider_down));
+		    viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out_left));
         }else{
             viewFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_left));
-		viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out_right));
+		    viewFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_out_right));
+        }
+
+        Resources res = getResources();
+        String pname = getPackageName();
+
+        for(int i = 0; i <= 3; i++){
+            int resID = res.getIdentifier("btab" + i, "id", pname);
+            if(i == index) {
+                findViewById(resID).setBackgroundResource(R.color.red_tint);
+            }else{
+                findViewById(resID).setBackgroundResource(R.color.white_trans);
+            }
         }
 
         flipperIndex = index;
@@ -1189,21 +1174,6 @@ public class ACTRequest extends AppCompatActivity
         int index = flipperStack.get(flipperStack.size() - 2);
         flipperStack.removeLast();
         flip(index);
-    }
-
-    public void onClickNewOffer(View view) {
-        flip(2);
-
-        TextView favourTitle = (TextView) findViewById(R.id.favour_title);
-        favourTitle.setText("Offer a Favour");
-
-        ((TextView) findViewById(R.id.req_det_add)).setText(R.string.r_d_add_o);
-        ((CheckBox) findViewById(R.id.cate_one)).setText(R.string.r_d_cat_o);
-        ((CheckBox) findViewById(R.id.cate_three)).setText(R.string.r_d_cat_event_o);
-        ((TextView) findViewById(R.id.req_det_rad)).setText(R.string.r_d_rad_o);
-        ((TextView) findViewById(R.id.req_det_rew)).setText(R.string.r_d_rew_o);
-
-        request_purpose = "offer";
     }
 
     public void removeConv(MenuItem item) {
@@ -1254,17 +1224,17 @@ public class ACTRequest extends AppCompatActivity
                 @Override
                 public void done(ParseUser parseUser, ParseException e) {
                     /*Fills with new data*/
-                    if(e == null){
-                    	populate_profile();
-                    }else{
-                    	String msg = "Could not retrieve profile: ";
-	                if(e.getCode() == 100){
+                    if (e == null) {
+                        populate_profile();
+                    } else {
+                        String msg = "Could not retrieve profile: ";
+                        if (e.getCode() == 100) {
 	                        /*Poor internet connection*/
-	                    msg += "please check your internet connection.";
-	                }else{
-	                    msg += e.getMessage();
-	                }
-	                showErrorDialog(null, msg, null);
+                            msg += "please check your internet connection.";
+                        } else {
+                            msg += e.getMessage();
+                        }
+                        showErrorDialog(null, msg, null);
                     }
                     findViewById(R.id.profile_progressbar).setVisibility(View.GONE);
                     findViewById(R.id.profile_page).setBackgroundColor(0x00ffffff);
@@ -1323,7 +1293,7 @@ public class ACTRequest extends AppCompatActivity
         r_values.add(new String[]{"Favourama Official", "Welcome! " + installation.getString("username"),
                 "We wish our service can make your life easier",
                 "Best of luck!",
-                "5", "43.6628917", "-79.3956564"});
+                "5", "43.6628917", "-79.3956564", String.valueOf(System.currentTimeMillis())});
 
         resources.add(R.drawable.gray_req_bg);
 
@@ -1338,11 +1308,24 @@ public class ACTRequest extends AppCompatActivity
             reqSaved.delete();
 
             for (JSONObject req : requestList){
+                //add one line for debug
+                Log.d("REQC", req.toString());
                 addRequest(req);
             }
         }
 
         charCount = (TextView) findViewById(R.id.character_count);
+
+        /*Update the timestamp and distance every 2 minutes*/
+        final Handler handler = new Handler();
+        handler.postDelayed( new Runnable() {
+
+            @Override
+            public void run() {
+                msgAdapterReq.notifyDataSetChanged();
+                handler.postDelayed( this, 120 * 1000 );
+            }
+        }, 120 * 1000 );
     }
 
     public void respond(MenuItem m) {
@@ -1445,7 +1428,7 @@ public class ACTRequest extends AppCompatActivity
     //top bar actions
     public void onChatButtonClicked (View v){
         //clearCounter();
-        flip(1);
+        flip(2);
 
 
     }
@@ -2115,6 +2098,21 @@ public class ACTRequest extends AppCompatActivity
 
         request_long_clicked = r_values.get(position);
         respond(null);
+    }
+
+    public void SCpinOnMap(View view) {
+        View cur = view;
+        while(cur.getId() != R.id.request_row_container){
+            cur = (View) cur.getParent();
+        }
+        /*get the overall row*/
+        cur = (View) cur.getParent();
+        /*Get the listview*/
+        ListView listView = (ListView) cur.getParent();
+        final int position = listView.getPositionForView(cur);
+
+        request_long_clicked = r_values.get(position);
+        showLocationOnMap(null);
     }
 }
 

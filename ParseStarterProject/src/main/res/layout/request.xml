@@ -11,16 +11,70 @@
         android:layout_height="wrap_content">
         <!--android:background="#ffe5e5"-->
 
-        <TextView
-            android:id="@+id/favour_title"
-            android:layout_width="fill_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/favour_purpose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="Seek   "
+                android:textStyle="bold"
+                android:textColor="@color/dark_red"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/dark_red"
+                android:text="   Offer"
+                android:layout_alignBaseline="@id/favour_purpose"
+                android:layout_toRightOf="@id/favour_purpose"
+                android:layout_toEndOf="@id/favour_purpose"
+                android:layout_gravity="bottom"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
-            android:text="Ask For a Favour"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textColor="@color/dark_red"
-            />
+            android:orientation="horizontal">
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/clear_button"
+                android:src="@drawable/ic_close_white"
+                android:background="@drawable/round"
+                android:theme="@style/ThemeOverlay.MyDarkButton"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:onClick="clearReqBodyText"/>
+
+            <EditText
+                android:id="@+id/r_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/clear_button"
+                android:hint="Add your description"
+                android:minHeight="40dip"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:background="@drawable/requestbox_textfield_default_holo_light">
+            </EditText>
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/character_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="255/255"/>
+
+        <include layout="@layout/tag_cate"/>
+
 
         <TextView
             android:layout_width="fill_parent"
@@ -111,37 +165,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
-            android:text="Choose a Category:"
-            android:textStyle="bold"
-            />
-
-        <CheckBox android:id="@+id/cate_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/r_d_cat_a"
-            android:checked="true"
-            android:onClick="onCheckboxClickedCate"/>
-        <CheckBox android:id="@+id/cate_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Favour On the Way"
-            android:onClick="onCheckboxClickedCate"/>
-
-        <CheckBox android:id="@+id/cate_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Find Events"
-            android:onClick="onCheckboxClickedCate"/>
-	<CheckBox android:id="@+id/cate_four"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Other"
-            android:onClick="onCheckboxClickedCate"/>
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dip"
             android:text="@string/r_d_rew_a"
             android:id="@+id/req_det_rew"
             android:textStyle="bold"
@@ -173,43 +196,7 @@
             android:layout_toRightOf="@+id/material_reward"/>
         </RelativeLayout>
 
-        <TextView
-            android:layout_marginTop="10dip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add your description:"
-            android:textStyle="bold"/>
 
-        <EditText
-            android:id="@+id/r_description"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="40dip"
-            android:gravity="top"
-            android:inputType="textMultiLine"
-            android:background="@drawable/requestbox_textfield_default_holo_light">
-        </EditText>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/character_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="255/255"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="clear"
-                android:theme="@style/ThemeOverlay.MyDarkButton"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:layout_alignParentRight="true"
-                android:onClick="clearReqBodyText"/>
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

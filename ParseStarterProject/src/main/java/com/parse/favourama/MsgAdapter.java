@@ -108,6 +108,30 @@ public class MsgAdapter extends ArrayAdapter<String[]> {
                 Log.d("MsgAdapter Error: ", "Does not support your view type.");
             }
         }
+
+        String tstamp;
+
+        long tr = Long.parseLong(values.get(position)[7]);
+
+        long diff = System.currentTimeMillis() - tr;
+
+        diff /= 1000;
+
+        Log.d("TDIFF", diff + " " + tr);
+
+        if(diff < 1){
+            tstamp = "Moments";
+        }else if(diff / 60 < 1){
+            tstamp = diff + "sec";
+        }else if(diff / 60 / 60 < 1){
+            tstamp = diff/60 + "min";
+        }else{
+            tstamp = diff/60/60 + "hours";
+        }
+
+        tstamp += " ago";
+
+        ((TextView) rowView.findViewById(R.id.r_time_stamp)).setText(tstamp);
         
         TextView distV = (TextView) rowView.findViewById(R.id.r_distance_to_receiver);
 
@@ -116,7 +140,7 @@ public class MsgAdapter extends ArrayAdapter<String[]> {
 
     if(installation.get("location") != null) {
 
-        String dis_str = new DecimalFormat("#.# km").format(senderLoc.distanceInKilometersTo((ParseGeoPoint) installation.get("location")));
+        String dis_str = new DecimalFormat("#.## km").format(senderLoc.distanceInKilometersTo((ParseGeoPoint) installation.get("location")));
 
         distV.setText(dis_str);
     }else{

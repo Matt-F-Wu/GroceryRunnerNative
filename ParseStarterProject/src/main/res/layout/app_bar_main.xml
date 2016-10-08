@@ -27,33 +27,14 @@
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay" >
 
-                <!--<Spinner
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <Spinner
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:gravity="right"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:id="@+id/topbar_spinner"
-                    />--> <!-- android:spinnerMode="dialog"-->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="20dip"
-                    android:background="#00ffffff"
-                    android:id="@+id/topbar_textview"
-                    android:text="0"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="right"
-                    android:id="@+id/topbar_imageview"
-                    android:src="@drawable/chat_icon"
-                    android:background="#00ffffff"
-                    android:onClick="onChatButtonClicked" />
+                    style="@style/spinner_addr_style"
+                    android:textColor="#ffffff" />
 
             </android.support.v7.widget.Toolbar>
 
@@ -77,344 +58,11 @@
 
     <ViewFlipper
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
         android:id="@+id/main_flipper">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <!--Main List displaying requests-->
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/main_user_space"><!--android:padding="10dip" was there before-->
-
-                <ListView
-                    android:id="@+id/show_requests"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dip"
-                    android:layout_weight="1"
-                    android:dividerHeight="3dip"
-                    android:stackFromBottom="true"
-                    android:transcriptMode="alwaysScroll">
-                    <!--The background color is just for now, later we will set divider, android:divider="@null"-->
-
-                </ListView>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@color/userBottomBar">
-
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:background="@drawable/dark_gray_effect"
-                        android:textColor="#ffffff"
-                        android:textAllCaps="false"
-                        android:text="Ask Favour"
-                        android:onClick="onClickNewRequest"/>
-                    <View
-                        android:layout_width="4dip"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="7dip"
-                        android:layout_marginBottom="7dip"
-                        android:background="@drawable/bottom_bar_separator"
-                        />
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:background="@drawable/dark_gray_effect"
-                        android:textColor="#ffffff"
-                        android:textAllCaps="false"
-                        android:text="Offer Favour"
-                        android:onClick="onClickNewOffer"/>
-                    <View
-                        android:layout_width="4dip"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="7dip"
-                        android:layout_marginBottom="7dip"
-                        android:background="@drawable/bottom_bar_separator"
-                        />
-                    <Spinner
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/topbar_spinner"
-                        style="@style/spinner_addr_style"
-                        android:textColor="#ffffff"
-                        android:layout_weight="2" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/tut_main_user_space_blur"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/trans_testing"
-                    android:scaleType="fitXY"
-                    android:visibility="gone"/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="invisible"
-                android:id="@+id/tut_overlay_layout">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:id="@+id/tut_overlay_layout_askfavour"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:gravity="center_horizontal|top"
-                        android:text="Here to ask/offer a favour in your area!"
-                        android:textSize="24sp"
-                        android:textColor="#FFFFFF"/>
-
-                    <Button
-                        android:layout_margin="45dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:id="@+id/tut_askfavour_next_button"
-                        android:onClick="onClickTutNext"
-                        android:text="next"/>
-
-                    <!--<ImageView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/tut_arrow1"/>-->
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:id="@+id/tut_overlay_layout_location_spinner"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:gravity="center_horizontal|top"
-                        android:text="Select the location you want to post from"
-                        android:textSize="24sp"
-                        android:textColor="#FFFFFF"/>
-
-                    <Button
-                        android:layout_margin="45dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="Next"
-                        android:onClick="onClickTutRequest" />
-
-                    <!--<ImageView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:src="@drawable/arrow2"/>-->
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:id="@+id/tut_overlay_layout_fav_official"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:gravity="center_horizontal|top"
-                        android:text="Long press to respond or to choose other options"
-                        android:textSize="24sp"
-                        android:textColor="#FFFFFF"/>
-
-                    <Button
-                        android:layout_margin="45dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="finish tutorial"
-                        android:onClick="onTutorialExit" />
-
-                    <ImageView
-                        android:id="@+id/tut_arrow"
-                        android:src="@drawable/tut_arrow"
-                        android:layout_width="match_parent"
-                        android:layout_gravity="top"
-                        android:layout_height="100dp"
-                        android:visibility="invisible"
-                        />
-
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/tut_request_circle"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:gravity="bottom"
-                    android:layout_gravity="bottom"
-                    android:background="@drawable/tut_button_style"
-                    android:visibility="invisible"
-                    />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <Button
-                        android:id="@+id/tut_ask_favour"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:background="@drawable/tut_button_style"
-                        android:textColor="#ffffff"
-                        android:textAllCaps="false"
-                        android:visibility="invisible"
-                        android:onClick="onClickNewRequest"/>
-                    <View
-                        android:layout_width="4dip"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="7dip"
-                        android:layout_marginBottom="7dip"
-                        android:visibility="invisible"
-                        android:background="@drawable/bottom_bar_separator"
-                        />
-                    <Button
-                        android:id="@+id/tut_offer_favour"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:background="@drawable/tut_button_style"
-                        android:textColor="#ffffff"
-                        android:textAllCaps="false"
-                        android:visibility="invisible"
-                        android:onClick="onClickNewOffer"/>
-                    <View
-                        android:layout_width="4dip"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="7dip"
-                        android:layout_marginBottom="7dip"
-                        android:visibility="invisible"
-                        android:background="@drawable/bottom_bar_separator"
-                        />
-                    <Spinner
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/tut_topbar_spinner"
-                        style="@style/spinner_addr_style"
-                        android:background="@drawable/tut_button_style"
-                        android:textColor="#ffffff"
-                        android:visibility="invisible"
-                        android:layout_weight="2" />
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-
-        </FrameLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="10dip"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:id="@+id/topics_board_container"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/topic_default_pic"
-                android:visibility="gone">
-                <RelativeLayout
-                    android:id="@+id/topics_board"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/light_gray_effect"
-                    android:onClick="goToTopics">
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <ImageView android:src="@drawable/logo_final"
-                            android:layout_width="?android:attr/listPreferredItemHeight"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"/>
-                        <TextView
-                            android:id="@+id/new_topics_alert"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="NEW!"
-                            android:textColor="@color/white"
-                            android:background="@color/dark_red"/>
-                    </FrameLayout>
-                    <TextView
-                        android:id="@+id/topics_board_brief"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:textColor="@color/white"
-                        android:background="#000000"
-                        android:padding="2dp"
-                        android:text="@string/default_topic"/>
-                </RelativeLayout>
-            </LinearLayout>
-
-            <ListView
-                android:id="@+id/threads"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/topics_board_container"
-                android:choiceMode="multipleChoice">
-            </ListView>
-
-            <android.support.design.widget.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/ic_return_white"
-                android:onClick="onClickFlip" />
-        </RelativeLayout>
+        <include layout="@layout/main_board"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -426,6 +74,8 @@
 
         </LinearLayout>
 
+        <include layout="@layout/message"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -435,5 +85,7 @@
         </RelativeLayout>
 
     </ViewFlipper>
+
+    <include layout="@layout/bottom_tab"/>
 
 </LinearLayout>

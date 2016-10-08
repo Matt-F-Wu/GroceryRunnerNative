@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/userBottomBar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:layout_height="wrap_content"
+            android:background="@color/red_tint"
+            android:clickable="true"
+            android:id="@+id/btab0"
+            android:onClick="onClickFlip">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/bt_img_main"
+                android:tint="@color/userBottomBar"
+                android:src="@drawable/ic_browse"
+                android:background="#00ffffff" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bt_img_main"
+                android:layout_centerHorizontal="true"
+                android:background="#00ffffff"
+                android:text="Browse"
+                android:textColor="@color/userBottomBar"
+                 />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bottom_bar_separator"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:clickable="true"
+            android:onClick="onClickNewRequest"
+            android:id="@+id/btab1">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/bt_img_req"
+                android:src="@drawable/ic_broadcast"
+                android:tint="@color/userBottomBar"
+                android:background="#00ffffff" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bt_img_req"
+                android:background="#00ffffff"
+                android:layout_centerHorizontal="true"
+                android:text="Broadcast"
+                android:textColor="@color/userBottomBar"
+                 />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bottom_bar_separator"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:clickable="true"
+            android:onClick="onChatButtonClicked"
+            android:id="@+id/btab2">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/topbar_imageview"
+                android:src="@drawable/ic_chat"
+                android:tint="@color/userBottomBar"
+                android:background="#00ffffff" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/topbar_imageview"
+                android:background="#00ffffff"
+                android:id="@+id/topbar_textview"
+                android:text="0"
+                android:textColor="@color/dark_red"
+                 />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/topbar_imageview"
+                android:background="#00ffffff"
+                android:layout_centerHorizontal="true"
+                android:text="Messages"
+                android:textColor="@color/userBottomBar"
+                 />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bottom_bar_separator"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:clickable="true"
+            android:id="@+id/btab3"
+            android:onClick="editProfile">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/bt_img_me"
+                android:src="@drawable/ic_me"
+                android:tint="@color/userBottomBar"
+                android:background="#00ffffff" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bt_img_me"
+                android:background="#00ffffff"
+                android:layout_centerHorizontal="true"
+                android:text="Me"
+                android:textColor="@color/userBottomBar"
+                 />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

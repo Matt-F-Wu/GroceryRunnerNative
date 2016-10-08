@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <CheckedTextView android:id="@+id/cate_1"
+        android:tag="cate_tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/tagStyle"
+        android:text="General"
+        android:checked="true"
+        android:onClick="onCheckboxClickedCate"/>
+
+    <CheckedTextView android:id="@+id/cate_2"
+        android:tag="cate_tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/cate_1"
+        android:layout_toEndOf="@id/cate_1"
+        style="@style/tagStyle"
+        android:text="@string/r_d_cat_bo"
+        android:onClick="onCheckboxClickedCate"/>
+
+    <CheckedTextView android:id="@+id/cate_3"
+        android:tag="cate_tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/cate_2"
+        android:layout_toEndOf="@id/cate_2"
+        style="@style/tagStyle"
+        android:text="@string/r_d_cat_le"
+        android:onClick="onCheckboxClickedCate"/>
+
+    <CheckedTextView android:id="@+id/cate_4"
+        android:tag="cate_tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/cate_3"
+        android:layout_toEndOf="@id/cate_3"
+        style="@style/tagStyle"
+        android:text="@string/r_d_cat_bu"
+        android:onClick="onCheckboxClickedCate"/>
+
+    <CheckedTextView android:id="@+id/cate_5"
+        android:tag="cate_tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/tagStyle"
+        android:text="@string/r_d_cat_se"
+        android:onClick="onCheckboxClickedCate"
+        android:layout_below="@+id/cate_1" />
+
+    <CheckedTextView android:id="@+id/cate_6"
+        android:tag="cate_tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cate_1"
+        android:layout_toRightOf="@id/cate_5"
+        android:layout_toEndOf="@id/cate_5"
+        style="@style/tagStyle"
+        android:text="@string/r_d_cat_event_a"
+        android:onClick="onCheckboxClickedCate"/>
+
+    <CheckedTextView android:id="@+id/cate_7"
+        android:tag="cate_tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cate_1"
+        android:layout_toRightOf="@id/cate_6"
+        android:layout_toEndOf="@id/cate_6"
+        style="@style/tagStyle"
+        android:text="Carpool"
+        android:onClick="onCheckboxClickedCate"/>
+
+    <CheckedTextView android:id="@+id/cate_8"
+        android:tag="cate_tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cate_1"
+        android:layout_toRightOf="@id/cate_7"
+        android:layout_toEndOf="@id/cate_7"
+        style="@style/tagStyle"
+        android:text="Grocery Run"
+        android:onClick="onCheckboxClickedCate"/>
+
+    <CheckedTextView android:id="@+id/cate_9"
+        android:tag="cate_tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cate_6"
+        style="@style/tagStyle"
+        android:text="Home Service"
+        android:onClick="onCheckboxClickedCate"/>
+
+    <CheckedTextView android:id="@+id/cate_10"
+        android:tag="cate_tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cate_6"
+        android:layout_toRightOf="@id/cate_9"
+        android:layout_toEndOf="@id/cate_9"
+        style="@style/tagStyle"
+        android:text="Advice"
+        android:onClick="onCheckboxClickedCate"/>
+
+    <CheckedTextView android:id="@+id/cate_11"
+        android:tag="cate_tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cate_6"
+        android:layout_toRightOf="@id/cate_10"
+        android:layout_toEndOf="@id/cate_10"
+        style="@style/tagStyle"
+        android:text="Other"
+        android:onClick="onCheckboxClickedCate"/>
+
+</RelativeLayout>
