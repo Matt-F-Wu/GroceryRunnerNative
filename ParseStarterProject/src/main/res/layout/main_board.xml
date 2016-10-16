@@ -1,45 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<!--Main List displaying requests-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <!--Main List displaying requests-->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/main_user_space"><!--android:padding="10dip" was there before-->
-
-        <ListView
-            android:id="@+id/show_requests"
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"
-            android:dividerHeight="3dip"
-            android:stackFromBottom="true"
-            android:transcriptMode="alwaysScroll">
-            <!--The background color is just for now, later we will set divider, android:divider="@null"-->
-
-        </ListView>
-
-    </LinearLayout>
+    android:id="@+id/main_user_space"><!--android:padding="10dip" was there before-->
 
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/show_requests"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:dividerHeight="3dip"
+        android:transcriptMode="alwaysScroll">
+        <!--The background color is just for now, later we will set divider, android:divider="@null"-->
 
-        <ImageView
-            android:id="@+id/tut_main_user_space_blur"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/trans_testing"
-            android:scaleType="fitXY"
-            android:visibility="gone"/>
+    </ListView>
 
-    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dip"
+        android:layout_below="@id/show_requests"
+        android:background="@color/userBottomBar_pressed_trans"/>
 
-    <include layout="@layout/tut_layout"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/show_requests"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingRight="5dp"
+        android:paddingEnd="5dp"
+        android:background="@color/userBottomBar"
+        android:textColor="@color/white"
+        android:text="No more broadcasts to show"/>
 
-</FrameLayout>
+</RelativeLayout>

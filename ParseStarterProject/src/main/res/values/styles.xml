@@ -62,4 +62,8 @@
         <item name="android:focusable">true</item>
     </style>
 
+    <style name="AppTheme.TransACT" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

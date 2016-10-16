@@ -114,6 +114,7 @@ public class ACTRequest extends AppCompatActivity
     public static String SAVED_FLIPPER_INDEX = "FavSavedFlipIndex";
     public static String CONV_TO_HIGHLIGHT = "FavouramaCONVH.json";
     private boolean realTime = true;
+    private boolean onSeekbar = false;
     private float x1,x2,prevX, prevY, initY;
     static final int MIN_DISTANCE = 300;
     private LocationRequest locationRequest;
@@ -360,8 +361,13 @@ public class ACTRequest extends AppCompatActivity
         radius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-                double rad = (double) (seekBar.getProgress() + RADIUS_OFFSET) / 1000;
+                double rad;
+                int raw = seekBar.getProgress();
+                if(raw <= 1900) {
+                    rad = (double) (raw + RADIUS_OFFSET) / 1000;
+                }else{
+                    rad = 2.0 + ((double)(raw - 1900) * 9)/1000;
+                }
                 String rad_str = new DecimalFormat("#.# km").format(rad);
                 ((TextView) findViewById(R.id.radius_display)).setText(rad_str);
 
@@ -369,12 +375,12 @@ public class ACTRequest extends AppCompatActivity
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                onSeekbar = true;
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                onSeekbar = false;
             }
         });
 
@@ -622,7 +628,7 @@ public class ACTRequest extends AppCompatActivity
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event){
-        this.onTouchEvent(event);
+        if(!onSeekbar) this.onTouchEvent(event);
         return super.dispatchTouchEvent(event);
     }
 
@@ -686,39 +692,34 @@ public class ACTRequest extends AppCompatActivity
 
 		if (id == R.id.nav_manage) {
 
-            checkUpdateProfile();
-		} else if (id == R.id.nav_contactus) {
+            Bundle b = new Bundle();
+            b.putInt("ACTION", ACTmenu.ACTION_SETTING);
+            Intent i = new Intent(ACTRequest.this, ACTmenu.class);
+            i.putExtras(b);
+            startActivity(i);
+
+		} else if(id == R.id.nav_invite){
+
+            Bundle b = new Bundle();
+            b.putInt("ACTION", ACTmenu.ACTION_INVITE);
+            Intent i = new Intent(ACTRequest.this, ACTmenu.class);
+            i.putExtras(b);
+            startActivity(i);
+
+        } else if (id == R.id.nav_contactus) {
             String url = "http://favourama.com/";
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             startActivity(i);
 		} else if(id == R.id.nav_tutorial){
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            Bundle b = new Bundle();
+            b.putInt("ACTION", ACTmenu.ACTION_TUT);
+            Intent i = new Intent(ACTRequest.this, ACTmenu.class);
+            i.putExtras(b);
+            startActivity(i);
 
-            flip(0);
-
-            ImageView iv = (ImageView)findViewById(R.id.tut_appbar_blur);
-            iv.setVisibility(View.VISIBLE);
-
-            ImageView iv2 = (ImageView)findViewById(R.id.tut_main_user_space_blur);
-            iv2.setVisibility(View.VISIBLE);
-
-            LinearLayout layout1 = (LinearLayout)findViewById(R.id.tut_overlay_layout);
-            layout1.setVisibility(View.VISIBLE);
-
-            LinearLayout layout2 = (LinearLayout)findViewById(R.id.tut_overlay_layout_askfavour);
-            layout2.setVisibility(View.VISIBLE);
-
-            Button b1 = (Button)findViewById(R.id.tut_ask_favour);
-            b1.setVisibility(View.VISIBLE);
-
-            Button b2 = (Button)findViewById(R.id.tut_offer_favour);
-            b2.setVisibility(View.VISIBLE);
-
-
-
-
-        } else if (id == R.id.nav_delete){
-            deleteUser();
         } else if(id == R.id.nav_logout){
             ParseUser.logOut();
             Intent i = new Intent(this, ACTLoginSelf.class);
@@ -726,8 +727,6 @@ public class ACTRequest extends AppCompatActivity
             finish();
         }
 
-		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-		drawer.closeDrawer(GravityCompat.START);
 		return true;
     }
 
@@ -950,7 +949,13 @@ public class ACTRequest extends AppCompatActivity
 		//location variable needs to be retrieved from google map services
         SeekBar radius = (SeekBar) findViewById(R.id.radius);
 
-        double rad = (double) (radius.getProgress() + RADIUS_OFFSET)/1000;
+        double rad;
+        int raw = radius.getProgress();
+        if(raw <= 1900) {
+            rad = (double) (raw + RADIUS_OFFSET) / 1000;
+        }else{
+            rad = 2.0 + ((double)(raw - 1900) * 9)/1000;
+        }
 
 
         //if(beta_test.debug){
@@ -1538,100 +1543,6 @@ public class ACTRequest extends AppCompatActivity
 
 
 
-    //tutorial Jeremy
-    public void onClickTutNext(View v){
-
-        ImageView iv = (ImageView)findViewById(R.id.tut_appbar_blur);
-        iv.setVisibility(View.VISIBLE);
-
-        ImageView iv2 = (ImageView)findViewById(R.id.tut_main_user_space_blur);
-        iv2.setVisibility(View.VISIBLE);
-
-        LinearLayout layout1 = (LinearLayout)findViewById(R.id.tut_overlay_layout);
-        layout1.setVisibility(View.VISIBLE);
-
-        LinearLayout layout2 = (LinearLayout)findViewById(R.id.tut_overlay_layout_askfavour);
-        layout2.setVisibility(View.GONE);
-
-        //hide the superimposed buttons
-        Button b1 = (Button)findViewById(R.id.tut_ask_favour);
-        b1.setVisibility(View.INVISIBLE);
-
-        Button b2 = (Button)findViewById(R.id.tut_offer_favour);
-        b2.setVisibility(View.INVISIBLE);
-
-        LinearLayout layout3 = (LinearLayout)findViewById(R.id.tut_overlay_layout_location_spinner);
-        layout3.setVisibility(View.VISIBLE);
-
-        //change the original spinner back to current
-        //spinner.setSelection(0,true);
-
-        //bring up the superimposed spinner
-        Spinner s_tut = (Spinner)findViewById(R.id.tut_topbar_spinner);
-        s_tut.setVisibility(View.VISIBLE);
-//
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_addresses, R.layout.spinner_user_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        s_tut.setAdapter(adapter);
-
-    }
-
-    public void onClickTutRequest(View v){
-
-        ImageView iv = (ImageView)findViewById(R.id.tut_appbar_blur);
-        iv.setVisibility(View.VISIBLE);
-
-        ImageView iv2 = (ImageView)findViewById(R.id.tut_main_user_space_blur);
-        iv2.setVisibility(View.VISIBLE);
-
-        LinearLayout layout1 = (LinearLayout)findViewById(R.id.tut_overlay_layout);
-        layout1.setVisibility(View.VISIBLE);
-
-        LinearLayout layout2 = (LinearLayout)findViewById(R.id.tut_overlay_layout_location_spinner);
-        layout2.setVisibility(View.GONE);
-
-        LinearLayout layout3 = (LinearLayout)findViewById(R.id.tut_overlay_layout_fav_official);
-        layout3.setVisibility(View.VISIBLE);
-
-        Spinner b2 = (Spinner)findViewById(R.id.tut_topbar_spinner);
-        b2.setVisibility(View.INVISIBLE);
-
-//        //scroll to the bottom
-//        listViewRequest.setSelection(listViewRequest.getCount());
-//
-//        //circle the request
-//        View v_circle = (View)findViewById(R.id.tut_request_circle);
-//        v_circle.setVisibility(View.VISIBLE);
-
-
-        //tutorial arrow
-        ImageView iv1 = (ImageView)findViewById(R.id.tut_arrow);
-        iv1.setVisibility(View.VISIBLE);
-
-    }
-
-    public void onTutorialExit(View view){
-
-        ImageView iv = (ImageView)findViewById(R.id.tut_appbar_blur);
-        iv.setVisibility(View.INVISIBLE);
-
-        ImageView iv2 = (ImageView)findViewById(R.id.tut_main_user_space_blur);
-        iv2.setVisibility(View.INVISIBLE);
-
-        LinearLayout layout1 = (LinearLayout)findViewById(R.id.tut_overlay_layout);
-        layout1.setVisibility(View.INVISIBLE);
-
-        LinearLayout layout2 = (LinearLayout)findViewById(R.id.tut_overlay_layout_fav_official);
-        layout2.setVisibility(View.GONE);
-
-        View v_circle = (View)findViewById(R.id.tut_request_circle);
-        v_circle.setVisibility(View.INVISIBLE);
-
-        ImageView iv1 = (ImageView)findViewById(R.id.tut_arrow);
-        iv1.setVisibility(View.INVISIBLE);
-
-    }
-
     public void updateUserProfile(View view) {
         EditText editEmail = (EditText) findViewById(R.id.Email_edit);
         EditText editPhone = (EditText) findViewById(R.id.phone_edit);
@@ -1848,48 +1759,6 @@ public class ACTRequest extends AppCompatActivity
             toolbar.setLogoDescription(null);
         return logoIcon;
     }
-
-
-
-    private void deleteUser(){
-        FragmentManager fm = this.getSupportFragmentManager();
-        ErrorDialogFragment errorDialogFragment = new ErrorDialogFragment();
-        errorDialogFragment.setMsg("Are you sure you would like to delete your account?");
-        errorDialogFragment.setPos("Yes");
-        errorDialogFragment.setNag("Cancel");
-        errorDialogFragment.setfCallback(new FCallback() {
-            @Override
-            public void callBack() {
-                    confirmDelete();
-            }
-        });
-        errorDialogFragment.show(fm, "location_failure");
-    }
-
-    private void confirmDelete(){
-        FragmentManager fm = this.getSupportFragmentManager();
-        ErrorDialogFragment errorDialogFragment = new ErrorDialogFragment();
-        errorDialogFragment.setMsg("Please confirm again, click yes to delete.");
-        errorDialogFragment.setPos("Yes");
-        errorDialogFragment.setNag("Cancel");
-        errorDialogFragment.setfCallback(new FCallback() {
-            @Override
-            public void callBack() {
-                try {
-                    user.delete();
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),
-                            "Unable to delete account, please try again later", Toast.LENGTH_LONG)
-                            .show();
-                }
-                finish();
-            }
-        });
-        errorDialogFragment.show(fm, "location_failure");
-    }
-
-
 
     //image_cropping methods
     public void onProfile_upload_picture(View view){

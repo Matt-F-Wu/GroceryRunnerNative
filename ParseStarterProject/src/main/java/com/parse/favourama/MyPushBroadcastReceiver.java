@@ -153,10 +153,13 @@ public class MyPushBroadcastReceiver extends ParsePushBroadcastReceiver {
 
                 if(type.equals(REQUEST_TYPE)){
                     description += (": " + data.optString("note"));
+                    File f = new File(user_dir, ACTmenu.req_vib_enabled);
+                    if(f.exists()) builder.setVibrate(new long[] { 500, 500});
                 }else if (type.equals(MESSAGE_TYPE)){
                     description += (": " + data.optString("content"));
                     /*Message type vibrate*/
-                    builder.setVibrate(new long[] { 1000, 1000});
+                    File f = new File(user_dir, ACTmenu.msg_vib_disabled);
+                    if(!f.exists()) builder.setVibrate(new long[] { 500, 500});
                 }
 
                 if(req + msg + tpc > 1){

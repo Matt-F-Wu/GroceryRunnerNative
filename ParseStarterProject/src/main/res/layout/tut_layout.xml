@@ -1,173 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="invisible"
-        android:id="@+id/tut_overlay_layout">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:background="#ce000000"
+    android:id="@+id/tut_overlay_layout">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:id="@+id/tut_overlay_layout_askfavour"
-            android:visibility="gone">
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_close_white"
+        android:background="@color/white_trans"
+        android:onClick="leaveACTmenu"
+        android:padding="@dimen/activity_horizontal_margin"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="center_horizontal|top"
-                android:text="Here to ask/offer a favour in your area!"
-                android:textSize="24sp"
-                android:textColor="#FFFFFF"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/tut_main_img"
+        android:adjustViewBounds="true"
+        android:src="@drawable/req_sample"/>
 
-            <Button
-                android:layout_margin="45dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/tut_askfavour_next_button"
-                android:onClick="onClickTutNext"
-                android:text="next"/>
+    <ImageView
+        android:layout_width="180dip"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_above="@+id/tut_main_img"
+        android:id="@+id/tut_long_menu"
+        android:layout_marginBottom="-30dip"
+        android:elevation="5dp"
+        android:visibility="gone"
+        android:src="@drawable/long_menu_img"/>
 
-            <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/tut_arrow1"/>-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tut_leg_1"
+        android:layout_alignRight="@+id/tut_main_img"
+        android:layout_alignEnd="@+id/tut_main_img"
+        android:layout_below="@+id/tut_main_img"
+        android:text="Reply to a broadcast"
+        android:textSize="8pt"
+        android:textColor="@color/dark_red"/>
 
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:id="@+id/tut_overlay_layout_location_spinner"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="center_horizontal|top"
-                android:text="Select the location you want to post from"
-                android:textSize="24sp"
-                android:textColor="#FFFFFF"/>
-
-            <Button
-                android:layout_margin="45dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Next"
-                android:onClick="onClickTutRequest" />
-
-            <!--<ImageView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawable/arrow2"/>-->
-
-        </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/tut_main_img"
+        android:layout_alignEnd="@+id/tut_main_img"
+        android:layout_above="@+id/tut_main_img"
+        android:id="@+id/tut_leg_2"
+        android:text="Locate the broadcaster on map"
+        android:textSize="8pt"
+        android:textColor="@color/dark_red"/>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:id="@+id/tut_overlay_layout_fav_official"
-            android:visibility="gone">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tut_button_next"
+        android:background="@color/dark_red"
+        android:padding="8dp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:tag="cont"
+        android:onClick="showNextTut"
+        android:text="Continue"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="center_horizontal|top"
-                android:text="Long press to respond or to choose other options"
-                android:textSize="24sp"
-                android:textColor="#FFFFFF"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tut_long_leg"
+        android:layout_toRightOf="@id/tut_long_menu"
+        android:layout_alignTop="@id/tut_long_menu"
+        android:textSize="8pt"
+        android:textColor="@color/dark_red"
+        android:text="Long click each\nbroadcast for more\noptions"
+        android:visibility="gone"/>
 
-            <Button
-                android:layout_margin="45dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="finish tutorial"
-                android:onClick="onTutorialExit" />
-
-            <ImageView
-                android:id="@+id/tut_arrow"
-                android:src="@drawable/tut_arrow"
-                android:layout_width="match_parent"
-                android:layout_gravity="top"
-                android:layout_height="100dp"
-                android:visibility="invisible"
-                />
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/tut_request_circle"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:gravity="bottom"
-            android:layout_gravity="bottom"
-            android:background="@drawable/tut_button_style"
-            android:visibility="invisible"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <Button
-                android:id="@+id/tut_ask_favour"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:background="@drawable/tut_button_style"
-                android:textColor="#ffffff"
-                android:textAllCaps="false"
-                android:visibility="invisible"
-                android:onClick="onClickNewRequest"/>
-            <View
-                android:layout_width="4dip"
-                android:layout_height="match_parent"
-                android:layout_marginTop="7dip"
-                android:layout_marginBottom="7dip"
-                android:visibility="invisible"
-                android:background="@drawable/bottom_bar_separator"
-                />
-            <Button
-                android:id="@+id/tut_offer_favour"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:background="@drawable/tut_button_style"
-                android:textColor="#ffffff"
-                android:textAllCaps="false"
-                android:visibility="invisible"
-                android:onClick="onClickNewOffer"/>
-            <View
-                android:layout_width="4dip"
-                android:layout_height="match_parent"
-                android:layout_marginTop="7dip"
-                android:layout_marginBottom="7dip"
-                android:visibility="invisible"
-                android:background="@drawable/bottom_bar_separator"
-                />
-            <Spinner
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:id="@+id/tut_topbar_spinner"
-                style="@style/spinner_addr_style"
-                android:background="@drawable/tut_button_style"
-                android:textColor="#ffffff"
-                android:visibility="invisible"
-                android:layout_weight="2" />
-        </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

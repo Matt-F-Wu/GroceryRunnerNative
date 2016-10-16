@@ -12,14 +12,8 @@
 
     <string name="app_name">Favourama</string>
 
-    <string name="action_spinner_addr">Your Address</string>
     <!-- For login page -->
     <string name="signed_in_fmt">Signed in as: %s</string>
-    <string name="signed_out">Signed out</string>
-    <string name="disconnect">Disconnect</string>
-    <string name="loading">Loading…</string>
-    <string name="login_title_text">Welcome to Favourama</string>
-    <string name="sign_out">Sign Out</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -80,10 +74,6 @@ If you do not choose to use the software, please refrain from doing so and do no
     </string>
     <string name="l_a_name"><u>End User License Agreement</u></string>
     <string name="i_accept">I accept the</string>
-    <string name="r_d_add_o">Offer Around Which Address:</string>
-    <string name="r_d_cat_event_o">Promote Events</string>
-    <string name="r_d_rad_o">Radius of coverage:</string>
-    <string name="r_d_rew_o">Need Rewards (Optional)</string>
     <string name="r_d_add_a">Broadcast Around:</string>
     <string name="r_d_cat_bo">Borrow</string>
     <string name="r_d_cat_bu">Buying</string>

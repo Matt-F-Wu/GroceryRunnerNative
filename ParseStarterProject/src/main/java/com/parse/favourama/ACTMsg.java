@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.PointF;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,12 +17,9 @@ import android.app.AlertDialog;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -504,9 +500,11 @@ public class ACTMsg extends AppCompatActivity {
     public void confirmSendPic(final Bitmap bitmap){
         LayoutInflater inflater = this.getLayoutInflater();
         View fullView = inflater.inflate(R.layout.image_popup, null, false);
+        fullView.findViewById(R.id.full_img_container).setVisibility(View.VISIBLE);
         ImageView dView = ((ImageView) fullView.findViewById(R.id.image_full_screen));
 
         dView.setImageBitmap(bitmap);
+        fullView.findViewById(R.id.dismiss_full_button).setVisibility(View.GONE);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         
@@ -696,14 +694,12 @@ public class ACTMsg extends AppCompatActivity {
 
         double scale = (width/sw > height/sh)? height/sh : width/sw;
 
-
-
         double fw = sw*scale;
         double fh = sh*scale;
 
-        LayoutInflater inflater = this.getLayoutInflater();
-        View fullView = inflater.inflate(R.layout.image_popup, null, false);
-        ImageView dView = ((ImageView) fullView.findViewById(R.id.image_full_screen));
+        findViewById(R.id.full_img_container).setVisibility(View.VISIBLE);
+
+        ImageView dView = ((ImageView) findViewById(R.id.image_full_screen));
 
         dView.setImageDrawable(image);
         dView.getLayoutParams().width = (int) fw;
@@ -763,24 +759,18 @@ public class ACTMsg extends AppCompatActivity {
                 }
 
                 view.setImageMatrix(matrix);
+                float[] f = new float[9];
+                matrix.getValues(f);
+                float scaleX = f[Matrix.MSCALE_X];
+                float scaleY = f[Matrix.MSCALE_Y];
+                view.getLayoutParams().height *= scaleY;
+                view.getLayoutParams().width *= scaleX;
+                view.requestLayout();
                 return true;
             }
         });
 
         //Log.d("IMGSize", "Final: " + fw + " " + fh + ", " + "Window width: " + width);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(fullView);
-        AlertDialog fullImage = builder.create();
-        fullImage.show();
-
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        Window window = fullImage.getWindow();
-        window.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        lp.copyFrom(window.getAttributes());
-        lp.width = (int) fw;
-        lp.height = (int) fh;
-        window.setAttributes(lp);
     }
 
     /** Determine the space between the first two fingers */
@@ -885,6 +875,20 @@ public class ACTMsg extends AppCompatActivity {
             }
         } catch (org.json.JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void dismissFull(View view) {
+        findViewById(R.id.full_img_container).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        View fullView = findViewById(R.id.full_img_container);
+        if(fullView.getVisibility() == View.VISIBLE){
+            fullView.setVisibility(View.GONE);
+        }else{
+            super.onBackPressed();
         }
     }
 }

@@ -90,6 +90,8 @@
         <activity android:name="com.parse.favourama.ACTtopics"
             android:parentActivityName="com.parse.favourama.ACTRequest"></activity>
 
+        <activity android:name="com.parse.favourama.ACTmenu" android:theme="@style/AppTheme.TransACT"/>
+
         <service android:name="com.parse.PushService" />
 
         <receiver

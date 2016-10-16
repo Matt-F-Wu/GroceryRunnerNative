@@ -3,31 +3,37 @@
 
     <item
         android:id="@+id/nav_manage"
-        android:icon="@drawable/ic_me"
-        android:title="Manage Profile" />
+        android:icon="@drawable/ic_manage_settings"
+        android:title="Settings" />
 
-    <item
-        android:id="@+id/nav_contactus"
-        android:icon="@drawable/ic_contact_us_black"
-        android:title="Contact Us" />
     <item
         android:id="@+id/nav_tutorial"
         android:icon="@drawable/ic_tutorial_black"
         android:title="Run Tutorial" />
 
     <item
+        android:id="@+id/nav_invite"
+        android:icon="@drawable/ic_add_bare"
+        android:title="Invite Friends" />
+
+    <item
+        android:id="@+id/nav_contactus"
+        android:icon="@drawable/ic_contact_us_black"
+        android:title="Contact Us" />
+
+    <item
         android:id="@+id/nav_logout"
         android:icon="@drawable/ic_power_settings_new_black_24dp"
         android:title="Log Out" />
 
-    <item android:title="Danger Zone">
+    <!--<item android:title="Danger Zone">
         <menu>
             <item
                 android:id="@+id/nav_delete"
                 android:icon="@drawable/ic_delete_black"
                 android:title="Delete Account" />
         </menu>
-    </item>
+    </item>-->
 
 
 </menu>

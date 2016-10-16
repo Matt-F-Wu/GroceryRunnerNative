@@ -8,8 +8,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:isScrollContainer="false"
-        android:paddingBottom="55dp">
+        android:isScrollContainer="false">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -197,9 +196,12 @@
                 android:layout_height="wrap_content"
                 android:max="5"
                 android:rating="3"
-                android:progressTint="#f3f300"
                 style="?android:attr/ratingBarStyleIndicator"
                  />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="55dp"/>
 
         </LinearLayout>
 
@@ -208,28 +210,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginBottom="10dip"
+        android:orientation="horizontal">
 
-        <ImageButton
-            android:layout_weight="2"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:tint="@color/white"
-            android:src="@drawable/ic_check_black_24dp"
-            android:backgroundTint="@color/dark_red"
-            android:onClick="updateUserProfile"/>
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:theme="@style/ThemeOverlay.MyRedButton"
+        android:text="Save"
+        android:onClick="updateUserProfile"/>
 
-        <ImageButton
-            android:layout_weight="2"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:tint="@color/white"
-            android:src="@drawable/ic_close_black_24dp"
-            android:backgroundTint="@color/userBottomBar"
-            android:onClick="cancelAndLeave"/>
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:theme="@style/ThemeOverlay.MyDarkButton"
+        android:text="Cancel"
+        android:onClick="cancelAndLeave"/>
 
     </LinearLayout>
 
